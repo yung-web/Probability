@@ -1,5 +1,12 @@
-%\pdfminorversion=4
-\documentclass[handout,fleqn,aspectratio=169]{beamer}
+\def\slidemode{%
+  \documentclass[fleqn,aspectratio=169]{beamer}
+}
+\def\handoutmode{%
+  \documentclass[handout,fleqn,aspectratio=169]{beamer}
+}
+
+\input{../mode.tex}
+\csname\pdfmode\endcsname
 
 % when making printed slides
 \usepackage{pgfpages}
@@ -30,6 +37,8 @@
 \usepackage{kotex}
 \usepackage{paralist}
 \usepackage{collectbox}
+\usepackage{amsmath}
+\usepackage{mathtools}
 
 \setbeamercolor{block body alerted}{bg=alerted text.fg!10}
 \setbeamercolor{block title alerted}{bg=alerted text.fg!20}
@@ -58,7 +67,6 @@
 \usetikzlibrary{shapes.callouts}
 
 \input{../mymath}
-
 
 
 %\renewcommand{\baselinestretch}{2.0}

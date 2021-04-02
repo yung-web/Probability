@@ -1,5 +1,13 @@
-\pdfminorversion=4
-\documentclass[handout,aspectratio=169]{beamer}
+
+\def\slidemode{%
+  \documentclass[fleqn,aspectratio=169]{beamer}
+}
+\def\handoutmode{%
+  \documentclass[handout,fleqn,aspectratio=169]{beamer}
+}
+
+\input{../mode.tex}
+\csname\pdfmode\endcsname
 
 \usepackage{pgfpages}
 \pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
@@ -27,6 +35,8 @@
 \usepackage{fancyvrb}
 \usepackage{kotex}
 \usepackage{paralist}
+\usepackage{amsmath}
+\usepackage{nccmath}
 
 \xdefinecolor{dianablue}{rgb}{0.18,0.24,0.31}
 \xdefinecolor{darkblue}{rgb}{0.1,0.1,0.7}
@@ -45,6 +55,7 @@
 \plitemsep 0.1in
 \pltopsep 0.03in
 
+\input{../mymath.tex}
 
 \title[]{Lecture 0: Introduction}
 \author{Yi, Yung (이융)}
@@ -53,11 +64,13 @@
 
 \usetikzlibrary{shapes.callouts}
 
-\input{../mymath}
 
 
 
 \begin{document}
+
+\input{../mydefault.tex}
+
 
 \logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
 }}}}

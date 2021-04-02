@@ -1,5 +1,14 @@
-\pdfminorversion=4
-\documentclass[handout,fleqn,aspectratio=169]{beamer}
+
+\def\slidemode{%
+  \documentclass[fleqn,aspectratio=169]{beamer}
+}
+\def\handoutmode{%
+  \documentclass[handout,fleqn,aspectratio=169]{beamer}
+}
+
+\input{../mode.tex}
+\csname\pdfmode\endcsname
+
 
 \usepackage{pgfpages}
 \pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
