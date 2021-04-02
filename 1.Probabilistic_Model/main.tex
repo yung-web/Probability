@@ -1,0 +1,510 @@
+%\pdfminorversion=4
+\documentclass[handout,fleqn,aspectratio=169]{beamer}
+
+% when making printed slides
+\usepackage{pgfpages}
+\pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
+
+
+\mode<presentation>
+{
+  \usetheme{default}
+  \usecolortheme{default}
+  \usefonttheme{default}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+  \setbeamertemplate{footline}[frame number]  % or "page number"
+  \setbeamercolor{frametitle}{fg=white}
+  \setbeamercolor{footline}{fg=black}
+} 
+
+\usepackage[english]{babel}
+%\usepackage[utf8x]{inputenc}
+\usepackage{tikz}
+\usepackage{courier}
+\usepackage{array}
+\usepackage{bold-extra}
+\usepackage{minted}
+\usepackage[thicklines]{cancel}
+\usepackage{fancyvrb}
+\usepackage{kotex}
+\usepackage{paralist}
+\usepackage{collectbox}
+
+\setbeamercolor{block body alerted}{bg=alerted text.fg!10}
+\setbeamercolor{block title alerted}{bg=alerted text.fg!20}
+\setbeamercolor{block body}{bg=structure!10}
+\setbeamercolor{block title}{bg=structure!20}
+\setbeamercolor{block body example}{bg=green!10}
+\setbeamercolor{block title example}{bg=green!20}
+\setbeamertemplate{blocks}[rounded][shadow]
+
+\xdefinecolor{dianablue}{rgb}{0.18,0.24,0.31}
+\xdefinecolor{darkblue}{rgb}{0.1,0.1,0.7}
+\xdefinecolor{darkgreen}{rgb}{0,0.5,0}
+\xdefinecolor{darkgrey}{rgb}{0.35,0.35,0.35}
+\xdefinecolor{darkorange}{rgb}{0.8,0.5,0}
+\xdefinecolor{darkred}{rgb}{0.7,0,0}
+\definecolor{darkgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+
+\title[]{Lecture 1: Probabilistic Model}
+\author{Yi, Yung (이융)}
+\institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
+\date{MONTH DAY, 2021}
+
+\usetikzlibrary{shapes.callouts}
+
+\input{../mymath}
+
+
+
+%\renewcommand{\baselinestretch}{2.0}
+
+\begin{document}
+
+\input{../mydefault}
+
+\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
+}}}}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
+}}}}
+
+% Uncomment these lines for an automatically generated outline.
+\begin{frame}{Outline}
+% \tableofcontents
+%\plitemsep 0.1in
+\bci
+\item Probabilistic Model
+
+\item Sample Space, Event, Probability Law
+
+\item Probability Axioms
+\eci
+\end{frame}
+
+% START START START START START START START START START START START START START
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{What Do We Want?}
+
+
+\hspace{-0.2in}\bluef{Modeling:} Approximate reality with a simple (mathematical) model
+
+%\smallskip
+%\vspace{-0.15in}
+
+\mytwocols{0.0}
+{
+\bci [$\circ$] 
+\item<1-> Experiment
+
+\item<2-> Observation: a random outcome
+
+\item<3-> All outcomes
+\eci 
+}
+{
+\bci [$\circ$] 
+\item<1-> Flip two coins
+
+\item<2-> for example, $(H,H)$
+
+\item<3-> $\{ (H,H), (H,T), (T,H), (T,T) \}$
+
+\eci 
+}
+\separator
+
+\bci
+
+\item<4-> \bluef{Our goal:} Build up a \redblank{5}{probabilistic model} for an experiment with random outcomes
+
+%\onslide<5->{\color{red} xxxx}
+
+\item<6-> \bluef{Probabilistic model?} 
+
+- Assign a number to each outcome or a set of outcomes
+
+- Mathematical description of an uncertain situation
+
+\item<7-> Which model is good or bad?
+
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Probabilistic Model}
+
+\redf{Goal:} Build up a probabilistic model. Hmm... How?
+
+The first thing: \onslide<2->{What are the \empb{elements} of a probabilistic model?}
+
+\bigskip
+
+\onslide<3->{
+\begin{block}{Elements of Probabilistic Model}
+\bce
+\item All outcomes of my interest: \redblank{4}{Sample Space $\Omega$}
+\item Assigned numbers to each outcome of $\Omega$: \redblank{5}{Probability Law $\cprob{\cdot}$}
+\ece
+\end{block}
+}
+\bigskip
+
+\alert{Question:} \onslide<6->{What are the conditions of $\Omega$ and $\cprob{\cdot}$ under which their induced probability model becomes "legitimate"?}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{1. Sample Space $\Omega$}
+
+The set of all outcomes of \redblk{my interest}
+
+\medskip
+
+\mytwocols{0.7}{
+\bce
+\item<2-> Mutually exclusive
+\item<3-> Collectively exhaustive
+\item<4-> At the \redblk{right granularity} (not too concrete, not too abstract)
+\ece
+}
+{
+\small
+
+\bce
+\item<2-> Toss a coin. What about this?
+$
+\Omega = \{H, T, HT \}
+$
+\item<3-> Toss a coin. What about this?
+$
+\Omega = \{H \}
+$
+\item<4-> (a) Just figuring out prob. of H or T.
+
+$\imp$
+$
+\Omega = \{H,T \}
+$
+
+\bigskip
+(b) The impact of the weather (rain or no rain) on the coin's behavior.
+\begin{multline*}
+\imp \Omega =  \{(H,R),(T,R), \cr 
+(H,NR), (T,NR) 면 \},
+\end{multline*}
+where R(Rain), NR(No Rain).
+
+\ece
+}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Examples: Sample Space $\Omega$}
+
+
+\mytwocols{0.6}
+{
+\bci [$\circ$]
+\item<2-> \empr{Discrete case:} Two rolls of a tetrahedral die
+
+\bigskip
+- $\Omega = \{(1,1), (1,2), \ldots, (4,4) \}$
+
+\vspace{0.3in}
+
+
+\centering
+\includegraphics[width=0.45\textwidth]{L1_tworolls.png}
+\eci 
+}
+{
+\bci [$\circ$]
+\item<3-> \empr {Continuous case:} Dropping a needle in a plain
+
+\bigskip
+- $\Omega = \{(x,y) \in \real^2 \mid 0 \le x,y \le 1 \}$
+
+\bigskip
+\centering
+\includegraphics[width=0.5\textwidth]{L1_needle.png}
+\eci 
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2. Probability Law}
+
+\plitemsep 0.1in
+
+\bci [$\bullet$]
+
+\item<2-> Assign numbers to what? Each outcome?
+
+\item<3-> What is the probability of dropping a needle at $(0.5, 0.5)$ over the $1\times 1$ plane? 
+
+\item<4-> Assign numbers to each \redblank{5}{subset} of $\Omega$
+
+\item<6-> A subset of $\Omega$: \redblank{7}{an event}
+
+\item<8-> $\cprob{A}$: Probability of an event $A.$
+
+\bci
+\item This is where probability meets set theory.  
+\eci
+
+\item<9-> Roll a dice. What is the probability of odd numbers?
+
+\medskip
+$
+\cprob{ \{1,3,5 \}},
+$
+where $\{1,3,5 \} \subset \Omega$ is an event.
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{How should we construct $\cprob{\cdot}$?}
+
+\plitemsep 0.1in
+
+\bci [$\bullet$]
+
+\item Need to construct $\cprob{\cdot}$ that naturally satisfies the intention of a probability theory designer just like you. What about the followings as starting points? 
+
+\medskip
+
+\bci
+\item<2-> $\cprob{A} \geq 0$ for any event $A \subset \Omega$
+
+\item<3-> $\cprob{A \cup B} = \cprob{A} + \cprob{B} - \cprob{A \cap B}$
+
+\item<3-> $\cprob{A \cup B} \leq  \cprob{A} + \cprob{B}$ 
+
+\item<3-> For two disjoint events $A$ and $B$, $\cprob{A \cup B} = \cprob{A} + \cprob{B}$
+
+\item<4-> $\cprob{\Omega} = 1$ (Why not $\cprob{\Omega} = 10$?)
+
+\item<4-> $\cprob{\emptyset} = 0$
+
+\item<5-> If $A \subset B,$ $\cprob{A} \leq \cprob{B}$
+
+\item<5-> many others
+\eci
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Probability Axioms}
+
+\plitemsep 0.1in
+
+\bci 
+
+\item<1-> Surprisingly, we need just the following three rules (called axioms):
+
+\medskip
+
+\onslide<2->
+{
+\begin{block}{Probability Axioms: Version 1}
+
+\bce[{A}1.] 
+\item \redf{Nonnegativity:} $\cprob{A} \geq 0$ for any event $A \subset \Omega$
+\item \redf{Normalization:} $\cprob{\Omega} = 1$
+\item \redf{(Finite) additivity:} For two disjoint events $A$ and $B$, $\cprob{A \cup B} = \cprob{A} + \cprob{B}$
+\ece
+\end{block}
+}
+
+\item<3-> No other things are necessary, and we can prove all other 
+things from the above axioms.
+
+\item<4-> Note that coming up with the above axioms is far from trivial. 
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Examples}
+
+Prove the following properties using the axioms:
+
+\plitemsep 0.1in
+
+%\abovedisplayskip=-0.1in
+
+\bce 
+\item For any event $A,$ $\cprob{A} \leq 1$
+\aleq{
+\onslide<2->{1 \overset{\text{A2}}{=} \cprob{\Omega} = \cprob{A \cup A^c}} \onslide<3->{\overset{\text{A3}}{=} \cprob{A} + \cprob{A^c}} \onslide<4->{\imp \cprob{A} = 1 - \cprob{A^c}} \onslide<5->{\overset{\text{A1}}{\le} 1}
+}
+
+\item $\cprob{\emptyset} = 0$
+\aleq{
+\onslide<6->{\cprob{\Omega \cup \emptyset} \overset{\text{A3}}{=} \cprob{\Omega} + \cprob{\emptyset}} \onslide<7->{\overset{\text{A2}}{=} 1+ \cprob{\emptyset}} \onslide<8->{\overset{\text{from 1.}}{\imp} \cprob{\emptyset} =0}
+}
+
+\item If $A \subset B,$ $\cprob{A} \leq \cprob{B}$
+\aleq{
+\onslide<9->{\cprob{B} \overset{\text{A3}}{=}} \onslide<10->{\cprob{A} + \cprob{B \setminus A} \overset{\text{A1}}{\ge} \cprob{A}}
+}
+\ece
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Probability Calculation Steps}
+
+
+\mytwocols{0.5}{
+\mbox{}
+\medskip
+
+\plitemsep 0.1in
+\bce 
+\item Specify the sample space
+\item Specify a probability law
+
+- from my earlier belief, from data, from expert's opinion
+
+\item Identify an event of interest
+\item Calculate
+\ece
+}
+{
+Toss a (biased) coin
+
+\plitemsep 0.1in
+
+\bce
+\item $\Omega = \{H,T \}$ 
+
+\item $\cprob{\{H \}} = 1/4,$ $\cprob{\{T \}} = 3/4,$
+
+\item probability of head or tail
+
+\item 1/4, 3/4
+\ece
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Discrete but infinite sample space}
+
+
+\plitemsep 0.1in
+
+\bci
+\item $\Omega = \{1,2, 3, \ldots \},$  $\cprob{\{ n \}} = \frac{1}{2^n},$ $n=1,2, \ldots$ 
+
+\item $\cprob{\text{even}}$?
+\begin{align*}
+ \cprob{\text{even}} 
+ \onslide<2->{
+ &= \cprob{\{2,4, 6, \ldots \}} \cr    
+ &= \frac{1}{2^2} + \frac{1}{2^4} + \frac{1}{2^6} + \cdots = 1/3
+}
+\end{align*}
+
+\item Is the above right? If not, why?
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Probability Axioms Version \only<1>{1} \only<2>{2}}
+
+\begin{block}{Probability Axioms: Version \only<1>{1} \only<2>{2}}
+\plitemsep 0.1in
+\bce[{A}1.] 
+\item Nonnegativity: $\cprob{A} \geq 0$ for any event $A \subset \Omega$
+\item Normalization: $\cprob{\Omega} = 1$
+
+\only<1>{\item \redf{(Finite) additivity:} For two disjoint events $A$ and $B$, $\cprob{A \cup B} = \cprob{A} + \cprob{B}$}
+
+\only<2>{\item \redblk{Countable additivity:} If $A_1, A_2, A_3, \ldots$ is an infite sequence of disjoint events, then $\cprob{A_1 \cup A_2 \cup \cdots} = \cprob{A_1} + \cprob{A_2} + \cdots.$}
+\ece
+\end{block}
+
+% \plitemsep 0.1in
+% \bci
+% \item 
+% \item 
+% \eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Interpretation of Probability Theory}
+
+
+\plitemsep 0.5in
+\bci
+\item<1-> A narrow view: A branch of math
+
+- axioms $\rightarrow$ theorems
+
+
+\item<2-> Frequencies: $\cprob{H} = 1/2$
+
+\item<3-> Beliefs: $\cprob{\text{He is reelected}} = 0.7$
+
+- Subjective, but providing numerical guidance
+\eci
+
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\vspace{2cm}
+\LARGE Questions?
+
+
+\medskip
+\LARGE Congratulations! You build up the very basics of a probabilistic model. 
+
+\medskip
+
+\LARGE What else do we need to build up?
+\end{frame}
+
+
+\begin{frame}{Review Questions}
+% \tableofcontents
+%\plitemsep 0.1in
+\bce[1)]
+\item Please explain what a probabilistic model is and why we need it. 
+
+\item What is the mathematical definition of event?
+
+\item What are the key elements of the probabilistic model?
+
+\item Please list up the probability axioms and explain them. 
+
+\item Why do we need countable additivity in the probability axiom?
+
+\ece
+\end{frame}
+
+
+\end{document}

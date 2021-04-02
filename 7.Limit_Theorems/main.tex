@@ -1,0 +1,812 @@
+\pdfminorversion=4
+\documentclass[fleqn,aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
+
+\mode<presentation>
+{
+  \usetheme{default}
+  \usecolortheme{default}
+  \usefonttheme{default}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+  \setbeamertemplate{footline}[frame number]  % or "page number"
+  \setbeamercolor{frametitle}{fg=white}
+  \setbeamercolor{footline}{fg=black}
+} 
+
+\usepackage[english]{babel}
+%\usepackage[utf8x]{inputenc}
+\usepackage{tikz}
+\usepackage{courier}
+\usepackage{array}
+\usepackage{bold-extra}
+\usepackage{minted}
+\usepackage[thicklines]{cancel}
+\usepackage{fancyvrb}
+\usepackage{kotex}
+\usepackage{paralist}
+\usepackage{collectbox}
+\usepackage{booktabs}
+\usepackage{nccmath}
+%\usepackage[fleqn]{amsmath}
+
+
+
+\setbeamercolor{block body alerted}{bg=alerted text.fg!10}
+\setbeamercolor{block title alerted}{bg=alerted text.fg!20}
+\setbeamercolor{block body}{bg=structure!10}
+\setbeamercolor{block title}{bg=structure!20}
+\setbeamercolor{block body example}{bg=green!10}
+\setbeamercolor{block title example}{bg=green!20}
+\setbeamertemplate{blocks}[rounded][shadow]
+
+\xdefinecolor{dianablue}{rgb}{0.18,0.24,0.31}
+\xdefinecolor{darkblue}{rgb}{0.1,0.1,0.7}
+\xdefinecolor{darkgreen}{rgb}{0,0.5,0}
+\xdefinecolor{darkgrey}{rgb}{0.35,0.35,0.35}
+\xdefinecolor{darkorange}{rgb}{0.8,0.5,0}
+\xdefinecolor{darkred}{rgb}{0.7,0,0}
+\definecolor{darkgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\newcommand{\progressbar}{
+\pgfmathsetmacro{\theta}{360/\inserttotalframenumber*\inserttotalframenumber}
+\begin{tikzpicture}[scale=0.035]
+\fill[yellow] (0,0) circle (9);
+\fill[red] (0,0) -- (9,0) arc (0:-\theta:9);
+\fill[white] (0,0) circle (5);
+\end{tikzpicture}
+}
+
+%\setbeamertemplate{footline}{\hfill \progressbar}
+
+\title[]{Lecture 7: Law of Large Numbers and Central Limit Theorem}
+\author{Yi, Yung (이융)}
+\institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
+\date{MONTH DAY, 2021}
+
+\usetikzlibrary{shapes.callouts}
+
+\input{../mymath}
+
+
+\begin{document}
+
+\input{../mydefault}
+
+\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
+}}}}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
+}}}}
+
+% % Uncomment these lines for an automatically generated outline.
+% \begin{frame}{Outline}
+% % \tableofcontents
+% \plitemsep 0.1in
+% \bci
+% \item 
+
+% \item 
+% \eci
+% \end{frame}
+
+% START START START START START START START START START START START START START
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci 
+\item Most remarkable two results in probability theory history
+
+\bigskip
+
+\item Weak Law of Large Numbers: Result and Meaning
+\item Central Limit Theorem: Result and Meaning
+\item Weak Law of Large Numbers: Proof
+
+- Inequalities: Markov and Chebyshev
+
+\item Central Limit Theorem: Proof
+
+- Moment Generating Function (MGF)
+
+\item Strong Law of Large Numbers
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci 
+\item Most remarkable two results in probability theory history
+
+\bigskip
+
+\item \redf{Weak Law of Large Numbers: Result and Meaning}
+\item Central Limit Theorem: Result and Meaning
+\item Weak Law of Large Numbers: Proof
+
+- Inequalities: Markov and Chebyshev
+
+\item Central Limit Theorem: Proof
+
+- Moment Generating Function (MGF)
+
+\item Strong Law of Large Numbers
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Our interest: Sum of Random Variables}
+
+\plitemsep 0.1in
+
+\bci 
+
+\item<1-> \bluef{Example 1.} $n$ students who decides their presence, depending on their feeling. Each student is happy or sad at random. How many students will show their presence?
+
+\item<2-> \bluef{Example 2.} I am hearing some sound. There are $n$ noisy sources from outside. 
+
+\bigskip
+
+\item<3-> $X_1, X_2, \ldots, X_n$: i.i.d (independent and identically distributed) random variables
+
+\item<4-> $\expect{X_i} = \mu,$ $\var{X_i} = \sigma^2$ 
+
+\item<5-> Our interest is to understand how the following sum behaves:
+$$
+\redf{S_n = X_1 + X_2 + \ldots + X_n}
+$$
+
+% \bci
+% \item Challenging if we intend to approach directly. For $Z=X+Y,$ finding the distribution requires the complex \redf{convolution}. 
+% \aleq{
+% \pz = \cprob{X+Y = z} = \sum_{x}\px p_Y(z-x)
+% }
+% \eci
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Our First Strategy}
+
+$$
+S_n = X_1 + X_2 + \ldots + X_n
+$$
+\vspace{-0.8cm}
+\plitemsep 0.1in
+\bci 
+\item<2-> Challenging if we intend to approach directly. Even just for $Z=X+Y,$ finding the distribution, for example, requires the complex \redf{convolution}. 
+\aleq{
+\pz = \cprob{X+Y = z} = \sum_{x}\px p_Y(z-x)
+}
+
+\item<3-> Take a certain \bluef{scaling} with respect to $n$ that corresponds to a \bluef{new glass}, and investigate the system for large $n$ 
+% (i.e., $n \rightarrow \infty$ mathematically).
+
+\item<4-> First, consider the sample mean, and try to understand how it behaves:
+$$
+M_n = \frac{X_1 + X_2+ \ldots X_n}{n}
+$$
+
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Sample Mean}
+
+$$
+M_n = \frac{S_n}{n} = \frac{X_1 + X_2+ \ldots X_n}{n}
+$$
+
+\plitemsep 0.1in
+
+\bci 
+\item<2-> \redf{Example.} $n$ coin tossing. $X_i=1$ if head, and 0 otherwise. $S_n$: total number of heads.
+
+\item<3-> $\cexpect{M_n} = \mu,$ $\cvar{M_n} = \sigma^2/n$
+
+\item<4-> For large $n$, the variance decays. We expect that, for large $n,$ $M_n$ looses its randomness and concentrates around $\mu.$
+
+\item<5-> Why important? If we take the scaling of $S_n$ by $1/n,$ it behaves like a deterministic number. This significantly simplifies how we understand the world.
+
+\item<6-> We call this \redf{law of large numbers}.
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Let's Establish Mathematically}
+
+$$
+M_n = \frac{S_n}{n} = \frac{X_1 + X_2+ \ldots X_n}{n}
+$$
+
+\plitemsep 0.1in
+\bci 
+\item<2-> What about this? What's wrong?
+$$
+M_n \xrightarrow{n \rightarrow \infty} \mu
+$$
+
+\item<3-> Ordinary convergence for the sequence of real numbers: $a_n \rightarrow a$
+
+\onslide<4->{- For every $\epsilon >0,$ there exists $n_0,$ such that for every $n \geq n_0,$ $|a_n-a| \le \epsilon.$}
+
+
+\item<5-> $M_n$ is a random variable, which is a function from $\Omega$ to $\real.$
+
+\item<6-> Need to mathematically build up the concept of convergence for the sequence of random variables.
+
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Convergence in Probability}
+
+\plitemsep 0.1in
+
+\bci 
+\item<1-> Consider the sequence of rvs $(Y_n)_{n=1, 2, \ldots},$ and I want to say they ``converge'' to a number $a.$
+
+\item<2-> Play the game with my friend Lin. 
+\bci
+\item<3-> Lin, give me any $\epsilon>0.$ 
+\item<4-> OK. Then, let me consider the event $\{|Y_n -a| \geq \epsilon \},$ and compute its probability $a_n = \cprob{|Y_n -a| \geq \epsilon}.$
+\item<5-> Now, $a_n$ is just the real number, and I will show that $a_n \rightarrow a$ as $n \rightarrow \infty.$
+
+\onslide<6->{
+\myblock{Convergence in probability}
+{
+For any $\epsilon >0,$ $\cbprob{|Y_n -a| \geq \epsilon} \xrightarrow{n \rightarrow \infty} 0.$
+}}
+\eci
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Weak Law of Large Numbers}
+$$
+M_n = \frac{S_n}{n} = \frac{X_1 + X_2+ \ldots X_n}{n}
+$$
+\onslide<2->{
+\myblock{Weak law of large numbers}
+{
+$M_n$ converges to $\mu$ in probability.
+}}
+
+ \plitemsep 0.1in
+ \bci 
+ \item<3-> Why "Weak"? There exists a stronger stronger version, which we call ``strong" law of large numbers.
+
+\item<4-> Proof requires some knowledge about useful inequalities, which we cover later. 
+ \eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci 
+\item Most remarkable two results in probability theory history
+
+\bigskip
+
+\item \bluef{Weak Law of Large Numbers: Result and Meaning}
+\item \redf{Central Limit Theorem: Result and Meaning}
+\item Weak Law of Large Numbers: Proof
+
+- Inequalities: Markov and Chebyshev
+
+\item Central Limit Theorem: Proof
+
+- Moment Generating Function (MGF)
+
+\item Strong Law of Large Numbers
+\eci 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Central Limit Theorem: Start with Scaling (1)}
+% $$
+% M_n = \frac{S_n}{n} = \frac{X_1 + X_2+ \ldots X_n}{n}
+% $$
+% \myblock{Weak law of large numbers}
+% {
+% $M_n$ converges to $\mu$ in probability.
+% }
+
+\plitemsep 0.1in
+ \bci 
+ \item<1-> Loosely speaking, WLLG says:
+\aleq{
+(M_n - \mu) \xrightarrow{n \rightarrow \infty} 0
+}
+
+\item<2-> However, we don't know \redf{how} $M_n -\mu$ converges to 0. For example, what's the speed of convergence? 
+
+\item<3-> \redf{Question.} What should be ``something"? Something should what blows up. 
+\aleq{
+\onslide<3->{\redblk{\text{(something)}} & \times (M_n - \mu) \xrightarrow{n \rightarrow \infty} \text{meaningful thing}}\cr
+\onslide<4->{\redblk{$n^\alpha$} &\times (M_n - \mu) \xrightarrow{n \rightarrow \infty} \text{meaningful thing}}
+}
+\item<5-> What's $\alpha$ for our magic? 
+
+\item<6-> The answer is $\redf{\mfrac{1}{2}}$
+
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Central Limit Theorem: Start with Scaling (2)}
+
+\plitemsep 0.1in
+\bci 
+\item Reshaping the equation:
+\aleq{
+\sqrt{n} &\times (M_n - \mu) = \onslide<2->{\sqrt{n}\lf(\frac{S_n - n\mu}{n}\ri) = \frac{S_n - n\mu}{\sqrt{n}}.} \quad \onslide<3->{\text{Let} \ Z_n = \frac{S_n - n\mu}{\bluef{\sigma} \sqrt{n}}.}
+}
+
+\item<4-> $\expect{Z_n} = 0$ and $\cvar{Z_n} = 1.$ 
+
+- $Z_n$ is well-centered with a constant variance irrespective of $n.$
+
+\item<5-> We expect that $Z_n$ converges to something meaningful, but what?
+
+\item<6-> Some deterministic number just like WLLG? 
+
+\item<7-> Interestingly, it converges to some \redf{random variable $Z$} that we know very well. 
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Central Limit Theorem: Formalism}
+
+\plitemsep 0.05in
+\bci 
+\item<2-> $Z_n \xrightarrow{n \rightarrow \infty} Z,$ where $Z \sim N(0,1).$
+
+\item<3-> Wait! What kind of convergence? Convergence in probability as in WLLN? No.
+
+\item<4-> Convergence \redf{in distribution} (another type of convergence of rvs)
+\onslide<5->{
+\myblock{Central Limit Theorem}
+{
+For every $z,$ 
+$$
+\cprob{Z_n \le z} \xrightarrow{n \rightarrow \infty} \cprob{Z \le z},
+$$
+where $Z \sim N(0,1).$
+}}
+
+\item<6-> \redf{Meaning from scaling perspective.} 
+\bci
+\item<7-> LLN: Scaling $S_n$ by $1/n,$ you go to a deterministic world.
+\item<8-> CLT: Scaling $S_n$ by $1/\sqrt{n}$, you still stay at the random world, but not an arbitrary random world. That's the normal random world, not depending on the distribution of each $X_i.$ Very interesting! 
+\eci
+
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Practical Use of CLT}
+
+$Z_n = \frac{S_n - n\mu}{\sigma \sqrt{n}}$
+
+$\cprob{Z_n \le z} \xrightarrow{n \rightarrow \infty} \cprob{Z \le z}, \ Z \sim N(0,1)$
+
+\plitemsep 0.1in
+\bci 
+\item<2-> Can approximate $Z_n$ with a standard normal rv
+\item<4-> Can approximate $S_n$ with a normal rv $\sim  (n\mu, n\sigma^2)$
+
+- $S_n = n \mu + Z_n\sigma\sqrt{n}$
+\item<5-> How large should $n$ be?
+\bci
+\item<6-> A moderate $n$ (20 or 30) usually works, which the power of CLT.
+
+\item<7-> If $X_i$ resembles a normal rv more, smaller $n$ works: symmetry and unimodality\footnotemark
+\footnotetext{Only unique mode. A single maximum or minimum.}
+\eci
+\eci 
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{CLT: Examples of $n$}
+
+\centering
+\mypic{0.92}{L7_CTL_ex1.png}
+
+
+\mypic{0.9}{L7_CTL_ex2.png}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci 
+\item Most remarkable two results in probability theory history
+
+\bigskip
+
+\item \bluef{Weak Law of Large Numbers: Result and Meaning}
+\item \bluef{Central Limit Theorem: Result and Meaning}
+\item \redf{Weak Law of Large Numbers: Proof
+
+- Inequalities: Markov and Chebyshev}
+
+\item Central Limit Theorem: Proof
+
+- Moment Generating Function (MGF)
+
+\item Strong Law of Large Numbers
+\eci 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Markov Inequality}
+
+\plitemsep 0.1in
+\bci 
+\item<1-> \redf{(Q)} Knowing $\cexpect{X},$ can we say something about the distribution of $X$?
+
+\item<2-> Intuition: small $\cexpect{X}$ $\imp$ small $\cprob{X \ge a}$
+
+\onslide<3->{
+\myblock{Markov Inequality}
+{
+If $X \geq 0$ and $a >0,$ then $\cprob{X \geq a} \le \frac{\cexpect{X}}{a}.$
+}}
+\mytwocols{0.4}
+{
+\onslide<4->{
+\redf{Proof.} For any $a>0,$ define $Y_a$ as:
+\aleq{
+Y_a &\eqdef \begin{cases}
+0, & \text{if} \ X < a,\cr
+a,& \text{if} \ X \ge a
+\end{cases}
+}}
+\onslide<5->{Then, using non-negativity of $X,$ $Y_a \le X,$ which leads to $\expect{Y_a} \leq \expect{X}.$ }
+}
+{
+\onslide<6->{Note that we have:
+\aleq{
+\expect{Y_a} = a \cprob{Y_a = a} = a \cprob{X \ge a}.
+}}
+\onslide<7->{Thus, $a \cdot \cprob{X \ge a} \leq \expect{X}.$} \qed
+
+% \medskip
+% - \redf{(Q)} Why do we need $X >0$?
+}
+
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Chebyshev Inequality}
+
+\plitemsep 0.1in
+\bci 
+\item<2-> \redf{(Q)} Knowing both $\cexpect{X}$ and $\cvar{X},$ can we say something about the distribution of $X$?
+
+\item<3-> Intuition: small $\cvar{X}$ $\imp$ $X$ is unlikely to be too far away from its mean. 
+
+\item<4-> $\cexpect{X} = \mu,$ $\cvar{X} = \sigma^2.$
+\onslide<5->{\myblock{Chebyshev Inequality}
+{
+$$
+\cbprob{|X-\mu| \geq c} \leq \frac{\sigma^2}{c^2}
+$$
+}}
+
+\item<6-> \redf{Proof.} 
+\aleq{
+\onslide<6->{\cbprob{|X-\mu| \geq c} = \cbprob{(X-\mu)^2 \geq c^2} \leq} \onslide<7->{\frac{\bexpect{(X-\mu)^2}}{c^2} = \frac{\cvar{X}}{c^2}}
+}
+
+
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example}
+
+\onslide<1->{- $X \sim \exp(1).$ Then, $\expect{X} = 1$ and $\var{X} =1.$} 
+
+\onslide<2->{- $\cexpect{X \ge a} = e^{-a}$}
+
+\bigskip
+\mytwocols{0.3}
+{
+\plitemsep 0.1in
+\bci 
+\item<3-> \redf{Markov inequality}
+\aleq{
+\cprob{X \ge a} &\le \frac{\expect{X}}{a} = \frac{1}{a}
+}
+\eci 
+}
+{
+\plitemsep 0.1in
+\bci 
+\item<4-> \redf{Chebyshev inequality}
+\aleq{
+\cprob{X \ge a} &= \cprob{X-1 \ge a-1} \cr
+&\le \cprob{|X-1| \ge a-1} \le \frac{1}{(a-1)^2}
+}
+\eci 
+}
+
+\onslide<5->{- For reasonably large $a,$ CI provides much better bound. }
+
+\onslide<6->{- knowing the variance helps}
+
+\onslide<7->{- Both bounds are the ones that bound the \bluef{probability of rare events.}} 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Back to WLLN}
+$$
+M_n = \frac{S_n}{n} = \frac{X_1 + X_2+ \ldots X_n}{n}
+$$
+\myblock{Weak law of large numbers}
+{
+$M_n$ converges to $\mu$ in probability.
+}
+
+
+\redf{Proof.}
+
+\onslide<2->{\aleq{
+\cbprob{|M_n - \mu| \ge \epsilon} \le \frac{\cvar{M_n}}{\epsilon^2} = \frac{\sigma^2}{n \epsilon^2} \xrightarrow{n \rightarrow \infty} 0
+}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci 
+\item Most remarkable two results in probability theory history
+
+\bigskip
+
+\item \bluef{Weak Law of Large Numbers: Result and Meaning}
+\item \bluef{Central Limit Theorem: Result and Meaning}
+\item \bluef{Weak Law of Large Numbers: Proof
+
+- Inequalities: Markov and Chebyshev
+}
+
+\item \redf{Central Limit Theorem: Proof
+
+- Moment Generating Function (MGF)}
+
+\item Strong Law of Large Numbers
+\eci 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Moment Generating Function}
+
+\mytwocols{0.7}
+{
+\small
+\plitemsep 0.1in
+\bci 
+\item<1-> For a rv $X,$ we introduce a kind of transform, called \redf{moment generating function (MGF).} 
+
+\item<2-> A function of a scalar parameter $s$, defined by
+$$
+M_X(s) = \expect{e^{sX}}
+$$
+- If clear, we omit $X$ and use $M(s).$
+\aleq{
+\onslide<3->{
+M(s) &= \sum_x e^{sx} \px \quad \text{(discrete)}\cr
+M(s) &= \int e^{sx} \fx dx \quad \text{(continuous)}\cr
+}}
+\eci 
+}
+{
+\small
+\plitemsep 0.1in
+\bci 
+\item<4->[Ex1)] $X \sim \exp(\lambda),$ $\fx = \lambda \elambdax, x\ge 0$
+\aleq{
+M(s) &= \lambda \int_{0}^\infty e^{sx} \elambdax dx \cr
+&= \lambda \frac{e^{(s-\lambda)x}}{s-\lambda} \Bigg |_0^\infty \quad (\text{if  } s <\lambda) \cr
+&= \frac{\lambda}{\lambda - s}
+}
+
+\item<5->[Ex2)] $X \sim N(0,1)$ (homework problem)
+\aleq{
+M(s) = e^{s^2/2}
+}
+
+\eci 
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Useful Properties of MGF}
+
+\plitemsep 0.1in
+\bce 
+\item<1-> $M'(0) = \expect{X}$
+\aleq{
+\onslide<2->{\frac{d}{ds} M(s) &=\frac{d}{ds} \int_{-\infty}^\infty e^{sx} \fx dx = \int_{-\infty}^\infty \frac{d}{ds} e^{sx} \fx dx = \int_{-\infty}^\infty x e^{sx} \fx dx \cr
+&= \frac{d}{ds} M(s) \Bigg |_{s=0} = \expect{X}}
+}
+
+\item<3-> Similarly, $M''(0) = \expect{X^2}$
+
+\item<4-> $\frac{d^n}{ds^n} M(s) \Bigg |_{s=0} = \expect{X^n}$
+
+\item<5-> MGF provides a convenient way of generating moments. That's why it is called moment generating function. 
+
+\ece 
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Inversion Property}
+
+\myblock{Inversion Property}
+{
+The transform $M_X(s)$ associated with a random variable $X$ uniquely determines 
+the CDF of $X,$ assuming that $M_X(s)$ is finite for all $s$ in some interval $[-a,a],$ where $a$ is a positive number.
+}
+
+\plitemsep 0.1in
+\bci 
+\item In easy words, we can recover the distribution if we know the MGF. 
+
+\item Thus, each rv has its own MGF. 
+
+\eci 
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Back to CLT}
+
+\plitemsep 0.05in
+\bci 
+\item<1->  Without loss of generality, assume $\cexpect{X_i}=0$ and $\cvar{X_i} = 1$
+
+\item<2->  $Z_n = \frac{S_n}{\sqrt{n}} = \frac{X_1 + X_2 + \ldots X_n}{\sqrt{n}}$
+
+\item<3->  Show: MGF of $Z_n$ converges to MFG of $N(0,1)$ (using inversion property)
+\eci
+
+
+\mytwocols{0.6}
+{
+\small
+\redf{Proof.}
+\aleq{
+\onslide<4->{\bexpect{e^{s S_n/\sqrt{n}}} &= \bexpect{e^{s X_1/\sqrt{n}}}\times \cdots \times\bexpect{e^{s X_n/\sqrt{n}}}}\cr
+&=\onslide<5->{\lf ( \bexpect{e^{s X_1/\sqrt{n}}} \ri )^n} = 
+\onslide<6->{\lf( M_{X_1}\Bl(\frac{s}{\sqrt{n}}\Bl) \ri)^n}
+}
+\onslide<7->{- For simplicity, let $M(\cdot) = M_{X_1}(\cdot)$}
+
+\onslide<8->{- \bluef{Facts:} $M(0) = 1$, $M'(0) = 0,$ $M''(0) = 1$}
+
+\onslide<9->{- $\lf( M\Bl(\frac{s}{\sqrt{n}}\Bl) \ri)^n \rightarrow \text{what???}$}
+
+\onslide<10->{- Taking log, $n \log M\Bl(\frac{s}{\sqrt{n}}\Bl)  \rightarrow \text{what???}$}
+}
+{
+\onslide<11->{ For convenience, do the change of variable $y = \frac{1}{\sqrt{n}}.$ Then, we have
+$$
+\lim_{y\rightarrow 0}\frac{\log M (ys)}{y^2}
+$$
+}
+
+\onslide<12->{- If we apply l'hopital's rule twice (please check), we get
+\aleq{
+\lim_{y\rightarrow 0}\frac{\log M (ys)}{y^2} = \frac{s^2}{2}
+}}
+\qed
+}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci 
+\item Most remarkable two results in probability theory history
+
+\bigskip
+
+\item \bluef{Weak Law of Large Numbers: Result and Meaning}
+\item \bluef{Central Limit Theorem: Result and Meaning}
+\item \bluef{Weak Law of Large Numbers: Proof
+
+- Inequalities: Markov and Chebyshev
+}
+
+\item \bluef{Central Limit Theorem: Proof
+
+- Moment Generating Function (MGF)}
+
+\item \redf{Strong Law of Large Numbers (Optional)}
+\eci 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\vspace{2cm}
+\LARGE Questions?
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Review Questions}
+
+\bce[1)]
+\item What's the practical value of LLN and CLT?
+
+\item Explain LLN and CLT from the scaling perspective.
+
+\item Why are LLN and CLT great?
+
+\item Why do we need different concepts of convergence for random variables?
+
+\item Explain what is convergence in probability.
+
+\item Explain what is convergence in distribution. 
+
+\item Why is MGF useful?
+
+\ece
+
+\end{frame}
+
+\end{document}

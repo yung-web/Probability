@@ -1,0 +1,644 @@
+\pdfminorversion=4
+\documentclass[handout,fleqn,aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
+
+\mode<presentation>
+{
+  \usetheme{default}
+  \usecolortheme{default}
+  \usefonttheme{default}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+  \setbeamertemplate{footline}[frame number]  % or "page number"
+  \setbeamercolor{frametitle}{fg=white}
+  \setbeamercolor{footline}{fg=black}
+} 
+
+\usepackage[english]{babel}
+%\usepackage[utf8x]{inputenc}
+\usepackage{tikz}
+\usepackage{courier}
+\usepackage{array}
+\usepackage{bold-extra}
+\usepackage{minted}
+\usepackage[thicklines]{cancel}
+\usepackage{fancyvrb}
+\usepackage{kotex}
+\usepackage{paralist}
+\usepackage{collectbox}
+
+\setbeamercolor{block body alerted}{bg=alerted text.fg!10}
+\setbeamercolor{block title alerted}{bg=alerted text.fg!20}
+\setbeamercolor{block body}{bg=structure!10}
+\setbeamercolor{block title}{bg=structure!20}
+\setbeamercolor{block body example}{bg=green!10}
+\setbeamercolor{block title example}{bg=green!20}
+\setbeamertemplate{blocks}[rounded][shadow]
+
+\xdefinecolor{dianablue}{rgb}{0.18,0.24,0.31}
+\xdefinecolor{darkblue}{rgb}{0.1,0.1,0.7}
+\xdefinecolor{darkgreen}{rgb}{0,0.5,0}
+\xdefinecolor{darkgrey}{rgb}{0.35,0.35,0.35}
+\xdefinecolor{darkorange}{rgb}{0.8,0.5,0}
+\xdefinecolor{darkred}{rgb}{0.7,0,0}
+\definecolor{darkgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\title[]{Lecture 2: Conditioning, Bayes' Rule, and Independence }
+\author{Yi, Yung (이융)}
+\institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
+\date{MONTH DAY, 2021}
+
+\usetikzlibrary{shapes.callouts}
+
+\input{../mymath}
+
+
+\begin{document}
+
+\input{../mydefault}
+
+\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
+}}}}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
+}}}}
+
+% Uncomment these lines for an automatically generated outline.
+\begin{frame}{Outline}
+% \tableofcontents
+%\plitemsep 0.1in
+\bci
+\item Conditional Probability
+
+\item Bayes' Rule
+
+\item Bayesian Inference: Sneak Peek
+
+\item Independence, Conditional Independence
+
+\eci
+\end{frame}
+
+% START START START START START START START START START START START START START
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Motivating Example}
+
+\plitemsep 0.1in
+\bci 
+
+\item<1-> Pick a person $a$ at random
+
+- event $A$: $a$'s age $\leq$ 20
+
+- event $B$: $a$ is married
+
+
+\item<2-> (Q1) What is the probability of $A$?
+
+\item<2-> (Q2) What is the probability of $A$, given that $B$ is true?
+
+\item<2-> Clearly the above two should be different. 
+
+\item<3-> \redf{Question:} How should I change my belief, given some additional information?
+
+\item<4-> Need to build up a new theory, which we call \redblank{5}{conditional probability}.
+
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conditional Probability: Notation}
+
+%\plitemsep 0.1in
+\bci
+
+\item<1-> First, let's choose the notation. "Probability of $A,$ given $B$ occurs". What do you recommend?
+
+\onslide<2->{
+$$
+{\mathbb P}(A)(B), \quad {\mathbb P}_{B}(A), \quad {\mathbb P}^{B}(A), \quad (B){\mathbb P}(A), \ldots
+$$
+}
+\item<3-> People's choice is ... \redblank{4}{$\cprob{A \mid  B}$}
+
+\item<5-> From now on, given $B$, $\cprob{\cdot | B}$ should be a new \redblank{6}{probability law.}
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conditional Probability: Definition (1)}
+
+\plitemsep 0.1in
+\bci 
+
+\item<1-> Second, let's define $\cprob{A | B}$. What would it be a good definition?
+
+\item<2-> Probability of $A$ given $B$ $\rightarrow$ both $A$ and $B$ occur. Then, what about this?
+$$
+\cprob{A | B} \eqdef \cprob{A \cap B}
+$$
+
+\item<3-> Is it good or bad? Why good? Why bad?
+
+\item<4-> Reasons why it is bad: 
+
+- Remember that $\cprob{\cdot | B}$ should be a new probability law (so three axioms should be satisfied)
+
+\medskip
+
+\onslide<5->{
+\bci
+  \item $\cprob{\Omega | B}=1$?
+
+  \item $\cprob{B | B}=1$ from our common sense. True?
+\eci
+}
+% \item How to fix this? Normalization! 
+% \beq
+% \cprob{A | B} &\eqdef& \frac{\cprob{A \cap B}}{\cprob{B}}, \quad for \quad \cprob{B} >0.
+% \eeq
+
+
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conditional Probability: Definition (2)}
+
+\plitemsep 0.1in
+\bci 
+
+\item<1-> How to fix this? \redblank{2}{Normalization.} 
+\onslide<3->{
+$$
+\cprob{A \mid B} \eqdef \frac{\cprob{A \cap B}}{\cprob{B}}, \quad for \quad \cprob{B} >0.
+$$
+
+
+- Note that this is a \bluef{definition,} not a \bluef{theorem.}}
+
+\item<4-> Easily check: Nonnegativity and countable additivity.  
+
+\item<5-> All other properties of the law $\cprob{\cdot}$ is applied to the conditional law $\cprob{\cdot | B}.$ 
+
+\item<6-> For example, finite additivity. For two disjoint events $A$ and $C$, 
+$$
+\cprob{A \cup C \redf{\mid B}} = \cprob{A \redf{\mid B}} + \cprob{C \redf{\mid B}}
+$$
+\eci 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Conditional Probability}
+
+\mytwocols{0.7}
+{
+\plitemsep 0.05in
+\bci
+
+\item $A:$ Airplane is flying above
+\item $B:$ Something on radar screen
+
+\eci 
+
+\aleq{
+\cprob{A \cap B} &= \onslide<2->{\cprob{A}\cprob{B|A}} \cr
+&=\onslide<3->{0.05\times 0.99 = 0.0495}
+}
+\aleq{
+\cprob{B} &= \onslide<4->{\cprob{A \cap B} + \cprob{A^c \cap B}}\cr
+&= \onslide<5->{0.05\times 0.99 + 0.95\times 0.1 = 0.1445}
+}
+\aleq{
+\cprob{A|B} &= \onslide<6->{\frac{\cprob{A \cap B}}{\cprob{B}}}
+= \onslide<7->{\frac{0.0495}{0.1445} \approx 0.34}
+}
+
+% \bigskip
+% \item $\cprob{A \cap B} = \cprob{}$
+% \bigskip
+% \item $\cprob{ B} = $
+% \bigskip
+% \item $\cprob{A |  B} = $
+
+
+}
+{
+\centering
+\includegraphics[width=0.5\textwidth]{L2_radar.jpg}
+
+\bigskip
+\includegraphics[width=0.7\textwidth]{L2_cond_ex.png}
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\vspace{2cm}
+\LARGE From now on, using the theory of probability and conditional probability constructed so far, we will develop interesting properties and theorems which are very useful to answer some exciting questions. 
+
+\medskip
+
+\LARGE That is \empr{Bayes' Rule} to make some \empb{inference (추론).}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: (Bayesian) Inference}
+
+\mytwocols{0.5}
+{
+\plitemsep 0.1in
+\bci 
+
+\item<2-> $A_1$: you are happy, $A_2$: you are sad
+\item<2-> $B$: you shout. 
+
+\item<4-> Assume that somebody gives you the following information:
+$$
+\cprob{A_1}, \quad \cprob{A_2}, \quad \cprob{B | A_1}, \quad\cprob{B | A_2}.
+$$
+
+\item<6-> \redf{Question:} $\cprob{A_1 | B}$ and $\cprob{A_2 | B}$?
+\eci 
+}
+{
+\plitemsep 0.1in
+\bci 
+
+\item<3-> $A_i$: state/cause/original value
+\item<3-> $B$: result/resulting action/noisy measurement
+
+\item<5-> In reality, $\cprob{A_i}$ (prior) and $\cprob{B | A_i}$ (cause $\rightarrow$ result) can be given from my model
+
+\item<7-> Inference: $\cprob{\text{cause} \mid \text{result}}$?
+
+\eci 
+}
+
+\medskip
+
+\onslide<8->{We will study this topic rigorously later in this class (chapter 8).}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Multiplication Rule}
+
+\myvartwocols{0.5}{0.6}{0.38}
+{
+\plitemsep 0.1in
+\bci 
+
+\item<1-> $\cprob{A | B} = \frac{\cprob{A \cap B}}{\cprob{B}}$
+
+\item $\cprob{A \cap B}$ = \redblank{2}{$\cprob{B}\cprob{A | B}$} = \redblank{3}{$\cprob{A}\cprob{B | A}$}
+
+\item $\cprob{A^c \cap B \cap C^c}$ = \redblank{4}{$\cprob{A^c \cap B} \cdot \cprob{C^c | A^c \cap B}$}
+ = \redblank{5}{$\cprob{A^c} \cdot \cprob{B | A^c} \cdot \cprob{C^c | A^c \cap B}$}
+\bigskip
+
+\eci 
+}
+{
+\centering
+\includegraphics[width=0.85\textwidth]{L2_multi_ex.png}
+}
+
+Generally, 
+
+$\cprob{A_1 \cap A_2 \cap \cdots A_n}$ = 
+\onslide<6->{
+$\cprob{A_1} \cdot \cprob{A_2|A_1} \cdot \cprob{A_3|A_1,A_2} \cdots$ $\cprob{A_n|A_1,A_2,\ldots, A_{n-1}}$}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Total Probability Theorem}
+
+\mytwocols{0.7}
+{
+\plitemsep 0.1in
+\bci 
+
+\item<2-> Partition of $\Omega$ into $A_1,A_2,A_3$
+
+\item<3-> We know from my model: $\cprob{A_i}$ and $\cprob{B | A_i}$ 
+
+\item<4-> \redf{What is $\cprob{B}$? (probability of result)}
+
+%\bigskip
+
+\begin{block}<5->{Total Probability Theorem}
+$$
+\cprob{B} = \sum_{i} \cprob{A_i} \cprob{B | A_i}
+$$
+\end{block}
+
+\item<5-> $\cprob{A_i \cap B} = \cprob{A_i} \cprob{B | A_i}$
+
+\item<6-> Weighted average from the point of $A_i$ knowledge. 
+\eci 
+}
+{
+\centering
+\includegraphics[width=0.65\textwidth]{L2_total_ex.png}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bayes' Rule}
+
+\mytwocols{0.7}
+{
+\plitemsep 0.1in
+
+\bci
+\item Partition of $\Omega$ into $A_1,A_2,A_3$
+
+\item We know from my model: $\cprob{A_i}$ and $\cprob{B | A_i}$ 
+
+\item<2-> \redf{What is $\cprob{A_i | B}$?}
+
+\item<2-> revised belief about $A_i,$ given $B$ occurs
+
+\begin{block}<3->{Bayes' Rule}
+$$
+\cprob{A_i | B} = \frac{\cprob{A_i} \cprob{B | A_i}}{\sum_{j} \cprob{A_j} \cprob{B | A_j}}
+$$
+\end{block}
+
+%\item Weighted average from the point of $A_i$ knowledge. 
+\eci 
+}
+{
+\centering
+\includegraphics[width=0.65\textwidth]{L2_total_ex.png}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bayes' Rule: Example}
+
+\mytwocols{0.7}
+{
+\plitemsep 0.1in
+\bci 
+
+\item $A_1$: you are happy, $A_2$: you are sad
+\item $B$: you shout. 
+
+\item Assume: 
+$$
+\cprob{A_1}=0.7, \ \cprob{A_2}=0.3,
+$$
+$$
+\cprob{B | A_1} = 0.3, \ \cprob{B | A_2}=0.5.
+$$
+
+\eci 
+}
+{
+\medskip
+
+- Calculate $\cprob{A_1 | B}$ and $\cprob{A_2 | B}.$
+\aleq{
+\cprob{A_1} \cprob{B | A_1} &=  0.7 \times 0.3 = 0.21\cr
+\cprob{A_2} \cprob{B | A_2} &= 0.3 \times 0.5 = 0.15 \cr
+\cprob{B} &= 0.21 + 0.15 = 0.36
+}
+\aleq{
+\cprob{A_1 | B} = \frac{0.21}{0.36} \approx 0.583 \cr
+\cprob{A_2 | B} = \frac{0.15}{0.36} \approx 0.417 
+}
+
+
+}
+
+ 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\vspace{2cm}
+\LARGE Bayesian inference was really fun. 
+
+\medskip
+
+Now, let's develop a new concept from conditioning. 
+
+\medskip
+
+\LARGE That is \empr{Independence}. 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Why We Care Independence?}
+
+\plitemsep 0.1in
+\bci 
+
+\item<2-> Event $A$: I get the grade A in the probability class (my interest).
+\item<2-> Event $B$: My friend is rich. 
+
+\bigskip
+\item<3-> $A$ and $B$ do not seem dependent on each other. So, just forget $B$!
+
+\item<4-> Independence makes our analysis and modeling much simpler, because I can remove independent events in my analysis.  
+\eci 
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Independence}
+
+\plitemsep 0.05in
+\bci 
+
+\item<1-> Occurrence of $A$ provides no new information about $B.$ Thus, knowledge about $A$ does no change my belief about $B.$ 
+\onslide<2->{
+\bluef{
+$$
+\cprob{B | A} = \cprob{B}
+$$
+}}
+
+\item Using $\cprob{B | A} = \cprob{B \cap A}/\cprob{A},$ 
+
+\begin{block}<3->{Independence of $A$ and $B$, \redblank{4}{$A \indep B$}}
+$\cprob{A \cap B} = \cprob{A} \times \cprob{B}$
+\end{block}
+
+\item<5-> \redf{Q1.} $A$ and $B$ disjoint $\imp$ $A \indep B$?
+
+\onslide<6->{
+No. Actually, really dependent, because if you know that $A$ occurred, then, we know that $B$ did not occur. 
+}
+
+\item<7-> \redf{Q2.} If $A \indep B$,  then $A \indep B^c$? \onslide<8->{Yes.} 
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conditional Independence}
+
+\plitemsep 0.07in
+\bci 
+
+\item<2-> Remember: for a probability law $\cprob{\cdot},$ given, say $B$, $\cprob{\cdot | B}$ is a new probability law. 
+
+\item<3-> Thus, we can talk about independence under $\cprob{\cdot | B}.$
+
+\item<4-> Given that $C$ occurs, occurrence of $A$ provides no new information about $B.$
+$$
+\cprob{B | A \cap C} = \cprob{B | C}
+$$
+\vspace{-0.2in}
+%\item Using $\cprob{B | A} = \cprob{B \cap A}/\cprob{A},$ 
+\begin{block}<5->{Conditional Independence of $A$ and $B$ given $C$, \redblank{6}{$A \indep B | C$}}
+$\cprob{A \cap B | C} = \cprob{A |C} \times \cprob{B |C}$
+\end{block}
+
+\smallskip
+\item<7-> \redf{Q1.} If $A \indep B$,  then $A \indep B | C$?
+Suppose that $A$ and $B$ are independent. If you heard that $C$ occurred,  $A$ and $B$ are still independent?                                                         
+
+\item<8-> \redf{Q2.} If $A \indep B | C$, $A \indep B$?
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$A \indep B$ $\rightarrow$  $A \indep B | C$?}
+
+\plitemsep 0.2in
+\bci 
+
+\item<1-> Two independent coin tosses
+
+\plitemsep 0.05in
+\bci
+\item $H_1$: 1st toss is a head
+\item $H_2$: 2nd toss is a head
+\item $D$: two tosses have different results.
+\eci
+
+\item<2-> $\cprob{H_1 | D} = 1/2,$ $\cprob{H_2 | D} = 1/2$  
+
+
+\item<3-> $\cprob{H_1 \cap H_2 | D} = 0,$  
+
+\item<3-> No.
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$A \indep B | C$ $\rightarrow$  $A \indep B$?}
+
+\myvartwocols{0.8}{0.7}{0.27}
+{
+\small
+\plitemsep 0.02in
+\bci 
+
+\item<1-> Two coins: \bluef{Blue} and \redf{Red}. Choose one uniformly at random, and proceed with two independent tosses. 
+
+\item<2-> $\cprob{\text{head of blue}} = 0.9$ and 
+$\cprob{\text{head of red}} = 0.1$ 
+
+$H_i$: i-th toss is head, and $B$: blue is selected. 
+
+\item<3-> $H_1 \indep H_2 | B$? Yes
+\aleq{
+\cprob{H_1 \cap H_2 | B} = 0.9\times 0.9, \quad \cprob{H_1 |B} \cprob{H_2|B} = 0.9 \times 0.9
+}
+
+\item<4-> $H_1 \indep H_2$? No
+\abovedisplayskip=-0.01in
+\aleq{
+\onslide<5->{\cprob{H_1} &= \cprob{B} \cprob{H_1 | B} + \cprob{B^c} \cprob{H_1 | B^c} \cr
+&= \frac{1}{2} 0.9 + \frac{1}{2} 0.1 = \frac{1}{2}\cr
+\cprob{H_2} &= \cprob{H_2} \quad (\text{because of symmetry})\cr}
+\onslide<6->{\cprob{H_1 \cap H_2} &= \cprob{B} \cprob{H_1 \cap H_2| B} + \cprob{B^c} \cprob{H_1 \cap H_2| B^c}\cr 
+& = \frac{1}{2} (0.9\times 0.9) + \frac{1}{2} (0.1\times 0.1) \neq \frac{1}{2}}
+}
+\eci 
+}
+{
+\centering
+\includegraphics[width=0.8\textwidth]{L2_condind_ex.png}
+}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Independence of Multiple Events}
+
+\plitemsep 0.1in
+\bci 
+
+\item<1-> Three events: $A_1, A_2, A_3.$ What are the conditions of ``their independence"?
+
+\item<2-> What about this? (Pairwise independence)
+\begin{align*}
+\cprob{A_1 \cap A_2} = \cprob{A_1} \cprob{A_2}
+\cprob{A_1 \cap A_3} = \cprob{A_1} \cprob{A_3}
+\cprob{A_2 \cap A_3} = \cprob{A_2} \cprob{A_3}
+\end{align*}
+
+\item<3-> What about $\cprob{A_1 \cap A_2 \cap A_3} = \cprob{A_1} \cprob{A_2} \cprob{A_3}$?
+
+\item<4-> We need both. 
+
+\begin{block}<5->{Independence of Multiple Events}
+The events $A_1,A_2, \ldots, A_n$ ar said to be independent if
+$$
+\cbprob{\bigcap_{i \in S} A_i} = \prod_{i \in S} \cprob{A_i}, \quad \text{for every subset } S \text{ of } \{1,2, \ldots, n \}
+$$
+\end{block}
+\eci 
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\vspace{2cm}
+\LARGE Questions?
+
+\end{frame}
+
+\begin{frame}{Review Questions}
+% \tableofcontents
+%\plitemsep 0.1in
+\bce[1)]
+\item What is conditional probability? Why do we need it?
+
+\item Explain the overall framework of Bayesian inference.
+
+\item What is the total probability theorem?
+
+\item What is Bayes' rule? What does it can give us?
+
+\item What's the difference between independence and conditional independence?
+
+\ece
+\end{frame}
+
+\end{document}

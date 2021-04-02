@@ -1,0 +1,1012 @@
+\pdfminorversion=4
+\documentclass[handout,fleqn,aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
+
+\mode<presentation>
+{
+  \usetheme{default}
+  \usecolortheme{default}
+  \usefonttheme{default}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+  \setbeamertemplate{footline}[frame number]  % or "page number"
+  \setbeamercolor{frametitle}{fg=white}
+  \setbeamercolor{footline}{fg=black}
+} 
+
+\usepackage[english]{babel}
+%\usepackage[utf8x]{inputenc}
+\usepackage{tikz}
+\usepackage{courier}
+\usepackage{array}
+\usepackage{bold-extra}
+\usepackage{minted}
+\usepackage[thicklines]{cancel}
+\usepackage{fancyvrb}
+\usepackage{kotex}
+\usepackage{paralist}
+\usepackage{collectbox}
+
+\setbeamercolor{block body alerted}{bg=alerted text.fg!10}
+\setbeamercolor{block title alerted}{bg=alerted text.fg!20}
+\setbeamercolor{block body}{bg=structure!10}
+\setbeamercolor{block title}{bg=structure!20}
+\setbeamercolor{block body example}{bg=green!10}
+\setbeamercolor{block title example}{bg=green!20}
+\setbeamertemplate{blocks}[rounded][shadow]
+
+\xdefinecolor{dianablue}{rgb}{0.18,0.24,0.31}
+\xdefinecolor{darkblue}{rgb}{0.1,0.1,0.7}
+\xdefinecolor{darkgreen}{rgb}{0,0.5,0}
+\xdefinecolor{darkgrey}{rgb}{0.35,0.35,0.35}
+\xdefinecolor{darkorange}{rgb}{0.8,0.5,0}
+\xdefinecolor{darkred}{rgb}{0.7,0,0}
+\definecolor{darkgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\title[]{Lecture 4: Random Variable, Part II}
+\author{Yi, Yung (이융)}
+\institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
+\date{MONTH DAY, 2021}
+
+\usetikzlibrary{shapes.callouts}
+
+\input{../mymath}
+
+
+\begin{document}
+
+\input{../mydefault}
+
+\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
+}}}}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
+}}}}
+
+% Uncomment these lines for an automatically generated outline.
+\begin{frame}{Outline}
+% \tableofcontents
+\plitemsep 0.1in
+\bci
+\item Continuous Random Variable
+
+\item PDF (Probability Density Function)
+
+\item CDF (Cumulative Distribution Function)
+
+\item Exponential and Normal Distribution
+
+\item Joint PDF, Conditional PDF
+
+\item Bayes' rule for continous and even mixed cases
+
+\eci
+\end{frame}
+
+% START START START START START START START START START START START START START
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci [$\circ$]
+\item \bluef{Famous discrete random variables used in the community
+
+- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. }
+
+\item \bluef{Summarizing a random variable: Expectation and Variance}
+
+\item \bluef{Functions of a single random variable}, \bluef{Functions of multiple random variables} 
+
+\item \bluef{Conditioning for random variables}, \bluef{Independence for random variables} 
+
+\item \redf{Continuous random variables
+
+- Normal, Uniform, Exponential, etc. }
+
+\item Bayes' rule for random variables
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Continuous RV and Probability Density Function}
+\small
+
+\smallskip
+
+\onslide<2->{- Many cases when random variable have ``continuous values", e.g., velocity of a car}
+\onslide<3->{
+\myblock{Continuous Random Variable}
+{
+A rv $X$ is \redf{continuous} if $\exists$ a function $f_X,$ called \redblk{probability density function (PDF)}, s.t. 
+\vspace{-0.3cm}
+$$
+\cprob{X \in B} = \int_B \fx dx
+$$
+\vspace{-0.5cm}
+}}
+\vspace{-0.5cm}
+\onslide<4->{- All of the concepts and methods (expectation, PMFs, and conditioning) for discrete rvs have continuous counterparts}
+\vspace{-0.2cm}
+\mytwocols{0.4}
+{
+\onslide<5->{
+\includegraphics[width=0.65\textwidth]{L4_pmf_ex.png}
+
+\plitemsep 0.01in
+\bci 
+\item $\cprob{a \le X \le b} = \sum_{x: a\le x \le b} \px$
+
+\item $\px \ge 0,$ $\sum_{x} \px = 1$
+\eci} 
+}
+{
+\onslide<6->{
+\includegraphics[width=0.85\textwidth]{L4_pdf_ex.png}
+
+\plitemsep 0.01in
+\bci 
+\item $\cprob{a \le X \le b} = \int_{a}^b \fx dx$
+
+\item $\fx \ge 0,$ $\int_{-\infty}^{\infty} \fx dx= 1$
+\eci} 
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{PDF and Examples}
+
+
+\mytwocols{0.7}
+{
+\onslide<1->{
+\includegraphics[width=0.65\textwidth]{L4_pdf_delta.png}
+
+\bigskip
+
+\plitemsep 0.1in
+\bci 
+\item $\cprob{a \le X \le a + \delta} \approx$ \redblank{2}{$f_X(a) \cdot \delta$}
+
+\item \onslide<3->{$\cprob{X = a} = 0$}
+\eci 
+}
+}
+{
+Examples
+
+\onslide<4->{
+\bigskip
+
+\includegraphics[width=0.8\textwidth]{L4_pdf_uniform_ex.png}
+}
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Expectation and Variance}
+
+
+\includegraphics[width=0.3\textwidth]{L4_uniform_ex.png}
+
+\bigskip
+
+\plitemsep 0.1in
+\bci 
+\item $\expect{X} = \int_{-\infty}^{\infty} x \fx dx$ = \onslide<2->{$\int_{a}^{b} \frac{x}{b-a} dx = \frac{1}{b-a}\frac{b^2 - a^2}{2} = \frac{b+a}{2}$}
+
+\item $\expect{X^2} = \int_{-\infty}^{\infty} x^2 \fx dx$ = \onslide<3->{$\int_{a}^{b} \frac{x^2}{b-a} dx = \frac{1}{b-a}\frac{b^3 - a^3}{3} = \frac{a^2 + ab + b^2}{3}$}
+
+\item $\var{X}$ = \onslide<4->{$\frac{a^2 + ab + b^2}{3} - \frac{a^2 + 2ab + b^2}{4}$}
+\eci 
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cumulative Distribution Function (CDF)}
+
+\mytwocols{0.8}
+{
+\small
+\vspace{0.1in}
+\plitemsep 0.1in
+\bci 
+\item<1-> Discrete: PMF, Continuous: PDF
+\item<2-> Can we describe all rvs with a single mathematical concept? 
+\onslide<3->{\aleq{
+\Fx &= \cprob{X \le x} = \cr
+& \begin{cases}
+\sum_{k \le x} p_X(k), & \text{discrete}\cr
+\int_{-\infty}^x f_X(t) dt, & \text{continuous}
+\end{cases}
+}}
+\item<4-> always well defined, because we can always compute the probability for the event $\{X \le x \}$
+
+\item<5-> CCDF (Complementary CDF): $\cprob{X > x }$
+\eci 
+}
+{
+\onslide<6->{\includegraphics[width=0.8\textwidth]{L4_cdf_ex1.png}}
+
+\onslide<7->{\includegraphics[width=0.8\textwidth]{L4_cdf_ex2.png}}
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{CDF Properties}
+
+
+\bigskip
+
+\plitemsep 0.3in
+\bci 
+\item<2-> Non-decreasing
+
+\item<3-> $F_X(x)$ tends to 1, as $x \rightarrow \infty$
+
+\item<3-> $F_X(x)$ tends to 0, as $x \rightarrow -\infty$
+
+\eci 
+\bigskip
+
+\onslide<4->{Now, let's look at famous continuous random variables popularly used in our life.} 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exponential RV with parameter $\lambda >0$: $\exp(\lambda)$}
+
+\plitemsep 0.02in
+\bci 
+\item<2-> A rv $X$ is called \redf{exponential with $\lambda$,} if
+\aleq{
+\fx = 
+ \begin{cases}
+ \lambda \elambdax, & x \ge 0 \cr
+ 0, & x <0
+ \end{cases}
+&\quad \text{or} \quad
+\Fx = 1- \elambdax
+}
+\item<3-> Models a waiting time
+\item<4-> CCDF $\cprob{X \ge x} = \elambdax$ (waiting time decays exponentially)
+\item<5-> $\expect{X} = 1/\lambda$, $\expect{X^2} = 2/\lambda^2$, $\var{X} = 1/\lambda^2$
+\item<6-> \redf{(Q)} What is the discrete rv which models a waiting time?  
+\eci 
+
+\vspace{-0.5cm}
+\raggedleft
+\onslide<2->{\includegraphics[width=0.5\textwidth]{L4_exp_pdf.png}}
+%\mypic{0.9}{L4_exp_pdf.png}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modeling Waiting Time? A Discrete Twin (1)}
+
+\plitemsep 0.05in
+\bci 
+\item<2-> A discrete twin for modeling waiting times is \redf{geometric} rvs. 
+
+\item<3-> Models a system evolution over time: Continuous time vs. Discrete time. In many cases, continuous case is the some type of \redblank{4}{limit} of its corresponding discrete case.  
+
+\item<4-> Can you make mathematical description, where geometric and exponential rvs meet each other in the limit? 
+
+\item<5-> \redf{Key idea.}
+\bci
+\item Continuous system: Discrete system with \redblank{6}{infinitely many slots whose duration is infinitely small.} 
+
+\eci
+
+\item<7-> limiting system: $X_{exp}(\lambda)$ with CDF $F_{exp}(\cdot)$
+
+\item<8-> $n$-th system: $X^n_{geo}(p_n)$  with CDF $F^n_{geo}(\cdot)$
+
+\eci 
+% \raggedleft
+% \includegraphics[width=0.5\textwidth]{L4_exp_pdf.png}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modeling Waiting Time? A Discrete Twin (2)}
+
+\myvartwocols{0.7}{0.65}{0.33}
+{
+For a given $x>0,$
+
+\plitemsep 0.05in
+\bci 
+\item<2-> Define $\delta = \frac{x}{n}$ (a slot length in the $n$-th system)
+
+\item<3-> Remember
+\aleq{
+F_{exp}(x) &= 1- \elambdax \cr
+F^n_{geo}(n) &= 1- (1-p_n)^n
+}
+\item<4-> Choose $p_n = 1-e^{-\lambda \delta} = 1-e^{-\lambda \frac{x}{n}}.$
+
+\item<5-> As $n \rightarrow \infty,$ the slot length $\delta \rightarrow 0$ thus $p_n \rightarrow 0$ 
+
+\item<5-> The CDF values of exponential and $n$-th geometric rvs become equal whenever $x =\delta, 2\delta, 3\delta, \ldots,$ i.e., 
+\aleq{
+F_{exp}(n\delta) = F^n_{geo}(n), \quad n=1, 2, \ldots
+}
+
+\eci
+}
+{
+% \raggedleft
+\includegraphics[width=0.95\textwidth]{L4_exp_geo.png}
+\small
+\bci
+\item<6-> As $n$ grows, the number of slots grows, but the success probability over one slot decreases, so that everything is balanced up. 
+\item<7-> As $n$ grows, $F^n_{geo}(n)$ approaches $F_{exp}(n\delta).$
+\eci
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Normal (also called Gaussian) Random Variable}
+
+Why important?
+
+\plitemsep 0.4in
+\bci 
+\item Central limit theorem (중심극한정리)
+
+- One of the most remarkable findings in the probability theory
+
+\item Convenient analytical properties
+
+\item Modeling aggregate noise with many small, independent noise terms
+
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Normal: PDF, Expectation, Variance}
+
+\mytwocols{0.4}
+{
+\plitemsep 0.1in
+\bci 
+\item<1-> Standard Normal $N(0,1)$
+\aleq{
+\fx & = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}
+}
+\item<1-> $\expect{X} = 0$
+
+\item<1-> $\var{X} = 1$
+\eci
+}
+{
+\plitemsep 0.1in
+\bci 
+\item<2-> General Normal $N(\mu, \sigma^2)$
+\aleq{
+\fx & = \frac{1}{\sigma\sqrt{2\pi}} e^{-(x-\mu)^2/2\sigma^2}
+}
+
+\item<2-> $\expect{X} = \mu$
+
+\item<2-> $\var{X} = \sigma^2$
+
+\eci
+}
+
+\medskip
+
+\onslide<3->{
+Need to check:
+
+- a legitimate PDF or not
+
+- expectation/variance
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Normal: Useful Property}
+
+\plitemsep 0.1in
+\bci 
+\item<2-> Linear transformation preserves normality
+
+\myblock{Linear transformation of Normal}
+{
+If $X \sim  Norm(\mu, \sigma^2) $, then for $a \neq 0$ and $b$ $Y = aX +b \sim Norm(a\mu +b,a^2 \sigma^2).$ 
+}
+
+\item<3-> Thus, every normal rv can be \redblank{4}{standardized}: 
+
+If $X \sim  Norm(\mu, \sigma^2)$, then 
+\redblank{4}{$Y = \frac{X-\mu}{\sigma}$} $\sim Norm(0,1)$
+
+\item<5-> Thus, we can make the \redf{table} which records the following CDF values:
+\aleq{
+\Phi(y) = \cprob{Y \le y} = \cprob{Y < y} = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^y e^{-t^2/2} dt
+}
+
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example}
+
+\medskip
+
+\mytwocols{0.7}
+{
+\plitemsep 0.1in
+\bci 
+\item<1-> Annual snowfall $X$ is modeled as $Norm(60,20^2).$ What is the probability that this year's snowfall is at least 80 inches?
+
+\item<2-> $Y = \frac{X-60}{20}.$
+\onslide<3->{
+\aleq{
+\cprob{X \ge 80} &= \cprob{Y \ge \frac{80-60}{20}} \cr
+&= \cprob{Y \ge 1} = 1 - 
+\Phi(1) \cr
+&= 1- 0.8413 = 0.1587
+}
+}
+\eci
+}
+{
+\includegraphics[width=0.8\textwidth]{L4_normal_table.png}
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.05in
+
+\bci [$\circ$]
+\item \bluef{Famous discrete random variables used in the community
+
+- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. }
+
+\item \bluef{Summarizing a random variable: Expectation and Variance}
+
+\item \magenf{Functions of a single random variable}, \magenf{Functions of multiple random variables} 
+
+\item \magenf{Conditioning for random variables}, \magenf{Independence for random variables} 
+
+\item \redf{Continuous random variables}
+
+- Normal, Uniform, Exponential, etc. 
+
+\item Bayes' rule for random variables
+
+\eci 
+
+\medskip
+
+** Continuous counterparts are intuitively understandable. So, we will be quick at reviewing them.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Continuous: Joint PDF and CDF (1)}
+
+\myblock{Jointly Continuous }
+{
+Two continuous rvs are \redblank{2}{jointly continuous} if a non-negative function $\fxy$ (called joint PDF) satisfies: for \redblk{every} subset $B$ of the two dimensional plane,
+\aleq{
+\cprob{(X,Y) \in B} = \iint_{(x,y) \in B} \fxy dx dy
+}
+\vspace{-0.3cm}
+}
+
+\plitemsep 0.1in
+\bce 
+\item<3-> The joint PDF is used to calculate probabilities  
+$$\cprob{(X,Y) \in B} = \iint_{(x,y) \in B} \fxy dx dy$$
+
+Our particular interest: $B = \{(x,y) \mid a \le x \le b, c \le y \le d \}$
+\ece
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Continuous: Joint PDF and CDF (2)}
+
+\plitemsep 0.1in
+\bce
+\item<2->[2.] The marginal PDFs of $X$ and $Y$ are from the joint PDF as: 
+$$
+\fx = \int_{-\infty}^\infty \fxy dy, \quad \fy = \int_{-\infty}^\infty \fxy dx
+$$
+
+\item<3->[3.] The joint CDF is defined by $\Fxy = \cprob{X \le x, Y \le y},$ and determines the joint PDF as:
+$$
+\fxy = \frac{\partial^2 F_{x,y}}{\partial x \partial y} (x,y)
+$$
+
+\item<4->[4.] A function $g(X,Y)$ of $X$ and $Y$ defines a new random variable, and
+$$
+\expect{g(X,Y)} = \int_{-\infty}^\infty \int_{-\infty}^\infty g(x,y) \fxy dx dy
+$$
+\ece
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Continuous:  Conditional PDF given an event}
+
+\mytwocols{0.7}
+{
+* Conditional PDF, given an event 
+
+\medskip
+
+\plitemsep 0.15in
+\bci 
+\item<2-> $\fx \cdot \delta \approx \cprob{x \le X \le x+\delta}$
+$\fxA \cdot \delta \approx \cprob{x \le X \le x+\delta | A}$
+
+\item<3-> $\cprob{X \in B} = \int_B \fx dx$
+$\cprob{X \in B | A} = \int_B \fxA dx$
+
+\medskip
+\redf{Note:} $A$ is an event, but $B$ is a subset that includes the possible values which can be taken by the rv $X.$
+
+\item<4-> $\int \fxA = 1$
+\eci
+}
+{
+* Conditional PDF, given $X \in B$
+
+\medskip
+
+\onslide<5->{
+\aleq{
+\cprob{x \le X \le x+ \delta | X \in B} \approx f_{X|X \in B}(x) \cdot \delta
+}
+\aleq{
+f_{X|X \in B}(x) = 
+\begin{cases}
+0, & \text{if} \quad x \notin B \cr
+\frac{\fx}{\cprob{B}}, &\text{if} \quad x \in B
+\end{cases}
+}}
+
+\onslide<6->{\redf{(Q)} In the discrete, we consider the event $\{X = x\}$, not $\{X \in B\}.$ Why?}
+
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Continuous:  Conditional Expectation}
+
+\mytwocols{0.8}
+{
+\plitemsep 0.15in
+
+\onslide<1->{$A = \{\frac{a+b}{2} \le X \le b \}$}
+
+%\smallskip
+
+\centering
+\onslide<1->{\mypic{0.65}{L4_cond_ex1.png}}
+\only<1>{\mypic{0.65}{L4_cond_ex2.png}}
+\only<2->{\mypic{0.65}{L4_cond_ex3.png}}
+
+}
+{
+\bci 
+\item<3-> $\expect{X} = \int x\fx dx$
+$\expect{X | A} = \int x\fxA dx$
+
+\item<4-> $\expect{g(X)} = \int g(x)\fx dx$
+$\expect{g(X) | A} = \int g(x)\fxA dx$
+\eci
+
+\onslide<5->{
+\aleq{
+\expect{X|A} = \onslide<6->{\int_{(a+b)/2}^b x \frac{2}{b-a} dx = \frac{a}{4} + \frac{3b}{4}}
+}
+}
+\onslide<5->{
+\aleq{
+\expect{X^2|A} = \onslide<6->{\int_{(a+b)/2}^b x^2 \frac{2}{b-a} dx =} 
+}}
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exponential RV: Memoryless}
+
+\plitemsep 0.1in
+\bci 
+\item<1-> Exponential rv is a continous counterpart of geometric rv.
+\item<2-> Thus, expected to be memeoryless.
+
+\onslide<3->{
+\bigskip
+\bluef{Definition.} A random variable $X$ is called \redblk{memoryless} if, for any $n,m \ge 0,$ $$\cprob{X > n+m | X > m} = \cprob{X > n}$$
+}
+
+\item<4-> \redf{Proof.} Note that $\cprob{X > x} = \elambdax.$ 
+\onslide<5->{
+Then, 
+\aleq{
+\cprob{X > n+m | X > m} = \frac{\cprob{X > n+m}}{\cprob{X > m}} = \frac{e^{-\lambda(n+m)}}{e^{-\lambda m}} = e^{-\lambda n} = \cprob{X > n}
+}
+}
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Total Probability/Expectation Theorem}
+
+Partition of $\Omega$ into $A_1,A_2,A_3, \ldots$
+
+\medskip
+
+\mytwocols{0.7}
+{
+\small
+* Discrete case
+\medskip
+
+\begin{block}<2->{Total Probability Theorem}
+\aleq{
+ \px &= \sum_{i} \cprob{A_i} \cprob{X=x | A_i} \cr
+ &= \sum_{i} \cprob{A_i} p_{X|A_i}(x) 
+}
+ \end{block}
+
+\begin{block}<2->{Total Expectation Theorem}
+\aleq{
+ \expect{X} = \sum_{i} \cprob{A_i} \expect{X | A_i}
+}
+\end{block}
+}
+{
+\small
+* Continuous case
+\medskip
+
+\begin{block}<3->{Total Probability Theorem}
+\aleq{
+ \redf{\fx} = \sum_{i} \cprob{A_i} \redf{f_{X|A_i}(x)}  
+}
+ \end{block}
+
+\begin{block}<4->{Total Expectation Theorem}
+\aleq{
+ \expect{X} = \sum_{i} \cprob{A_i} \expect{X | A_i}
+}
+\end{block}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example }
+
+\mytwocols{0.8}
+{
+
+\bigskip
+
+
+\plitemsep 0.1in
+\bci 
+\item<1-> Your train's arrival every quarter hour (0, 15min, 30min, 45min). 
+
+\item<1-> Your arrival $\sim$ uniform(7:10, 7:30) am. 
+
+\item<2-> What is the PDF of waiting time for the first train?
+
+\item<3-> $X:$ your arrival time, $Y:$ waiting time.
+
+\item<4-> The value of $X$ makes a different waiting time. So, consider two events:
+
+\medskip
+$A = \{\text{7:10} \leq X \leq \text{7:15} \}$
+
+\medskip
+$B = \{\text{7:15} \leq X \leq \text{7:30} \}$
+
+%\item Then, using the total probability theorem, 
+\eci
+}
+{
+\small
+\mypic{0.85}{L4_total_prob_ex.png}
+\aleq{
+\onslide<5->{&\fy  = \cprob{A} \fyA + \cprob{B} f_{Y|B}(y)} \cr
+&\onslide<6->{\fy = {1 \over 4} {1 \over 5} +{3 \over 4} {1 \over 15} = {1 \over 10},} \quad \onslide<5->{\text{for } 0 \le y \le 5} \cr 
+&\onslide<7->{\fy = {1 \over 4} 0 +{3 \over 4} {1 \over 15} = {1 \over 20},} \quad \onslide<5->{\text{for } 5 < y \le 15}
+}
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Continuous:  Conditional PDF given a RV}
+
+\mytwocols{0.8}
+{
+\medskip
+\small
+\plitemsep 0.1in
+\bci 
+
+\item $\pxcy = \frac{\pxy}{\py}$
+
+\item<2-> Similarly, for $\fy >0,$
+$$
+\fxcy = \frac{\fxy}{\fy}
+$$
+
+\item<3-> Remember: For a fixed event $A,$ $\cprob{\cdot | A}$ is a legitimate probability law.
+
+\item<4-> Similarly, For a fixed $y,$ $\fxcy$ is a legitimate PDF, since
+$$
+\int_{-\infty}^\infty \fxcy \redf{dx} = \frac{\int_{-\infty}^\infty \fxy dx}{\fy} = 1
+$$
+\eci
+}
+{
+\medskip
+\small
+\plitemsep 0.01in
+\bci 
+
+\item<5-> \redf{Multiplication rule.}
+\aleq{
+\fxy &= \fy \cdot \fxcy \cr
+&= \fx \fycx
+}
+
+\item<6-> \redf{Total prob./exp. theorem.}
+\aleq{
+\fx &= \int_{-\infty}^\infty \fy \fxcy dy \cr
+\expect{X | Y=y} &= \int_{-\infty}^\infty x \fxcy dx \cr
+\expect{X} &= \int_{-\infty}^\infty \fy \expect{X | Y=y} dy
+}
+
+\item<7-> \redf{Independence.}
+$$
+\fxy = \fx \fy, \quad \text{for all $x$ and $y$}
+$$
+\eci
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Stick-breaking (Ch 3. Prob 21)}
+
+\mytwocols{0.7}
+{
+%\medskip
+%\small
+\plitemsep 0.1in
+\bci 
+
+\item<1-> Break a stick of length $l$ twice
+
+- first break at $X \sim uniform[0.l]$
+
+- second break at $Y \sim uniform[0,X]$
+
+\item<2-> \redf{(Q)} What is $\expect{Y}$? 
+
+\item<3-> Since $Y$ depends on $X,$ the total expectation theorem seems useful.
+$$
+\expect{Y} = \int_{-\infty}^\infty \fx \expect{Y| X=x} dx
+$$
+
+\eci
+}
+{
+%\medskip
+%\small
+\plitemsep 0.1in
+\bci 
+
+\item<4-> Using the TET, 
+\aleq{
+\expect{Y} &= \int_{0}^l \frac{1}{l} \expect{Y| X=x} dx\cr
+&= \int_{0}^l \frac{1}{l} \frac{x}{2} dx = \frac{l}{4}
+}
+
+\item<5-> $\fx$ and $\fycx$ seems easy to compute. Thus, 
+\aleq{
+\fxy &= \fx \fycx = {1 \over l} \cdot {1 \over x}
+}
+You can do many other things with the joint PDF. 
+\eci
+}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.05in
+
+\bci [$\circ$]
+\item \bluef{Famous discrete random variables used in the community
+
+- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. }
+
+\item \bluef{Summarizing a random variable: Expectation and Variance}
+
+\item \bluef{Functions of a single random variable}, \bluef{Functions of multiple random variables} 
+
+\item \bluef{Conditioning for random variables}, \bluef{Independence for random variables} 
+
+\item \bluef{Continuous random variables
+
+- Normal, Uniform, Exponential, etc. }
+
+\item \redf{Bayes' rule for random variables}
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bayes Rule for Continuous}
+
+\plitemsep 0.1in
+\bci 
+
+\item<1-> $X$: state/cause/original value $\rightarrow$ $Y$: result/resulting action/noisy measurement
+
+\item<1-> Model: $\cprob{X}$ (prior) and $\cprob{Y | X}$ (cause $\rightarrow$ result)
+
+\item<1-> Inference: $\cprob{X | Y}$?
+
+ \bigskip
+ \mytwocols{0.4}
+ {
+\onslide<2->{
+\aleq{
+\pxy & = \px \pycx \cr
+     & = \py \pxcy \cr
+\redf{\pxcy} & = \frac{\px \pycx}{\py}\cr
+\py &= \sum_{x'} p_X(x')p_{Y|X}(y|x')
+}
+ }}
+{
+
+\aleq{
+\onslide<2->{
+\fxy & = \fx \fycx \cr
+     & = \fy \fxcy \cr
+\redf{\fxcy} & = \frac{\fx \fycx}{\fy}\cr
+\fy &= \int f_X(x')f_{Y|X}(y|x') dx'
+}
+}
+}
+
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bayes Rule for Mixed Case}
+
+\onslide<1->{$K$: discrete, $Y$: continuous}
+
+\bigskip
+
+\plitemsep 0.1in
+\mytwocols{0.5}
+{
+\bci 
+
+\item<2-> Inference of $K$ given $Y$
+\aleq{
+\onslide<3->{
+\redf{p_{K|Y}(k|y)} &= \frac{\redf{p_{K}(k)} \bluef{f_{Y|K}(y|k)}}{\bluef{\fy}}\cr
+\bluef{\fy} &= \sum_{k'} \redf{p_{K}(k')} \bluef{f_{Y|K}(y|k')}
+}}
+\eci
+}
+{
+\bci 
+
+\item<2-> Inference of $Y$ given $K$
+\aleq{
+\onslide<4->{
+\bluef{f_{Y|K}(y|k)} &= \frac{\bluef{\fy} \redf{p_{K|Y}(k|y)}}{\redf{p_{K}(k)}} \cr
+\redf{p_{K}(k)} &= \int \bluef{f_{Y}(y')} \redf{p_{K|Y}(k|y')} dy'
+}}
+\eci 
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Signal Detection (1)}
+
+
+Inference of discrete $K$ given continuous $Y$: 
+\aleq{
+\redf{p_{K|Y}(k|y)} = \frac{\redf{p_{K}(k)} \bluef{f_{Y|K}(y|k)}}{\bluef{\fy}}, \quad \bluef{\fy} &= \sum_{k'} \redf{p_{K}(k')} \bluef{f_{Y|K}(y|k')}
+}
+
+\plitemsep 0.01in
+\bci
+
+\item<2-> $K$: -1, +1, original signal, equally likely. $p_{K}(1) = 1/2, p_{K}(-1) = 1/2.$
+\item<3-> $Y$: measured signal with Gaussian noise, $Y= K+W,$ $W \sim N(0,1)$
+
+\medskip
+\item<4-> Your received signal = 0.7. What's your guess about the original signal? \onslide<6->{\redf{+1}}
+\item<5-> Your received signal = -0.2. What's your guess about the original signal? \onslide<6->{\redf{-1}}
+
+\eci 
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Signal Detection (2)}
+
+\plitemsep 0.01in
+\bci 
+
+\item<1-> $Y|K=1 \sim N(1,1)$ and $Y|K=-1 \sim N(-1,1).$ 
+\aleq{
+\onslide<2->{f_{Y|K}(y|k) &= \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y-k)^2}, \quad k=1, -1} \cr
+\onslide<3->{\fy &= \frac{1}{2} \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y+1)^2} + 
+\frac{1}{2} \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y-1)^2}}
+}
+
+\item<4-> Probability that $K=1$, given $Y=y$? After some algebra, 
+
+\mytwocols{0.3}
+{
+$$
+p_{K|Y}(1|y) = \frac{1}{1+ e^{-2y}}
+$$
+}
+{
+\centering
+\onslide<5->{\mypic{0.8}{L4_sig_detection.png}}
+}
+
+\eci 
+
+\end{frame}
+
+\begin{frame}{}
+\vspace{2cm}
+\LARGE Questions?
+
+\end{frame}
+
+\begin{frame}{Review Questions}
+
+\bce[1)]
+\item What is PDF  and CDF? 
+
+\item Why do we need CDF? 
+
+\item What are joint/marginal/conditional PDFs?
+
+\item Explain memorylessness of exponential random variables.
+
+\item Explain the version of Bayes' rule for continuous and mixed random variables.
+
+\ece
+
+\end{frame}
+
+\end{document}

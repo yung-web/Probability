@@ -1,0 +1,1079 @@
+\pdfminorversion=4
+\documentclass[fleqn,aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
+
+\mode<presentation>
+{
+  \usetheme{default}
+  \usecolortheme{default}
+  \usefonttheme{default}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+  \setbeamertemplate{footline}[frame number]  % or "page number"
+  \setbeamercolor{frametitle}{fg=white}
+  \setbeamercolor{footline}{fg=black}
+} 
+
+\usepackage[english]{babel}
+%\usepackage[utf8x]{inputenc}
+\usepackage{tikz}
+\usepackage{courier}
+\usepackage{array}
+\usepackage{bold-extra}
+\usepackage{minted}
+\usepackage[thicklines]{cancel}
+\usepackage{fancyvrb}
+\usepackage{kotex}
+\usepackage{paralist}
+\usepackage{collectbox}
+\usepackage{booktabs}
+\usepackage{nccmath}
+%\usepackage[fleqn]{amsmath}
+
+
+
+\setbeamercolor{block body alerted}{bg=alerted text.fg!10}
+\setbeamercolor{block title alerted}{bg=alerted text.fg!20}
+\setbeamercolor{block body}{bg=structure!10}
+\setbeamercolor{block title}{bg=structure!20}
+\setbeamercolor{block body example}{bg=green!10}
+\setbeamercolor{block title example}{bg=green!20}
+\setbeamertemplate{blocks}[rounded][shadow]
+
+\xdefinecolor{dianablue}{rgb}{0.18,0.24,0.31}
+\xdefinecolor{darkblue}{rgb}{0.1,0.1,0.7}
+\xdefinecolor{darkgreen}{rgb}{0,0.5,0}
+\xdefinecolor{darkgrey}{rgb}{0.35,0.35,0.35}
+\xdefinecolor{darkorange}{rgb}{0.8,0.5,0}
+\xdefinecolor{darkred}{rgb}{0.7,0,0}
+\definecolor{darkgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\newcommand{\progressbar}{
+\pgfmathsetmacro{\theta}{360/\inserttotalframenumber*\inserttotalframenumber}
+\begin{tikzpicture}[scale=0.035]
+\fill[yellow] (0,0) circle (9);
+\fill[red] (0,0) -- (9,0) arc (0:-\theta:9);
+\fill[white] (0,0) circle (5);
+\end{tikzpicture}
+}
+
+%\setbeamertemplate{footline}{\hfill \progressbar}
+
+\title[]{Lecture 8: Random Processes, Part I}
+\author{Yi, Yung (이융)}
+\institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
+\date{MONTH DAY, 2021}
+
+\usetikzlibrary{shapes.callouts}
+
+\input{../mymath}
+
+
+\begin{document}
+
+\input{../mydefault}
+
+\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
+}}}}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
+}}}}
+
+% % Uncomment these lines for an automatically generated outline.
+% \begin{frame}{Outline}
+% % \tableofcontents
+% \plitemsep 0.1in
+% \bci
+% \item 
+
+% \item 
+% \eci
+% \end{frame}
+
+% START START START START START START START START START START START START START
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci 
+\item A lot of applications in engineering systems
+
+
+\bigskip
+
+\item Basics on Random Process
+
+\medskip
+\item Bernoulli Process
+\item Poisson Process
+\item Use of Bernoulli and Poisson Processes
+
+- Coding of both processes
+
+- Merge and Split
+
+\medskip
+\item Markov Chain
+
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci 
+\item A lot of applications in engineering systems
+
+
+\bigskip
+
+\item \redf{Basics on Random Process}
+
+\medskip
+\item Bernoulli Process
+\item Poisson Process
+\item Use of Bernoulli and Poisson Processes
+
+- Coding of both processes
+
+- Merge and Split
+
+\medskip
+\item Markov Chain
+
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Things that evolve in time}
+
+
+\mytwocols{0.75}
+{
+\plitemsep 0.1in
+\bci 
+\item<1-> Many probabilistic experiments that \redf{evolve in time}
+\bci
+\item<2-> Sequence of daily prices of a stock
+\item<2-> Sequence of scores in football
+\item<2-> Sequence of failure times of a machine
+\item<2-> Sequence of traffic loads in Internet
+\eci
+
+\item Random process is a mathematical model for it.
+
+%\item Each numerical value in the sequence is a random variable. 
+
+
+\eci 
+}
+{
+\centering
+\mypic{0.8}{L8_bitcoin.png}
+\mypic{0.8}{L8_nettraffic.png}
+}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Random Process: A Sneak Peek}
+
+\plitemsep 0.1in
+\bci 
+
+\item<2-> A random process is a \redf{sequence} of random variables indexed by \redf{time.}
+
+\item<3-> Time: discrete or continuous
+
+\item<4-> Notation
+
+- $(X_t)_{t \in \set{T}}$ or $\Bl(X(t)\Bl)_{t \in \set{T}},$ where $\set{T} = \real$ (continuous) or $\set{T} = \{ 0, 1, 2, \ldots \}$ (discrete)
+
+\onslide<5->{- For the discrete case, we also often use $(X_n)_{n \in \integer_+}.$} 
+
+\onslide<6->{- We will use all of them, unless confusion arises. }
+
+\item<7-> For a fixed time $t$, $X_t$ is a random variable.
+
+\item<8-> The values that $X_t$ can take: discrete or continuous
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{4 Types of Random Processes}
+
+- Types of time and value
+
+\bigskip
+\mytwocols{0.5}
+{
+\bigskip
+\small
+\plitemsep 0.1in
+\bce[(a)] 
+\item continuous time, continuous value
+\item continuous time, discrete value
+\item discrete time, continuous value
+\item discrete time, discrete value
+\ece
+
+}
+{
+\centering
+\mypic{0.95}{L8_RP_types.jpg}
+
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci 
+\item A lot of applications in engineering systems
+
+
+\bigskip
+
+\item \bluef{Basics on Random Process}
+
+\medskip
+\item \redf{Bernoulli Process}
+\item Poisson Process
+\item Use of Bernoulli and Poisson Processes
+
+- Coding of both processes
+
+- Merge and Split
+
+\medskip
+\item Markov Chain
+
+\eci 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bernoulli Process}
+
+\plitemsep 0.1in
+\bci
+
+\item<1-> At each minute, we toss a coin with probability of head $0<p<1.$
+
+\bci
+\item<2-> Sequence of lottery wins/looses
+\item<2-> Customers (each second) to a bank
+\item<2-> Clicks (at each time slot) to server
+\eci
+
+
+\item<3-> A sequence of \redf{independent Bernoulli trials} $X_1, X_2, \ldots, $
+
+- We call index 1, 2, \ldots \redf{time slots} (or simply slots)
+
+\mypic{0.5}{L8_bernoulli_ex.png}
+
+\item<4-> Discrete time, discrete value
+
+\item<5-> One of the simplest random processes
+
+\item<5-> A type of ``arrival" process
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bernoulli Process as a Random Process}
+
+\plitemsep 0.1in
+\bci
+
+\item<1-> \redf{Question.} We've already studied a sequence of Bernoulli rvs $X_1, X_2, \ldots, X_n.$ What's the difference?
+
+\item<2-> \bluef{Physical difference:} \redf{infinite} sequence of $X_1, X_2, \ldots, .$
+\bci
+\item<3-> Sample space? set of all outcomes?
+\item<4-> an outcome: an infinite sequence of sample values $x_1, x_2, \ldots,$ e.g., (0,1,1,0,0,1, \ldots)
+\eci
+
+\item<5-> \bluef{Semantic difference:} Understand $i$ in $X_i$ as time. Also, interesting questions from the random process point of view. 
+\bci
+\item<6-> Dependence: How $X_1, X_2, \ldots$ are related to each other as a time series
+\item<7-> Long-term behavior: What is the fraction of times that a machine is idle?
+\item<8-> Other interesting questions, depending on the target random process
+\eci
+
+\item<9-> Next: Key questions and answers about Bernoulli process
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Number of arrivals and Time until the first arrival}
+
+\mytwocols{0.6}
+{
+\plitemsep 0.1in
+
+\onslide<1->{\redf{(Q1)} \# of arrivals in $n$ slots?}
+\bci
+\item<2-> $S_n = X_1 + X_2 +\cdots + X_n$
+
+\item<3-> $S_n \sim Bin(n,p)$
+
+\item<4-> $\cexpect{S_n} = np$, $\cvar{S_n} = np(1-p)$
+\eci
+
+\bigskip
+\onslide<5->{\redf{(Q2)} \# of slots $T_1$ until the first arrival?}
+\bci
+\item<6-> $T_1 \sim Geom(p)$
+\item<7-> $\cexpect{T_1} = 1/p,$ $\cvar{T_1} = \frac{1-p}{p^2}$
+\eci
+}
+{
+\plitemsep 0.1in
+\bci
+\item<8-> $T_1$ is geometric? \bluef{Memoryless}
+
+\item<9-> Conditioned no first arrival at some time, what's the distribution of the remaining time until the first arrival? 
+
+\item<9-> Still, geometric.
+
+\item<10-> But, more than that, as we will see. Independence across time slots leads to many useful properties, allowing the quick solution of many problems. 
+
+\eci
+
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Memoryless and Fresh-start after Deterministic $n$}
+
+\plitemsep 0.1in
+
+\onslide<1->{\redf{(Q3)} $U=X_1 + X_2 \indep V=X_5+X_6$?}
+\bci
+\item<2-> Yes
+
+\item<2-> Because $X_i$s are independent
+
+\eci
+
+\bigskip
+\onslide<3->{\redf{(Q4)} The process $(X_n)_{n=6}^\infty$?}
+\bci
+\item<4-> $(X_1, \ldots, X_5) \indep$  $(X_n)_{n=6}^\infty$
+\item<5-> \redf{Fresh-start} after a deterministic time $n$
+\item<6-> If you watch the on-going Bernoulli process$(p)$ from some time $n,$ you still see the same Bernoulli process$(p).$
+\eci
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Fresh-start after Random $N$ (1)}
+
+\onslide<1->{\redf{(Q5)} The process $(X_{N},X_{N+1}, X_{N+2}, \ldots)$? Fresh-start even after \bluef{random} $N$?}
+ 
+\plitemsep 0.1in
+\bci
+\item<2-> Examples of $N$
+\mytwocols{0.27}
+{
+\small
+\bce[\bf E1.]
+\item<3-> Time of 3rd arrival
+\item<4-> First time when 3 consecutive arrivals have been observed
+\item<5-> Time just before 3 consecutive arrivals
+\ece
+}
+{
+\vspace{-1cm}
+\centering
+\mypic{0.8}{L8_randomtime.png}
+}
+
+\item<6-> Difference of $N$ from $n$
+
+- The time when I watch the on-going Bernoulli process is \redf{random.} 
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Fresh-start after Random $N$ (2)}
+
+
+\redf{(Q5)} The process $(X_{N},X_{N+1}, X_{N+2}, \ldots)$? Fresh-start even after random $N$?
+ 
+\plitemsep 0.05in
+\bci
+\item Examples of $N$
+\mytwocols{0.27}
+{
+\small
+\bce[\bf E1.]
+\item Time of 3rd arrival
+\item First time when 3 consecutive arrivals have been observed
+\item Time just before 3 consecutive arrivals
+\ece
+}
+{
+\vspace{-1cm}
+\centering
+\mypic{0.7}{L8_randomtime.png}
+}
+
+\item<2->[\bf E1.] When I watch the process, $N$ has been already determined. \redf{Yes}
+\item<3->[\bf E2.] Same as {\bf E1.} \redf{Yes}
+\item<4->[\bf E3.] Need the future knowledge. `111' does not become random.  \redf{No}
+
+\medskip
+\item<5-> The question of $N=n$? can be answered just from the knowledge about $X_1, X_2, \ldots, X_n$? Then, Yes! (see pp. 301 for more formal description)
+
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Distribution of Busy Periods}
+
+\plitemsep 0.05in
+\bci
+\item Regard an arrival as business of a server
+
+\item<2-> First busy period $B_1$: starts with the first busy slot and ends just before the first subsequent idle slot
+
+\onslide<2->{
+\begin{center}
+\mypic{0.4}{L8_busy_idle.png}
+\end{center}
+}
+
+\item<3-> \redf{(Q6)} Distribution of $B_1$?
+
+
+\item<4-> $N$: time of the first busy slot. Fresh-start after $N.$
+
+\item<5-> $B_1$ is geometric with parameter $(1-p)$
+
+\item<6-> Question: What about the second busy period $B_2$? $B_3, B_4$?
+
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Time of $k$-th arrival}
+
+\plitemsep 0.1in
+\bci
+\item Time of the first arrival $Y_1 \sim geom(p)$
+
+\item<2->[] \redf{(Q7)} Time of the $k$-th arrival $Y_k$?
+
+\medskip
+\myvartwocols{0.25}{0.6}{0.37}
+{
+\bigskip
+\small
+\onslide<3->{- $T_k = Y_k - Y_{k-1}$: $k$-th inter-arrival ($k\ge 2,$ $T_1 = Y_1$)}
+
+\onslide<4->{- $Y_k = T_1 + T_2 + \ldots + T_k.$}
+}
+{
+\centering
+\onslide<3->{\mypic{0.8}{L8_interarrival.png}}
+}
+
+\item<5-> After each $T_k,$ the fresh-start occurs. 
+
+\item<6-> $\{T_i\}$ are i.i.d. and $\sim geom(p)$
+
+\item<7-> $\expect{Y_k} = \frac{k}{p},$ $\var{Y_k} = \frac{k(1-p)}{p^2}$
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{PMF of $Y_k$}
+
+\plitemsep 0.1in
+\bci
+\item<1-> $Y_k = T_1 + T_2 + \ldots + T_k.$
+
+\item<1-> $\{T_i\}$ are i.i.d. and $\sim geom(p)$
+\aleq{
+\onslide<2->{\cprob{Y_k = t} &= \cbprob{X_k = 1 \text{ and $k-1$ arrivals during the first $t-1$ slots} }}\cr
+\onslide<3->{&=\cbprob{X_k = 1} \cdot \cbprob{\text{$k-1$ arrivals during the first $t-1$ slots}}}\cr
+\onslide<4->{&= p \times {t-c \choose k-1} p^{k-1} (1-p)^{t-k} = {t-c \choose k-1} p^{k} (1-p)^{t-k}, \quad {t = k, k+1, \ldots}}
+}
+
+\item<5-> $Y_k$ is called \redf{Pascal rv} with parameter $(k,p).$
+
+\item<6-> $Pascal(1,p)$ = $Geometric(p)$
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci 
+\item A lot of applications in engineering systems
+
+
+\bigskip
+
+\item \bluef{Basics on Random Process}
+
+\medskip
+\item \bluef{Bernoulli Process}
+\item \redf{Poisson Process}
+\item Use of Bernoulli and Poisson Processes
+
+- Coding of both processes
+
+- Merge and Split
+
+\medskip
+\item Markov Chain
+
+\eci 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Design of Continuous Analog of Bernoulli Process}
+
+\plitemsep 0.15in
+\bci
+\item<1-> Very useful to both continuous and discrete random processes that are ``twins" and share the key properties.
+
+\bci
+\item<2-> Independence between what happens in a different time region
+
+\item<3-> Memoryless and fresh-start property
+\eci
+
+\item<4-> Choose one of discrete or continuous versions for our modeling convenience.
+
+\item<5-> \redf{Question.} How do we design the continuous analog of Bernoulli process?
+
+\onslide<6->{- Key idea: Making it as a \redblank{7}{limiting system} of a sequence of Bernoulli processes}
+
+\item<8-> Need a ``modeling sense" to make this possible. It's a good practice for engineers!
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Key Design Idea to Develop a Continuous Twin (1)}
+
+\plitemsep 0.1in
+\bci
+\item<1-> Continuous twin
+
+\bci
+\item<2-> Key point: Understand the number of arrivals over a given interval $[0,\tau].$
+
+\item<3-> Assume that it has some arrival rate $\lambda$ (\# of arrivals/unit time).
+
+\item<4-> We know how to handle Bernoulli process with discrete time slots. 
+\eci
+
+
+\item<5-> Divide $[0,\tau]$ into slots whose length $=\delta.$ Then, $n= \# \text{ of slots} = \frac{\tau}{\delta}.$ 
+\begin{center}
+\mypic{0.4}{L8_tau_delta.jpg}
+\end{center}
+
+\item<6-> What's the limit as $\delta \rightarrow 0$ (equivalently, $n \rightarrow \infty$)
+
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Key Design Idea to Develop a Continuous Twin (2)}
+
+\begin{center}
+\mypic{0.4}{L8_tau_delta.jpg}
+\end{center}
+\vspace{-0.8cm}
+\plitemsep 0.1in
+\bci
+\item<1-> Now, our design idea: during one time slot of length $\delta$, 
+\mytwocols{0.3}
+{
+\aleq{
+\onslide<2->{\cprob{\text{1 arrival}} &\propto \text{arrival rate and slot length}} \cr
+\onslide<3->{\cprob{\text{$\ge$2 arrivals}} & \propto \text{something, but very small }}\cr
+& \onslide<4->{\quad \text{   for small sloth length}\cr
+\cprob{\text{0 arrival}} &= 1- \cprob{\text{1 arrival or $\ge$2 arrivals} }} \cr
+}
+}
+{
+\aleq{
+\onslide<5->{\cprob{\text{1 arrival}} &= \lambda \delta}  \onslide<8->{+o(\delta)}\cr
+\onslide<6->{\cprob{\text{$\ge$2 arrivals}} &=} \onslide<6-7>{0} \onslide<8->{o(\delta)}\cr
+\onslide<7->{\cprob{\text{0 arrival}} &= 1-  \lambda \delta} \onslide<8->{+ o(\delta)} 
+}
+}
+\item<9-> $o(\delta)$: some function that goes to zero faster than $\delta$ goes to zero. 
+
+- Thus, for very small $\delta,$ $o(\delta)$ becomes negligible. 
+
+- Example: $o(\delta)= \delta^\alpha,$ where any $\alpha >1$
+
+
+
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Key Design Idea to Develop a Continuous Twin (3)}
+
+\begin{center}
+\mypic{0.4}{L8_tau_delta.jpg}
+\end{center}
+\vspace{-0.8cm}
+\plitemsep 0.1in
+\bci
+\item<1-> Our interest: Prob. of $k$ arrivals over $[0,\tau]$
+
+\item<2-> Given ``small" $\delta,$ \# of arrivals $\sim Binomial(n,p),$ where $n = \tau/\delta$ and $p =\lambda \delta$
+
+\item<3-> As $\delta \rightarrow \infty$, $np = \tau/\delta \times \lambda \delta = \lambda \tau.$
+
+\item<4-> \# of arrivals over $[0,\tau]$, $\sim Poisson(\lambda \tau)$
+
+\item<5-> This is a continuous twin process of Bernous process, which we call \redf{Poisson process.}
+
+\eci
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Poisson Process: Formalism}
+
+\plitemsep 0.1in
+\bci
+\item<2-> $N_s$: number of arrivals over the interval $[0,s].$
+
+\item<3-> \redf{(Independence)} If $s < t,$ the number $N_t - N_s$ of arrivals over $[s,t]$ is independent of the times of arrivals during $[0,s].$
+
+\onslide<4->{- Thus, $N_s$ can be a random variable over \bluef{any} interval of length $s.$}
+
+\item<5-> \redf{(Small interval probability)} The probabilities $\cprob{k,s}$ satisfy:
+\aleq{
+\cprob{0,s} &= 1-  \lambda \tau + o(s) \cr
+\cprob{1, s} &= \lambda s + o_1(s)\cr
+\cprob{k,s} &=  o_k(s)\quad \text{for $k=2, 3, \ldots$},
+}
+where 
+\aleq{
+\lim_{s \rightarrow 0} \frac{o(s)}{s} = 0, \quad \lim_{s \rightarrow 0} \frac{o_k(s)}{s} = 0
+}
+
+\eci
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Poisson Process: $\cprob{k,\tau},$ $N_\tau,$ and $T$}
+
+\plitemsep 0.1in
+\bci
+\item<2-> \redf{(Q1)} Number of arrivals of any interval with length $\tau$ $\sim Poisson(\lambda \tau),$ i.e., 
+\aleq{
+\cprob{k,\tau} = e^{-\lambda \tau}\frac{(\lambda \tau)^k}{k!}, \quad k=0,1,2, \ldots
+}
+
+\item<3-> $\expect{N_\tau} = \lambda \tau$ and $\var{N_\tau} = \lambda \tau$ 
+
+\item<4-> \redf{(Q2)} Time of first arrival $T$
+\aleq{
+\onslide<5->{F_T(t) &= \cprob{T \le t} = 1- \cprob{T >t} = 1- P(0,t) = 1- e^{-\lambda t}}\cr
+\onslide<6->{f_T(t) &= \frac{dF_T(t)}{dt} = \lambda e^{-\lambda t}, \quad t \ge 0.}
+}
+
+\item<7-> $T \sim expo(\lambda).$ Thus $\expect{T} = 1/\lambda$ and $\var{T} = 1/\lambda^2$ 
+
+- Continuous twin of geometric rv in Bernoulli process
+
+- Memoryless
+
+
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Poisson Process: Example}
+
+\plitemsep 0.15in
+\bci
+\item Receive emails according to a Poisson process at rate $\lambda =5$ messages per hour
+
+\item Mean and variance of mails received during a day
+
+\onslide<2->{- 5* 24 = 120}
+
+\item $\prob{\text{one new message in the next hour}}$
+
+\onslide<3->{- $\cprob{1,1} = \frac{(5\cdot 1)^1 e^{-5 \cdot 1}}{1 !} = 5 e^{-5}$}
+
+\item $\prob{\text{exactly two msgs during each of the next three hours}}$
+
+\onslide<4->{- $\lf (\frac{5^2 e^{-5}}{2!} \ri)^3$}
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Memoryless and Fresh-start Property}
+
+\plitemsep 0.1in
+\bci
+\item \redf{Remind.} Similar property for Bernoulli processes, but here no time slots. 
+
+\item<2-> \redf{Fresh-start at determinsitic time:} Start watching at time $t,$ then you see the Poisson process, independent of what has happened in the past. 
+
+\item<3-> \redf{Fresh-start at random time:} Similarly holds. For example, when you start watching at random time $T_1$ (time of first arrival)
+
+\item<4-> \redf{(Q3)} The $k$-th arrival time $Y_k$?
+
+\item<5-> $k$-th inter-arrival time $T_k = Y_k = Y_{k-1},$ $k\ge 2,$ and $T_1 = Y_1.$
+
+\item<6-> $Y_k = T_1 + T_2 + \cdots + T_k$ is sum of i.i.d. exponential rvs. 
+
+\item<7-> $\expect{Y_k} = k/\lambda$ and $\var{Y_k} = k/\lambda^2$
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{PDF of $Y_k$}
+
+\plitemsep 0.07in
+\bci
+\item<2-> For a given $\delta$, \redblank{3}{$\delta\cdot f_{Y_k}(y)$}: prob of $k$-th arrival over $[y,y+\delta].$
+
+\item<4-> When $\delta$ is small, only one arrival occurs. Thus, 
+ \aleq{
+ \delta\cdot f_{Y_k}(y) &= \onslide<5->{\cbprob{\text{an arrival over $[y,y+\delta]$}} \times \cbprob{\text{$k-1$ arrivals before $y$}}} \cr
+ &\onslide<6->{\approx \lambda \delta \times \cprob{k-1,y} = \lambda \delta \times \frac{\lambda^{k-1}y^{k-1}e^{-\lambda y}}{(k-1)!}}\cr
+  \onslide<7->{f_{Y_k}(y) &= \frac{\lambda^k y^{k-1}e^{-\lambda y}}{(k-1)!}, \quad y\ge 0.}
+}
+
+\item<8-> This is called \redf{Erlang} rv. 
+
+\bigskip
+\item<9-> Time of first arrival: geometric / exponential
+\item<9-> Time of $k$-th arrivals: Pascal / Erlang
+\eci
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Poisson Process vs. Bernoulli Process}
+
+- $n= \tau/\delta$, $p = \lambda \delta$, $np = \lambda \tau$
+
+\vspace{-0.8cm}
+\begin{center}
+\mypic{0.35}{L8_tau_delta.jpg}
+\end{center}
+\vspace{-0.8cm}
+\centering
+\mypic{0.65}{L8_poisson_bernoulli.png}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Poisson Fishing (Problem 10, page 329)}
+
+-  Catching fish: Poisson process $\lambda = 0.6$/hour.
+
+- Fish for 2 hours. Within 2 hours, if he catches at least one fish, then he stops at 2 hours. Otherwise, he fishes until one fish is caught.
+
+\medskip
+\mytwocols{0.55}
+{
+\small
+\plitemsep 0.05in
+\bce[\bf (Q1)]
+\item<2-> $\cprob{\text{fishing time $>$ 2 hours}}$ 
+
+\smallskip
+\onslide<3->{Method 1: $\cprob{0,2}$}
+
+\onslide<4->{Method 2: $\cprob{T_1 >2}$}
+
+\item<5->  $\cprob{\text{ 2 $<$ fishing time $<$ 5}}$ 
+
+\smallskip
+\onslide<6->{Method 1: $\cprob{0,2}(1-\cprob{0,3})$} 
+
+\onslide<7->{Method 2:$\cprob{2 < T_1 <5}$}
+
+\item<8-> $\cprob{\text{Catch at least two fish}}$
+
+\smallskip
+\onslide<9->{Method 1:$\sum_{k=2}^\infty = 1 - \cprob{0,2} - \cprob{1,2}$}
+
+\onslide<10->{Method 2: $\cprob{Y_k \le 2}$}
+
+\ece
+}
+{
+\small
+\plitemsep 0.05in
+\bce[\bf (Q4)]
+\item<11-> $\expect{\text{future fi. time}|\text{already fished for 3h}}$
+
+\onslide<12->{Fresh-start. So, $\expect{exp(\lambda)} = 1/\lambda = 1/0.6$}
+
+\item<13->[\bf (Q5)] $\expect{$F=$\text{total fishing time}}$
+\aleq{
+\onslide<14->{2 + \expect{F-2} &= 2+ \cprob{F=2}\cdot 0 + \cr
+& \cprob{F >2}\cdot \expect{F-2 | F >2}\cr
+&= 2 + \cprob{0,2}\cdot \frac{1}{\lambda}}
+}
+\item<15->[\bf (Q6)] $\expect{\text{number of fish}}$ = $\lambda \cdot 2 + \cprob{0,2}\cdot 1$
+\ece
+
+}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bci 
+\item A lot of applications in engineering systems
+
+
+\bigskip
+
+\item \bluef{Basics on Random Process}
+
+\medskip
+\item \bluef{Bernoulli Process}
+\item \bluef{Poisson Process}
+\item \redf{Use of Bernoulli and Poisson Processes
+
+- Coding of both processes
+
+- Merge and Split
+}
+
+\medskip
+\item Markov Chain
+
+\eci 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Coding: Bernoulli Process and Poisson Process}
+
+- Inter-arrival times facilitates coding of both processes
+
+\smallskip
+\centering
+\redblank{1}{\mypic{0.8}{L8_coding_bernoulli.png}}
+
+\smallskip
+\redblank{1}{\mypic{0.8}{L8_coding_poisson.png}}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Sum of Independent Poisson rvs}
+
+\plitemsep 0.1in
+
+\bci 
+
+\item $X \sim Poisson(\mu),$  $Y \sim Poisson(\nu),$  
+
+\item<2-> \redf{(Q1)} $X \indep Y$?
+
+\item<3-> \redf{(Q2)} Distribution of $X+Y$?
+
+- Complex convolution, but any other easy way?
+
+\item<4-> $X$ can be regarded as the number of arrivals of Poisson process with rate 1 over the time interval of length $\mu.$ 
+
+\item<5-> Consecutive intervals of length $\mu$ and $\nu$
+
+\item<6-> \redf{(Q1)} $X \indep Y$? \bluef{Yes}
+
+\item<7-> \redf{(Q2)} Distribution of $X+Y$? \bluef{$Poisson(\mu + \nu)$}
+
+\eci 
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Split and Merge: Bernoulli Process}
+
+\mytwocols{0.55}
+{
+\small
+\plitemsep 0.05in
+\bci
+\item Split $Bernoulli(p)$ into two processes with biased coin of head probability $q$
+
+\item<2-> Split decisions are independent of arrivals
+
+\item<3-> Split processes: also Bernoulli processes
+
+\item<3-> \redf{$Bernoulli(pq)$} and \redf{$Bernoulli(p(1-q))$}
+
+\eci
+
+\medskip
+\centering
+\mypic{0.9}{L8_split_bernoulli}
+
+}
+{
+\small
+\plitemsep 0.05in
+\bci
+\item Merge $Bernoulli(p)$ and $Bernoulli(q)$ into one.
+
+\item<4-> Collided arrival is regarded just one arrival in the merged process
+
+\item<5-> Merged process: \redf{$Bernoulli(1-(1-p)(1-q))$}
+\eci
+
+\centering
+\mypic{0.9}{L8_merge_bernoulli}
+
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Split and Merge: Poisson Process}
+
+\plitemsep 0.1in
+\bci
+\item Split Poisson process $(\lambda)$ into two processes
+
+\bci
+\item<2-> Split based on the coin tossing with probability of head $p$
+
+\item<3-> Poisson process $(p\lambda)$ and Poisson process $((1-p)\lambda)$
+\eci
+
+\item Merge from Poisson process $(\lambda_1)$ and Poisson process $(\lambda_2)$
+\bci
+\item<4-> Split based on the coin tossing with probability of head $p$
+
+\item<5-> Poisson process ($\lambda_1 + \lambda_2$)
+
+\item<6-> Bernoulli process of small interval $\delta$
+\aleq{
+\cprob{\text{0 arrivals in the merged process} } &\approx (1-\lambda_1 \delta)(1-\lambda_2 \delta) = 1-(\lambda_1 + \lambda_2)\delta + o(\delta)\cr
+\cprob{\text{1 arrivals in the merged process} } & \approx \lambda_1 \delta (1-\lambda_2 \delta) + \lambda_2 \delta (1-\lambda_1 \delta) = (\lambda_1 + \lambda_2) \delta + o(\delta)
+}
+\eci
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Competing Exponential}
+
+\mytwocols{0.7}
+{
+\small
+\plitemsep 0.1in
+\bci
+\item[1.] Two independent light bulbs have life times $T_a$ and $T_b$ of exponential distributions with $\lambda_a$ and $\lambda_b.$
+
+\item<2-> \redf{(Q)} Distribution of $Z = \min\{T_a, T_b \}$?
+
+\bigskip
+
+\item<3-> $T_a$ and $T_b$ are the first arrival times of two Poisson processes of $\lambda_a$ and $\lambda_b.$
+
+\item<5-> $Z$ is the first arrival time of merged Poisson process $(\lambda_a + \lambda_b)$. 
+
+\item<6-> Thus, $Z \sim exp(\lambda_a + \lambda_b)$
+\eci
+}
+{
+\small
+\plitemsep 0.05in
+\bci
+\item<7->[2.] Three independent light bulbs have life times $T$ of exponential distribution with $\lambda.$ 
+
+\item<8-> \redf{(Q)} $\expect{\text{time until the last bulb burns out}}$?
+
+\bigskip
+
+\item<9-> Poisson process$(3\lambda)$ $\xrightarrow{\text{1st burn out}}$ Poisson process$(2\lambda)$ $\xrightarrow{\text{2st burn out}}$ Poisson process$(\lambda)$ 
+
+\item<10-> $T_1$: time until the first burn-out, $T_2$: time until the second burn-out, $T_3$: time until the third burn-out
+
+\item<11-> $T_1 \sim exp(3\lambda)$, $T_2 \sim exp(2\lambda)$, $T_3 \sim exp(\lambda)$
+$$
+\bexpect{T_1 + T_2 + T_3} = \frac{1}{3 \lambda} + \frac{1}{2 \lambda} + \frac{1}{ \lambda} $$
+
+\eci
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\vspace{2cm}
+\LARGE Questions?
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Review Questions}
+
+\bce[1)]
+\item 
+
+\ece
+
+\end{frame}
+
+
+
+
+\end{document}
