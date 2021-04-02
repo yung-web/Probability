@@ -1,0 +1,15 @@
+
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+0.Introduction/.DS_Store
+1.Probabilistic_Model/.DS_Store
+2.Conditioning_Independence/.DS_Store
+3.RandomVariable-Part1/.DS_Store
+4.RandomVariable-Part2/.DS_Store
+5.RandomVariable-Part3/.DS_Store
+6.Statistical_Inference/.DS_Store
+8.RandomProcess-Part1/.DS_Store
