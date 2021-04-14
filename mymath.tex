@@ -53,7 +53,12 @@
 \newcommand{\empb}[1]{{\color{blue}\emph{#1}}}
 \newcommand{\redf}[1]{{\color{red} #1}}
 \newcommand{\bluef}[1]{{\color{blue} #1}}
+\newcommand{\grayf}[1]{{\color{gray} #1}}
 \newcommand{\magenf}[1]{{\color{magenta} #1}}
+\newcommand{\greenf}[1]{{\color{green} #1}}
+\newcommand{\cyanf}[1]{{\color{cyan} #1}}
+\newcommand{\orangef}[1]{{\color{orange} #1}}
+
 
 \newcommand{\blk}[1]{\underline{\mbox{\hspace{#1}}}}
 
@@ -73,6 +78,21 @@
     }%
 }
 \makeatother
+
+\makeatletter
+\newcommand{\lecturemark}{%
+    \collectbox{%
+        \setlength{\fboxsep}{1pt}%
+        \fcolorbox{red}{yellow}{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\newcommand{\mycolorbox}[1]{
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
+#1
+\end{tcolorbox}
+}
 
 %%%% figure inclusion
 \newcommand{\mypic}[2]{\includegraphics[width=#1\textwidth]{#2}}
