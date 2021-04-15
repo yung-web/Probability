@@ -110,13 +110,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Roadmap}
 % \tableofcontents
-%\plitemsep 0.1in
+
+\plitemsep 0.3in
 \bce[(1)]
 \item Probabilistic Model
+\bci
+\item Mathematical description of uncertain situations
+\eci
 
 \item Sample Space, Event, Probability Law
+\bci
+\item Elements of probability theory
+\eci
+
 
 \item Probability Axioms
+\bci
+\item 3 axioms for the completeness of a theory
+\eci
+
+
 \ece
 \end{frame}
 
@@ -417,6 +430,7 @@ things from the above axioms.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Examples}
+A1: \orangef{Nonnegativity}, A2: \orangef{Normalization}, A3: \orangef{Finite additivity}
 
 Prove the following properties using the axioms: \hfill \only<1>{\lecturemark{VIDEO PAUSE}}
 
@@ -505,6 +519,9 @@ Toss a (biased) coin
 \end{align*}}
 
 \item<6-> Is the above right? If not, why?
+\bci
+\item<7-> Wrong: \redf{Finite} additivity axiom does not allow this.
+\eci
 
 \eci
 
@@ -537,20 +554,30 @@ Toss a (biased) coin
 \begin{frame}{Interpretation of Probability Theory}
 
 
-\plitemsep 0.5in
+\plitemsep 0.1in
 \bci
 \item<1-> A narrow view: A branch of math
 
-- axioms $\rightarrow$ theorems
+\bci
+\item axioms $\rightarrow$ theorems
+\item Mathematicians work very hard to find the smallest set of necessary axioms (just like atoms in physics)
+\eci
+
 
 
 \item<2-> Frequencies: $\cprob{H} = 1/2$
+\bci
+\item Understanding an uncertain situation: fractions of successes out of many experiments
+
+\eci
+
 
 \item<3-> Beliefs: $\cprob{\text{He is reelected}} = 0.7$
 
-- Subjective, but providing numerical guidance
 \eci
 
+\medskip
+Anyway, we believe that probabilistic reasoning is very helpful to understand the world with many uncertain situations.
 \end{frame}
 
 
@@ -575,7 +602,7 @@ Toss a (biased) coin
 
 
 \medskip
-\LARGE Congratulations! You build up the very basics of a probabilistic model. 
+\LARGE You build up the very basics of a probabilistic model. 
 
 \medskip
 
