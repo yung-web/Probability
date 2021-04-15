@@ -54,10 +54,31 @@
 \definecolor{darkgreen}{rgb}{0,0.6,0}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertsection
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertsubsection
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}
+    \insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+
+  \vskip0pt%
+}
+\makeatother
+
 \title[]{Lecture 2: Conditioning, Bayes' Rule, and Independence }
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
-\date{MONTH DAY, 2021}
+\date{\today}
 
 \usetikzlibrary{shapes.callouts}
 
@@ -78,20 +99,31 @@
 \logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
 }}}}
 
-% Uncomment these lines for an automatically generated outline.
-\begin{frame}{Outline}
-% \tableofcontents
-%\plitemsep 0.1in
-\bci
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\bce[(1)]
 \item Conditional Probability
 
-\item Bayes' Rule
-
-\item Bayesian Inference: Sneak Peek
+\item Bayes' Rule and Bayesian Inference
 
 \item Independence, Conditional Independence
 
-\eci
+\ece
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L2(1)}
+\begin{frame}{Roadmap}
+
+\bce[(1)]
+\item \redf{Conditional Probability}
+
+\item \grayf{Bayes' Rule and Bayesian Inference
+
+\item Independence, Conditional Independence}
+
+\ece
 \end{frame}
 
 % START START START START START START START START START START START START START
@@ -139,6 +171,10 @@ $$
 \item<3-> People's choice is ... \redblank{4}{$\cprob{A \mid  B}$}
 
 \item<5-> From now on, given $B$, $\cprob{\cdot | B}$ should be a new \redblank{6}{probability law.}
+\bci
+\item Three axioms  should be satisfied.
+\eci
+
 \eci 
 
 \end{frame}
@@ -160,7 +196,10 @@ $$
 
 \item<4-> Reasons why it is bad: 
 
-- Remember that $\cprob{\cdot | B}$ should be a new probability law (so three axioms should be satisfied)
+\bci
+\item $\cprob{\cdot | B}$ should be a new probability law (thus, three axioms)
+\eci
+
 
 \medskip
 
@@ -187,16 +226,17 @@ $$
 \plitemsep 0.1in
 \bci 
 
-\item<1-> How to fix this? \redblank{2}{Normalization.} 
+\item<1-> How to fix this? \redblank{2}{Normalization} 
 \onslide<3->{
+\mycolorbox{
 $$
-\cprob{A \mid B} \eqdef \frac{\cprob{A \cap B}}{\cprob{B}}, \quad for \quad \cprob{B} >0.
+\cprob{A \mid B} \eqdef \frac{\cprob{A \cap B}}{\cprob{B}}, \quad \text{for} \quad \cprob{B} >0.
 $$
-
+}
 
 - Note that this is a \bluef{definition,} not a \bluef{theorem.}}
 
-\item<4-> Easily check: Nonnegativity and countable additivity.  
+\item<4-> Can easily check other axioms: Nonnegativity and countable additivity.  
 
 \item<5-> All other properties of the law $\cprob{\cdot}$ is applied to the conditional law $\cprob{\cdot | B}.$ 
 
@@ -209,49 +249,21 @@ $$
 \end{frame}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example: Conditional Probability}
+\section{L2(2)}
+\begin{frame}{Roadmap}
 
-\mytwocols{0.7}
-{
-\plitemsep 0.05in
-\bci
+\bce[(1)]
+\item \grayf{Conditional Probability}
 
-\item $A:$ Airplane is flying above
-\item $B:$ Something on radar screen
+\item \redf{Bayes' Rule and Bayesian Inference}
 
-\eci 
+\item \grayf{Independence, Conditional Independence}
 
-\aleq{
-\cprob{A \cap B} &= \onslide<2->{\cprob{A}\cprob{B|A}} \cr
-&=\onslide<3->{0.05\times 0.99 = 0.0495}
-}
-\aleq{
-\cprob{B} &= \onslide<4->{\cprob{A \cap B} + \cprob{A^c \cap B}}\cr
-&= \onslide<5->{0.05\times 0.99 + 0.95\times 0.1 = 0.1445}
-}
-\aleq{
-\cprob{A|B} &= \onslide<6->{\frac{\cprob{A \cap B}}{\cprob{B}}}
-= \onslide<7->{\frac{0.0495}{0.1445} \approx 0.34}
-}
-
-% \bigskip
-% \item $\cprob{A \cap B} = \cprob{}$
-% \bigskip
-% \item $\cprob{ B} = $
-% \bigskip
-% \item $\cprob{A |  B} = $
-
-
-}
-{
-\centering
-\includegraphics[width=0.5\textwidth]{L2_radar.jpg}
-
-\bigskip
-\includegraphics[width=0.7\textwidth]{L2_cond_ex.png}
-}
+\ece
 \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
@@ -326,23 +338,27 @@ $$
 \includegraphics[width=0.85\textwidth]{L2_multi_ex.png}
 }
 
-Generally, 
+\onslide<6->{
+Generally, \hfill \lecturemark{VIDEO PAUSE}
 
 $\cprob{A_1 \cap A_2 \cap \cdots A_n}$ = 
-\onslide<6->{
-$\cprob{A_1} \cdot \cprob{A_2|A_1} \cdot \cprob{A_3|A_1,A_2} \cdots$ $\cprob{A_n|A_1,A_2,\ldots, A_{n-1}}$}
+}
+\onslide<7->{
+$\cprob{A_1} \cdot \cprob{A_2|A_1} \cdot \cprob{A_3|A_1,A_2} \cdots$ $\cprob{A_n|A_1,A_2,\ldots, A_{n-1}}$
+}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Total Probability Theorem}
 
+\footnotetext{Partition: $A_1,A_2,A_3$ are mutually exclusive and $\Omega = A_1 \cup A_2 \cup A_3$}
 \mytwocols{0.7}
 {
 \plitemsep 0.1in
 \bci 
 
-\item<2-> Partition of $\Omega$ into $A_1,A_2,A_3$
+\item<2-> \orangef{Partition} of $\Omega$ into $A_1,A_2,A_3$
 
 \item<3-> We know from my model: $\cprob{A_i}$ and $\cprob{B | A_i}$ 
 
@@ -401,7 +417,54 @@ $$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Bayes' Rule: Example}
+\begin{frame}{Example 1: Airplane-Radar}
+
+\only<1>{\lecturemark{VIDEO PAUSE}}
+
+\mytwocols{0.7}
+{
+\plitemsep 0.05in
+\bci
+
+\item $A:$ Airplane is flying above 
+\item $B:$ Something on radar screen
+
+\eci 
+
+\aleq{
+\cprob{A \cap B} &= \onslide<2->{\cprob{A}\cprob{B|A}} \cr
+&=\onslide<3->{0.05\times 0.99 = 0.0495}
+}
+\aleq{
+\cprob{B} &= \onslide<4->{\cprob{A \cap B} + \cprob{A^c \cap B}}\cr
+&= \onslide<5->{0.05\times 0.99 + 0.95\times 0.1 = 0.1445}
+}
+\aleq{
+\cprob{A|B} &= \onslide<6->{\frac{\cprob{A \cap B}}{\cprob{B}}}
+= \onslide<7->{\frac{0.0495}{0.1445} \approx 0.34}
+}
+
+% \bigskip
+% \item $\cprob{A \cap B} = \cprob{}$
+% \bigskip
+% \item $\cprob{ B} = $
+% \bigskip
+% \item $\cprob{A |  B} = $
+
+
+}
+{
+\centering
+\includegraphics[width=0.5\textwidth]{L2_radar.jpg}
+
+\bigskip
+\includegraphics[width=0.7\textwidth]{L2_cond_ex.png}
+}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example 2: Happy/Sad-Shout}
 
 \mytwocols{0.7}
 {
@@ -425,6 +488,10 @@ $$
 \medskip
 
 - Calculate $\cprob{A_1 | B}$ and $\cprob{A_2 | B}.$
+
+\onslide<1>{\hfill \lecturemark{VIDEO PAUSE}}
+
+\onslide<2->{
 \aleq{
 \cprob{A_1} \cprob{B | A_1} &=  0.7 \times 0.3 = 0.21\cr
 \cprob{A_2} \cprob{B | A_2} &= 0.3 \times 0.5 = 0.15 \cr
@@ -434,13 +501,29 @@ $$
 \cprob{A_1 | B} = \frac{0.21}{0.36} \approx 0.583 \cr
 \cprob{A_2 | B} = \frac{0.15}{0.36} \approx 0.417 
 }
-
-
+}
 }
 
  
 
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L2(3)}
+\begin{frame}{Roadmap}
+
+\bce[(1)]
+\item \grayf{Conditional Probability}
+
+\item \grayf{Bayes' Rule and Bayesian Inference}
+
+\item \redf{Independence, Conditional Independence}
+
+\ece
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
@@ -469,7 +552,7 @@ Now, let's develop a new concept from conditioning.
 \bigskip
 \item<3-> $A$ and $B$ do not seem dependent on each other. So, just forget $B$!
 
-\item<4-> Independence makes our analysis and modeling much simpler, because I can remove independent events in my analysis.  
+\item<4-> Independence makes our analysis and modeling \redf{much simpler,} because I can remove independent events in the analysis of what I am interested in.  
 \eci 
 \end{frame}
 
@@ -510,35 +593,42 @@ No. Actually, really dependent, because if you know that $A$ occurred, then, we 
 \plitemsep 0.07in
 \bci 
 
-\item<2-> Remember: for a probability law $\cprob{\cdot},$ given, say $B$, $\cprob{\cdot | B}$ is a new probability law. 
+\item<2-> Remember: for a probability law $\cprob{\cdot},$ given some event $C$, $\cprob{\cdot | C}$ is a new probability law. 
 
-\item<3-> Thus, we can talk about independence under $\cprob{\cdot | B}.$
+\item<3-> Thus, we can talk about independence under $\cprob{\cdot | C}.$
 
 \item<4-> Given that $C$ occurs, occurrence of $A$ provides no new information about $B.$
 $$
-\cprob{B | A \cap C} = \cprob{B | C}
+\redf{\cprob{B | A \cap C} = \cprob{B | C}}
 $$
 \vspace{-0.2in}
-%\item Using $\cprob{B | A} = \cprob{B \cap A}/\cprob{A},$ 
-\begin{block}<5->{Conditional Independence of $A$ and $B$ given $C$, \redblank{6}{$A \indep B | C$}}
-$\cprob{A \cap B | C} = \cprob{A |C} \times \cprob{B |C}$
+
+\item \onslide<6->{Using $\cprob{ A\cap B | C} = \frac{\prob{B \cap (A \cap C)}}{\cprob{C}} = \frac{\cprob{B | A\cap C} \cprob{A \cap C}}{\cprob{C}} = \cprob{A | C} \cprob{B | C},$ }
+
+\begin{block}<5->{Conditional Independence of $A$ and $B$ given $C$, \redblank{5}{$A \indep B | C$}}
+$\cprob{A \cap B \redf{| C}} = \cprob{A \redf{|C}} \times \cprob{B \redf{|C}}$
 \end{block}
 
-\smallskip
-\item<7-> \redf{Q1.} If $A \indep B$,  then $A \indep B | C$?
-Suppose that $A$ and $B$ are independent. If you heard that $C$ occurred,  $A$ and $B$ are still independent?                                                         
 
-\item<8-> \redf{Q2.} If $A \indep B | C$, $A \indep B$?
+
+% \smallskip
+% \item<7-> \redf{Q1.} If $A \indep B$,  then $A \indep B | C$?
+% Suppose that $A$ and $B$ are independent. If you heard that $C$ occurred,  $A$ and $B$ are still independent?                                                         
+
+% \item<8-> \redf{Q2.} If $A \indep B | C$, $A \indep B$?
 \eci 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{$A \indep B$ $\rightarrow$  $A \indep B | C$?}
+\begin{frame}{\redf{(Q1)} $A \indep B$ $\rightarrow$  $A \indep B | C$?}
 
 \plitemsep 0.2in
 \bci 
 
-\item<1-> Two independent coin tosses
+\item If $A \indep B$,  then $A \indep B | C$?
+Suppose that $A$ and $B$ are independent. If you heard that $C$ occurred,  $A$ and $B$ are still independent? \hfill \lecturemark{VIDEO PAUSE}
+
+\item<2-> Two independent coin tosses
 
 \plitemsep 0.05in
 \bci
@@ -547,23 +637,25 @@ Suppose that $A$ and $B$ are independent. If you heard that $C$ occurred,  $A$ a
 \item $D$: two tosses have different results.
 \eci
 
-\item<2-> $\cprob{H_1 | D} = 1/2,$ $\cprob{H_2 | D} = 1/2$  
+\item<3-> $\cprob{H_1 | D} = 1/2,$ $\cprob{H_2 | D} = 1/2$  
 
 
-\item<3-> $\cprob{H_1 \cap H_2 | D} = 0,$  
+\item<4-> $\cprob{H_1 \cap H_2 | D} = 0,$  
 
-\item<3-> No.
+\item<5-> No.
 \eci 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{$A \indep B | C$ $\rightarrow$  $A \indep B$?}
+\begin{frame}{\redf{(Q2)} $A \indep B | C$ $\rightarrow$  $A \indep B$?}
 
 \myvartwocols{0.8}{0.7}{0.27}
 {
 \small
-\plitemsep 0.02in
+\plitemsep 0.01in
 \bci 
+
+% \item \redf{(Q2)} If $A \indep B | C$, $A \indep B$?
 
 \item<1-> Two coins: \bluef{Blue} and \redf{Red}. Choose one uniformly at random, and proceed with two independent tosses. 
 
@@ -572,17 +664,17 @@ $\cprob{\text{head of red}} = 0.1$
 
 $H_i$: i-th toss is head, and $B$: blue is selected. 
 
-\item<3-> $H_1 \indep H_2 | B$? Yes
+\item<3-> $H_1 \indep H_2 | B$? \orangef{Yes}
 \aleq{
 \cprob{H_1 \cap H_2 | B} = 0.9\times 0.9, \quad \cprob{H_1 |B} \cprob{H_2|B} = 0.9 \times 0.9
 }
 
-\item<4-> $H_1 \indep H_2$? No
+\item<4-> $H_1 \indep H_2$? \orangef{No}
 \abovedisplayskip=-0.01in
 \aleq{
 \onslide<5->{\cprob{H_1} &= \cprob{B} \cprob{H_1 | B} + \cprob{B^c} \cprob{H_1 | B^c} \cr
 &= \frac{1}{2} 0.9 + \frac{1}{2} 0.1 = \frac{1}{2}\cr
-\cprob{H_2} &= \cprob{H_2} \quad (\text{because of symmetry})\cr}
+\cprob{H_2} &= \cprob{H_1} \quad (\text{because of symmetry})\cr}
 \onslide<6->{\cprob{H_1 \cap H_2} &= \cprob{B} \cprob{H_1 \cap H_2| B} + \cprob{B^c} \cprob{H_1 \cap H_2| B^c}\cr 
 & = \frac{1}{2} (0.9\times 0.9) + \frac{1}{2} (0.1\times 0.1) \neq \frac{1}{2}}
 }
@@ -606,8 +698,8 @@ $H_i$: i-th toss is head, and $B$: blue is selected.
 
 \item<2-> What about this? (Pairwise independence)
 \begin{align*}
-\cprob{A_1 \cap A_2} = \cprob{A_1} \cprob{A_2}
-\cprob{A_1 \cap A_3} = \cprob{A_1} \cprob{A_3}
+\cprob{A_1 \cap A_2} = \cprob{A_1} \cprob{A_2}, \
+\cprob{A_1 \cap A_3} = \cprob{A_1} \cprob{A_3}, \
 \cprob{A_2 \cap A_3} = \cprob{A_2} \cprob{A_3}
 \end{align*}
 

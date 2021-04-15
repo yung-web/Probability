@@ -58,11 +58,31 @@
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
 
+\makeatletter
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertsection
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertsubsection
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}
+    \insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+
+  \vskip0pt%
+}
+\makeatother
 
 \title[]{Lecture 1: Probabilistic Model}
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
-\date{MONTH DAY, 2021}
+\date{\today}
 
 \usetikzlibrary{shapes.callouts}
 
@@ -85,20 +105,36 @@
 \logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
 }}}}
 
-% Uncomment these lines for an automatically generated outline.
-\begin{frame}{Outline}
+% START START START START START START START START START START START START START
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
 % \tableofcontents
 %\plitemsep 0.1in
-\bci
+\bce[(1)]
 \item Probabilistic Model
 
 \item Sample Space, Event, Probability Law
 
 \item Probability Axioms
-\eci
+\ece
 \end{frame}
 
-% START START START START START START START START START START START START START
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L1(1)}
+\begin{frame}{Roadmap}
+% \tableofcontents
+%\plitemsep 0.1in
+\bce[(1)]
+\item \redf{Probabilistic Model}
+
+\item \grayf{Sample Space, Event, Probability Law
+
+\item Probability Axioms}
+\ece
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{What Do We Want?}
@@ -170,6 +206,21 @@ The first thing: \onslide<2->{What are the \empb{elements} of a probabilistic mo
 \alert{Question:} \onslide<6->{What are the conditions of $\Omega$ and $\cprob{\cdot}$ under which their induced probability model becomes "legitimate"?}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L1(2)}
+\begin{frame}{Roadmap}
+% \tableofcontents
+%\plitemsep 0.1in
+\bce[(1)]
+\item \grayf{Probabilistic Model}
+
+\item \redf{Sample Space, Event, Probability Law}
+
+\item \grayf{Probability Axioms}
+\ece
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{1. Sample Space $\Omega$}
@@ -284,6 +335,21 @@ where $\{1,3,5 \} \subset \Omega$ is an event.
 \eci
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L1(3)}
+\begin{frame}{Roadmap}
+% \tableofcontents
+%\plitemsep 0.1in
+\bce[(1)]
+\item \grayf{Probabilistic Model}
+
+\item \grayf{Sample Space, Event, Probability Law}
+
+\item \redf{Probability Axioms}
+\ece
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{How should we construct $\cprob{\cdot}$?}
