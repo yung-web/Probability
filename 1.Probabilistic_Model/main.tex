@@ -3,14 +3,15 @@
 }
 \def\handoutmode{%
   \documentclass[handout,fleqn,aspectratio=169]{beamer}
+\usepackage{pgfpages}
+\pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
+
 }
 
 \input{../mode.tex}
 \csname\pdfmode\endcsname
 
 % when making printed slides
-\usepackage{pgfpages}
-\pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
 
 
 \mode<presentation>
