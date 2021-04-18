@@ -1,67 +1,13 @@
 
-\def\slidemode{%
-  \documentclass[fleqn,aspectratio=169]{beamer}
-}
-\def\handoutmode{%
-  \documentclass[handout,fleqn,aspectratio=169]{beamer}
-
-}
-
 \input{../mode.tex}
 \csname\pdfmode\endcsname
 
-\usepackage{pgfpages}
-\pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
-
-\mode<presentation>
-{
-  \usetheme{default}
-  \usecolortheme{default}
-  \usefonttheme{default}
-  \setbeamertemplate{navigation symbols}{}
-  \setbeamertemplate{caption}[numbered]
-  \setbeamertemplate{footline}[frame number]  % or "page number"
-  \setbeamercolor{frametitle}{fg=white}
-  \setbeamercolor{footline}{fg=black}
-} 
-
-\usepackage[english]{babel}
-%\usepackage[utf8x]{inputenc}
-\usepackage{tikz}
-\usepackage{courier}
-\usepackage{array}
-\usepackage{bold-extra}
-% \usepackage{minted}
-% \usepackage[thicklines]{cancel}
-%\usepackage{fancyvrb}
-\usepackage{kotex}
-\usepackage{paralist}
-\usepackage{collectbox}
-
-\setbeamercolor{block body alerted}{bg=alerted text.fg!10}
-\setbeamercolor{block title alerted}{bg=alerted text.fg!20}
-\setbeamercolor{block body}{bg=structure!10}
-\setbeamercolor{block title}{bg=structure!20}
-\setbeamercolor{block body example}{bg=green!10}
-\setbeamercolor{block title example}{bg=green!20}
-\setbeamertemplate{blocks}[rounded][shadow]
-
-\xdefinecolor{dianablue}{rgb}{0.18,0.24,0.31}
-\xdefinecolor{darkblue}{rgb}{0.1,0.1,0.7}
-\xdefinecolor{darkgreen}{rgb}{0,0.5,0}
-\xdefinecolor{darkgrey}{rgb}{0.35,0.35,0.35}
-\xdefinecolor{darkorange}{rgb}{0.8,0.5,0}
-\xdefinecolor{darkred}{rgb}{0.7,0,0}
-\definecolor{darkgreen}{rgb}{0,0.6,0}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-
+\input{../myhead.tex}
 
 \title[]{Lecture 3: Random Variable, Part I}
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
 \date{\today}
-
-\usetikzlibrary{shapes.callouts}
 
 \input{../mymath}
 
@@ -70,35 +16,60 @@
 
 \input{../mydefault.tex}
 
-\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
-}}}}
 
 \begin{frame}
   \titlepage
 \end{frame}
 
-\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
-}}}}
+% START START START START START START START START START START START START START
 
-% Uncomment these lines for an automatically generated outline.
-\begin{frame}{Outline}
 
-\bci
-\item Random Variable: Discrete
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
 
-\item PMF (Probability Mass Function)
+\plitemsep 0.1in
 
-\item Representative Discrete Random Variables
+\bce[(1)]
 
-\item Expectation and Variance
+\item Random variable: Idea and formal definition
 
-\item Functions of Random Variables
+\item Popular discrete random variables
 
-\item Conditioning and Independence for Random Variables
-\eci
+\item Summarizing random variables: Expectation and Variance
+
+\item (Functions of) multiple random variables 
+
+\item Conditioning for random variables
+
+\item Independence for random variables 
+
+\ece 
+
 \end{frame}
 
-% START START START START START START START START START START START START START
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L3(1)}
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bce[(1)]
+
+\item \redf{Random variable: Idea and formal definition}
+
+\item \grayf{Popular discrete random variables
+
+\item Summarizing random variables: Expectation and Variance
+
+\item (Functions of) multiple random variables 
+
+\item Conditioning for random variables
+
+\item Independence for random variables}
+
+\ece 
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Random Variable: Idea}
@@ -118,6 +89,8 @@
 {
 \centering
 \includegraphics[width=0.9\textwidth]{L3_RV_ex.png}
+
+{\scriptsize (b) Two rolls of tetrahedral dice}
 }
 
 \end{frame}
@@ -132,16 +105,16 @@
 
 \item<4-> \bluef{Notation.} Random variable $X$, numerical value $x.$
 
-\item<5-> Different random variables $X$, $Y,$, etc can be defined on the same sample space. 
+\item<5-> Different random variables can be defined on the same sample space. 
 
 \item<6-> For a fixed value $x,$ we can associate an \redblank{7}{event} that a random variable $X$ has the value $x,$ i.e., 
-\redblank{8}{$\{ \omega \in \Omega \mid X(w) = x \}$}
+\redblank{8}{$\{ \omega \in \Omega \mid X(\omega) = x \}$}
 
 \item<8-> Assume that values $x$ are discrete\footnote{Finite or countably infinite.} such as $1, 2, 3, \ldots.$
 
 For notational convenience,  
 $$
-p_X(x) \ \eqdef \ \cprob{X = x} \ \eqdef \ \cbprob{\{ \omega \in \Omega \mid X(w) = x \}} 
+p_X(x) \ \eqdef \ \cprob{X = x} \ \eqdef \ \cbprob{\{ \omega \in \Omega \mid X(\omega) = x \}} 
 $$
 
 \item<9-> For a discrete random variable $X$, we call $p_X(x)$ \redblank{10}{probability mass function} (PMF).
@@ -151,61 +124,28 @@ $$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L3(2)}
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
 
-\bci 
-\item Famous discrete random variables used in the community
+\bce[(1)]
 
-- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. 
+\item \grayf{Random variable: Idea and formal definition}
 
-\item Summarizing a random variable: Expectation and Variance
+\item \redf{Popular discrete random variables}
 
-\item Functions of a single random variable, Functions of multiple random variables 
+\item \grayf{Summarizing random variables: Expectation and Variance
 
-\item Conditioning for random variables, Independence for random variables 
+\item (Functions of) multiple random variables 
 
-\item Continuous random variables
+\item Conditioning for random variables
 
-- Normal, Uniform, Exponential, etc. 
+\item Independence for random variables} 
 
-\item Bayes' rule for random variables
-\eci 
+\ece 
 
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Roadmap}
-
-\plitemsep 0.1in
-
-\bci [$\circ$]
-\item \redf{Famous discrete random variables used in the community
-
-- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. }
-
-\item Summarizing a random variable: Expectation and Variance
-
-\item Functions of a single random variable, Functions of multiple random variables 
-
-\item Conditioning for random variables, Independence for random variables 
-
-\item Continuous random variables
-
-- Normal, Uniform, Exponential, etc. 
-
-\item Bayes' rule for random variables
-\eci 
-
-\end{frame}
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{}
-% \vspace{2cm}
-% \LARGE Examples of Famous Discrete Random Variables
-
-% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Bernoulli $X$ with parameter $p \in [0,1]$}
@@ -217,12 +157,12 @@ $$
 \onslide<2->{
 $$
 X = \begin{cases}
-0, & \text{w.p.\footnotemark} \quad 1-p, \cr
+0, & \text{w.p.} \quad 1-p, \cr
 1, & \text{w.p.} \quad p
 \end{cases}
 $$
 In other words, $p_X(0)=1-p$ and $p_X(1)=p$ from our PMF notation. }
-\footnotetext{with probability}
+\footnotetext{w.p.: with probability}
 
 \item<3-> Models a trial that results in binary results, e.g., success/failure, head/tail
 
@@ -249,16 +189,18 @@ $$
 \bci 
 \item integers $a,b$, where $a \le b$
 
-\item<2-> Choose a number of $\Omega = \{ a, a+1, \ldots, b \}$ uniformly at random. 
+\item<2-> Choose a number out of $\Omega = \{ a, a+1, \ldots, b \}$ uniformly at random. 
 
-\item<3-> $p_X(i) = \frac{1}{b-a+1},$ $i \in \Omega.$
+\item<3-> $p_X(i) =$ \onslide<4->{$\frac{1}{b-a+1}, \ i \in \Omega$}
 
 %\item $X(\omega) = \omega$
 
+\onslide<4->{
 \centering
 \includegraphics[width=0.7\textwidth]{L3_uniform_ex.png}
+}
 
-\item<4-> Models complete ignorance (I don't know anything about $X$)
+\item<5-> Models complete \orangef{ignorance} (I don't know anything about $X$)
 
 \eci 
 
@@ -266,25 +208,29 @@ $$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Binomial $X$ with parameter $n,p$}
+\footnotetext{$\binom{n}{k} = \frac{n!}{k!(n-k)!}$, which we read `$n$ choose $k$'.}
 
-\mytwocols{0.5}
+\mytwocols{0.6}
 {
 \plitemsep 0.1in
 \bci 
-\item<2-> Models the number of successes in a given number of independent trials
+\item<2-> Models the number of \redf{successes} in a given number of \redf{independent} trials
 \item<3-> $n$ independent trials, where one trial has the success probability $p.$
 
 $$
-p_X(k) = {n \choose k} p^k (1-p)^{n-k}
+\onslide<3->{p_X(k) =} \onslide<5->{{n \choose k} p^k (1-p)^{n-k}}
 $$
 \eci 
 }
 {
+\onslide<4->{
 \centering
 \includegraphics[width=0.8\textwidth]{L3_binomial_ex.png}
 }
+}
 \end{frame}
 
+\begin{comment}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Poisson $X$ with parameter $\lambda$}
 
@@ -292,7 +238,7 @@ $$
 
 \plitemsep 0.05in
 \bci 
-\item<2-> $Binomial(n,p)$: Models the number of successes in a given number of independent trials with success probability $p.$
+\item<2-> $Binomial(n,p)$: Models the number of successes in a given number $n$ of independent trials with success probability $p.$
 
 \item<3-> Very large $n$ and very small $p,$ such that $np =\lambda$
 $$
@@ -314,6 +260,7 @@ $$
 
 \end{frame}
 
+\end{comment}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Geometric $X$ with parameter $p$}
 
@@ -321,44 +268,45 @@ $$
 {
 \plitemsep 0.1in
 \bci 
-\item<1-> Experiment: infinitely many independent Bernoulli trials, where each trial has success probability $p$
+\item<1-> Infinitely many independent Bernoulli trials, where each trial has success probability $p$
 
 \item<2-> Random variable: number of trials until the \redf{first success.} 
+$$
+p_X(k) =  \onslide<3->{(1-p)^{k-1} p}
+$$
 
-\item<3-> Models waiting times until something happens. 
-$$
-p_X(k) =  (1-p)^{k-1} p
-$$
+\item<4-> Models \orangef{waiting} times until something happens. 
 \eci 
 }
 {
+\onslide<3->{
 \centering
 \includegraphics[width=0.8\textwidth]{L3_geo_ex.png}
+}
 }
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L3(3)}
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
 
-\bci
-\item \bluef{Famous discrete random variables used in the community
+\bce[(1)]
 
-- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. }
+\item \grayf{Random variable: Idea and formal definition}
 
-\item \redf{Summarizing a random variable: Expectation and Variance}
+\item \grayf{Popular discrete random variables}
 
-\item \redf{Functions of a single random variable}, Functions of multiple random variables 
+\item \redf{Summarizing random variables: Expectation and Variance}
 
-\item Conditioning for random variables, Independence for random variables 
+\item \grayf{(Functions of) multiple random variables 
 
-\item Continuous random variables
+\item Conditioning for random variables
 
-- Normal, Uniform, Exponential, etc. 
+\item Independence for random variables} 
 
-\item Bayes' rule for random variables
-\eci 
+\ece 
 
 \end{frame}
 
@@ -375,7 +323,7 @@ $$
 
 \plitemsep 0.1in
 \bci 
-\item Average. 
+\item Average 
 \begin{block}{Definition}
 $$
 \expect{X} = \sum_{x} x p_X(x)
@@ -384,9 +332,9 @@ $$
 
 \item $p_X(x)$: relative frequency of value $x$ (trials with $x$/total trials)
 
-\item<2-> Example 1: Bernoulli r.v. with $p$
+\item<2-> \exam Bernoulli rv with $p$
 $$
-\expect{X} = 1\times p + 0 \times (1-p) = p_X(1)
+\expect{X} = 1\times p + 0 \times (1-p) = p = p_X(1)
 $$
 \eci 
 
@@ -451,16 +399,19 @@ Not very surprising. Easy to prove using the definition.
 
 \item<1-> Measures how much the \redblk{spread} of a PMF is. 
 
-\item<2-> What about $\expect{X - \mu},$ where $\mu = \expect{X}$? Then, what about $\expect{(X - \mu)^2}$?
+\item<2-> What about $\expect{X - \mu},$ where $\mu = \expect{X}$? Zero
+
+\item<3-> Then, what about $\expect{(X - \mu)^2}$?
 
 
+\onslide<4->{
 \myblock{Variance, Standard Deviation}
 {
-\onslide<3->{
 \aleq{
     \var{X} &= \expect{(X-\mu)^2} \cr
     \sigma_X &= \sqrt{\var{X}}
 }
+\vspace{-0.3cm}
 }
 }
 % \item Useful formula
@@ -505,10 +456,10 @@ Not very surprising. Easy to prove using the definition.
 \eci 
 }
 {
-Example: Variance of a Bernoulli rv ($p$)
+\onslide<5->{Example: Variance of a Bernoulli rv ($p$)}
 \aleq{
-\onslide<4->{
-\expect{X} &= 1\times p + 0 \times (1-p) = p\cr
+\onslide<6->{
+\mu = \expect{X} &= 1\times p + 0 \times (1-p) = p\cr
 \expect{X^2}&= 1 \times p + 0 \times (1-p) = p \cr
 \var{X} &= \expect{X^2} - \mu^2 = p - p^2\cr
 &= p(1-p)
@@ -519,27 +470,26 @@ Example: Variance of a Bernoulli rv ($p$)
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L3(4)}
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
 
-\bci [$\circ$]
-\item \bluef{Famous discrete random variables used in the community
+\bce[(1)]
 
-- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. }
+\item \grayf{Random variable: Idea and formal definition}
 
-\item \bluef{Summarizing a random variable: Expectation and Variance}
+\item \grayf{Popular discrete random variables}
 
-\item \bluef{Functions of a single random variable}, \redf{Functions of multiple random variables} 
+\item \grayf{Summarizing random variables: Expectation and Variance}
 
-\item Conditioning for random variables, Independence for random variables 
+\item \redf{(Functions of) multiple random variables} 
 
-\item Continuous random variables
+\item \grayf{Conditioning for random variables
 
-- Normal, Uniform, Exponential, etc. 
+\item Independence for random variables} 
 
-\item Bayes' rule for random variables
-\eci 
+\ece 
 
 \end{frame}
 
@@ -568,25 +518,27 @@ $\{X = x \}$ and $\{Y = y \},$ and
 \eci 
 }
 {
-Example.
+\onslide<6->{
+\exam \hfill \lecturemark{VIDEO PAUSE}
 
 \medskip
 \centering
 \includegraphics[width=0.5\textwidth]{L3_joint_ex.png}
-\aleq{
-p_{X,Y}(1,3)= 2/20
 }
 \aleq{
-p_{X}(4) = 2/20 + 1/20 = 3/20
+\onslide<6->{p_{X,Y}(1,3)=} \onslide<7->{2/20}
 }
 \aleq{
-\cprob{X=Y}= 1/20 + 4/20 + 3/20 = 8/20
+\onslide<6->{p_{X}(4) =} \onslide<7->{2/20 + 1/20 = 3/20}
+}
+\aleq{
+\onslide<6->{\cprob{X=Y}=} \onslide<7->{1/20 + 4/20 + 3/20 = 8/20}
 }
 }
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Functions of Multiple R.V.s}
+\begin{frame}{Functions of Multiple RVs}
 
 \plitemsep 0.1in
 \bci
@@ -607,7 +559,7 @@ $$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Linearity of Expectation for multiple rvs }
+\begin{frame}{Linearity of Expectation for Multiple RVs }
 
 
 \mytwocols{0.7}
@@ -634,7 +586,7 @@ $$\expect{X+Y} = \expect{X} + \expect{Y}$$
 \plitemsep 0.15in
 \bci 
 
-\item<4-> \redf{Example.} Mean of a binomial rv $Y$ with $(n,p)$
+\item<4-> \exam Mean of a binomial rv $Y$ with $(n,p)$
 
 \item<4-> $Y$: number of successes in $n$ Bernoulli trials with $p$
 
@@ -644,39 +596,39 @@ $$\expect{X+Y} = \expect{X} + \expect{Y}$$
 
 \eci 
 
+\medskip
+\onslide<6->{\msg When some rv $X$ is write as a linear combination of other rvs, it is often easy to handle $X.$}
 }
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L3(5)}
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
 
-\bci [$\circ$]
-\item \bluef{Famous discrete random variables used in the community
+\bce[(1)]
 
-- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. }
+\item \grayf{Random variable: Idea and formal definition}
 
-\item \bluef{Summarizing a random variable: Expectation and Variance}
+\item \grayf{Popular discrete random variables}
 
-\item \bluef{Functions of a single random variable}, \bluef{Functions of multiple random variables} 
+\item \grayf{Summarizing random variables: Expectation and Variance}
 
-\item \redf{Conditioning for random variables}, Independence for random variables 
+\item \grayf{(Functions of) multiple random variables} 
 
-\item Continuous random variables
+\item \redf{Conditioning for random variables}
 
-- Normal, Uniform, Exponential, etc. 
+\item \grayf{Independence for random variables} 
 
-\item Bayes' rule for random variables
-\eci 
+\ece 
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conditional PMF: Conditioning on an event}
 
-\onslide<1->{Remember two probability laws: $\cprob{\cdot}$ and $\cprob{\cdot | A},$ \bluef{for an event $A.$}}
+\onslide<1->{Remember two probability laws: $\cprob{\cdot}$ and $\cprob{\cdot | A}$ \bluef{for an event $A.$}}
 
 \medskip
 
@@ -685,7 +637,7 @@ $$\expect{X+Y} = \expect{X} + \expect{Y}$$
 \plitemsep 0.2in
 \bci 
 
-\item<2-> $\px = \cprob{X=x}$
+\item<2-> $\px \eqdef \cprob{X=x}$
 
 \item<3-> $\expect{X} = \sum_x x \px$
 
@@ -707,7 +659,7 @@ $$\expect{X+Y} = \expect{X} + \expect{Y}$$
 \item<5-> $\redf{\var{X | A}} \ \eqdef \ \expect{X^2 |A } - (\expect{X|A})^2$
 
 \medskip
-\item<6-> \redf{Note.} $\pxA,$ $\expect{X | A}$, $\expect{g(X) | A},$ and $\var{X |A}$ are all just notations! 
+\item<6-> \redf{(Note)} $\pxA,$ $\expect{X | A}$, $\expect{g(X) | A},$ and $\var{X |A}$ are all just notations! 
 
 \eci 
 }
@@ -817,19 +769,22 @@ for $y$ such that $\py >0.$}
 \eci 
 }
 {
-\includegraphics[width=0.5\textwidth]{L3_joint_ex.png}
 
-\medskip
+\onslide<5->{
+\hfill \lecturemark{VIDEO PAUSE}
+\mypic{0.5}{L3_joint_ex.png}
+}
+
 \small
 
-$p_{X|Y}(2|2) = \frac{1}{1+3+1}$
+$ \onslide<5->{p_{X|Y}(2|2) =} \onslide<6->{\frac{1}{1+3+1}}$
 
 \bigskip
-$p_{X|Y}(3|2)= \frac{3}{1+3+1}$
+$ \onslide<5->{p_{X|Y}(3|2)=} \onslide<6->{\frac{3}{1+3+1}}$
 
 \bigskip
 
-$\expect{X | Y = 3} = 1(2/9)+ 2(4/9)+3(1/9)+4(2/9) $
+$ \onslide<5->{\expect{X | Y = 3} =} \onslide<6->{1(2/9)+ 2(4/9)+3(1/9)+4(2/9)} $
 
 }
 \end{frame}
@@ -975,17 +930,21 @@ $$
 \plitemsep 0.1in
 \bci 
 
-\item $A_1 = \{X \in \{0,1,2\} \}$, $A_2 = \{ X \in \{6,7,8\} \}$ 
+\item Using the definition of expectation,
+\aleq{
+\expect{X} &= \onslide<2->{\frac{1}{9}( 0 + 1 + 2) + \frac{2}{9} ( 6+7+8)\cr
+& = \frac{3 + 12 + 14 + 16}{9} =  5}
+}
 
-\item<2-> Using TET,  
+
+\item<3-> Let's use TET, for which consider
+$$A_1 = \{X \in \{0,1,2\} \}, \ A_2 = \{ X \in \{6,7,8\} \}$$ 
+
 \aleq{
-\expect{X} &= \sum_{i=1,2}\cprob{A_i} \expect{X | A_i}\cr
-&= 1/3 \cdot 1 + 2/3 \cdot 7 = 7
+\onslide<4->{\expect{X} &= \sum_{i=1,2}\cprob{A_i} \expect{X | A_i}\cr
+&= 1/3 \cdot 1 + 2/3 \cdot 7 = 5}
 }
-\item<3-> Without using TET, 
-\aleq{
-\expect{X} = \frac{1}{9}( 0 + 1 + 2) + \frac{2}{9} ( 6+7+8)
-}
+
 \eci 
 }
 {
@@ -997,43 +956,71 @@ $$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Background: Memoryless Property of Geometric rv (1)}
+\begin{frame}{Background: Memoryless Property}
 
 \plitemsep 0.1in
 \bci 
 
 \item<1-> Some random variable often does not have \redf{memory.}
 
-\item<2-> \bluef{Definition.} A random variable $X$ is called \redblk{memoryless} if, for any $n,m \ge 0,$ $$\cprob{X > n+m | X > m} = \cprob{X > n}$$
+\item<2-> \bluef{Definition.} A random variable $X$ is called \redblk{memoryless} if, for any $n,m \ge 0,$ 
+$$\cprob{X > n+m | X > m} = \cprob{X > n}$$
 
 \item<3-> \bluef{Meaning.} Conditioned on $X > m,$ $X-m$'s distribution is the same as the original $X.$
+$$\cprob{X -m > n | X > m} = \cprob{X > n}$$
 
-\item<4-> \bluef{Remind.} Geometric rv $X$ with parameter $p$
-\aleq{
-\cprob{X = k}& = (1-p)^{k-1} p\cr
-\cprob{X > k}& = 1 - \sum_{k'=1}^k (1-p)^{k'-1} p = (1-p)^k
-}
+\item<4-> Suppose that $X$ is the time of waiting for a bus and $X$ is memoryless. 
+At the bus stop, I have waited for the bus for 10 mins. 
+Then, the time until the bus arrival does not depend on how much I have waited for a bus. \orangef{No memory.}   
+
+
 \eci
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Background: Memoryless Property of Geometric rv (2)}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Background: Memoryless Property of Geometric rv (1)}
 
-\plitemsep 0.3in
+% \plitemsep 0.1in
+% \bci 
+
+% \item<1-> Some random variable often does not have \redf{memory.}
+
+% \item<2-> \bluef{Definition.} A random variable $X$ is called \redblk{memoryless} if, for any $n,m \ge 0,$ $$\cprob{X > n+m | X > m} = \cprob{X > n}$$
+
+% \item<3-> \bluef{Meaning.} Conditioned on $X > m,$ $X-m$'s distribution is the same as the original $X.$
+
+% \item<4-> \bluef{Remind.} Geometric rv $X$ with parameter $p$
+% \aleq{
+% \cprob{X = k}& = (1-p)^{k-1} p\cr
+% \cprob{X > k}& = 1 - \sum_{k'=1}^k (1-p)^{k'-1} p = (1-p)^k
+% }
+% \eci
+
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Background: Memoryless Property of Geometric RVs}
+
+\plitemsep 0.07in
 \bci 
 
 \item \bluef{Theorem.} Any geometric random variable is \redf{memoryless.}
 
-\onslide<2->{
+\item<2-> \bluef{Remind.} Geometric rv $X$ with parameter $p$
+\aleq{
+\cprob{X = k}& = (1-p)^{k-1} p, \quad \greenf{\cprob{X > k}} = 1 - \sum_{k'=1}^k (1-p)^{k'-1} p = \greenf{(1-p)^k}
+}
+
+
+\item<3-> \proff 
 \begin{align*}
-\cprob{X > n+m | X > m} &= \frac{\cprob{X > n+m \text{ and } X > m}}{\cprob{X > m}} \cr
-& = \frac{\cprob{X > n+m}}{\cprob{X > m}}\cr
+\cprob{X > n+m | X > m} &= \frac{\cprob{X > n+m \text{ and } X > m}}{\cprob{X > m}} 
+ = \frac{\cprob{X > n+m}}{\cprob{X > m}}\cr
 & = \frac{(1-p)^{n+m}}{(1-p)^m} = (1-p)^n = \cprob{X >n}
-\end{align*}}
+\end{align*}
 
-\item<3-> \bluef{Meaning.} Conditioned on $X > m,$ $X-m$ is geometric with the same parameter. 
-
+\item<4-> \bluef{Meaning.} Conditioned on $X > m,$ $X-m$ is geometric with the same parameter. 
 
 \eci
 
@@ -1041,7 +1028,7 @@ $$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example 2: Mean and Variance of Geometric rv}
+\begin{frame}{Example 2: Mean of Geometric rv}
 
 \mytwocols{0.8}
 {
@@ -1051,9 +1038,9 @@ $$
 
 \item<1-> Write softwares over and over, and each time w.p. $p$ of working correctly (independent from prev. programs). 
 
-\item<2-> $X$: number of tries until the program works correctly. 
+\item<2-> $X$: number of trials until the program works correctly. 
 
-\item<3-> \redf{Q) mean and variance of $X$}
+\item<3-> \redf{(Q) mean of $X$}
 
 \item<4-> $X$ is geometric
 
@@ -1062,7 +1049,7 @@ $$
 \expect{X} = \sum_{k=1}^\infty k(1-p)^{k-1} p
 }
 
-\item<6-> Total expectation theorem and memorylessness nhelps a lot. 
+\item<6-> Total expectation theorem and memorylessness helps a lot. 
 \eci
 }
 {
@@ -1086,34 +1073,33 @@ $$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L3(6)}
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
 
-\bci [$\circ$]
-\item \bluef{Famous discrete random variables used in the community
+\bce[(1)]
 
-- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. }
+\item \grayf{Random variable: Idea and formal definition}
 
-\item \bluef{Summarizing a random variable: Expectation and Variance}
+\item \grayf{Popular discrete random variables}
 
-\item \bluef{Functions of a single random variable}, \bluef{Functions of multiple random variables} 
+\item \grayf{Summarizing random variables: Expectation and Variance}
 
-\item \bluef{Conditioning for random variables}, \redf{Independence for random variables} 
+\item \grayf{(Functions of) multiple random variables} 
 
-\item Continuous random variables
+\item \grayf{Conditioning for random variables}
 
-- Normal, Uniform, Exponential, etc. 
+\item \redf{Independence for random variables} 
 
-\item Bayes' rule for random variables
-\eci 
+\ece 
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Independence, Conditional Independence}
 
-\plitemsep -0.1in
+\plitemsep 0.02in
 
 \bci 
 \item<2-> Two events
@@ -1155,7 +1141,7 @@ $$
 \onslide<2->{
 \aleq{
 p_{X,Y}(1,1) = 0,& \quad p_X(1) = 3/20\cr
-p_Y{1} = 1/20.&
+p_Y(1) = 1/20.&
 }}
 
 \item $X \indep Y | \{X \leq 2\text{ and } Y \ge 3\}$?
@@ -1192,7 +1178,8 @@ $Y=3$ (2/3)& 2/9& 4/9\\ \hline
 
 \item<1-> Always true. 
 
-$\expect{aX +b}$, $\expect{X+Y} = \expect{X} + \expect{Y}$
+% $\expect{aX +b}$, 
+$\expect{X+Y} = \expect{X} + \expect{Y}$
 
 \item<2-> Generally,
 $\expect{g(X,Y)} \neq g(\expect{X},\expect{Y})$

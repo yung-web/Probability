@@ -1,82 +1,14 @@
 
-\def\slidemode{%
-  \documentclass[fleqn,aspectratio=169]{beamer}
-}
-\def\handoutmode{%
-  \documentclass[handout,fleqn,aspectratio=169]{beamer}
-}
-
 \input{../mode.tex}
 \csname\pdfmode\endcsname
 
-\usepackage{pgfpages}
-\pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
+\input{../myhead.tex}
 
-\mode<presentation>
-{
-  \usetheme{default}
-  \usecolortheme{default}
-  \usefonttheme{default}
-  \setbeamertemplate{navigation symbols}{}
-  \setbeamertemplate{caption}[numbered]
-  \setbeamertemplate{footline}[frame number]  % or "page number"
-  \setbeamercolor{frametitle}{fg=white}
-  \setbeamercolor{footline}{fg=black}
-} 
-
-\usepackage[english]{babel}
-%\usepackage[utf8x]{inputenc}
-\usepackage{tikz}
-\usepackage{courier}
-\usepackage{array}
-\usepackage{bold-extra}
-% \usepackage{minted}
-% \usepackage[thicklines]{cancel}
-%\usepackage{fancyvrb}
-\usepackage{kotex}
-\usepackage{paralist}
-\usepackage{collectbox}
-\usepackage{booktabs}
-\usepackage{nccmath}
-%\usepackage[fleqn]{amsmath}
-
-
-
-\setbeamercolor{block body alerted}{bg=alerted text.fg!10}
-\setbeamercolor{block title alerted}{bg=alerted text.fg!20}
-\setbeamercolor{block body}{bg=structure!10}
-\setbeamercolor{block title}{bg=structure!20}
-\setbeamercolor{block body example}{bg=green!10}
-\setbeamercolor{block title example}{bg=green!20}
-\setbeamertemplate{blocks}[rounded][shadow]
-
-\xdefinecolor{dianablue}{rgb}{0.18,0.24,0.31}
-\xdefinecolor{darkblue}{rgb}{0.1,0.1,0.7}
-\xdefinecolor{darkgreen}{rgb}{0,0.5,0}
-\xdefinecolor{darkgrey}{rgb}{0.35,0.35,0.35}
-\xdefinecolor{darkorange}{rgb}{0.8,0.5,0}
-\xdefinecolor{darkred}{rgb}{0.7,0,0}
-\definecolor{darkgreen}{rgb}{0,0.6,0}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-
-
-\newcommand{\progressbar}{
-\pgfmathsetmacro{\theta}{360/\inserttotalframenumber*\inserttotalframenumber}
-\begin{tikzpicture}[scale=0.035]
-\fill[yellow] (0,0) circle (9);
-\fill[red] (0,0) -- (9,0) arc (0:-\theta:9);
-\fill[white] (0,0) circle (5);
-\end{tikzpicture}
-}
-
-%\setbeamertemplate{footline}{\hfill \progressbar}
 
 \title[]{Lecture 8: Random Processes, Part I}
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
 \date{MONTH DAY, 2021}
-
-\usetikzlibrary{shapes.callouts}
 
 \input{../mymath}
 
@@ -85,15 +17,9 @@
 
 \input{../mydefault}
 
-\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
-}}}}
-
 \begin{frame}
   \titlepage
 \end{frame}
-
-\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
-}}}}
 
 % % Uncomment these lines for an automatically generated outline.
 % \begin{frame}{Outline}

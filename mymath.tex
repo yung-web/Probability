@@ -96,7 +96,16 @@
 }
 
 %%%% figure inclusion
-\newcommand{\mypic}[2]{\includegraphics[width=#1\textwidth]{#2}}
+\newcommand{\mypic}[2]{
+\begin{center}
+\includegraphics[width=#1\textwidth]{#2}
+\end{center}
+}
+
+\newcommand{\myinlinepic}[2]{
+\makebox[0cm][r]{\raisebox{-4ex}{\includegraphics[height=#1]{#2}}}
+}
+
 
 %%%% itemized and enumerated list
 \newcommand{\bci}{\begin{compactitem}}
@@ -234,8 +243,13 @@
 \newcommand{\green}[1]{\color{green}#1} 
 \newcommand{\white}[1]{\color{white}#1} 
 
-%%% definition
 \newcommand{\defi}{{\color{red} Definition.} } 
+\newcommand{\proff}{{\color{red} Proof.} } 
+\newcommand{\exam}{{\color{red} Example.} } 
+\newcommand{\question}{{\color{red} Question.} } 
+\newcommand{\thm}{{\color{red} Theorem.} } 
+\newcommand{\background}{{\color{red} Background.} } 
+\newcommand{\msg}{{\color{red} Message.} } 
 
 
 %%%%%%%%%%%%%%%%%%%%%%% old macros that you can ignore %%%%%%%%%%%%%%%%%%%%%%%%
