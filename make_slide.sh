@@ -1,4 +1,4 @@
-echo "\def\pdfmode{slidemode}" > mode.tex
+cp -f slide_mode.tex mode.tex
 
 (cd 0.Introduction; pdflatex -jobname=0.Intro-slide main.tex)		
 (cd 1.Probabilistic_Model; pdflatex -jobname=1.PM-slide main.tex)		

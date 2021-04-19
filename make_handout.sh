@@ -1,4 +1,4 @@
-echo "\def\pdfmode{handoutmode}" > mode.tex
+cp -f handout_mode.tex mode.tex
 
 (cd 0.Introduction; pdflatex -jobname=0.Intro-1 main.tex)		
 (cd 1.Probabilistic_Model; pdflatex -jobname=1.PM-1 main.tex)		
