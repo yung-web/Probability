@@ -113,7 +113,7 @@
 
 \plitemsep 0.1in
 
-\bci [$\circ$]
+\bci 
 \item<2-> Mathematically, a random variable $X$ is a \redblank{3}{function} which maps from $\Omega$ to $\real.$
 
 \item<4-> \bluef{Notation.} Random variable $X$, numerical value $x.$
@@ -132,6 +132,24 @@ $$
 
 \item<9-> For a discrete random variable $X$, we call $p_X(x)$ \redblank{10}{probability mass function} (PMF).
 
+\eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example}
+
+\plitemsep 0.1in
+
+\bci 
+\item Rolls a dice, $\Omega = \{1, 2,3, 4, 5, 6 \}$
+\item Define a random variable $X = 1$ for even numbers and $X=0$ for odd numbers
+\item Event $A_1 = \{\omega \in \Omega \mid  X(\omega) = 1 \} = \{2,4,6 \} \subset \Omega,$ but simply $A_1 = \{X =1\}$
+
+\item Event $A_0 = \{\omega \in \Omega \mid  X(\omega) = 0 \} = \{1,3,5 \} \subset \Omega,$ but simply $A_0 = \{X =0\}$
+
+\bigskip
+\item Remember that the random variable $X$ is a \redf{\bf function} from $\Omega$ to $\real$
 \eci 
 
 \end{frame}
@@ -610,7 +628,7 @@ $$\expect{X+Y} = \expect{X} + \expect{Y}$$
 \eci 
 
 \medskip
-\onslide<6->{\msg When some rv $X$ is write as a linear combination of other rvs, it is often easy to handle $X.$}
+\onslide<6->{\msg When some rv $X$ is written as a linear combination of other rvs, $X$ becomes easy to handle.}
 }
 \end{frame}
 
@@ -771,7 +789,7 @@ for $y$ such that $\py >0.$}
 
 \item<3-> $\sum_{x} \pxcy = 1$
 
-\item \redf{Multiplication rule.}
+\item \redf{Multiplication rule}
 \aleq{
 \pxy &= \onslide<4->{\py \pxcy\cr    
      &= \px \pycx} 
@@ -808,13 +826,13 @@ $ \onslide<5->{\expect{X | Y = 3} =} \onslide<6->{1(2/9)+ 2(4/9)+3(1/9)+4(2/9)} 
 \mytwocols{0.7}
 {
 \plitemsep 0.1in
-\bci [$\circ$]
+\bci 
 
 \item Partition of $\Omega$ into $A_1,A_2,A_3$
 
 \item Known: $\cprob{A_i}$ and $\cprob{B | A_i}$ 
 
-\item What is $\cprob{B}$? (probability of result)
+\item What is $\cprob{B}$? 
 
 \bigskip
 \medskip
@@ -866,17 +884,15 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Total Expectation Theorem for $\{A_i \}$}
 
-\myvartwocols{0.7}{0.7}{0.28}
+\myvartwocols{0.75}{0.7}{0.28}
 {
 \plitemsep 0.1in
-\bci [$\circ$]
+\bci 
 
 \item Partition of $\Omega$ into $A_1,A_2,A_3$
 
 
 \bigskip
-\medskip
-
 \begin{block}{Total Probability Theorem}
 $$
 \px = \sum_{i} \cprob{A_i} \cprob{X=x | A_i} = \sum_{i} \cprob{A_i} p_{X|A_i}(x) 
@@ -889,6 +905,7 @@ $$
 $$
 \end{block}
 
+\item Weighted average of expectations from $A_i$'s perspective
 
 \eci 
 }
@@ -905,23 +922,21 @@ $$
 \myvartwocols{0.7}{0.7}{0.28}
 {
 \plitemsep 0.1in
-\bci [$\circ$]
+\bci
 
 \item Partition of $\Omega$ into $A_1,A_2,A_3$
 
 
 \bigskip
-\medskip
-
 \begin{block}{Total Expectation Theorem}
 $$
-\expect{X} = \sum_{i} \cprob{A_i} \expect{X | A_i}
+\expect{X} = \sum_{i} \cprob{\redf{A_i}} \expect{X | \redf{A_i}}
 $$
 \end{block}
 
 \begin{block}<2->{Total Expectation Theorem}
 $$
-\expect{X} = \sum_{y} \cprob{Y=y} \expect{X | Y= y} = \sum_{y} \py \expect{X | Y=y} 
+\expect{X} = \sum_{y} \cprob{\redf{Y=y}} \expect{X | \redf{Y= y}} = \sum_{y} \py \expect{X | \redf{Y=y}} 
 $$
 \end{block}
 
@@ -943,14 +958,15 @@ $$
 \plitemsep 0.1in
 \bci 
 
-\item Using the definition of expectation,
+\item \question What is $\cexpect{X}$?
+\item[(1)] Just using the definition of expectation,
 \aleq{
 \expect{X} &= \onslide<2->{\frac{1}{9}( 0 + 1 + 2) + \frac{2}{9} ( 6+7+8)\cr
 & = \frac{3 + 12 + 14 + 16}{9} =  5}
 }
 
 
-\item<3-> Let's use TET, for which consider
+\item<3->[(2)] Let's use TET, for which consider
 $$A_1 = \{X \in \{0,1,2\} \}, \ A_2 = \{ X \in \{6,7,8\} \}$$ 
 
 \aleq{
@@ -967,11 +983,42 @@ $$A_1 = \{X \in \{0,1,2\} \}, \ A_2 = \{ X \in \{6,7,8\} \}$$
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example 2: Mean of Geometric rv}
+
+\plitemsep 0.1in
+\bci 
+
+\item<1-> Write softwares over and over, and each time w.p. $p$ of working correctly (independent from previous programs). 
+
+\item<2-> $X$: number of trials until the program works correctly. 
+
+\item<3-> \redf{(Q)} $\cexpect{X}$?
+
+\item<4-> $X$ is a geometric rv
+
+\item<5-> Direct computation is boring.
+\aleq{
+\expect{X} = \sum_{k=1}^\infty k(1-p)^{k-1} p = p + 2(1-p)p + 3(1-p)^2 p + \cdots
+}
+
+\item<6-> Total expectation theorem and a notion of \orangef{memorylessness} helps a lot. 
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Memoryless Property: Motivating Example}
+
+\mypic{0.9}{L3_memoryless_ex.png}
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Background: Memoryless Property}
 
-\plitemsep 0.1in
+\plitemsep 0.2in
 \bci 
 
 \item<1-> Some random variable often does not have \redf{memory.}
@@ -982,14 +1029,15 @@ $$\cprob{X > n+m | X > m} = \cprob{X > n}$$
 \item<3-> \bluef{Meaning.} Conditioned on $X > m,$ $X-m$'s distribution is the same as the original $X.$
 $$\cprob{X -m > n | X > m} = \cprob{X > n}$$
 
-\item<4-> Suppose that $X$ is the time of waiting for a bus and $X$ is memoryless. 
-At the bus stop, I have waited for the bus for 10 mins. 
-Then, the time until the bus arrival does not depend on how much I have waited for a bus. \orangef{No memory.}   
+% \item<4-> Suppose that $X$ is the time of waiting for a bus and $X$ is memoryless. 
+% At the bus stop, I have waited for the bus for 10 mins. 
+% Then, the time until the bus arrival does not depend on how much I have waited for a bus. \orangef{No memory.}   
 
 
 \eci
 
 \end{frame}
+
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \begin{frame}{Background: Memoryless Property of Geometric rv (1)}
@@ -1018,11 +1066,11 @@ Then, the time until the bus arrival does not depend on how much I have waited f
 \plitemsep 0.07in
 \bci 
 
-\item \bluef{Theorem.} Any geometric random variable is \redf{memoryless.}
+\item \bluef{Theorem.} Any \orangef{\bf geometric} random variable is \redf{memoryless.}
 
 \item<2-> \bluef{Remind.} Geometric rv $X$ with parameter $p$
 \aleq{
-\cprob{X = k}& = (1-p)^{k-1} p, \quad \greenf{\cprob{X > k}} = 1 - \sum_{k'=1}^k (1-p)^{k'-1} p = \greenf{(1-p)^k}
+\cprob{X = k}& = (1-p)^{k-1} p, \quad \magenf{\cprob{X > k}} = 1 - \sum_{i=1}^k (1-p)^{i-1} p = \magenf{(1-p)^k}
 }
 
 
@@ -1041,47 +1089,24 @@ Then, the time until the bus arrival does not depend on how much I have waited f
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example 2: Mean of Geometric rv}
+\begin{frame}{Back to Example 2: Mean of Geometric rv}
 
-\mytwocols{0.8}
-{
-\plitemsep 0.1in
-\small
+
+\plitemsep 0.2in
+
 \bci 
 
-\item<1-> Write softwares over and over, and each time w.p. $p$ of working correctly (independent from prev. programs). 
+\item<1-> $A_1 = \{X=1 \}$ (first try is success), $A_2 = \{X >1 \}$ (first try is failure).  
 
-\item<2-> $X$: number of trials until the program works correctly. 
-
-\item<3-> \redf{(Q) mean of $X$}
-
-\item<4-> $X$ is geometric
-
-\item<5-> Direct computation is boring.
 \aleq{
-\expect{X} = \sum_{k=1}^\infty k(1-p)^{k-1} p
-}
-
-\item<6-> Total expectation theorem and memorylessness helps a lot. 
-\eci
-}
-{
-\plitemsep 0.1in
-
-\bci 
-
-\item<7-> $A_1 = \{X=1 \}$ (first try is success), $A_2 = \{X >1 \}$ (first try is failure).  
-
-\begin{align*}
     \expect{X} & = 1 + \expect{X-1} \cr
- &= \onslide<8->{1 + \cprob{A_1} \expect{X-1 | X=1} \cr
- &\text{              }+ \cprob{A_2} \expect{X-1 | X >1}}\cr
-&= \onslide<9->{1 + (1-p) \expect{X}}
-\end{align*}
-
-\onslide<10->{$\expect{X} = 1+(1-p)\frac{1}{p} = 1/p.$}
-\eci
+ &= \onslide<2->{1 + \cprob{A_1} \expect{X-1 | X=1} + \cprob{A_2} \expect{X-1 | X >1}} &\quad \text{(from TET)}\cr
+&= \onslide<3->{1 + (1-p) \expect{X}} & \quad \text{(from memorylessness)}
 }
+
+\item<4-> Thus, $\expect{X} = \dfrac{1}{p}$
+\eci
+
 
 \end{frame}
 
@@ -1147,19 +1172,31 @@ Then, the time until the bus arrival does not depend on how much I have waited f
 
 \mytwocols{0.7}
 {
-\plitemsep 0.4in
+\plitemsep 0.05in
 \bci 
 
 \item $X \indep Y$?
 \onslide<2->{
 \aleq{
-p_{X,Y}(1,1) = 0,& \quad p_X(1) = 3/20\cr
-p_Y(1) = 1/20.&
+p_{X,Y}(1,1) &= 0 \cr
+p_X(1) &= 3/20\cr
+p_Y(1) &= 1/20
 }}
 
-\item $X \indep Y | \{X \leq 2\text{ and } Y \ge 3\}$?
+\item $X \indep Y | \{X \leq 2\text{ and } Y \ge 3\}$? 
 
-\onslide<3->{- Yes.}
+\hfill \only<3>{\lecturemark{\small VIDEO PAUSE}}
+
+\small
+\onslide<3->{
+\begin{tabular}{|c|c|c|} \hline 
+$Y=4$ \onslide<4->{\red (1/3)}& \onslide<4->{\blue 1/9} & \onslide<4->{\blue 2/9}\\ \hline
+$Y=3$ \onslide<4->{\red (2/3)}& \onslide<4->{\blue 2/9}& \onslide<4->{\blue 4/9}\\ \hline
+& $X=1$ \onslide<4->{\red (1/3)}&$X=2$ \onslide<4->{\red (2/3)} \\ \hline
+\end{tabular}
+}
+
+\onslide<5->{- Yes.}
 
 \eci 
 }
@@ -1167,16 +1204,16 @@ p_Y(1) = 1/20.&
 \centering
 \includegraphics[width=0.6\textwidth]{L3_joint_ex.png}
 
-\medskip
+% \medskip
 
-\small
-\onslide<3->{
-\begin{tabular}{|c|c|c|} \hline 
-$Y=4$ (1/3)& 1/9 & 2/9\\ \hline
-$Y=3$ (2/3)& 2/9& 4/9\\ \hline
-& $X=1$ (1/3)&$X=2 (2/3)$ \\ \hline
-\end{tabular}
-}
+% \small
+% \onslide<3->{
+% \begin{tabular}{|c|c|c|} \hline 
+% $Y=4$ (1/3)& 1/9 & 2/9\\ \hline
+% $Y=3$ (2/3)& 2/9& 4/9\\ \hline
+% & $X=1$ (1/3)&$X=2$ (2/3) \\ \hline
+% \end{tabular}
+% }
 }
 \end{frame}
 
@@ -1230,7 +1267,7 @@ $\var{X+Y} \neq \var{X} + \var{Y}$
 \var{X+Y} &= \var{X} + \var{Y}
 }
 
-\item<7-> Practice.
+\item<7-> \redf{Practice.}
 
 \plitemsep 0.02in
 \bci
@@ -1280,10 +1317,10 @@ $\var{X+Y} \neq \var{X} + \var{Y}$
 
 \item<3-> All permutations are equally likely as $1/n!.$ Thus, this equals to picking one hat at a time.
 
-\item<4-> \bluef{Key step 1.} Define a rv $X_i=1$ if $i$ selects own hat and $0$ otherwise. 
+\item<4-> \bluef{Key step 1.} Define a rv $X_i=1$ if $i$ selects its own hat and $0$ otherwise. 
 $$X = \sum_{i=1}^n X_i.$$
 
-\item<5-> $\{X_i\}, i=1, 2, \ldots, n$: identically distributed (symmetry)
+\item<5-> $\{X_i\}, i=1, 2, \ldots, n$: identically distributed (from symmetry)
 
 % \item $\expect{X} = n \expect{X_1} = n \cprob{X_1 =1} = 1/n.$
 
@@ -1295,23 +1332,22 @@ $$X = \sum_{i=1}^n X_i.$$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Example: The hat problem (2)}
 
-\plitemsep 0.05in
+\plitemsep 0.1in
 \bci 
-\item<1-> $\expect{X} = n \expect{X_1} = n \cprob{X_1 =1} = n\times \frac{1}{n} = 1.$
+\item<1-> $\expect{X} = n \expect{X_1} = n \cprob{X_1 =1} = n\times \frac{1}{n} = 1.$ 
 
 \item<2-> \bluef{Key step 2.} Are $X_i$s are independent? If yes, easy to get $\cvar{X}.$
 
 \item<3-> Assume $n=2.$ Then, $X_1=1 \rightarrow X_2=1,$ and $X_1=0 \rightarrow X_2=0.$ Thus, \redf{dependent}.
 \aleq{
-\onslide<4->{\cvar{X} &= \expect{X^2} - (\expect{X})^2 \cr
-&= \bexpect{\sum_{i}X_i^2 + \sum_{i,j:i\neq j} X_i X_j} - (\expect{X})^2}\cr
-\onslide<5->{\expect{X_i^2} &= 1 \times \frac{1}{n} + 0 \times \frac{n-1}{n} = \frac{1}{n}}\cr
+\onslide<4->{\cvar{X} &= \expect{X^2} - (\expect{X})^2 = \bexpect{\sum_{i}X_i^2 + \sum_{i,j:i\neq j} X_i X_j} - (\expect{X})^2}\cr
+\onslide<5->{\expect{X_i^2} &= \expect{X_1^2} = 1 \times \frac{1}{n} + 0 \times \frac{n-1}{n} = \frac{1}{n}}\cr
 \onslide<6->{\expect{X_i X_j} &= \expect{X_1 X_2} = 1 \times \cprob{X_1 X_2 = 1} = \cprob{X_1=1}\cprob{X_2 =1 | X_1 =1}, \quad \text{($i \neq j$)}}
 }
 
 \item<7-> $\expect{X^2} = n \expect{X_1^2} + n(n-1) \expect{X_1 X_2} = n\frac{1}{n} + n(n-1)\frac{1}{n(n-1)} = 2$
 
-\item<8-> $\cvar{X} = 2-1 =1$
+\item<8-> $\cvar{X} = 2-1 =1$ 
 \eci
 \end{frame}
 
@@ -1332,7 +1368,7 @@ $$X = \sum_{i=1}^n X_i.$$
 
 \item Explain Bernoulli, Binomial, Poisson, Geometric rvs, when they are used and what their PMFs are. 
 
-\item What are joint and marginal PMFS?
+\item What are joint and marginal PMFs?
 
 \item Describe and explain the total probability/expectation theorem for random variables?
 
