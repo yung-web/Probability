@@ -12,7 +12,7 @@
   \setbeamertemplate{footline}[frame number]  % or "page number"
   \setbeamercolor{frametitle}{fg=white}
   \setbeamercolor{footline}{fg=black}
-} 
+}
 \input{../myhead.tex}
 
 
@@ -39,6 +39,7 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Roadmap}
+
 
 \plitemsep 0.1in
 \bce[(1)]
@@ -90,7 +91,7 @@
 \onslide<3->{
 \myblock{Continuous Random Variable}
 {
-A rv $X$ is \redf{continuous} if $\exists$ a function $f_X,$ called \redblk{probability density function (PDF)}, s.t. 
+A rv $X$ is \redf{continuous} if $\exists$ a function $f_X,$ called \redblk{probability density function (PDF)}, s.t.
 \vspace{-0.3cm}
 $$
 \cprob{X \in B} = \int_B \fx dx
@@ -106,22 +107,22 @@ $$
 \includegraphics[width=0.65\textwidth]{L4_pmf_ex.png}
 
 \plitemsep 0.01in
-\bci 
+\bci
 \item $\cprob{a \le X \le b} = \sum_{x: a\le x \le b} \px$
 
 \item $\px \ge 0,$ $\sum_{x} \px = 1$
-\eci} 
+\eci}
 }
 {
 \onslide<6->{
 \includegraphics[width=0.85\textwidth]{L4_pdf_ex.png}
 
 \plitemsep 0.01in
-\bci 
+\bci
 \item $\cprob{a \le X \le b} = \int_{a}^b \fx dx$
 
 \item $\fx \ge 0,$ $\int_{-\infty}^{\infty} \fx dx= 1$
-\eci} 
+\eci}
 }
 \end{frame}
 
@@ -137,11 +138,11 @@ $$
 \bigskip
 
 \plitemsep 0.1in
-\bci 
+\bci
 \item $\cprob{a \le X \le a + \delta} \approx$ \redblank{2}{$f_X(a) \cdot \delta$}
 
 \item \onslide<3->{$\cprob{X = a} = 0$}
-\eci 
+\eci
 }
 }
 {
@@ -164,13 +165,13 @@ Examples
 \bigskip
 
 \plitemsep 0.1in
-\bci 
+\bci
 \item $\expect{X} = \int_{-\infty}^{\infty} x \fx dx$ = \onslide<2->{$\int_{a}^{b} \frac{x}{b-a} dx = \frac{1}{b-a}\frac{b^2 - a^2}{2} = \frac{b+a}{2}$}
 
 \item $\expect{X^2} = \int_{-\infty}^{\infty} x^2 \fx dx$ = \onslide<3->{$\int_{a}^{b} \frac{x^2}{b-a} dx = \frac{1}{b-a}\frac{b^3 - a^3}{3} = \frac{a^2 + ab + b^2}{3}$}
 
 \item $\var{X}$ = \onslide<4->{$\frac{a^2 + ab + b^2}{3} - \frac{a^2 + 2ab + b^2}{4}$}
-\eci 
+\eci
 
 
 \end{frame}
@@ -205,9 +206,9 @@ Examples
 \small
 \vspace{0.1in}
 \plitemsep 0.1in
-\bci 
+\bci
 \item<1-> Discrete: PMF, Continuous: PDF
-\item<2-> Can we describe all rvs with a single mathematical concept? 
+\item<2-> Can we describe all rvs with a single mathematical concept?
 \onslide<3->{\aleq{
 \Fx &= \cprob{X \le x} = \cr
 & \begin{cases}
@@ -218,7 +219,7 @@ Examples
 \item<4-> always well defined, because we can always compute the probability for the event $\{X \le x \}$
 
 \item<5-> CCDF (Complementary CDF): $\cprob{X > x }$
-\eci 
+\eci
 }
 {
 \onslide<6->{\includegraphics[width=0.8\textwidth]{L4_cdf_ex1.png}}
@@ -234,17 +235,17 @@ Examples
 \bigskip
 
 \plitemsep 0.3in
-\bci 
+\bci
 \item<2-> Non-decreasing
 
 \item<3-> $F_X(x)$ tends to 1, as $x \rightarrow \infty$
 
 \item<3-> $F_X(x)$ tends to 0, as $x \rightarrow -\infty$
 
-\eci 
+\eci
 \bigskip
 
-\onslide<4->{Now, let's look at famous continuous random variables popularly used in our life.} 
+\onslide<4->{Now, let's look at famous continuous random variables popularly used in our life.}
 \end{frame}
 
 
@@ -275,12 +276,12 @@ Examples
 \begin{frame}{Exponential RV with parameter $\lambda >0$: $\exp(\lambda)$}
 
 \plitemsep 0.1in
-\bci 
-\item<2-> A rv $X$ is called \redf{exponential with $\lambda$,} if 
+\bci
+\item<2-> A rv $X$ is called \redf{exponential with $\lambda$,} if
 % \hspace{7cm} \myinlinepic{2cm}{L4_exp_pdf.png}
 \vspace{-0.5cm}
 \aleq{
-\fx = 
+\fx =
  \begin{cases}
  \lambda \elambdax, & x \ge 0 \cr
  0, & x <0
@@ -288,10 +289,10 @@ Examples
 \qquad \text{\hspace{8cm} \myinlinepic{2cm}{L4_exp_pdf.png}}
 }
 \item<3-> CDF $\displaystyle \Fx = \int_{0}^x  \lambda e^{-\lambda s}ds = 1- \elambdax$
-\item<4-> CCDF $\cprob{X > x} = \elambdax$ 
+\item<4-> CCDF $\cprob{X > x} = \elambdax$
 \item<5-> \redf{(Check)} $\expect{X} = 1/\lambda$, $\expect{X^2} = 2/\lambda^2$, $\var{X} = 1/\lambda^2$
 
-\eci 
+\eci
 
 % \vspace{-0.5cm}
 % \raggedleft
@@ -304,18 +305,18 @@ Examples
 \begin{frame}{Exponential RV: Model of Continuous Waiting Time}
 
 \plitemsep 0.2in
-\bci 
-\item<1-> $\cprob{X > x} = \elambdax$ 
+\bci
+\item<1-> $\cprob{X > x} = \elambdax$
 \item<2-> Appropriate for modeling a waiting time
 \bci
-\item $\cprob{X \ge x}$ exponentially decays
+\item $\cprob{X \ge x}$: exponentially decays
 \eci
 
-\item<3-> \redf{(Q)} What is the discrete rv which models a waiting time?  Geometric 
+\item<3-> \redf{(Q)} What is the discrete rv which models a waiting time?  \orangef{Geometric}
 
-\item<4-> What is the relation between exponential rv and geometric rv? 
+\item<4-> What is the relationship between exponential rv and geometric rv?
 
-\eci 
+\eci
 
 
 \end{frame}
@@ -324,24 +325,28 @@ Examples
 \begin{frame}{Modeling Waiting Time? A Discrete Twin (1)}
 
 \plitemsep 0.05in
-\bci 
-\item<2-> A discrete twin for modeling waiting times is \redf{geometric} rvs. 
-
-\item<3-> Models a system evolution over time: Continuous time vs. Discrete time. In many cases, continuous case is the some type of \redblank{4}{limit} of its corresponding discrete case.  
-
-\item<4-> Can you make mathematical description, where geometric and exponential rvs meet each other in the limit? 
-
-\item<5-> \redf{Key idea.}
 \bci
-\item Continuous system: Discrete system with \redblank{6}{infinitely many slots whose duration is infinitely small.} 
+% \item<2-> A discrete twin for modeling waiting times is \redf{geometric} rvs.
+
+\item<2-> Models a system evolution over time: Continuous time vs. Discrete time.
+\bci
+\item In many cases, continuous case is the some type of \redblank{3}{limit} of its corresponding discrete case.
+\eci
+
+\item<4-> Can we mathematically describe how geometric and exponential rvs meet each other in the limit?
+
+\item<5-> \magenf{Key idea}
+\bci
+\item Continuous system: Discrete system with \redblank{5}{infinitely many slots whose duration is infinitely small.}
 
 \eci
 
-\item<7-> limiting system: $X_{exp}(\lambda)$ with CDF $F_{exp}(\cdot)$
+\mycolorbox{
+$X^n_{geo}(p_n)$  with CDF $F^n_{geo}(\cdot)$ $\xrightarrow{n \rightarrow \infty}$
+$X_{exp}(\lambda)$ with CDF $F_{exp}(\cdot)$
+}
 
-\item<8-> $n$-th system: $X^n_{geo}(p_n)$  with CDF $F^n_{geo}(\cdot)$
-
-\eci 
+\eci
 % \raggedleft
 % \includegraphics[width=0.5\textwidth]{L4_exp_pdf.png}
 \end{frame}
@@ -354,7 +359,7 @@ Examples
 For a given $x>0,$
 
 \plitemsep 0.05in
-\bci 
+\bci
 \item<2-> Define $\delta = \frac{x}{n}$ (a slot length in the $n$-th system)
 
 \item<3-> Remember
@@ -364,9 +369,9 @@ F^n_{geo}(n) &= 1- (1-p_n)^n
 }
 \item<4-> Choose $p_n = 1-e^{-\lambda \delta} = 1-e^{-\lambda \frac{x}{n}}.$
 
-\item<5-> As $n \rightarrow \infty,$ the slot length $\delta \rightarrow 0$ thus $p_n \rightarrow 0$ 
+\item<5-> As $n \rightarrow \infty,$ the slot length $\delta \rightarrow 0$ thus $p_n \rightarrow 0$
 
-\item<5-> The CDF values of exponential and $n$-th geometric rvs become equal whenever $x =\delta, 2\delta, 3\delta, \ldots,$ i.e., 
+\item<5-> The CDF values of exponential and $n$-th geometric rvs become equal whenever $x =\delta, 2\delta, 3\delta, \ldots,$ i.e.,
 \aleq{
 F_{exp}(n\delta) = F^n_{geo}(n), \quad n=1, 2, \ldots
 }
@@ -378,7 +383,7 @@ F_{exp}(n\delta) = F^n_{geo}(n), \quad n=1, 2, \ldots
 \includegraphics[width=0.95\textwidth]{L4_exp_geo.png}
 \small
 \bci
-\item<6-> As $n$ grows, the number of slots grows, but the success probability over one slot decreases, so that everything is balanced up. 
+\item<6-> As $n$ grows, the number of slots grows, but the success probability over one slot decreases, so that everything is balanced up.
 \item<7-> As $n$ grows, $F^n_{geo}(n)$ approaches $F_{exp}(n\delta).$
 \eci
 }
@@ -409,10 +414,10 @@ F_{exp}(n\delta) = F^n_{geo}(n), \quad n=1, 2, \ldots
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Normal (also called Gaussian) Random Variable}
 
-Why important?
+{\large Why important?}
 
 \plitemsep 0.4in
-\bci 
+\bci
 \item Central limit theorem (중심극한정리)
 
 - One of the most remarkable findings in the probability theory
@@ -430,7 +435,7 @@ Why important?
 \mytwocols{0.4}
 {
 \plitemsep 0.1in
-\bci 
+\bci
 \item<1-> Standard Normal $N(0,1)$
 \aleq{
 \fx & = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}
@@ -442,7 +447,7 @@ Why important?
 }
 {
 \plitemsep 0.1in
-\bci 
+\bci
 \item<2-> General Normal $N(\mu, \sigma^2)$
 \aleq{
 \fx & = \frac{1}{\sigma\sqrt{2\pi}} e^{-(x-\mu)^2/2\sigma^2}
@@ -470,17 +475,17 @@ Need to check:
 \begin{frame}{Normal: Useful Property}
 
 \plitemsep 0.1in
-\bci 
+\bci
 \item<2-> Linear transformation preserves normality
 
 \myblock{Linear transformation of Normal}
 {
-If $X \sim  Norm(\mu, \sigma^2) $, then for $a \neq 0$ and $b$ $Y = aX +b \sim Norm(a\mu +b,a^2 \sigma^2).$ 
+If $X \sim  Norm(\mu, \sigma^2) $, then for $a \neq 0$ and $b$ $Y = aX +b \sim Norm(a\mu +b,a^2 \sigma^2).$
 }
 
-\item<3-> Thus, every normal rv can be \redblank{4}{standardized}: 
+\item<3-> Thus, every normal rv can be \redblank{4}{standardized}:
 
-If $X \sim  Norm(\mu, \sigma^2)$, then 
+If $X \sim  Norm(\mu, \sigma^2)$, then
 \redblank{4}{$Y = \frac{X-\mu}{\sigma}$} $\sim Norm(0,1)$
 
 \item<5-> Thus, we can make the \redf{table} which records the following CDF values:
@@ -499,14 +504,14 @@ If $X \sim  Norm(\mu, \sigma^2)$, then
 \mytwocols{0.7}
 {
 \plitemsep 0.1in
-\bci 
+\bci
 \item<1-> Annual snowfall $X$ is modeled as $Norm(60,20^2).$ What is the probability that this year's snowfall is at least 80 inches?
 
 \item<2-> $Y = \frac{X-60}{20}.$
 \onslide<3->{
 \aleq{
 \cprob{X \ge 80} &= \cprob{Y \ge \frac{80-60}{20}} \cr
-&= \cprob{Y \ge 1} = 1 - 
+&= \cprob{Y \ge 1} = 1 -
 \Phi(1) \cr
 &= 1- 0.8413 = 0.1587
 }
@@ -554,8 +559,8 @@ Two continuous rvs are \redblank{2}{jointly continuous} if a non-negative functi
 }
 
 \plitemsep 0.1in
-\bce 
-\item<3-> The joint PDF is used to calculate probabilities  
+\bce
+\item<3-> The joint PDF is used to calculate probabilities
 $$\cprob{(X,Y) \in B} = \iint_{(x,y) \in B} \fxy dx dy$$
 
 Our particular interest: $B = \{(x,y) \mid a \le x \le b, c \le y \le d \}$
@@ -568,7 +573,7 @@ Our particular interest: $B = \{(x,y) \mid a \le x \le b, c \le y \le d \}$
 
 \plitemsep 0.1in
 \bce
-\item<2->[2.] The marginal PDFs of $X$ and $Y$ are from the joint PDF as: 
+\item<2->[2.] The marginal PDFs of $X$ and $Y$ are from the joint PDF as:
 $$
 \fx = \int_{-\infty}^\infty \fxy dy, \quad \fy = \int_{-\infty}^\infty \fxy dx
 $$
@@ -591,12 +596,12 @@ $$
 
 \mytwocols{0.7}
 {
-* Conditional PDF, given an event 
+* Conditional PDF, given an event
 
 \medskip
 
 \plitemsep 0.15in
-\bci 
+\bci
 \item<2-> $\fx \cdot \delta \approx \cprob{x \le X \le x+\delta}$
 $\fxA \cdot \delta \approx \cprob{x \le X \le x+\delta | A}$
 
@@ -619,7 +624,7 @@ $\cprob{X \in B | A} = \int_B \fxA dx$
 \cprob{x \le X \le x+ \delta | X \in B} \approx f_{X|X \in B}(x) \cdot \delta
 }
 \aleq{
-f_{X|X \in B}(x) = 
+f_{X|X \in B}(x) =
 \begin{cases}
 0, & \text{if} \quad x \notin B \cr
 \frac{\fx}{\cprob{B}}, &\text{if} \quad x \in B
@@ -651,7 +656,7 @@ f_{X|X \in B}(x) =
 
 }
 {
-\bci 
+\bci
 \item<3-> $\expect{X} = \int x\fx dx$
 $\expect{X | A} = \int x\fxA dx$
 
@@ -666,7 +671,7 @@ $\expect{g(X) | A} = \int g(x)\fxA dx$
 }
 \onslide<5->{
 \aleq{
-\expect{X^2|A} = \onslide<6->{\int_{(a+b)/2}^b x^2 \frac{2}{b-a} dx =} 
+\expect{X^2|A} = \onslide<6->{\int_{(a+b)/2}^b x^2 \frac{2}{b-a} dx =}
 }}
 }
 \end{frame}
@@ -675,7 +680,7 @@ $\expect{g(X) | A} = \int g(x)\fxA dx$
 \begin{frame}{Exponential RV: Memoryless}
 
 \plitemsep 0.1in
-\bci 
+\bci
 \item<1-> Exponential rv is a continuous counterpart of geometric rv.
 \item<2-> Thus, expected to be memoryless. Remember?
 
@@ -684,9 +689,9 @@ $\expect{g(X) | A} = \int g(x)\fxA dx$
 \bluef{Definition.} A random variable $X$ is called \redblk{memoryless} if, for any $n,m \ge 0,$ $$\cprob{X > n+m | X > m} = \cprob{X > n}$$
 }
 
-\item<4-> \redf{Proof.} Note that $\cprob{X > x} = \elambdax.$ 
+\item<4-> \redf{Proof.} Note that $\cprob{X > x} = \elambdax.$
 \onslide<5->{
-Then, 
+Then,
 \aleq{
 \cprob{X > n+m | X > m} = \frac{\cprob{X > n+m}}{\cprob{X > m}} = \frac{e^{-\lambda(n+m)}}{e^{-\lambda m}} = e^{-\lambda n} = \cprob{X > n}
 }
@@ -712,7 +717,7 @@ Partition of $\Omega$ into $A_1,A_2,A_3, \ldots$
 \begin{block}<2->{Total Probability Theorem}
 \aleq{
  \px &= \sum_{i} \cprob{A_i} \cprob{X=x | A_i} \cr
- &= \sum_{i} \cprob{A_i} p_{X|A_i}(x) 
+ &= \sum_{i} \cprob{A_i} p_{X|A_i}(x)
 }
  \end{block}
 
@@ -729,7 +734,7 @@ Partition of $\Omega$ into $A_1,A_2,A_3, \ldots$
 
 \begin{block}<3->{Total Probability Theorem}
 \aleq{
- \redf{\fx} = \sum_{i} \cprob{A_i} \redf{f_{X|A_i}(x)}  
+ \redf{\fx} = \sum_{i} \cprob{A_i} \redf{f_{X|A_i}(x)}
 }
  \end{block}
 
@@ -752,10 +757,10 @@ Partition of $\Omega$ into $A_1,A_2,A_3, \ldots$
 
 
 \plitemsep 0.1in
-\bci 
-\item<1-> Your train's arrival every quarter hour (0, 15min, 30min, 45min). 
+\bci
+\item<1-> Your train's arrival every quarter hour (0, 15min, 30min, 45min).
 
-\item<1-> Your arrival $\sim$ uniform(7:10, 7:30) am. 
+\item<1-> Your arrival $\sim$ uniform(7:10, 7:30) am.
 
 \item<2-> What is the PDF of waiting time for the first train?
 
@@ -769,7 +774,7 @@ $A = \{\text{7:10} \leq X \leq \text{7:15} \}$
 \medskip
 $B = \{\text{7:15} \leq X \leq \text{7:30} \}$
 
-%\item Then, using the total probability theorem, 
+%\item Then, using the total probability theorem,
 \eci
 }
 {
@@ -777,7 +782,7 @@ $B = \{\text{7:15} \leq X \leq \text{7:30} \}$
 \mypic{0.85}{L4_total_prob_ex.png}
 \aleq{
 \onslide<5->{&\fy  = \cprob{A} \fyA + \cprob{B} f_{Y|B}(y)} \cr
-&\onslide<6->{\fy = {1 \over 4} {1 \over 5} +{3 \over 4} {1 \over 15} = {1 \over 10},} \quad \onslide<5->{\text{for } 0 \le y \le 5} \cr 
+&\onslide<6->{\fy = {1 \over 4} {1 \over 5} +{3 \over 4} {1 \over 15} = {1 \over 10},} \quad \onslide<5->{\text{for } 0 \le y \le 5} \cr
 &\onslide<7->{\fy = {1 \over 4} 0 +{3 \over 4} {1 \over 15} = {1 \over 20},} \quad \onslide<5->{\text{for } 5 < y \le 15}
 }
 }
@@ -792,7 +797,7 @@ $B = \{\text{7:15} \leq X \leq \text{7:30} \}$
 \medskip
 \small
 \plitemsep 0.1in
-\bci 
+\bci
 
 \item $\pxcy = \frac{\pxy}{\py}$
 
@@ -813,7 +818,7 @@ $$
 \medskip
 \small
 \plitemsep 0.01in
-\bci 
+\bci
 
 \item<5-> \redf{Multiplication rule.}
 \aleq{
@@ -844,7 +849,7 @@ $$
 %\medskip
 %\small
 \plitemsep 0.1in
-\bci 
+\bci
 
 \item<1-> Break a stick of length $l$ twice
 
@@ -852,7 +857,7 @@ $$
 
 - second break at $Y \sim uniform[0,X]$
 
-\item<2-> \redf{(Q)} What is $\expect{Y}$? 
+\item<2-> \redf{(Q)} What is $\expect{Y}$?
 
 \item<3-> Since $Y$ depends on $X,$ the total expectation theorem seems useful.
 $$
@@ -865,19 +870,19 @@ $$
 %\medskip
 %\small
 \plitemsep 0.1in
-\bci 
+\bci
 
-\item<4-> Using the TET, 
+\item<4-> Using the TET,
 \aleq{
 \expect{Y} &= \int_{0}^l \frac{1}{l} \expect{Y| X=x} dx\cr
 &= \int_{0}^l \frac{1}{l} \frac{x}{2} dx = \frac{l}{4}
 }
 
-\item<5-> $\fx$ and $\fycx$ seems easy to compute. Thus, 
+\item<5-> $\fx$ and $\fycx$ seems easy to compute. Thus,
 \aleq{
 \fxy &= \fx \fycx = {1 \over l} \cdot {1 \over x}
 }
-You can do many other things with the joint PDF. 
+You can do many other things with the joint PDF.
 \eci
 }
 
@@ -914,7 +919,7 @@ You can do many other things with the joint PDF.
 \begin{frame}{Bayes Rule for Continuous}
 
 \plitemsep 0.1in
-\bci 
+\bci
 
 \item<1-> $X$: state/cause/original value $\rightarrow$ $Y$: result/resulting action/noisy measurement
 
@@ -945,7 +950,7 @@ You can do many other things with the joint PDF.
 }
 }
 
-\eci 
+\eci
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -958,7 +963,7 @@ You can do many other things with the joint PDF.
 \plitemsep 0.1in
 \mytwocols{0.5}
 {
-\bci 
+\bci
 
 \item<2-> Inference of $K$ given $Y$
 \aleq{
@@ -969,7 +974,7 @@ You can do many other things with the joint PDF.
 \eci
 }
 {
-\bci 
+\bci
 
 \item<2-> Inference of $Y$ given $K$
 \aleq{
@@ -977,7 +982,7 @@ You can do many other things with the joint PDF.
 \bluef{f_{Y|K}(y|k)} &= \frac{\bluef{\fy} \redf{p_{K|Y}(k|y)}}{\redf{p_{K}(k)}} \cr
 \redf{p_{K}(k)} &= \int \bluef{f_{Y}(y')} \redf{p_{K|Y}(k|y')} dy'
 }}
-\eci 
+\eci
 }
 
 \end{frame}
@@ -986,7 +991,7 @@ You can do many other things with the joint PDF.
 \begin{frame}{Example: Signal Detection (1)}
 
 
-Inference of discrete $K$ given continuous $Y$: 
+Inference of discrete $K$ given continuous $Y$:
 \aleq{
 \redf{p_{K|Y}(k|y)} = \frac{\redf{p_{K}(k)} \bluef{f_{Y|K}(y|k)}}{\bluef{\fy}}, \quad \bluef{\fy} &= \sum_{k'} \redf{p_{K}(k')} \bluef{f_{Y|K}(y|k')}
 }
@@ -1001,23 +1006,23 @@ Inference of discrete $K$ given continuous $Y$:
 \item<4-> Your received signal = 0.7. What's your guess about the original signal? \onslide<6->{\redf{+1}}
 \item<5-> Your received signal = -0.2. What's your guess about the original signal? \onslide<6->{\redf{-1}}
 
-\eci 
+\eci
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Example: Signal Detection (2)}
 
 \plitemsep 0.01in
-\bci 
+\bci
 
-\item<1-> $Y|K=1 \sim N(1,1)$ and $Y|K=-1 \sim N(-1,1).$ 
+\item<1-> $Y|K=1 \sim N(1,1)$ and $Y|K=-1 \sim N(-1,1).$
 \aleq{
 \onslide<2->{f_{Y|K}(y|k) &= \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y-k)^2}, \quad k=1, -1} \cr
-\onslide<3->{\fy &= \frac{1}{2} \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y+1)^2} + 
+\onslide<3->{\fy &= \frac{1}{2} \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y+1)^2} +
 \frac{1}{2} \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y-1)^2}}
 }
 
-\item<4-> Probability that $K=1$, given $Y=y$? After some algebra, 
+\item<4-> Probability that $K=1$, given $Y=y$? After some algebra,
 
 \mytwocols{0.3}
 {
@@ -1030,7 +1035,7 @@ $$
 \onslide<5->{\mypic{0.8}{L4_sig_detection.png}}
 }
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -1043,9 +1048,9 @@ $$
 \begin{frame}{Review Questions}
 
 \bce[1)]
-\item What is PDF  and CDF? 
+\item What is PDF  and CDF?
 
-\item Why do we need CDF? 
+\item Why do we need CDF?
 
 \item What are joint/marginal/conditional PDFs?
 
