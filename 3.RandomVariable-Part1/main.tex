@@ -1070,7 +1070,7 @@ $$\cprob{X -m > n | X > m} = \cprob{X > n}$$
 
 \item<2-> \bluef{Remind.} Geometric rv $X$ with parameter $p$
 \aleq{
-\cprob{X = k}& = (1-p)^{k-1} p, \quad \magenf{\cprob{X > k}} = 1 - \sum_{i=1}^k (1-p)^{i-1} p = \magenf{(1-p)^k}
+\cprob{X = k}& = (1-p)^{k-1} p, \quad \magenf{\cprob{X > k}} = \sum_{i=k+1}^\infty (1-p)^{i-1} p = \magenf{(1-p)^k}
 }
 
 
@@ -1137,6 +1137,7 @@ $$\cprob{X -m > n | X > m} = \cprob{X > n}$$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Independence, Conditional Independence}
 
+%\small
 \plitemsep 0.02in
 
 \bci 
@@ -1244,7 +1245,7 @@ $\expect{g(X,Y)} \neq g(\expect{X},\expect{Y})$
 \item<4-> \bluef{Proof.}
 \aleq{
 \expect{g(X)h(Y)} &= \sum_{x}\sum_{y} g(x)h(y) \pxy \cr
-&= \sum_x x \px \sum_y y \py
+&= \sum_x g(x) \px \sum_y h(y) \py
 }
 
 \eci
@@ -1258,7 +1259,7 @@ $\expect{g(X,Y)} \neq g(\expect{X},\expect{Y})$
 $\var{aX} = a^2 \var{X}$, $\var{X + a} = \var{X}$
 
 \item<6-> Generally,
-$\var{X+Y} \neq \var{X} + \var{Y}$
+$\var{X+Y} \neq \var{X} + \var{Y}$ (next slide)
 
 \medskip
 

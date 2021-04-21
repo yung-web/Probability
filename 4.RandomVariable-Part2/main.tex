@@ -20,7 +20,7 @@
 \title[]{Lecture 4: Random Variable, Part II}
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
-\date{MONTH DAY, 2021}
+\date{\today}
 
 \input{../mymath}
 
@@ -33,52 +33,52 @@
   \titlepage
 \end{frame}
 
-% Uncomment these lines for an automatically generated outline.
-\begin{frame}{Outline}
-% \tableofcontents
-\plitemsep 0.1in
-\bci
-\item Continuous Random Variable
-
-\item PDF (Probability Density Function)
-
-\item CDF (Cumulative Distribution Function)
-
-\item Exponential and Normal Distribution
-
-\item Joint PDF, Conditional PDF
-
-\item Bayes' rule for continous and even mixed cases
-
-\eci
-\end{frame}
 
 % START START START START START START START START START START START START START
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
+\bce[(1)]
+\item Continuous Random Variable and PDF (Probability Density Function)
 
-\bci [$\circ$]
-\item \bluef{Famous discrete random variables used in the community
+\item CDF (Cumulative Distribution Function)
 
-- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. }
+\item Exponential RVs
 
-\item \bluef{Summarizing a random variable: Expectation and Variance}
+\item Gaussian (Normal) RVs
 
-\item \bluef{Functions of a single random variable}, \bluef{Functions of multiple random variables} 
+\item Continuous RVs: Joint, Conditioning, and Independence
 
-\item \bluef{Conditioning for random variables}, \bluef{Independence for random variables} 
+\item Bayes' rule for RVs
 
-\item \redf{Continuous random variables
-
-- Normal, Uniform, Exponential, etc. }
-
-\item Bayes' rule for random variables
-\eci 
-
+\ece
 \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+\bce[(1)]
+\item \redf{Continuous Random Variable and PDF (Probability Density Function)}
+
+\item \grayf{CDF (Cumulative Distribution Function)
+
+\item Exponential RVs
+
+\item Gaussian (Normal) RVs
+
+\item Continuous RVs: Joint, Conditioning, and Independence
+
+\item Bayes' rule for RVs}
+
+\ece
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Continuous RV and Probability Density Function}
@@ -86,7 +86,7 @@
 
 \smallskip
 
-\onslide<2->{- Many cases when random variable have ``continuous values", e.g., velocity of a car}
+\onslide<2->{- Many cases when random variables have ``continuous values", e.g., velocity of a car}
 \onslide<3->{
 \myblock{Continuous Random Variable}
 {
@@ -175,6 +175,28 @@ Examples
 
 \end{frame}
 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+\bce[(1)]
+\item \grayf{Continuous Random Variable and PDF (Probability Density Function)}
+
+\item \redf{CDF (Cumulative Distribution Function)}
+
+\item \grayf{Exponential RVs
+
+\item Gaussian (Normal) RVs
+
+\item Continuous RVs: Joint, Conditioning, and Independence
+
+\item Bayes' rule for RVs}
+
+\ece
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Cumulative Distribution Function (CDF)}
 
@@ -225,31 +247,76 @@ Examples
 \onslide<4->{Now, let's look at famous continuous random variables popularly used in our life.} 
 \end{frame}
 
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+\bce[(1)]
+\item \grayf{Continuous Random Variable and PDF (Probability Density Function)}
+
+\item \grayf{CDF (Cumulative Distribution Function)}
+
+\item \redf{Exponential RVs}
+
+\item \grayf{Gaussian (Normal) RVs
+
+\item Continuous RVs: Joint, Conditioning, and Independence
+
+\item Bayes' rule for RVs}
+
+\ece
+\end{frame}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Exponential RV with parameter $\lambda >0$: $\exp(\lambda)$}
 
-\plitemsep 0.02in
+\plitemsep 0.1in
 \bci 
-\item<2-> A rv $X$ is called \redf{exponential with $\lambda$,} if
+\item<2-> A rv $X$ is called \redf{exponential with $\lambda$,} if 
+% \hspace{7cm} \myinlinepic{2cm}{L4_exp_pdf.png}
+\vspace{-0.5cm}
 \aleq{
 \fx = 
  \begin{cases}
  \lambda \elambdax, & x \ge 0 \cr
  0, & x <0
  \end{cases}
-&\quad \text{or} \quad
-\Fx = 1- \elambdax
+\qquad \text{\hspace{8cm} \myinlinepic{2cm}{L4_exp_pdf.png}}
 }
-\item<3-> Models a waiting time
-\item<4-> CCDF $\cprob{X \ge x} = \elambdax$ (waiting time decays exponentially)
-\item<5-> $\expect{X} = 1/\lambda$, $\expect{X^2} = 2/\lambda^2$, $\var{X} = 1/\lambda^2$
-\item<6-> \redf{(Q)} What is the discrete rv which models a waiting time?  
+\item<3-> CDF $\displaystyle \Fx = \int_{0}^x  \lambda e^{-\lambda s}ds = 1- \elambdax$
+\item<4-> CCDF $\cprob{X > x} = \elambdax$ 
+\item<5-> \redf{(Check)} $\expect{X} = 1/\lambda$, $\expect{X^2} = 2/\lambda^2$, $\var{X} = 1/\lambda^2$
+
 \eci 
 
-\vspace{-0.5cm}
-\raggedleft
-\onslide<2->{\includegraphics[width=0.5\textwidth]{L4_exp_pdf.png}}
-%\mypic{0.9}{L4_exp_pdf.png}
+% \vspace{-0.5cm}
+% \raggedleft
+% \onslide<2->{\includegraphics[width=0.5\textwidth]{L4_exp_pdf.png}}
+% %\mypic{0.9}{L4_exp_pdf.png}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exponential RV: Model of Continuous Waiting Time}
+
+\plitemsep 0.2in
+\bci 
+\item<1-> $\cprob{X > x} = \elambdax$ 
+\item<2-> Appropriate for modeling a waiting time
+\bci
+\item $\cprob{X \ge x}$ exponentially decays
+\eci
+
+\item<3-> \redf{(Q)} What is the discrete rv which models a waiting time?  Geometric 
+
+\item<4-> What is the relation between exponential rv and geometric rv? 
+
+\eci 
+
 
 \end{frame}
 
@@ -316,6 +383,28 @@ F_{exp}(n\delta) = F^n_{geo}(n), \quad n=1, 2, \ldots
 \eci
 }
 \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+\bce[(1)]
+\item \grayf{Continuous Random Variable and PDF (Probability Density Function)}
+
+\item \grayf{CDF (Cumulative Distribution Function)}
+
+\item \grayf{Exponential RVs}
+
+\item \redf{Gaussian (Normal) RVs}
+
+\item \grayf{Continuous RVs: Joint, Conditioning, and Independence
+
+\item Bayes' rule for RVs}
+
+\ece
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Normal (also called Gaussian) Random Variable}
@@ -429,35 +518,28 @@ If $X \sim  Norm(\mu, \sigma^2)$, then
 }
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Roadmap}
 
-\plitemsep 0.05in
+\plitemsep 0.1in
+\bce[(1)]
+\item \grayf{Continuous Random Variable and PDF (Probability Density Function)}
 
-\bci [$\circ$]
-\item \bluef{Famous discrete random variables used in the community
+\item \grayf{CDF (Cumulative Distribution Function)}
 
-- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. }
+\item \grayf{Exponential RVs}
 
-\item \bluef{Summarizing a random variable: Expectation and Variance}
+\item \grayf{Gaussian (Normal) RVs}
 
-\item \magenf{Functions of a single random variable}, \magenf{Functions of multiple random variables} 
+\item \redf{Continuous RVs: Joint, Conditioning, and Independence}
 
-\item \magenf{Conditioning for random variables}, \magenf{Independence for random variables} 
+\item \grayf{Bayes' rule for RVs}
 
-\item \redf{Continuous random variables}
-
-- Normal, Uniform, Exponential, etc. 
-
-\item Bayes' rule for random variables
-
-\eci 
-
-\medskip
-
-** Continuous counterparts are intuitively understandable. So, we will be quick at reviewing them.
-
+\ece
 \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Continuous: Joint PDF and CDF (1)}
@@ -552,7 +634,7 @@ f_{X|X \in B}(x) =
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Continuous:  Conditional Expectation}
 
-\mytwocols{0.8}
+\mytwocols{0.75}
 {
 \plitemsep 0.15in
 
@@ -560,9 +642,11 @@ f_{X|X \in B}(x) =
 
 %\smallskip
 
-\centering
+\vspace{-0.3cm}
 \onslide<1->{\mypic{0.65}{L4_cond_ex1.png}}
+\vspace{-0.5cm}
 \only<1>{\mypic{0.65}{L4_cond_ex2.png}}
+\vspace{-0.5cm}
 \only<2->{\mypic{0.65}{L4_cond_ex3.png}}
 
 }
@@ -592,8 +676,8 @@ $\expect{g(X) | A} = \int g(x)\fxA dx$
 
 \plitemsep 0.1in
 \bci 
-\item<1-> Exponential rv is a continous counterpart of geometric rv.
-\item<2-> Thus, expected to be memeoryless.
+\item<1-> Exponential rv is a continuous counterpart of geometric rv.
+\item<2-> Thus, expected to be memoryless. Remember?
 
 \onslide<3->{
 \bigskip
@@ -800,29 +884,31 @@ You can do many other things with the joint PDF.
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Roadmap}
 
-\plitemsep 0.05in
+\plitemsep 0.1in
+\bce[(1)]
+\item \grayf{Continuous Random Variable and PDF (Probability Density Function)}
 
-\bci [$\circ$]
-\item \bluef{Famous discrete random variables used in the community
+\item \grayf{CDF (Cumulative Distribution Function)}
 
-- Bernoulli, Uniform, Binomial, Geometric, Poisson, etc. }
+\item \grayf{Exponential RVs}
 
-\item \bluef{Summarizing a random variable: Expectation and Variance}
+\item \grayf{Gaussian (Normal) RVs}
 
-\item \bluef{Functions of a single random variable}, \bluef{Functions of multiple random variables} 
+\item \grayf{Continuous RVs: Joint, Conditioning, and Independence}
 
-\item \bluef{Conditioning for random variables}, \bluef{Independence for random variables} 
+\item \redf{Bayes' rule for RVs}
 
-\item \bluef{Continuous random variables
-
-- Normal, Uniform, Exponential, etc. }
-
-\item \redf{Bayes' rule for random variables}
-\eci 
+\ece
 \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Bayes Rule for Continuous}
