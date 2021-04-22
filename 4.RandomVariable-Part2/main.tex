@@ -16,7 +16,6 @@
 \input{../myhead.tex}
 
 
-
 \title[]{Lecture 4: Random Variable, Part II}
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
@@ -59,7 +58,7 @@
 \end{frame}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\section{L4(1)}
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
@@ -89,23 +88,24 @@
 
 \onslide<2->{- Many cases when random variables have ``continuous values", e.g., velocity of a car}
 \onslide<3->{
-\myblock{Continuous Random Variable}
+\mycolorbox
 {
 A rv $X$ is \redf{continuous} if $\exists$ a function $f_X,$ called \redblk{probability density function (PDF)}, s.t.
 \vspace{-0.3cm}
 $$
-\cprob{X \in B} = \int_B \fx dx
+\cprob{X \in B} = \int_B \fx dx, \qquad \text{every subset $B \in \real$}
 $$
 \vspace{-0.5cm}
 }}
-\vspace{-0.5cm}
+\vspace{-0.1cm}
 \onslide<4->{- All of the concepts and methods (expectation, PMFs, and conditioning) for discrete rvs have continuous counterparts}
 \vspace{-0.2cm}
 \mytwocols{0.4}
 {
 \onslide<5->{
-\includegraphics[width=0.65\textwidth]{L4_pmf_ex.png}
-
+\vspace{-0.3cm}
+\mypic{0.55}{L4_pmf_ex.png}
+\vspace{-0.3cm}
 \plitemsep 0.01in
 \bci
 \item $\cprob{a \le X \le b} = \sum_{x: a\le x \le b} \px$
@@ -115,7 +115,8 @@ $$
 }
 {
 \onslide<6->{
-\includegraphics[width=0.85\textwidth]{L4_pdf_ex.png}
+\vspace{-0.2cm}
+\mypic{0.65}{L4_pdf_ex.png}
 
 \plitemsep 0.01in
 \bci
@@ -177,7 +178,7 @@ Examples
 \end{frame}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\section{L4(2)}
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
@@ -231,26 +232,56 @@ Examples
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{CDF Properties}
 
-
-\bigskip
-
-\plitemsep 0.3in
+\plitemsep 0.07in
 \bci
 \item<2-> Non-decreasing
 
-\item<3-> $F_X(x)$ tends to 1, as $x \rightarrow \infty$
+\item<3-> $F_X(x)$ tends to 1, as $x \rightarrow \infty$ and $F_X(x)$ tends to 0, as $x \rightarrow -\infty$
 
-\item<3-> $F_X(x)$ tends to 0, as $x \rightarrow -\infty$
+\item<4-> If $X$ is discrete,
+\bci
+\item $\Fx$ is a piecewise constant function of $x.$
+\item $p_X(k) = F_X(k) - F_X(k-1)$
+\eci
+\item<5-> If $X$ is continuous
+\bci
+\item $\Fx$ is a continuous function of $x.$
+\item $\displaystyle \Fx = \int_{-\infty}^x f_X(t) dt$ and $\displaystyle \fx = \frac{dF_X}{dx}(x)$
+\eci
+
 
 \eci
-\bigskip
+% \bigskip
+%
+% \onslide<4->{Now, let's look at famous continuous random variables popularly used in our life.}
+\end{frame}
 
-\onslide<4->{Now, let's look at famous continuous random variables popularly used in our life.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Maximum of Random Variables}
+
+\plitemsep 0.07in
+\bci
+\item Take a test three times, and your final score will be the maximum of test scores
+
+\item $X = \max\{X_1, X_2, X_3 \},$ and $X_i \in \{1, 2, \cdots, 10 \}$ uniformly at random
+\item \question $\px$?
+
+\item Approach 1: $\cprob{\max\{X_1, X_2, X_3 \} = x}$?
+\item Approach 2
+\aleq{
+\Fx &= \cprob{\max\{X_1, X_2, X_3 \} \le x} = \cprob{X_1 \le x, X_2 \le x, X_3 \le x} \cr
+&= \cprob{X_1 \le x} \cdot \cprob{X_2 \le x} \cdot \cprob{X_3 \le x} = \left( \frac{x}{10}\right)^3
+}
+Thus,
+\aleq{
+\px = \left( \frac{x}{10}\right)^3 - \left( \frac{x-1}{10}\right)^3, \quad x = 1, 2, \cdots, 10
+}
+\eci
 \end{frame}
 
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\section{L4(3)}
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
@@ -273,7 +304,7 @@ Examples
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Exponential RV with parameter $\lambda >0$: $\exp(\lambda)$}
+\begin{frame}{Exponential RV with parameter $\lambda >0$}
 
 \plitemsep 0.1in
 \bci
@@ -309,7 +340,7 @@ Examples
 \item<1-> $\cprob{X > x} = \elambdax$
 \item<2-> Appropriate for modeling a waiting time
 \bci
-\item $\cprob{X \ge x}$: exponentially decays
+\item $\cprob{X > x}$: exponentially decays
 \eci
 
 \item<3-> \redf{(Q)} What is the discrete rv which models a waiting time?  \orangef{Geometric}
@@ -328,25 +359,18 @@ Examples
 \bci
 % \item<2-> A discrete twin for modeling waiting times is \redf{geometric} rvs.
 
-\item<2-> Models a system evolution over time: Continuous time vs. Discrete time.
+\item<1-> Models a system evolution over time: Continuous time vs. Discrete time.
 \bci
-\item In many cases, continuous case is the some type of \redblank{3}{limit} of its corresponding discrete case.
+\item<2-> \exam Customer arrivals for my shop
+\item<2-> \magenf{Modeling 1:} Every 30 minute I record the number of customers for each 30-min window
+\item<2-> \magenf{Modeling 2:} I record the exact time of each customer's arrival
+\item<3-> In modeling 1, every 10 minute? every 1 minute? every 1 sec? every 0.0000001 sec?
 \eci
 
-\item<4-> Can we mathematically describe how geometric and exponential rvs meet each other in the limit?
-
-\item<5-> \magenf{Key idea}
-\bci
-\item Continuous system = Discrete system with \bluef{infinitely many slots whose duration is infinitely small}.
+\item<4-> In many cases, continuous case is the some type of \bluef{limit} of its corresponding discrete case.
 
 
-\item $n$-th system $\xrightarrow{n \rightarrow \infty}$ limiting system
-\eci
-
-\mycolorbox{
-$X^n_{geo}(p_n)$  with CDF $F^n_{geo}(\cdot)$ $\xrightarrow{n \rightarrow \infty}$
-$X_{exp}(\lambda)$ with CDF $F_{exp}(\cdot)$
-}
+\item<5-> Can we mathematically describe how geometric and exponential rvs meet each other in the limit?
 
 \eci
 % \raggedleft
@@ -356,43 +380,98 @@ $X_{exp}(\lambda)$ with CDF $F_{exp}(\cdot)$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Modeling Waiting Time? A Discrete Twin (2)}
 
-\myvartwocols{0.7}{0.65}{0.33}
-{
-For a given $x>0,$
-
 \plitemsep 0.05in
 \bci
-\item<2-> Define $\delta = \frac{x}{n}$ (a slot length in the $n$-th system)
 
-\item<3-> Remember
-\aleq{
-F_{exp}(x) &= 1- \elambdax \cr
-F^n_{geo}(n) &= 1- (1-p_n)^n
-}
-\item<4-> Choose $p_n = 1-e^{-\lambda \delta} = 1-e^{-\lambda \frac{x}{n}}.$
+\item `slot' is the length of one time unit
 
-\item<5-> As $n \rightarrow \infty,$ the slot length $\delta \rightarrow 0$ thus $p_n \rightarrow 0$
-
-\item<5-> The CDF values of exponential and $n$-th geometric rvs become equal whenever $x =\delta, 2\delta, 3\delta, \ldots,$ i.e.,
-\aleq{
-F_{exp}(n\delta) = F^n_{geo}(n), \quad n=1, 2, \ldots
-}
-
-\eci
-}
-{
-% \raggedleft
-\includegraphics[width=0.95\textwidth]{L4_exp_geo.png}
-\small
+\item Continuous system = Discrete system with
 \bci
-\item<6-> As $n$ grows, the number of slots grows, but the success probability over one slot decreases, so that everything is balanced up.
-\item<7-> As $n$ grows, $F^n_{geo}(n)$ approaches $F_{exp}(n\delta).$
+\item \bluef{infinitely many slots} whose duration is \bluef{infinitely small}.
+\item success probability $p$ over one slot decreases to 0 in the limit
 \eci
+
+\item Given $X^{exp} \sim \exp(\lambda)$, let us construct a geometric RV $X^{geo}_\delta$
+
+\bci
+\item Set the length of a slot to be $\delta,$ which is a parameter.
+\item Set the success probability $p_\delta$ over a slot to be $p_\delta = 1 - e^{-\lambda \delta}$ (this looks magical, whose secrete will be uncovered soon)
+\item $\cprob{X^{geo}_\delta \leq n} = 1-(1-p_\delta)^n = 1- e^{-\lambda \delta n}$
+\eci
+% $n$-th system $\xrightarrow{n \rightarrow \infty}$ limiting system
+%
+% \mycolorbox{
+% $X^n_{geo}(p_n)$  with CDF $F^n_{geo}(\cdot)$ $\xrightarrow{n \rightarrow \infty}$
+% $X_{exp}(\lambda)$ with CDF $F_{exp}(\cdot)$
+% }
+
+\eci
+% \raggedleft
+% \includegraphics[width=0.5\textwidth]{L4_exp_pdf.png}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modeling Waiting Time? A Discrete Twin (3)}
+
+\mypic{0.3}{L4_exp_geo.png}
+
+\vspace{-0.5cm}
+\plitemsep 0.07in
+\bci
+
+\item<2-> Note that $\cprob{X^{exp} \leq x} = 1- e^{-\lambda x}.$ Then, when $x = n\delta,$ $n=1, 2, \ldots$
+$$
+\cprob{X^{exp} \leq x} = \cprob{X^{geo}_\delta \leq n} = 1- e^{-\lambda \delta n}
+$$
+
+\item<3-> If we choose sufficiently small $\delta$, the slot length $\uparrow$ and $p_\delta$ $\downarrow$
+\mycolorbox{
+$\cprob{X^{geo}_\delta \leq n}  \xrightarrow{\delta \rightarrow 0} \cprob{X^{exp} \leq x},$ $x = n \delta$
 }
+\eci
+
 \end{frame}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Modeling Waiting Time? A Discrete Twin (3)}
+%
+% \myvartwocols{0.7}{0.65}{0.33}
+% {
+% For a given $x>0,$
+%
+% \plitemsep 0.05in
+% \bci
+% \item<2-> Define $\delta = \frac{x}{n}$ (a slot length in the $n$-th system)
+%
+% \item<3-> Remember
+% \aleq{
+% F_{exp}(x) &= 1- \elambdax \cr
+% F^n_{geo}(n) &= 1- (1-p_n)^n
+% }
+% \item<4-> Choose $p_n = 1-e^{-\lambda \delta} = 1-e^{-\lambda \frac{x}{n}}.$
+%
+% \item<5-> As $n \rightarrow \infty,$ the slot length $\delta \rightarrow 0$ thus $p_n \rightarrow 0$
+%
+% \item<5-> The CDF values of exponential and $n$-th geometric rvs become equal whenever $x =\delta, 2\delta, 3\delta, \ldots,$ i.e.,
+% \aleq{
+% F_{exp}(n\delta) = F^n_{geo}(n), \quad n=1, 2, \ldots
+% }
+%
+% \eci
+% }
+% {
+% % \raggedleft
+% \includegraphics[width=0.95\textwidth]{L4_exp_geo.png}
+% \small
+% \bci
+% \item<6-> As $n$ grows, the number of slots grows, but the success probability over one slot decreases, so that everything is balanced up.
+% \item<7-> As $n$ grows, $F^n_{geo}(n)$ approaches $F_{exp}(n\delta).$
+% \eci
+% }
+% \end{frame}
 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L4(4)}
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
@@ -415,16 +494,16 @@ F_{exp}(n\delta) = F^n_{geo}(n), \quad n=1, 2, \ldots
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Normal (also called Gaussian) Random Variable}
-
+\footnotetext{Central limit theorem: 중심극한정리}
 {\large Why important?}
 
 \plitemsep 0.4in
 \bci
-\item Central limit theorem (중심극한정리)
+\item Central limit theorem
 
 - One of the most remarkable findings in the probability theory
 
-\item Convenient analytical properties
+\item Convenient analytical properties and thus having closed forms
 
 \item Modeling aggregate noise with many small, independent noise terms
 
@@ -438,7 +517,7 @@ F_{exp}(n\delta) = F^n_{geo}(n), \quad n=1, 2, \ldots
 {
 \plitemsep 0.1in
 \bci
-\item<1-> Standard Normal $N(0,1)$
+\item<1-> Standard Normal $\set{N}(0,1)$
 \aleq{
 \fx & = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}
 }
@@ -450,7 +529,7 @@ F_{exp}(n\delta) = F^n_{geo}(n), \quad n=1, 2, \ldots
 {
 \plitemsep 0.1in
 \bci
-\item<2-> General Normal $N(\mu, \sigma^2)$
+\item<2-> General Normal $\set{N}(\mu, \sigma^2)$
 \aleq{
 \fx & = \frac{1}{\sigma\sqrt{2\pi}} e^{-(x-\mu)^2/2\sigma^2}
 }
@@ -465,7 +544,7 @@ F_{exp}(n\delta) = F^n_{geo}(n), \quad n=1, 2, \ldots
 \medskip
 
 \onslide<3->{
-Need to check:
+Please check (looks like a boring algebra, see Problem 14 at pp 189):
 
 - a legitimate PDF or not
 
@@ -480,15 +559,15 @@ Need to check:
 \bci
 \item<2-> Linear transformation preserves normality
 
-\myblock{Linear transformation of Normal}
+\mycolorbox
 {
-If $X \sim  Norm(\mu, \sigma^2) $, then for $a \neq 0$ and $b$ $Y = aX +b \sim Norm(a\mu +b,a^2 \sigma^2).$
+If $X \sim  \set{N}(\mu, \sigma^2) $, then for $a \neq 0$ and $b,$ $Y = aX +b \sim \set{N}(a\mu +b,a^2 \sigma^2).$
 }
 
 \item<3-> Thus, every normal rv can be \redblank{4}{standardized}:
 
-If $X \sim  Norm(\mu, \sigma^2)$, then
-\redblank{4}{$Y = \frac{X-\mu}{\sigma}$} $\sim Norm(0,1)$
+If $X \sim  \set{N}(\mu, \sigma^2)$, then
+\redblank{4}{$Y = \frac{X-\mu}{\sigma}$} $\sim \set{N}(0,1)$
 
 \item<5-> Thus, we can make the \redf{table} which records the following CDF values:
 \aleq{
@@ -507,7 +586,7 @@ If $X \sim  Norm(\mu, \sigma^2)$, then
 {
 \plitemsep 0.1in
 \bci
-\item<1-> Annual snowfall $X$ is modeled as $Norm(60,20^2).$ What is the probability that this year's snowfall is at least 80 inches?
+\item<1-> Annual snowfall $X$ is modeled as $\set{N}(60,20^2).$ What is the probability that this year's snowfall is at least 80 inches?
 
 \item<2-> $Y = \frac{X-60}{20}.$
 \onslide<3->{
@@ -527,7 +606,7 @@ If $X \sim  Norm(\mu, \sigma^2)$, then
 
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\section{L4(5)}
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
@@ -551,19 +630,19 @@ If $X \sim  Norm(\mu, \sigma^2)$, then
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Continuous: Joint PDF and CDF (1)}
 
-\myblock{Jointly Continuous }
+\mycolorbox
 {
-Two continuous rvs are \redblank{2}{jointly continuous} if a non-negative function $\fxy$ (called joint PDF) satisfies: for \redblk{every} subset $B$ of the two dimensional plane,
-\aleq{
-\cprob{(X,Y) \in B} = \iint_{(x,y) \in B} \fxy dx dy
-}
+Two continuous rvs are \redblank{2}{jointly continuous} if a non-negative function $\fxy$ (called joint PDF) satisfies: for \redf{every subset} $B$ of the two dimensional plane,
+$$
+\cprob{(X,Y) \in B} = \iint_{(x,y) \in B} \fxy dx dy,
+$$
 \vspace{-0.3cm}
 }
 
 \plitemsep 0.1in
 \bce
 \item<3-> The joint PDF is used to calculate probabilities
-$$\cprob{(X,Y) \in B} = \iint_{(x,y) \in B} \fxy dx dy$$
+$$\bprob{(X,Y) \in B} = \iint_{(x,y) \in B} \fxy dx dy$$
 
 Our particular interest: $B = \{(x,y) \mid a \le x \le b, c \le y \le d \}$
 \ece
@@ -575,17 +654,17 @@ Our particular interest: $B = \{(x,y) \mid a \le x \le b, c \le y \le d \}$
 
 \plitemsep 0.1in
 \bce
-\item<2->[2.] The marginal PDFs of $X$ and $Y$ are from the joint PDF as:
+\item<1->[2.] The \redf{marginal} PDFs of $X$ and $Y$ are from the joint PDF as:
 $$
 \fx = \int_{-\infty}^\infty \fxy dy, \quad \fy = \int_{-\infty}^\infty \fxy dx
 $$
 
-\item<3->[3.] The joint CDF is defined by $\Fxy = \cprob{X \le x, Y \le y},$ and determines the joint PDF as:
+\item<2->[3.] The \redf{joint CDF} is defined by $\Fxy = \cprob{X \le x, Y \le y},$ and determines the joint PDF as:
 $$
 \fxy = \frac{\partial^2 F_{x,y}}{\partial x \partial y} (x,y)
 $$
 
-\item<4->[4.] A function $g(X,Y)$ of $X$ and $Y$ defines a new random variable, and
+\item<3->[4.] A function $g(X,Y)$ of $X$ and $Y$ defines a new random variable, and
 $$
 \expect{g(X,Y)} = \int_{-\infty}^\infty \int_{-\infty}^\infty g(x,y) \fxy dx dy
 $$
@@ -596,7 +675,7 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Continuous:  Conditional PDF given an event}
 
-\mytwocols{0.7}
+\mytwocols{0.5}
 {
 * Conditional PDF, given an event
 
@@ -610,32 +689,35 @@ $\fxA \cdot \delta \approx \cprob{x \le X \le x+\delta | A}$
 \item<3-> $\cprob{X \in B} = \int_B \fx dx$
 $\cprob{X \in B | A} = \int_B \fxA dx$
 
-\medskip
-\redf{Note:} $A$ is an event, but $B$ is a subset that includes the possible values which can be taken by the rv $X.$
+
 
 \item<4-> $\int \fxA = 1$
 \eci
 }
 {
-* Conditional PDF, given $X \in B$
+* Conditional PDF, given $\{X \in C \}$
 
 \medskip
 
 \onslide<5->{
 \aleq{
-\cprob{x \le X \le x+ \delta | X \in B} \approx f_{X|X \in B}(x) \cdot \delta
+f_{X|X \in C}(x) \cdot \delta \approx \cprob{x \le X \le x+ \delta | X \in C}
 }
 \aleq{
-f_{X|X \in B}(x) =
+f_{X|X \in C}(x) =
 \begin{cases}
-0, & \text{if} \quad x \notin B \cr
-\frac{\fx}{\cprob{B}}, &\text{if} \quad x \in B
+0, & \text{if} \quad x \notin C \cr
+\frac{\fx}{\cprob{C}}, &\text{if} \quad x \in C
 \end{cases}
 }}
 
 \onslide<6->{\redf{(Q)} In the discrete, we consider the event $\{X = x\}$, not $\{X \in B\}.$ Why?}
 
 }
+
+\redf{Notation:} $A$ is an event, but $B$ and $C$ is a subset that includes the possible values which can be taken by the rv $X.$ Sorry for the confusion, if any.
+
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -683,8 +765,8 @@ $\expect{g(X) | A} = \int g(x)\fxA dx$
 
 \plitemsep 0.1in
 \bci
-\item<1-> Exponential rv is a continuous counterpart of geometric rv.
-\item<2-> Thus, expected to be memoryless. Remember?
+\item<1-> \redf{Remember:} Exponential rv is a continuous counterpart of geometric rv.
+\item<2-> Thus, expected to be memoryless. Definition, remember?
 
 \onslide<3->{
 \bigskip
@@ -734,6 +816,7 @@ Partition of $\Omega$ into $A_1,A_2,A_3, \ldots$
 * Continuous case
 \medskip
 
+
 \begin{block}<3->{Total Probability Theorem}
 \aleq{
  \redf{\fx} = \sum_{i} \cprob{A_i} \redf{f_{X|A_i}(x)}
@@ -756,6 +839,8 @@ Partition of $\Omega$ into $A_1,A_2,A_3, \ldots$
 {
 
 \bigskip
+
+
 
 
 \plitemsep 0.1in
@@ -846,18 +931,17 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Example: Stick-breaking (Ch 3. Prob 21)}
 
+\footnotetext{$\set{U}[a,b]$: continuous uniform random variable over the interval $[a,b]$}
 \mytwocols{0.7}
 {
-%\medskip
-%\small
 \plitemsep 0.1in
 \bci
 
 \item<1-> Break a stick of length $l$ twice
 
-- first break at $X \sim uniform[0.l]$
+- first break at $X \sim \set{U}[0,l]$
 
-- second break at $Y \sim uniform[0,X]$
+- second break at $Y \sim \set{U}[0,X]$
 
 \item<2-> \redf{(Q)} What is $\expect{Y}$?
 
@@ -894,9 +978,7 @@ You can do many other things with the joint PDF.
 
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\section{L4(6)}
 \begin{frame}{Roadmap}
 
 \plitemsep 0.1in
@@ -965,15 +1047,17 @@ You can do many other things with the joint PDF.
 \plitemsep 0.1in
 \mytwocols{0.5}
 {
-\bci
 
+\bci
 \item<2-> Inference of $K$ given $Y$
 \aleq{
 \onslide<3->{
 \redf{p_{K|Y}(k|y)} &= \frac{\redf{p_{K}(k)} \bluef{f_{Y|K}(y|k)}}{\bluef{\fy}}\cr
 \bluef{\fy} &= \sum_{k'} \redf{p_{K}(k')} \bluef{f_{Y|K}(y|k')}
-}}
+}
+}
 \eci
+
 }
 {
 \bci
@@ -993,16 +1077,17 @@ You can do many other things with the joint PDF.
 \begin{frame}{Example: Signal Detection (1)}
 
 
+\mycolorbox{
 Inference of discrete $K$ given continuous $Y$:
 \aleq{
 \redf{p_{K|Y}(k|y)} = \frac{\redf{p_{K}(k)} \bluef{f_{Y|K}(y|k)}}{\bluef{\fy}}, \quad \bluef{\fy} &= \sum_{k'} \redf{p_{K}(k')} \bluef{f_{Y|K}(y|k')}
-}
+}}
 
 \plitemsep 0.01in
 \bci
 
 \item<2-> $K$: -1, +1, original signal, equally likely. $p_{K}(1) = 1/2, p_{K}(-1) = 1/2.$
-\item<3-> $Y$: measured signal with Gaussian noise, $Y= K+W,$ $W \sim N(0,1)$
+\item<3-> $Y$: measured signal with Gaussian noise, $Y= K+W,$ $W \sim \set{N}(0,1)$
 
 \medskip
 \item<4-> Your received signal = 0.7. What's your guess about the original signal? \onslide<6->{\redf{+1}}
@@ -1017,11 +1102,11 @@ Inference of discrete $K$ given continuous $Y$:
 \plitemsep 0.01in
 \bci
 
-\item<1-> $Y|K=1 \sim N(1,1)$ and $Y|K=-1 \sim N(-1,1).$
+\item<1-> $Y|\{K=1\} \sim \set{N}(1,1)$ and $Y|\{K=-1\} \sim \set{N}(-1,1).$
 \aleq{
 \onslide<2->{f_{Y|K}(y|k) &= \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y-k)^2}, \quad k=1, -1} \cr
 \onslide<3->{\fy &= \frac{1}{2} \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y+1)^2} +
-\frac{1}{2} \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y-1)^2}}
+\frac{1}{2} \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y-1)^2}} \qquad \qquad \text{(from TPT)}
 }
 
 \item<4-> Probability that $K=1$, given $Y=y$? After some algebra,
@@ -1031,6 +1116,12 @@ Inference of discrete $K$ given continuous $Y$:
 $$
 p_{K|Y}(1|y) = \frac{1}{1+ e^{-2y}}
 $$
+\bci
+\item<6->  If $y >0,$ the inference probability for $K=1$ exceeds $\frac{1}{2}$
+\item<7->  Similarly, compute $p_{K|Y}(-1|y)$ and then do the inference
+\eci
+
+
 }
 {
 \centering
