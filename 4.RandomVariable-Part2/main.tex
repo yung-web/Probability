@@ -249,7 +249,6 @@ Examples
 \item $\displaystyle \Fx = \int_{-\infty}^x f_X(t) dt$ and $\displaystyle \fx = \frac{dF_X}{dx}(x)$
 \eci
 
-
 \eci
 % \bigskip
 %
@@ -325,35 +324,72 @@ Thus,
 
 \eci
 
-% \vspace{-0.5cm}
-% \raggedleft
-% \onslide<2->{\includegraphics[width=0.5\textwidth]{L4_exp_pdf.png}}
-% %\mypic{0.9}{L4_exp_pdf.png}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Exponential RV: Mean and Variance}
+
+\plitemsep 0.1in
+\bci
+\item $\cexpect{X} = 1/\lambda.$ Use \bluef{integration by parts}:$\displaystyle \int u dv = uv - \int v du$
+\aleq{
+\int_{0}^\infty x\lambda \elambdax dx = (-x\elambdax)\biggr \rvert_{0}^\infty + \int_{0}^\infty \elambdax dx = 0 - \frac{\elambdax}{\lambda}\biggr \rvert_{0}^\infty = \frac{1}{\lambda}
+}
+\item $\cexpect{X^2}$
+\aleq{
+ \int_{0}^\infty x^2 \lambda \elambdax dx = (-x^2 \elambdax) \biggr \rvert_{0}^\infty + \int_{0}^\infty 2x \elambdax dx = 0 + \frac{2}{\lambda} \cexpect{X} = \frac{2}{\lambda^2}
+}
+\item $\cvar{X} = \cexpect{X^2} - (\cexpect{X})^2 = \frac{1}{\lambda^2}$
+\eci
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Exponential RV: Model of Continuous Waiting Time}
 
-\plitemsep 0.2in
+\plitemsep 0.15in
 \bci
 \item<1-> $\cprob{X > x} = \elambdax$
-\item<2-> Appropriate for modeling a waiting time
+\item<2-> Appropriate for modeling a waiting time until an incident of interest takes place
 \bci
 \item $\cprob{X > x}$: exponentially decays
+\item message arriving at a computer, some equipment breaking down, a light bulb burning out, etc
 \eci
 
 \item<3-> \redf{(Q)} What is the discrete rv which models a waiting time?  \orangef{Geometric}
 
-\item<4-> What is the relationship between exponential rv and geometric rv?
+\item<4-> What is the relationship between exponential rv and geometric rv? We will see this relationship soon, but let's look at an example first.
 
 \eci
-
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Modeling Waiting Time? A Discrete Twin (1)}
+\begin{frame}{Example}
+
+\plitemsep 0.07in
+\bci
+\item A very small meteorite first lands anywhere in Korea \hspace{4.5cm} \myinlinepic{1.5cm}{meteorite.jpeg}
+
+\item<2-> Time of landing is modeled as an exponential rv with mean 10 days
+
+\item<3-> The current time is midnight. What is the probability that a meteorite first lands some time between 6 a.m. and 6 p.m. of the first day? \hfill \lecturemark{VIDEO PAUSE}
+
+\item<4-> \redf{(Solution)}
+\bci
+\item<4-> $\cexpect{X} = 1/\lambda = 10.$ Thus, $\lambda = \frac{1}{10}.$
+\item<5-> 6 a.m. from midnight = 1/4 day, 6 p.m. from midnight = 3/4 day
+\aleq{
+\cprob{1/4 \le X \le 3/4} = \cprob{X \ge 1/4} - \cprob{X \ge 3/4} = e^{-1/40} - e^{-3/40} = 0.0476
+}
+
+\eci
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Geometric vs. Exponential (1)}
 
 \plitemsep 0.05in
 \bci
@@ -361,13 +397,13 @@ Thus,
 
 \item<1-> Models a system evolution over time: Continuous time vs. Discrete time.
 \bci
-\item<2-> \exam Customer arrivals for my shop
+\item<2-> \exam Customer arrivals at my shop
 \item<2-> \magenf{Modeling 1:} Every 30 minute I record the number of customers for each 30-min window
 \item<2-> \magenf{Modeling 2:} I record the exact time of each customer's arrival
 \item<3-> In modeling 1, every 10 minute? every 1 minute? every 1 sec? every 0.0000001 sec?
 \eci
 
-\item<4-> In many cases, continuous case is the some type of \bluef{limit} of its corresponding discrete case.
+\item<4-> In many cases, continuous case is some type of \bluef{limit} of its corresponding discrete case.
 
 
 \item<5-> Can we mathematically describe how geometric and exponential rvs meet each other in the limit?
@@ -378,40 +414,31 @@ Thus,
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Modeling Waiting Time? A Discrete Twin (2)}
+\begin{frame}{Geometric vs. Exponential (2)}
 
-\plitemsep 0.05in
+\plitemsep 0.1in
 \bci
 
-\item `slot' is the length of one time unit
+\item \redf{`slot'} is one unit time, e.g., 1 hour, 30 mins, 1 min, 10 sec, etc.
 
-\item Continuous system = Discrete system with
+\item<2-> Continuous system = Discrete system with
 \bci
 \item \bluef{infinitely many slots} whose duration is \bluef{infinitely small}.
-\item success probability $p$ over one slot decreases to 0 in the limit
+\item success probability $p$ over one slot \bluef{decreases to 0} in the limit
 \eci
 
-\item Given $X^{exp} \sim \exp(\lambda)$, let us construct a geometric RV $X^{geo}_\delta$
+\item<3-> Given $X^{exp} \sim \exp(\lambda)$, let us construct a geometric RV $X^{geo}_\delta$
 
 \bci
-\item Set the length of a slot to be $\delta,$ which is a parameter.
-\item Set the success probability $p_\delta$ over a slot to be $p_\delta = 1 - e^{-\lambda \delta}$ (this looks magical, whose secrete will be uncovered soon)
-\item $\cprob{X^{geo}_\delta \leq n} = 1-(1-p_\delta)^n = 1- e^{-\lambda \delta n}$
+\item<4-> Set the length of a slot to be $\delta,$ which is a parameter.
+\item<5-> Set the success probability $p_\delta$ over a slot to be $p_\delta = 1 - e^{-\lambda \delta}$ (this looks magical, whose secrete will be uncovered soon)
+\item<6-> $\cprob{X^{geo}_\delta \leq n} = 1-(1-p_\delta)^n = 1- e^{-\lambda \delta n}$
 \eci
-% $n$-th system $\xrightarrow{n \rightarrow \infty}$ limiting system
-%
-% \mycolorbox{
-% $X^n_{geo}(p_n)$  with CDF $F^n_{geo}(\cdot)$ $\xrightarrow{n \rightarrow \infty}$
-% $X_{exp}(\lambda)$ with CDF $F_{exp}(\cdot)$
-% }
-
 \eci
-% \raggedleft
-% \includegraphics[width=0.5\textwidth]{L4_exp_pdf.png}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Modeling Waiting Time? A Discrete Twin (3)}
+\begin{frame}{Geometric vs. Exponential (3)}
 
 \mypic{0.3}{L4_exp_geo.png}
 
@@ -421,10 +448,10 @@ Thus,
 
 \item<2-> Note that $\cprob{X^{exp} \leq x} = 1- e^{-\lambda x}.$ Then, when $x = n\delta,$ $n=1, 2, \ldots$
 $$
-\cprob{X^{exp} \leq x} = \cprob{X^{geo}_\delta \leq n} = 1- e^{-\lambda \delta n}
+\cprob{X^{exp} \leq x} = 1- e^{-\lambda \delta n} = \onslide<3->{\cprob{X^{geo}_\delta \leq n} }
 $$
 
-\item<3-> If we choose sufficiently small $\delta$, the slot length $\uparrow$ and $p_\delta$ $\downarrow$
+\item<4-> If we choose sufficiently small $\delta$, the slot length $\downarrow$ and $p_\delta$ $\downarrow$
 \mycolorbox{
 $\cprob{X^{geo}_\delta \leq n}  \xrightarrow{\delta \rightarrow 0} \cprob{X^{exp} \leq x},$ $x = n \delta$
 }
@@ -492,32 +519,15 @@ $\cprob{X^{geo}_\delta \leq n}  \xrightarrow{\delta \rightarrow 0} \cprob{X^{exp
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Normal (also called Gaussian) Random Variable}
-\footnotetext{Central limit theorem: 중심극한정리}
-{\large Why important?}
-
-\plitemsep 0.4in
-\bci
-\item Central limit theorem
-
-- One of the most remarkable findings in the probability theory
-
-\item Convenient analytical properties and thus having closed forms
-
-\item Modeling aggregate noise with many small, independent noise terms
-
-\eci
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Normal: PDF, Expectation, Variance}
 
 \mytwocols{0.4}
 {
-\plitemsep 0.1in
+\plitemsep 0.01in
 \bci
-\item<1-> Standard Normal $\set{N}(0,1)$
+\item<1-> \orangef{Standard} Normal $\set{N}(0,1)$
 \aleq{
 \fx & = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}
 }
@@ -527,7 +537,7 @@ $\cprob{X^{geo}_\delta \leq n}  \xrightarrow{\delta \rightarrow 0} \cprob{X^{exp
 \eci
 }
 {
-\plitemsep 0.1in
+\plitemsep 0.01in
 \bci
 \item<2-> General Normal $\set{N}(\mu, \sigma^2)$
 \aleq{
@@ -541,23 +551,46 @@ $\cprob{X^{geo}_\delta \leq n}  \xrightarrow{\delta \rightarrow 0} \cprob{X^{exp
 \eci
 }
 
-\medskip
-
-\onslide<3->{
-Please check (looks like a boring algebra, see Problem 14 at pp 189):
-
-- a legitimate PDF or not
-
-- expectation/variance
-}
+\vspace{-1cm}
+\onslide<2->{\mypic{0.8}{L4_normal_ex.png}}
+\vspace{-1cm}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Normal: Useful Property}
+\begin{frame}{Check: PDF, Expectation, Variance}
+
+\plitemsep 0.07in
+\bci
+\item PDF's normalization property: $\displaystyle \frac{1}{\sigma\sqrt{2\pi}} \int_{-\infty}^\infty e^{-(x-\mu)^2/2\sigma^2} dx = 1$
+\bci
+\item<2-> A little bit boring :-). See Problem 14 at pp 189.
+\eci
+
+\item<3-> Expectation
+\bci
+\item $\fx$ is symmetric in terms of $x = \mu.$ Thus, we should have $\cexpect{X} = \mu.$
+\eci
+
+\item<4-> Variance
+\aleq{
+\cvar{X} &= \frac{1}{\sigma\sqrt{2\pi}} \int_{-\infty}^\infty (x - \mu)^2 e^{-(x-\mu)^2/2\sigma^2} dx
+ \stackrel{\bluef{y=\frac{x-\mu}{\sigma}}}{=} \frac{\sigma^2}{\sqrt{2\pi}} \int_{-\infty}^\infty y^2 e^{-y^2/2} dy \cr
+&= \frac{\sigma^2}{\sqrt{2\pi}}(-y e^{-y^2/2})\biggr \rvert_{-\infty}^\infty + \frac{\sigma^2}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{-y^2/2} dy = \frac{\sigma^2}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{-y^2/2} dy = \sigma^2
+}
+
+\mycolorbox{
+\magenf{$\int u dv = u v - \int v du$:} \redf{$u=y$} and \bluef{$dv = y e^{-y^2/2}$} $\rightarrow$ \redf{$du = dy$} and \bluef{$v = -e^{-y^2/2}$}
+}
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Normality: Preserved under Linear Transformation}
 
 \plitemsep 0.1in
 \bci
-\item<2-> Linear transformation preserves normality
+\item<2-> Linear transformation preserves normality (we will verify this in Lecture 5)
 
 \mycolorbox
 {
@@ -573,6 +606,7 @@ If $X \sim  \set{N}(\mu, \sigma^2)$, then
 \aleq{
 \Phi(y) = \cprob{Y \le y} = \cprob{Y < y} = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^y e^{-t^2/2} dt
 }
+
 
 \eci
 \end{frame}
@@ -602,6 +636,29 @@ If $X \sim  \set{N}(\mu, \sigma^2)$, then
 {
 \includegraphics[width=0.8\textwidth]{L4_normal_table.png}
 }
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Normal RVs: Why Important?}
+\footnotetext{Central limit theorem: 중심극한정리}
+
+\plitemsep 0.15in
+\bci
+\item Central limit theorem
+
+\bci
+\item  One of the most remarkable findings in the probability theory
+\item  Sum of \redf{any} random variables $\approx$ Normal random variable
+\eci
+
+\item Modeling aggregate noise with many small, independent noise terms
+
+\item Convenient analytical properties, allowing closed forms in many cases
+
+\item Highly popular in communication and machine learning areas
+\eci
 \end{frame}
 
 
@@ -677,21 +734,21 @@ $$
 
 \mytwocols{0.5}
 {
-* Conditional PDF, given an event
+* Conditional PDF, given an event $A$
 
 \medskip
 
 \plitemsep 0.15in
 \bci
 \item<2-> $\fx \cdot \delta \approx \cprob{x \le X \le x+\delta}$
-$\fxA \cdot \delta \approx \cprob{x \le X \le x+\delta | A}$
+$\redf{\fxA} \cdot \delta \approx \cprob{x \le X \le x+\delta | A}$
 
 \item<3-> $\cprob{X \in B} = \int_B \fx dx$
 $\cprob{X \in B | A} = \int_B \fxA dx$
 
 
 
-\item<4-> $\int \fxA = 1$
+\item<4-> $\int \fxA dx= 1$
 \eci
 }
 {
@@ -701,13 +758,13 @@ $\cprob{X \in B | A} = \int_B \fxA dx$
 
 \onslide<5->{
 \aleq{
-f_{X|X \in C}(x) \cdot \delta \approx \cprob{x \le X \le x+ \delta | X \in C}
+\redf{f_{X|\{X \in C\}}(x)} \cdot \delta \approx \cprob{x \le X \le x+ \delta | X \in C}
 }
 \aleq{
-f_{X|X \in C}(x) =
+f_{X|\{X \in C\}}(x) =
 \begin{cases}
 0, & \text{if} \quad x \notin C \cr
-\frac{\fx}{\cprob{C}}, &\text{if} \quad x \in C
+\frac{\fx}{\cprob{X \in C}}, &\text{if} \quad x \in C
 \end{cases}
 }}
 
@@ -727,35 +784,35 @@ f_{X|X \in C}(x) =
 {
 \plitemsep 0.15in
 
-\onslide<1->{$A = \{\frac{a+b}{2} \le X \le b \}$}
+\onslide<3->{$A = \{\frac{a+b}{2} \le X \le b \}$}
 
 %\smallskip
 
 \vspace{-0.3cm}
-\onslide<1->{\mypic{0.65}{L4_cond_ex1.png}}
+\onslide<3->{\mypic{0.65}{L4_cond_ex1.png}}
 \vspace{-0.5cm}
-\only<1>{\mypic{0.65}{L4_cond_ex2.png}}
+\only<3>{\mypic{0.65}{L4_cond_ex2.png}}
 \vspace{-0.5cm}
-\only<2->{\mypic{0.65}{L4_cond_ex3.png}}
+\only<4->{\mypic{0.65}{L4_cond_ex3.png}}
 
 }
 {
 \bci
-\item<3-> $\expect{X} = \int x\fx dx$
+\item<1-> $\expect{X} = \int x\fx dx$
 $\expect{X | A} = \int x\fxA dx$
 
-\item<4-> $\expect{g(X)} = \int g(x)\fx dx$
+\item<2-> $\expect{g(X)} = \int g(x)\fx dx$
 $\expect{g(X) | A} = \int g(x)\fxA dx$
 \eci
 
-\onslide<5->{
+\onslide<3->{
 \aleq{
-\expect{X|A} = \onslide<6->{\int_{(a+b)/2}^b x \frac{2}{b-a} dx = \frac{a}{4} + \frac{3b}{4}}
+\expect{X|A} = \onslide<4->{\int_{(a+b)/2}^b x \frac{2}{b-a} dx = \frac{a}{4} + \frac{3b}{4}}
 }
 }
-\onslide<5->{
+\onslide<3->{
 \aleq{
-\expect{X^2|A} = \onslide<6->{\int_{(a+b)/2}^b x^2 \frac{2}{b-a} dx =}
+\expect{X^2|A} = \onslide<4->{\int_{(a+b)/2}^b x^2 \frac{2}{b-a} dx =}
 }}
 }
 \end{frame}
@@ -766,14 +823,15 @@ $\expect{g(X) | A} = \int g(x)\fxA dx$
 \plitemsep 0.1in
 \bci
 \item<1-> \redf{Remember:} Exponential rv is a continuous counterpart of geometric rv.
-\item<2-> Thus, expected to be memoryless. Definition, remember?
+\item<2-> Thus, expected to be memoryless. Remember the definition?
 
 \onslide<3->{
 \bigskip
-\bluef{Definition.} A random variable $X$ is called \redblk{memoryless} if, for any $n,m \ge 0,$ $$\cprob{X > n+m | X > m} = \cprob{X > n}$$
+\bluef{Definition.} A random variable $X$ is called memoryless if, for any $n,m \ge 0,$
+\redblank{4}{$\cprob{X > n+m | X > m} = \cprob{X > n}$}
 }
 
-\item<4-> \redf{Proof.} Note that $\cprob{X > x} = \elambdax.$
+\item<4-> \redf{Proof.} Note that the exponential rv's CCDF $\cprob{X > x} = \elambdax.$
 \onslide<5->{
 Then,
 \aleq{
@@ -833,7 +891,7 @@ Partition of $\Omega$ into $A_1,A_2,A_3, \ldots$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example }
+\begin{frame}{Example: Train Arrival }
 
 \mytwocols{0.8}
 {
@@ -845,9 +903,9 @@ Partition of $\Omega$ into $A_1,A_2,A_3, \ldots$
 
 \plitemsep 0.1in
 \bci
-\item<1-> Your train's arrival every quarter hour (0, 15min, 30min, 45min).
+\item<1-> The train's arrival every quarter hour (0, 15min, 30min, 45min).
 
-\item<1-> Your arrival $\sim$ uniform(7:10, 7:30) am.
+\item<1-> Your arrival $\sim$ \set{U}(7:10, 7:30) am.
 
 \item<2-> What is the PDF of waiting time for the first train?
 
@@ -866,7 +924,10 @@ $B = \{\text{7:15} \leq X \leq \text{7:30} \}$
 }
 {
 \small
+\vspace{-0.3cm}
 \mypic{0.85}{L4_total_prob_ex.png}
+\vspace{-0.3cm}
+\onslide<5>{\hfill \lecturemark{VIDEO PAUSE}}
 \aleq{
 \onslide<5->{&\fy  = \cprob{A} \fyA + \cprob{B} f_{Y|B}(y)} \cr
 &\onslide<6->{\fy = {1 \over 4} {1 \over 5} +{3 \over 4} {1 \over 15} = {1 \over 10},} \quad \onslide<5->{\text{for } 0 \le y \le 5} \cr
@@ -909,8 +970,7 @@ $$
 
 \item<5-> \redf{Multiplication rule.}
 \aleq{
-\fxy &= \fy \cdot \fxcy \cr
-&= \fx \fycx
+\fxy &= \fy \cdot \fxcy = \fx \fycx
 }
 
 \item<6-> \redf{Total prob./exp. theorem.}
@@ -920,57 +980,142 @@ $$
 \expect{X} &= \int_{-\infty}^\infty \fy \expect{X | Y=y} dy
 }
 
-\item<7-> \redf{Independence.}
-$$
+\item<7-> \redf{Independence}
+\aleq{
 \fxy = \fx \fy, \quad \text{for all $x$ and $y$}
-$$
+}
 \eci
 }
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example: Stick-breaking (Ch 3. Prob 21)}
+\begin{frame}{Example: Stick-breaking (1)}
+
+\noindent\bluef{(Prob 21 at pp. 191)}
 
 \footnotetext{$\set{U}[a,b]$: continuous uniform random variable over the interval $[a,b]$}
 \mytwocols{0.7}
 {
+\small
 \plitemsep 0.1in
 \bci
 
 \item<1-> Break a stick of length $l$ twice
 
-- first break at $X \sim \set{U}[0,l]$
+- first break at $Y \sim \set{U}[0,l]$
 
-- second break at $Y \sim \set{U}[0,X]$
+- second break at $X \sim \set{U}[0,Y]$
 
-\item<2-> \redf{(Q)} What is $\expect{Y}$?
-
-\item<3-> Since $Y$ depends on $X,$ the total expectation theorem seems useful.
-$$
-\expect{Y} = \int_{-\infty}^\infty \fx \expect{Y| X=x} dx
-$$
+\item<2->[\redf{(a)}] joint PDF $\fxy$?
+\aleq
+{
+\fy &= \frac{1}{l}, \quad 0 \le y \le 1\cr
+\fxcy & = \frac{1}{y}, \quad 0 \le x \le y
+}
+Using $\fxy = \fy \fxcy,$
+\aleq{
+\fxy =
+\begin{cases}
+\frac{1}{l}\cdot\frac{1}{y}, & 0 \le x \le y \le l,\cr
+0, & \text{otherwise}
+\end{cases}
+}
+% \item<2-> \redf{(Q)} What is $\expect{Y}$?
+%
+% \item<3-> Since $Y$ depends on $X,$ the total expectation theorem seems useful.
+% $$
+% \expect{Y} = \int_{-\infty}^\infty \fx \expect{Y| X=x} dx
+% $$
 
 \eci
 }
 {
 %\medskip
 %\small
+\small
 \plitemsep 0.1in
 \bci
 
-\item<4-> Using the TET,
-\aleq{
-\expect{Y} &= \int_{0}^l \frac{1}{l} \expect{Y| X=x} dx\cr
-&= \int_{0}^l \frac{1}{l} \frac{x}{2} dx = \frac{l}{4}
+\item<3->[\redf{(b)}] marginal PDF $\fx$?
+\aleq
+{
+\fx &= \int \fxy dy = \int_{x}^l \frac{1}{ly} dy \cr
+& = \frac{1}{l} \ln(l/x), \quad 0 \le x \le l
 }
 
-\item<5-> $\fx$ and $\fycx$ seems easy to compute. Thus,
-\aleq{
-\fxy &= \fx \fycx = {1 \over l} \cdot {1 \over x}
-}
-You can do many other things with the joint PDF.
+
+% \item<4-> Using the TET,
+% \aleq{
+% \expect{Y} &= \int_{0}^l \frac{1}{l} \expect{Y| X=x} dx\cr
+% &= \int_{0}^l \frac{1}{l} \frac{x}{2} dx = \frac{l}{4}
+% }
+%
+% \item<5-> $\fx$ and $\fycx$ seems easy to compute. Thus,
+% \aleq{
+% \fxy &= \fx \fycx = {1 \over l} \cdot {1 \over x}
+% }
+% You can do many other things with the joint PDF.
 \eci
 }
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Stick-breaking (2)}
+
+\mytwocols{0.75}
+{
+\small
+\plitemsep 0.1in
+\bci
+
+\item<1->[\redf{(c)}] Evaluate $\cexpect{X}$, using $\fx$
+\aleq
+{
+\onslide<2->{
+\cexpect{X} &= \int_{0}^l x \fx dx = \int_{0}^l \frac{x}{l} \ln(l/x) dx \cr
+& = \frac{l}{4}
+}
+}
+
+
+\item<1->[\redf{(d)}] Evaluate $\cexpect{X}$, using $X = Y\cdot (X/Y)$
+
+\medskip
+
+If $Y \indep X/Y,$ it becomes easy, but true?
+
+\onslide<3->{
+Yes, because whatever $Y$ is,
+the fraction $X/Y$ does not depend on it.
+\aleq{
+\cexpect{X} = \cexpect{Y} \cexpect{X/Y} = \frac{l}{2} \cdot \frac{1}{2} = \frac{l}{4}
+}
+}
+
+
+\eci
+}
+{
+\small
+\plitemsep 0.1in
+\bci
+
+\item<1->[\redf{(e)}] Evaluate $\cexpect{X}$, using TET
+\aleq
+{
+\onslide<4->{0
+\expect{X} &= \int_{-\infty}^\infty \fy \expect{X| Y=y} dy \cr
+&= \int_{0}^l \frac{1}{l} \expect{X| Y=y} dy
+= \int_{0}^l \frac{1}{l} \frac{y}{2} dy = \frac{l}{4}
+}
+}
+
+
+\item<5-> \msg There are many ways to rearch our goal. Of crucial importance is how to find the best way!
+\eci
+}
+
 
 
 \end{frame}
@@ -1003,16 +1148,20 @@ You can do many other things with the joint PDF.
 \begin{frame}{Bayes Rule for Continuous}
 
 \plitemsep 0.1in
-\bci
 
+
+\mycolorbox{
+\bci
 \item<1-> $X$: state/cause/original value $\rightarrow$ $Y$: result/resulting action/noisy measurement
 
-\item<1-> Model: $\cprob{X}$ (prior) and $\cprob{Y | X}$ (cause $\rightarrow$ result)
+\item<1-> Given: $\cprob{X}$ and $\cprob{Y | X}$ (cause $\rightarrow$ result)
 
 \item<1-> Inference: $\cprob{X | Y}$?
+\eci
 
- \bigskip
- \mytwocols{0.4}
+}
+ \medskip
+ \mytwocols{0.35}
  {
 \onslide<2->{
 \aleq{
@@ -1034,7 +1183,6 @@ You can do many other things with the joint PDF.
 }
 }
 
-\eci
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
