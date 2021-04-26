@@ -21,6 +21,10 @@
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
 \date{\today}
 
+
+
+
+
 \input{../mymath}
 
 \begin{document}
@@ -1158,7 +1162,6 @@ the fraction $X/Y$ does not depend on it.
 
 \item<1-> Inference: $\cprob{X | Y}$?
 \eci
-
 }
  \medskip
  \mytwocols{0.35}
@@ -1185,6 +1188,57 @@ the fraction $X/Y$ does not depend on it.
 
 \end{frame}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example}
+
+\plitemsep 0.1in
+
+\bci
+\item<1-> A light bulb $Y \sim \exp(\lambda).$ However, there are some quality control problems.
+So, the parameter $\lambda$ of $Y$ is actually a random variable, denoted by $\Lambda$, which is $\Lambda \sim \set{U}[1,3/2].$ We test a light bulb and record its lifetime.
+
+\item<2-> \question What can we say about the underlying paramter $\lambda$? In other words, what is $f_{\Lambda | Y}(\lambda|y)$?
+
+\item<3-> $f_{\Lambda}(\lambda) = 2$ for $1 \le \lambda \le 3/2$ and $f_{Y | \Lambda}  (y | \lambda) = $ pdf of $\exp(\lambda).$ Then, the inference about the parameter given the lifetime of a light bulb is:
+\onslide<4->
+{
+$$
+f_{\Lambda | Y}(\lambda|y) = \frac{f_\Lambda(\lambda)f_{Y | \Lambda}  (y | \lambda) }{\int_{-\infty}^\infty f_\Lambda(t) f_{Y | \Lambda}(y | t) dt}
+$$
+}
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Using Bayes Rule for Parameter Learning}
+
+\mycolorbox{
+\bci
+\item<1-> $X$: \bluef{\bf parameter} $\rightarrow$ $Y$: result of \redf{\bf my model}
+
+\item<1-> Given: $\cprob{X}$ and $\cprob{Y | X}$ (parameter $\rightarrow$ model)
+
+\item<1-> Inference: $\cprob{X | Y}$? Probabilistic feature of the parameter given the result of the model?
+\eci
+}
+
+
+\plitemsep 0.07in
+
+\exam
+
+\bce
+\item<2-> Light bulb's lifetime $Y \sim \exp(\bluef{\lambda}).$ Given the lifetime \redf{$y$}, the modified belief about \bluef{$\lambda$}?
+
+\item<3-> Romeo and Juliet start dating, but Romeo will be late by a random variable $Y \sim \set{U}[0,\bluef{\theta}].$ Given the time of being late \redf{$y$}, the modified belief about \bluef{$\theta$}?
+\ece
+
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Bayes Rule for Mixed Case}
 
@@ -1204,20 +1258,53 @@ the fraction $X/Y$ does not depend on it.
 \bluef{\fy} &= \sum_{k'} \redf{p_{K}(k')} \bluef{f_{Y|K}(y|k')}
 }
 }
+\item<4-> $f_{Y|K}(y|k) = f_{Y | A}(y),$ where $A = \{K=k\}$
 \eci
 
 }
 {
 \bci
 
+
+
 \item<2-> Inference of $Y$ given $K$
 \aleq{
-\onslide<4->{
+\onslide<5->{
 \bluef{f_{Y|K}(y|k)} &= \frac{\bluef{\fy} \redf{p_{K|Y}(k|y)}}{\redf{p_{K}(k)}} \cr
 \redf{p_{K}(k)} &= \int \bluef{f_{Y}(y')} \redf{p_{K|Y}(k|y')} dy'
 }}
+\item<6-> Wait! $p_{K|Y}(k|y)$? Well-defined?
+\aleq{
+p_{K|Y}(k|y) = \frac{\cprob{K=k, Y=y}}{\cprob{Y=y}} = \frac{0}{0}
+}
+
 \eci
 }
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$p_{K|Y}(k|y)$?}
+
+
+\plitemsep 0.1in
+
+\bci
+\item For small $\delta$ (in other words, taking the limit as $\delta \rightarrow 0$).
+
+\medskip
+Let $A = \{K=k\}.$
+
+\bigskip
+\aleq{
+\redf{p_{K|Y}(k|y)} & \approx \cprob{ A | y \le Y \le y+ \delta}\cr
+&= \frac{\cprob{A} \cprob{y \le Y \le y+ \delta | A}}{\cprob{y \le Y \le y+ \delta}}\cr
+&\approx \frac{\cprob{A} f_{Y|A}(y)\delta}{\fy \delta}\cr
+&= \redf{\frac{\cprob{A} f_{Y|A}(y)}{\fy }}
+}
+
+
+\eci
 
 \end{frame}
 
@@ -1241,6 +1328,10 @@ Inference of discrete $K$ given continuous $Y$:
 \item<4-> Your received signal = 0.7. What's your guess about the original signal? \onslide<6->{\redf{+1}}
 \item<5-> Your received signal = -0.2. What's your guess about the original signal? \onslide<6->{\redf{-1}}
 
+
+
+\medskip
+\item<6-> Your intuition: If positive received signal, +1. If negative received signal, -1. How can we mathematically verify this?
 \eci
 \end{frame}
 
@@ -1250,11 +1341,12 @@ Inference of discrete $K$ given continuous $Y$:
 \plitemsep 0.01in
 \bci
 
-\item<1-> $Y|\{K=1\} \sim \set{N}(1,1)$ and $Y|\{K=-1\} \sim \set{N}(-1,1).$
+\item<1-> $Y|\{K=1\} \sim \set{N}(1,1)$ and $Y|\{K=-1\} \sim \set{N}(-1,1).$ \\
+(Remind: linear transformation preserves normality.)
 \aleq{
 \onslide<2->{f_{Y|K}(y|k) &= \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y-k)^2}, \quad k=1, -1} \cr
 \onslide<3->{\fy &= \frac{1}{2} \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y+1)^2} +
-\frac{1}{2} \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y-1)^2}} \qquad \qquad \text{(from TPT)}
+\frac{1}{2} \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(y-1)^2} \qquad \qquad \text{(from TPT)}}
 }
 
 \item<4-> Probability that $K=1$, given $Y=y$? After some algebra,
@@ -1264,8 +1356,9 @@ Inference of discrete $K$ given continuous $Y$:
 $$
 p_{K|Y}(1|y) = \frac{1}{1+ e^{-2y}}
 $$
+\vspace{-0.3cm}
 \bci
-\item<6->  If $y >0,$ the inference probability for $K=1$ exceeds $\frac{1}{2}$
+\item<6->  If $y >0,$ the inference probability for $K=1$ exceeds $\frac{1}{2}$. So, original signal = 1.
 \item<7->  Similarly, compute $p_{K|Y}(-1|y)$ and then do the inference
 \eci
 
