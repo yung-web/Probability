@@ -420,51 +420,55 @@ $Z = Y/X.$}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Functions of multiple rvs: $Z=X+Y,$ $X\indep Y$}
+\begin{frame}{Functions of multiple rvs: $Z=X+Y,$ $X\indep Y$ (1)}
 
-\mytwocols{0.75}
-{
-\plitemsep 0.03in
-\small
+\plitemsep 0.1in
 \bci
+\item Sum of two independent rvs
 \item<2-> A very basic case with many applications
 \item<2-> Assume that $X,Y \in \integer$
-\vspace{-0.2cm}
 \aleq{
 \onslide<3->{
-\pz &= \cprob{X+Y = z} \cr
- &= \sum_{\{(x,y): x+y=z \}}\cprob{X=x,Y=y}\cr
- &= \sum_{x}\cprob{X=x,Y=z-x}\cr
- &= \sum_{x}\cprob{X=x} \cprob{Y=z-x}\cr
- &= \sum_{x}\px p_Y(z-x)
+\orangef{\pz} &= \cprob{X+Y = z} = \sum_{\{(x,y): x+y=z \}}\cprob{X=x,Y=y}= \sum_{x}\cprob{X=x,Y=z-x}\cr
+ &= \sum_{x}\cprob{X=x} \cprob{Y=z-x} = \orangef{\sum_{x}\px p_Y(z-x)}
 }
 }
 \vspace{-0.3cm}
-\item<5-> $\pz$ is called \redblank{6}{convolution} of the PMFs of $X$ and $Y.$
+\item<4-> $\pz$ is called \redblank{5}{convolution} of the PMFs of $X$ and $Y.$
+\eci
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Functions of multiple rvs: $Z=X+Y,$ $X\indep Y$ (2)}
+
+\mytwocols{0.6}
+{
+\small
+\plitemsep 0.15in
+\bci
+\item Convolution: $\pz = \sum_{x} \px p_Y(z-x)$
+\item Interpretation for a given $z$:
+\bce[(i)]
+\item Flip (horizontally) the PMF of Y ($p_{Y}(-x)$)
+\item Put it underneath the PMF of X
+\item Right-shift the flipped PMF by $z$ ($p_{Y}(-x+z)$)
+\ece
 \eci
 }
 {
-\small
-
-\medskip
-\onslide<4->{
-- Interpretation (for a given $z$)
-
-(i) Flip (horizontally) $\py$ ($p_{Y}(-x)$)
-
-(ii) Put it underneath $\px$ ($p_{Y}(-x+z)$)
-
-%\medskip
-\vspace{-0.2cm}
+\exam $z=3$
 \mypic{0.95}{L5_conv_ex.png}
 }
-}
+
 \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{$Y=X+Y,$ $X\indep Y$: Continuous}
 
-\mytwocols{0.8}
+\mytwocols{0.7}
 {
 
 \plitemsep 0.07in
@@ -476,17 +480,43 @@ $Z = Y/X.$}
 \fz = \int_{-\infty}^\infty \fx f_{Y}(z-x) dx
 }
 
-\item \exam $X,Y \sim \set{U}[0,1]$ and $X \indep Y.$ What is the PDF of $Z = X+Y$?
+
+
+\item<3-> Youtube animation for convolution:
+\url{https://www.youtube.com/watch?v=C1N55M1VD2o}
 
 \eci
 }
 {
-\plitemsep 0.07in
-\bci
-\item
-\eci
+For a fixed $z,$
+
+\onslide<2->{\mypic{0.95}{L5_convolution_cont_ex.png}}
 }
 \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example}
+
+\plitemsep 0.1in
+\bci
+
+\item \exam $X,Y \sim \set{U}[0,1]$ and $X \indep Y.$ What is the PDF of $Z = X+Y$?
+Draw the PDF of $Z$.
+
+\onslide<2->{\mypic{0.5}{L5_convolution_ex.png}}
+
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Convolution in Image Processing}
+
+\vspace{2cm}
+
+{\large \url{https://www.youtube.com/watch?v=MQm6ZP1F6ms}}
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{$Y=X+Y,$ $X\indep Y,$ Normal (1)}
@@ -495,11 +525,11 @@ $Z = Y/X.$}
 \plitemsep 0.1in
 \bci
 
-\item<2-> Very special, but useful case
+\item<1-> Very special, but useful case
 
-\medskip
-
-- $X$ and $Y$ are \bluef{normal.}
+\bci
+\item $X$ and $Y$ are \bluef{normal.}
+\eci
 
 \bigskip
 \onslide<3->{
@@ -528,7 +558,7 @@ Then, $X+Y \sim \set{N}(\mu_x + \mu_y, \sigma_x^2 + \sigma_y^2)$
 \fz &= \int_{-\infty}^\infty \fx f_{Y}(z-x) dx \cr
 &=\int_{-\infty}^\infty \frac{1}{\sqrt{2\pi} \sigma_x} \exp\left\{ - \frac{(x-\mu_x)^2}{2 \sigma_x^2} \right\} \frac{1}{\sqrt{2\pi} \sigma_y} \exp\left\{ - \frac{(z-x-\mu_y)^2}{2 \sigma_y^2} \right\} dx
 }
-\item[$\bullet$] The details of integration is a little bit tedious, but note where we use the independence condition.
+\item[$\bullet$] The details of integration is a little bit tedious. :-)
 \aleq{
 \fz = \frac{1}{\sqrt{2\pi(\sigma_x^2 + \sigma_y^2)} } \exp\left\{ - \frac{(z-\mu_x-\mu_y)^2}{2(\sigma_x^2 + \sigma_y^2)} \right\}
 }
@@ -566,18 +596,18 @@ Then, $X+Y \sim \set{N}(\mu_x + \mu_y, \sigma_x^2 + \sigma_y^2)$
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependence Degree: Motivating Example}
-
-\plitemsep 0.1in
-
-\bci
-
-\item covariance의 필요성을 이야기해주는 example을 찾아서 먼저 이야기를 해준다.
-
-\eci
-
-\end{frame}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Dependence Degree: Motivating Example}
+%
+% \plitemsep 0.1in
+%
+% \bci
+%
+% \item covariance의 필요성을 이야기해주는 example을 찾아서 먼저 이야기를 해준다.
+%
+% \eci
+%
+% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -587,14 +617,17 @@ Then, $X+Y \sim \set{N}(\mu_x + \mu_y, \sigma_x^2 + \sigma_y^2)$
 
 \bci
 
-\item<1-> Goal: Given two rvs $X$ and $Y$, assign some number that quantifies the degree of their dependence
+\item<1-> Goal: Given two rvs $X$ and $Y$, assign some number that quantifies the degree of their dependence.
+\bci
+\item<2-> feeling/weather, university ranking/annual salary,
+\eci
 
-\item<2-> Reqs.
-\bce[a)]
-\item<3-> Increases (resp. decreases) as they become more (resp. less) dependent.
-\item<4-> 0 when they are independent.
-\item<5-> Shows the direction of dependence by + and -
-\item<6-> Always bounded by some numbers, e.g., $[-1,1]$
+
+\item<3-> Requirements
+\bce[\bf R1.]
+\item<4-> Increases (resp. decreases) as they become more (resp. less) dependent. 0 when they are independent.
+\item<5-> Shows the `direction' of dependence by + and -
+\item<6-> Always bounded by some numbers (i.e., dimensionless metric). For example, $[-1,1]$
 \ece
 
 \item<7-> Good engineers: Good at making good metrics
@@ -602,7 +635,7 @@ Then, $X+Y \sim \set{N}(\mu_x + \mu_y, \sigma_x^2 + \sigma_y^2)$
 \smallskip
 \bci
 \item Metric of how our society is economically polarized
-\item A lot of metrics in our professional sports leagues (baseball, basketball, etc)
+%\item A lot of metrics in our professional sports leagues (baseball, basketball, etc)
 \item Cybermetrics in MLB (Major League Baseball): \url{http://m.mlb.com/glossary/advanced-stats}
 \eci
 
@@ -613,7 +646,7 @@ Then, $X+Y \sim \set{N}(\mu_x + \mu_y, \sigma_x^2 + \sigma_y^2)$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{OK. Let's Design!}
 
-\plitemsep 0.1in
+\plitemsep 0.04in
 
 \bci
 
@@ -625,16 +658,20 @@ Then, $X+Y \sim \set{N}(\mu_x + \mu_y, \sigma_x^2 + \sigma_y^2)$
 \bci
 \item<4-> $\expect{XY} = \expect{X}\expect{Y}=0$ when $X \indep Y$
 \item<5-> More data points (thus increases) when $xy >0$ (both positive or negative)
+\item<6-> $|\expect{XY}|$ also quantifies the \orangef{amount of spread}.
 \eci
 
-\mytwocols{0.4}
+\mytwocols{0.35}
 {
-\centering
+\vspace{-0.3cm}
 \onslide<5->{\mypic{0.8}{L5_cov_ex.png}}
 }
 {
 \bigskip
 \onslide<6->{\redf{(Q)} What about $\expect{X+Y}$?}
+\bci
+\item<7-> When they are positively dependent, but have negative values?
+\eci
 }
 
 \eci
@@ -648,7 +685,7 @@ Then, $X+Y \sim \set{N}(\mu_x + \mu_y, \sigma_x^2 + \sigma_y^2)$
 
 \bci
 
-\item<2-> Solution: Centering. $X \rightarrow X - \mu_X$ and $Y \rightarrow Y-\mu_Y$
+\item<2-> \redf{Solution:} Centering. $X \rightarrow X - \mu_X$ and $Y \rightarrow Y-\mu_Y$
 \onslide<3->{
 \myblock{Covariance}
 {
@@ -694,7 +731,7 @@ $\cov{X,Y} = \bexpect{(X- \expect{X})\cdot (Y-\expect{Y})}$
 \bci []
 
 \item<2-> \aleq{
-\cov{X,X}=0
+\cov{X,X}=\cvar{X}
 }
 
 \item<3-> \aleq{
@@ -706,8 +743,13 @@ $\cov{X,Y} = \bexpect{(X- \expect{X})\cdot (Y-\expect{Y})}$
 }
 
 \item<5-> \aleq{
-\var{X+Y} &= \expect{(X+Y)^2} - (\expect{X+Y})^2 = \var{X} + \var{Y} - 2\cov{X,Y}
+\var{X+Y} &= \expect{(X+Y)^2} - (\expect{X+Y})^2 = \var{X} + \var{Y} + 2\cov{X,Y}
 }
+
+\item<6-> \aleq{
+\bvar{\sum X_i} &= \sum {\var{X_i}} + \sum_{i\neq j} \cov{X_i,X_j}
+}
+
 \eci
 
 \end{frame}
@@ -735,7 +777,7 @@ $\cov{X,Y} = \bexpect{(X- \expect{X})\cdot (Y-\expect{Y})}$
 \item \bluef{Key step 2.} Are $X_i$s are independent?
 
 \medskip
-\item<2-> $X_i \sim Bernoulli(1/n).$ Thus, $\expect{X_i} = 1/n$ and $\var{X_i} = \frac{1}{n}(1-\frac{1}{n})$
+\item<2-> $X_i \sim \text{Bern}(1/n).$ Thus, $\expect{X_i} = 1/n$ and $\var{X_i} = \frac{1}{n}(1-\frac{1}{n})$
 
 \eci
 }
@@ -801,25 +843,113 @@ $\cov{X,Y} = \bexpect{(X- \expect{X})\cdot (Y-\expect{Y})}$
 
 \bci
 
-\item<1-> Reqs. a), b), and c) satisfied.
-
+\item<1-> Reqs. \bluef{\bf R1} and \bluef{\bf R2}  are satisfied.
+%
 \bce
-\item<2->[d)] \redf{Always bounded by some numbers, e.g., $[-1,1]$}
+\item<2->[\bf R3.] \magenf{Always bounded by some numbers (dimensionless metric)}
 \ece
 
-\item<3-> Dimensionless metric. How? \redblank{4}{Normalization,} but by what?
+\item<3-> How? \redblank{4}{Normalization,} but by what?
 
 \onslide<5->{
 \myblock{Correlation Coefficient}
 {
 \aleq{
-\rho(X,Y) = \bbexpect{\frac{(X - \mu_X)}{\redf{\sigma_X}} \cdot \frac{(Y-\mu_Y)}{\redf{\sigma_Y}}} = \frac{\cov{X,Y}}{\sqrt{\var{X}\var{Y}}}
+\rho(X,Y) = \bbexpect{\frac{(X - \mu_X)}{\redblank{6}{$\sigma_X$}} \cdot \frac{(Y-\mu_Y)}{\redblank{6}{$\sigma_Y$}}} = \frac{\cov{X,Y}}{\sqrt{\var{X}\var{Y}}}
 }
 }
 }
-\item<6-> $-1 \le \rho \le 1$
+\item<7-> \thm
+\bce
+\item<7-> $-1 \le \rho \le 1$ (proof at the next slide)
+\item<8-> $|\rho|=1$ $\Leftrightarrow$ $X-\mu_X = c(Y-\mu_Y)$ for some constant $c$ ($c>0$ when $\rho=1$ and $c<0$ when $\rho=-1$). In other words, linear relation, meaning VERY related.
+\ece
+\eci
 
-\item<7-> $|\rho|=1$ $\imp$ $X-\mu_X = c(Y-\mu_Y)$ (linear relation, VERY related)
+\end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{$-1 \le \rho \le 1$}
+%
+% \plitemsep 0.1in
+%
+%
+% \bci
+%
+% \item \magenf{Schwarz inequaility.} For any rvs $X$ and $Y,$ \bluef{$ \big(\cexpect{XY} \big)^2 \le \cexpect{X^2} \cexpect{Y^2}$}
+% \item<2-> Proof of $-1 \le \rho \le 1$:
+%
+% {\small
+% Let $\tilde{X} = X - \cexpect{X}$ and $\tilde{Y} = Y - \cexpect{Y}.$ Then,
+% $\displaystyle
+% \big(\rho(X,Y) \big)^2 = \frac{\big(\expect{\tilde{X}\tilde{Y}} \big)^2}{\cexpect{\tilde{X}^2} \cexpect{\tilde{Y}^2}} \le 1
+% $
+% }
+% \item<3-> Proof of SI: Assume $\cexpect{Y^2} \neq 0.$ Otherwise, the result immediately follows.
+% \aleq{
+% 0 &\le \bbexpect{\left(X - \frac{\cexpect{XY}}{\cexpect{Y^2}}Y\right)^2} =
+% \bbexpect{X^2 -2 \frac{\cexpect{XY}}{\cexpect{Y^2}} XY + \frac{(\expect{XY})^2}{(\expect{Y^2})^2}Y^2 }\cr
+% &= \cexpect{X^2} -2 \frac{\cexpect{XY}}{\cexpect{Y^2}} \cexpect{XY} + \frac{(\expect{XY})^2}{(\expect{Y^2})^2}\cexpect{Y^2} = \cexpect{X^2} - \frac{(\expect{XY})^2}{\cexpect{Y^2}}
+% }
+% \eci
+%
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{1. $-1 \le \rho \le 1$}
+
+\plitemsep 0.1in
+
+
+\bci
+
+\item \magenf{Cauchy-Schwarz inequaility.} For any rvs $X$ and $Y,$ \bluef{$ \big(\cexpect{XY} \big)^2 \le \cexpect{X^2} \cexpect{Y^2}$}
+\item<2-> \redf{Proof of $-1 \le \rho \le 1$:}
+
+{\small
+Let $\tilde{X} = X - \cexpect{X}$ and $\tilde{Y} = Y - \cexpect{Y}.$ Then,
+$\displaystyle
+\big(\rho(X,Y) \big)^2 = \frac{\big(\expect{\tilde{X}\tilde{Y}} \big)^2}{\cexpect{\tilde{X}^2} \cexpect{\tilde{Y}^2}} \le 1
+$
+}
+\item<3-> \redf{Proof of CSI:} For any constant $a,$
+\aleq{
+0 &\le \bbexpect{\left(X - a Y\right)^2} =
+\bbexpect{X^2 -2 a XY + a^2Y^2 }= \cexpect{X^2} -2 a \cexpect{XY} + a^2\cexpect{Y^2}
+}
+\onslide<4->{
+Now, choose $a = \frac{\cexpect{XY}}{\cexpect{Y^2}}.$ Then,
+\aleq{
+\cexpect{X^2} -2 \frac{\cexpect{XY}}{\cexpect{Y^2}} \cexpect{XY} + \frac{(\expect{XY})^2}{(\expect{Y^2})^2}\cexpect{Y^2} = \cexpect{X^2} - \frac{(\expect{XY})^2}{\cexpect{Y^2}} \ge 0
+}}
+\eci
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2. $|\rho|=1$ $\Leftrightarrow$ $X-\mu_X = c(Y-\mu_Y)$}
+
+\newcommand{\tX}{\tilde{X}}
+\newcommand{\tY}{\tilde{Y}}
+
+\plitemsep 0.1in
+
+\bci
+\item[($\Rightarrow$)] Suppose that $|\rho|=1$. In the proof of CSI,
+\aleq{
+\bbexpect{\left(\tX - \frac{\cexpect{\tX\tY}}{\cexpect{\tY^2}} \tY\right)^2} = \cexpect{\tX^2} - \frac{(\expect{\tX\tY})^2}{\cexpect{\tY^2}} = \cexpect{\tX^2}(1-\rho^2) = 0
+}
+\aleq{
+\tX - \frac{\cexpect{\tX\tY}}{\cexpect{\tY^2}} Y = 0 \leftrightarrow \tX = \frac{\cexpect{\tX\tY}}{\cexpect{\tY^2}} \tY
+= \rho \sqrt{\frac{\cexpect{\tX^2}}{\cexpect{\tY^2}}} \tY
+}
+
+\item[($\Leftarrow$)] If $\tY = c\tX,$ then
+\aleq{
+\rho(X,Y) = \frac{\cexpect{\tX c \tX}}{\sqrt{\expect{\tX^2} \expect{(c \tX)^2}}} = \frac{c}{|c|}
+}
+
 
 \eci
 
@@ -852,6 +982,7 @@ $\cov{X,Y} = \bexpect{(X- \expect{X})\cdot (Y-\expect{Y})}$
 \ece
 
 \end{frame}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -890,7 +1021,7 @@ h(Y) &= \begin{cases}
 \belowdisplayskip=5pt
 
 \bci
-\item<3-> Consider other rv $X$, such that
+\item<3-> Consider other rv $X$, which, we assume, has:
 \aleq{
 \onslide<4->{\redf{g(y)}= } \expect{X|Y=y}=\begin{cases}
 3,& \text{if $y=0$}\cr
@@ -1010,6 +1141,53 @@ $\expect{\text{revised forecast}} = \text{original one}$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Averaging Quiz Scores by Section}
+
+\mytwocols{0.7}
+{
+\small
+\plitemsep 0.05in
+
+% \abovedisplayskip=5pt
+% \belowdisplayskip=5pt
+
+\bci
+\item A class: $n$ students, student $i$'s quiz score: $x_i$
+\item<2-> Average quiz score: $m = \frac{1}{n} \sum_{i=1}^n x_i$
+\item<3-> Students: partitioned into sections $A_1,$ \ldots, $A_k$ and $n_s$: number of students in section $s$
+\item<4-> average score in section $s$ = $m_s = \frac{1}{n_s}\sum_{i \in A_s} x_i$
+
+\medskip
+\item<5-> whole average: (i) taking the average $m_s$ of each section and
+(ii) forming a weighted average
+\aleq{
+\sum_{s=1}^k \frac{n_s}{n} m_s = \sum_{s=1}^k\frac{n_s}{n} \frac{1}{n_s}\sum_{i \in A_s} x_i = \frac{1}{n} \sum_{i=1}^n x_i = m
+}
+\eci
+}
+{
+\plitemsep 0.05in
+
+% \abovedisplayskip=5pt
+% \belowdisplayskip=5pt
+\small
+
+\bci
+\item<6-> Understanding from $\bexpect{\expect{X|Y}} = \expect{X}$
+
+\item<7-> $X$: score of a randomly chosen student, $Y$: section of a student ($\in \{1, \ldots, k\}$)
+
+\aleq{
+m &= \cexpect{X} = \bexpect{\expect{X|Y}}\cr
+&=\sum_{s=1}^k \cexpect{X | Y=s} \cprob{Y=s} \cr
+&= \onslide<8->{\sum_{s=1}^k \left(\frac{1}{n_s} \sum_{i \in A_s} x_i \right)\frac{n_s}{n} = \sum_{s=1}^k m_s \frac{n_s}{n}}
+}
+\eci
+
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{L5(6)}
 \begin{frame}{Roadmap}
 
@@ -1040,23 +1218,27 @@ $\expect{\text{revised forecast}} = \text{original one}$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Conditional Variance $\var{X|Y}$}
 
-\plitemsep 0.1in
 
 % \abovedisplayskip=5pt
 % \belowdisplayskip=5pt
 \onslide<1->{$\var{X} = \expect{(X-\expect{X})^2}$}
 
-\onslide<2->{$\var{X\redf{|Y=y}} = \expect{(X-\expect{X\redf{|Y=y}})^2 | \redf{Y=y}}$}
+\onslide<2->{$g(y) = \var{X\redf{|Y=y}} = \expect{(X-\expect{X\redf{|Y=y}})^2 | \redf{Y=y}}$}
 
-\onslide<3->{
+\onslide<3->{$g(Y) = \var{X\redf{|Y}} = \expect{(X-\expect{X\redf{|Y}})^2 | \redf{Y}}$}
+
+\onslide<4->{
 \myblock{Conditional Variance}{
-A random variable $g(Y) =$ \redblank{4}{$\var{X|Y}$} and called \redblank{4}{conditional variance of $X$ given $Y$}, takes the value $g(y) = \var{X|Y=y},$ if $Y$ happens to take the value $y.$
+A random variable $g(Y) =$ \redblank{5}{$\var{X|Y}$} and called \redblank{5}{conditional variance of $X$ given $Y$}, takes the value $g(y) = \var{X|Y=y},$ if $Y$ happens to take the value $y.$
 }}
 
+\vspace{-0.3cm}
+\plitemsep 0.03in
+
 \bci
-\item<5-> A function of $Y$
-\item<5-> A random variable
-\item<5-> Thus, having a distribution, expectation, variance, all the things that a
+\item<6-> A function of $Y$
+\item<6-> A random variable
+\item<6-> Thus, having a distribution, expectation, variance, all the things that a
 random variable has
 \eci
 
@@ -1082,7 +1264,7 @@ Variance& $\bvar{\cexpect{X|Y}}$& $\bvar{\cvar{X|Y}}$ \\ \bottomrule
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Law of Total Variance}
 
-\myblock{Law of total variance}{
+\myblock{Law of total variance (LTV)}{
 $$
 \var{X} = \onslide<2->{\bexpect{\cvar{X|Y}} + \var{\cexpect{X|Y}}}
 $$
@@ -1098,6 +1280,60 @@ $$
 \onslide<6->{\eqref{eq:1} + \eqref{eq:2} = $\expect{X^2}$ + $(\expect{X})^2$ = $\var{X}$}
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Averarging Quiz Scores by Section}
+
+\plitemsep 0.07in
+
+\bci
+\item Same setting as that in page 36
+
+\item $X$: score of a randomly chosen student, $Y$: section of a student ($\in \{1, \ldots, k\}$)
+
+\item<2-> Let's intuitively understand: $\var{X} = \bexpect{\cvar{X|Y}} + \var{\cexpect{X|Y}}$
+
+\item<3-> $\expect{\cvar{X|Y}} = \sum_{k=1}^s \cprob{Y=s}\cvar{X | Y=s} = \sum_{k=1}^s \frac{n_s}{n} \cvar{X | Y=s}$
+\bci
+\item Weighted average of the section variances
+\item<5-> \redf{average score variability within individual sections}
+\eci
+
+\item<4-> $\var{\cexpect{X|Y}}$: variability of the average of the differenct sections
+\bci
+\item $\cexpect{X | Y=s}$: average score in section $s$
+\item<5-> \redf{variability between sections}
+\eci
+\eci
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Stick-breaking}
+
+\plitemsep 0.07in
+
+\bci
+\item Stick of length $l$
+\item Uniformly break at point $Y,$ and break what is left uniformly at point $X.$
+\item<2-> \question $\cvar{X}$?
+
+\item<2-> LTV: $\var{X} = \bexpect{\cvar{X|Y}} + \var{\cexpect{X|Y}}$
+
+\item<3-> \redf{Fact.} If a rv $X \sim \set{U}[0,\theta]$, then $\cvar{X} = \frac{\theta^2}{12}$
+
+\item<4-> Since $X \sim \set{U}[0,Y],$ $\cvar{X | Y} = \frac{Y^2}{12}$ $\rightarrow$ $\expect{\var{X | Y}} = \frac{1}{12} \int_0^l \frac{1}{l} y^2 dy = \frac{l^2}{36}$
+
+\item<5-> $\cexpect{X |Y} = Y/2$ $\rightarrow$ $\cvar{\expect{X |Y}} = \frac{1}{4} \var{Y} = \frac{1}{4} \frac{l^2}{12} = \frac{l^2}{48}$
+
+\item<6-> $\cvar{X} = \frac{l^2}{36} + \frac{l^2}{48} = \frac{7l^2}{144}$
+\eci
+
+
+\end{frame}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{L5(6)}
@@ -1142,7 +1378,7 @@ $$
 
 \item<4-> $\expect{Y} = \expect{\expect{Y|N}} = \expect{N\expect{X_i}} = \expect{N}\expect{X_i} = \mu \expect{N}$
 
-\item<5-> $\var{Y} = \bexpect{\cvar{Y|N}} + \var{\cexpect{Y|N}}$  \onslide<9->{$=\expect{N}\var{X_i} - \mu^2 \var{N}$}
+\item<5-> $\var{Y} = \bexpect{\cvar{Y|N}} + \var{\cexpect{Y|N}}$  \onslide<9->{$=\expect{N}\var{X_i} + \mu^2 \var{N}$}
 \aleq{
 \onslide<6->{\cvar{\expect{Y|N}} &= \cvar{N\mu} = \mu^2 \var{N}} \cr
 \onslide<7->{\var{Y|N} &= N \var{X_i}}\cr

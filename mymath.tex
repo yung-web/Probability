@@ -129,6 +129,12 @@
 \newcommand{\mytwocols}[3]{
 \begin{columns}[T] \column{.499\textwidth} #2 \column{.001\textwidth} \rule{.3mm}{{#1}\textheight} \column{.499\textwidth} #3 \end{columns}}
 
+\newcommand{\mythreecols}[4]{
+\begin{columns}[T] \column{.31\textwidth} #2 \column{.001\textwidth} \rule{.3mm}{{#1}\textheight} \column{.31\textwidth} #3 \column{.001\textwidth} \rule{.3mm}{{#1}\textheight} \column{.31\textwidth} #4  \end{columns}}
+
+\newcommand{\mysmalltwocols}[3]{
+\begin{columns}[T] \column{.4\textwidth} #2 \column{.001\textwidth} \rule{.3mm}{{#1}\textheight} \column{.4\textwidth} #3 \end{columns}}
+
 %%%% making two columns with customized ratios
 %%%% how to use:
 %first parameter: length of separation bar
