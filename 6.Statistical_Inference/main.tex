@@ -12,14 +12,14 @@
   \setbeamertemplate{footline}[frame number]  % or "page number"
   \setbeamercolor{frametitle}{fg=white}
   \setbeamercolor{footline}{fg=black}
-} 
+}
 
 \input{../myhead.tex}
 
 \title[]{Lecture 6: Statistical Inference}
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
-\date{MONTH DAY, 2021}
+\date{\today}
 
 \input{../mymath}
 
@@ -37,9 +37,9 @@
 % % \tableofcontents
 % \plitemsep 0.1in
 % \bci
-% \item 
+% \item
 
-% \item 
+% \item
 % \eci
 % \end{frame}
 
@@ -50,7 +50,7 @@
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 
 \item Basics on Statistic Inference
 
@@ -66,7 +66,7 @@
 
 \item Framework of Classical Inference
 \item ML (Maximum Likelihood) Estimator
-\eci 
+\eci
 
 \end{frame}
 
@@ -75,7 +75,7 @@
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 
 \item \redf{Basics on Statistic Inference}
 
@@ -91,7 +91,7 @@
 \item Framework of Classical Inference
 \item ML (Maximum Likelihood) Estimator
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -104,7 +104,7 @@
 
 \vspace{-0.5cm}
 \plitemsep 0.1in
-\bci 
+\bci
 \item<2-> Inference
 
 - Using data, probabilistic models or parameters for models are determined.
@@ -117,7 +117,7 @@
 
 - Connecting big data and big model building
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -130,12 +130,12 @@
 
 \vspace{-0.5cm}
 \plitemsep 0.05in
-\bci 
+\bci
 \item $X = aS + W$
 
 \item<2-> Modeling building
 \bci
-\item know the original signal $S$, observe $X$ 
+\item know the original signal $S$, observe $X$
 \item infer the model parameter $a$
 \eci
 
@@ -148,7 +148,7 @@
 
 \item<4-> Same mathematical structure, because the parameters in models are variables in many cases
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -156,7 +156,7 @@
 \begin{frame}{What Kind of Inference?: Hypothesis testing vs. Estimation}
 
 \plitemsep 0.1in
-\bci 
+\bci
 \item<2-> Hypothesis testing
 
 \bci
@@ -167,26 +167,26 @@
 
 \item<2-> Estimation
 \bci
-\item<3-> Unknown: a value included in  an infinite,  typically continuous set 
+\item<3-> Unknown: a value included in  an infinite,  typically continuous set
 \item<4-> Goal: Finding the value close to the true value
 \item<5-> \bluef{(Ex)} Biased coin with unknown probability of head $\theta \in [0,1]$. Data of heads and tails. What is $\theta$?
 \item<6-> \bluef{(Note)} If you have the candidate values of $\theta = \{1/4, 1/2, 3/4 \},$ then it's a hypothesis testing problem
 \eci
 
-\eci 
+\eci
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Inference with Different Views: Bayesian vs. Classical (1)}
 
-\onslide<1->{- Biased coin with parameter $\theta$ (probability of head). Assume that $\theta \in \{1/4,3/4\}.$} 
+\onslide<1->{- Biased coin with parameter $\theta$ (probability of head). Assume that $\theta \in \{1/4,3/4\}.$}
 
 \onslide<2->{- Throw the coin 3 times and get $(H,H,H).$ Goal: infer $\theta,$ $1/4$ or $3/4$?}
 
 % \plitemsep 0.1in
-% \bci 
-% \item 
+% \bci
+% \item
 % \eci
 \medskip
 
@@ -194,8 +194,8 @@
 {
 \small
 \plitemsep 0.05in
-\bci 
-\item<3-> Distribution of $\theta$ (\redf{prior}) e.g., 
+\bci
+\item<3-> Distribution of $\theta$ (\redf{prior}) e.g.,
 \aleq{
 \cprob{\theta = {3 \over 4}} = 1/2, \quad \cprob{\theta = \frac{1}{4}} = 1/2
 }
@@ -212,14 +212,14 @@
 {
 \small
 \plitemsep 0.05in
-\bci 
-\item<6-> Find the probability of $(H,H,H),$ if $\theta=\frac{1}{4}$ or $\frac{3}{4}$ (\redf{likelihood}) 
+\bci
+\item<6-> Find the probability of $(H,H,H),$ if $\theta=\frac{1}{4}$ or $\frac{3}{4}$ (\redf{likelihood})
 \aleq{
 \bprob{ (HHH) | \theta=\frac{3}{4}} &= \lf(\frac{3}{4} \ri)^3 \cr
 \bprob{ (HHH) | \theta=\frac{1}{4}} &= \lf (\frac{1}{4} \ri)^3
 }
 
-\item<7-> Choose $\theta$ with a larger likelihood. 
+\item<7-> Choose $\theta$ with a larger likelihood.
 
 \item<8-> \empr{Classical approach} (Chapter 9)
 
@@ -238,7 +238,7 @@
 
 
 \plitemsep 0.08in
-\bci 
+\bci
 \item<2-> Unknown: random variable with some distribution (prior)
 \item<3-> Unknown model as chosen randomly from a give model class
 \item<4-> Observed data $x$ gives: posterior distribution $p_{\Theta | X}(\theta | x)$
@@ -249,7 +249,7 @@
 \bluef{Classical approach}
 
 \plitemsep 0.08in
-\bci 
+\bci
 \item<2-> Unknown: deterministic value
 \item<3-> Unknown model as one of multiple probabilistic models
 \item<4-> Observed data $x$ gives: likelihood $p(X;\theta)$
@@ -276,35 +276,35 @@
 \mytwocols{0.55}
 {
 \plitemsep 0.08in
-\bci 
+\bci
 \item<2-> Unknown $\Theta$
 
 \bci
 \item physical quantity or model parameter
 \item random variable
 \item prior distribution $p_{\Theta}$ and $f_{\Theta}$
-\eci 
+\eci
 
 \item<3-> Observations or measurements $X$
 
 \bci
 \item observation model $p_{X|\Theta}$ and $f_{X|\Theta}$
-\eci 
+\eci
 
 \item<4-> That is, the joint distribution of $X$ and $\Theta$, $p_{X,\Theta}$ and $f_{X,\Theta}$, is given
 \eci
 }
 {
 \plitemsep 0.08in
-\bci 
+\bci
 \item<5-> Find the posterior distribution $p_{X|\Theta}$ and $f_{X|\Theta}.$
 
 \bci
 \item Use Bayes' rule
 %\item $\Theta$ and $X$: continuous and discrete (4 cases)
-\eci 
+\eci
 
-\item<6-> Using the posterior distribution, apply one of the methods of choosing the final $\hat{\theta}$ for estimation and hypothesis testing. 
+\item<6-> Using the posterior distribution, apply one of the methods of choosing the final $\hat{\theta}$ for estimation and hypothesis testing.
 \eci
 }
 \end{frame}
@@ -315,7 +315,7 @@
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 
 \item \bluef{Basics on Statistic Inference}
 
@@ -331,7 +331,7 @@
 \item Framework of Classical Inference
 \item ML (Maximum Likelihood) Estimator
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -345,15 +345,15 @@
 \vspace{-0.6cm}
 
 \plitemsep 0.05in
-\bci 
-\item<1-> Given observation $x$, which $\theta$ are you going to choose? 
+\bci
+\item<1-> Given observation $x$, which $\theta$ are you going to choose?
 
 \item<2->[M1.] Choose the largest: Maximum a posteriori probability (MAP) rule
 
 \begin{center}
 \redblank{3}{
 $
-\hat{\theta}_{\text{MAP}} =  \arg \max_{\theta} p_{\Theta | X}(\theta | x), \quad \hat{\theta}_{\text{MAP}} =  \arg \max_{\theta} f_{\Theta | X}(\theta | x) 
+\hat{\theta}_{\text{MAP}} =  \arg \max_{\theta} p_{\Theta | X}(\theta | x), \quad \hat{\theta}_{\text{MAP}} =  \arg \max_{\theta} f_{\Theta | X}(\theta | x)
 $
 }
 \end{center}
@@ -366,13 +366,13 @@ $\hat{\theta}_{\text{LMS}} = \expect{\Theta | X=x}$
 }
 \end{center}
 
-\item<6-> Why MAP and LMS are good? Not mathematically clear yet (later) 
+\item<6-> Why MAP and LMS are good? Not mathematically clear yet (later)
 
 % \item<7-> Estimate as a number: $\hat{\theta} = g(x)$
 
 % \item<8-> Estimator as a random variable number: $\hat{\Theta} = g(X)$
 
-% \item Any theoretical support for optimality of MAP and LMS in some sense? 
+% \item Any theoretical support for optimality of MAP and LMS in some sense?
 
 % - discuss later
 
@@ -384,18 +384,18 @@ $\hat{\theta}_{\text{LMS}} = \expect{\Theta | X=x}$
 \begin{frame}{Estimator as a function}
 
 \plitemsep 0.3in
-\bci 
+\bci
 \item Random observation: $X$
 
 \item Observation instance: $x$
 
 \item<1-> Estimate as a mapping from $x$ to a number
-$$\hth = g(x),\quad \hth_\MAP = g_\MAP(x),\quad \hth_\LMS = g_\LMS(x)$$ 
+$$\hth = g(x),\quad \hth_\MAP = g_\MAP(x),\quad \hth_\LMS = g_\LMS(x)$$
 
 \item<2-> Estimator as a mapping from $X$ to a random variable
-$$\hTH = g(X), \quad \hTH_\MAP = g_\MAP(X), \quad \hTH_\LMS = g_\LMS(X)$$ 
+$$\hTH = g(X), \quad \hTH_\MAP = g_\MAP(X), \quad \hTH_\LMS = g_\LMS(X)$$
 
-% \item Any theoretical support for optimality of MAP and LMS in some sense? 
+% \item Any theoretical support for optimality of MAP and LMS in some sense?
 
 % - discuss later
 
@@ -412,19 +412,19 @@ $$\hTH = g(X), \quad \hTH_\MAP = g_\MAP(X), \quad \hTH_\LMS = g_\LMS(X)$$
 {
 \small
 \plitemsep 0.05in
-\bci 
-\item<2-> Romeo and Juliet start dating. 
+\bci
+\item<2-> Romeo and Juliet start dating.
 
-- Romeo: late by $X \sim U[0,\theta].$ 
-\item<3-> Unknown: $\theta$ modeled by a rv $\Theta \sim U[0,1].$ 
+- Romeo: late by $X \sim U[0,\theta].$
+\item<3-> Unknown: $\theta$ modeled by a rv $\Theta \sim U[0,1].$
 \vspace{-0.3cm}
 \aleq{
-\onslide<4->{\fth &= 
+\onslide<4->{\fth &=
 \begin{cases}
 1, & 0 \le \theta \le 1 \cr
 0, & \text{otherwise}
 \end{cases}}\cr
-\onslide<5->{\fxcth &= 
+\onslide<5->{\fxcth &=
 \begin{cases}
 \frac{1}{\theta}, & 0 \le x \le \theta\cr
 0, & \text{otherwise}
@@ -433,10 +433,10 @@ $$\hTH = g(X), \quad \hTH_\MAP = g_\MAP(X), \quad \hTH_\LMS = g_\LMS(X)$$
 \vspace{-0.5cm}
 \onslide<6->{
 \aleq{
-\fthcx &= \frac{\fth \fxcth}{\int_0^1 f_{\Theta}(\theta')f_{X|\Theta}(x | \theta') d\theta'}\cr 
+\fthcx &= \frac{\fth \fxcth}{\int_0^1 f_{\Theta}(\theta')f_{X|\Theta}(x | \theta') d\theta'}\cr
 &= \frac{1/\theta}{\int_{x}^1 \frac{1}{\theta'} d\theta'} = \frac{1}{\theta |\log x|}, \ x \le \theta \le 1,
 }
-and 
+and
 $\fthcx = 0, \ \theta < x \text{ or } \theta >1.$
 }
 \eci
@@ -444,7 +444,7 @@ $\fthcx = 0, \ \theta < x \text{ or } \theta >1.$
 {
 \small
 \plitemsep 0.07in
-\bci 
+\bci
 
 \item<7-> MAP rule
 
@@ -470,10 +470,10 @@ $\fthcx = 0, \ \theta < x \text{ or } \theta >1.$
 \begin{frame}{Example 2: Biased Coin with Beta Prior (1)}
 
 \plitemsep 0.15in
-\bci 
+\bci
 \item<1-> Biased coin with probability of head $\theta$
 \item<2-> Unknown $\theta$: modeled by $\Theta$ with some prior $\fth$
-\item<3-> Observation $X$: number of heads out of $n$ tosses 
+\item<3-> Observation $X$: number of heads out of $n$ tosses
 \item<4-> Posterior PDF
 \aleq{
 f_{\Theta | X}(\theta | k) &= c \fth \redf{p_{X|\Theta}(k | \theta)}= c \redf{{n \choose k}} \fth \redf{\theta^k(1-\theta)^{n-k}}, \ \text{$c$ the normalizing constant}
@@ -491,9 +491,9 @@ f_{\Theta | X}(\theta | k) &= c \fth \redf{p_{X|\Theta}(k | \theta)}= c \redf{{n
 % {
 % \small
 % \plitemsep 0.07in
-% \bci 
+% \bci
 
-% \item 
+% \item
 % \eci
 % }
 
@@ -508,7 +508,7 @@ f_{\Theta | X}(\theta | k) &= c \fth \redf{p_{X|\Theta}(k | \theta)}= c \redf{{n
 \small
 A continuous rv $\Theta$ follows a beta distribution with integer parameters $\alpha,\beta >0,$ if
 \aleq{
-\fth = 
+\fth =
 \begin{cases}
 \frac{1}{B(\alpha,\beta)} \theta^{\alpha -1}(1-\theta)^{\beta -1}, & 0< \theta < 1, \cr
 0, & \text{otherwise},
@@ -516,17 +516,17 @@ A continuous rv $\Theta$ follows a beta distribution with integer parameters $\a
 }
 where $B(\alpha,\beta)$, called Beta function, is a normalizing constant, given by
 \aleq{
-B(\alpha,\beta) = \int_0^1 \theta^{\alpha -1}(1-\theta)^{\beta -1} d\theta = \frac{(\alpha-1)! (\beta -1)!}{(\alpha + \beta-1)!} 
+B(\alpha,\beta) = \int_0^1 \theta^{\alpha -1}(1-\theta)^{\beta -1} d\theta = \frac{(\alpha-1)! (\beta -1)!}{(\alpha + \beta-1)!}
 }
 \vspace{-0.3cm}
 }}
 
 
 \plitemsep 0.05in
-\bci 
+\bci
 
 \item<2-> A special case of $Beta(1,1)$ is $Uniform[0,1]$
-% \item<2-> If $\Theta \sim Beta(\alpha,\beta),$ then $\Theta|\{X=k\} \sim Beta(k+\alpha,n-k+\beta)$ 
+% \item<2-> If $\Theta \sim Beta(\alpha,\beta),$ then $\Theta|\{X=k\} \sim Beta(k+\alpha,n-k+\beta)$
 
 % - Very useful: \redblank{3}{Beta prior $\imp$ Beta posterior} (homework problem)
 
@@ -546,12 +546,12 @@ B(\alpha,\beta) = \int_0^1 \theta^{\alpha -1}(1-\theta)^{\beta -1} d\theta = \fr
 \begin{frame}{Example 2: Biased Coin with Beta Prior (3)}
 
 \plitemsep 0.05in
-\bci 
+\bci
 
 \item<2-> If $\Theta \sim Beta(\alpha,\beta),$ then $\Theta|\{X=k\} \sim Beta(k+\alpha,n-k+\beta)$
 
 
-- Very useful: Beta prior $\imp$ Beta posterior 
+- Very useful: Beta prior $\imp$ Beta posterior
 
 \item<3-> \redf{Proof.} For $Beta(\alpha,\beta)$ prior,
 \aleq{
@@ -559,7 +559,7 @@ B(\alpha,\beta) = \int_0^1 \theta^{\alpha -1}(1-\theta)^{\beta -1} d\theta = \fr
 \fthck&= c {n \choose k} \fth \theta^k(1-\theta)^{n-k} = \frac{d}{B(\alpha,\beta)} \cdot \theta^{\alpha+k-1}(1-\theta)^{\beta + n-k -1}
 }
 where $d = c{n \choose k}.$
-\item<4-> Taking the logarithm, 
+\item<4-> Taking the logarithm,
 \aleq{
 \onslide<4->{\hth_\MAP &= \arg \max_{\theta} \Bl [(\alpha+k-1) \log \theta + (\beta + n-k+1) \log(1-\theta) \Bl ]
 &=\frac{\alpha + k -1}{\alpha + \beta -2 + n}}
@@ -584,12 +584,12 @@ where $d = c{n \choose k}.$
 \begin{frame}{Example 3: Spam Filtering}
 
 \plitemsep 0.05in
-\bci 
+\bci
 \item<1-> E-mail: spam (1) or legitimate (2), $\Theta  \in \{1,2\},$ with prior $p_{\Theta}(1)$ and  $p_{\Theta}(2).$
 
 \item<2-> $\{w_1, w_2, \ldots, w_n \}$: a collection of words which suggest ``spam".
 
-\item<3-> For each $i,$ a Bernoulli $X_i=1$ if $w_i$ appears and 0 otherwise. 
+\item<3-> For each $i,$ a Bernoulli $X_i=1$ if $w_i$ appears and 0 otherwise.
 
 \item<4-> Observation model $p_{X_i|\Theta(x_i|1)}$ and $p_{X_i|\Theta(x_i|2)}$ are known. Conditioned on $\Theta,$ $X_i$ are independent.
 \item<5-> Posterior PMF
@@ -610,19 +610,19 @@ p_{\Theta}(1) \prod_{i=1}^n p_{X_i|\Theta}(x_i|1) > p_{\Theta}(2) \prod_{i=1}^n 
 \begin{frame}{MAP's Performance Guarantee}
 
 \plitemsep 0.1in
-\bci 
+\bci
 \item<1-> MAP estimate is intuitive, but we need more mathematical support.
 
-\item<2-> \redf{Claim 1.} \bluef{For a given $x,$} the MAP rule minimizes the probability of an incorrect decision. 
+\item<2-> \redf{Claim 1.} \bluef{For a given $x,$} the MAP rule minimizes the probability of an incorrect decision.
 
 \item<3-> \redf{Claim 2.} The MAP rule minimizes the overall probability of an incorrect decision, \bluef{averaged over $x.$ }
 
-\item<4-> \redf{Proof.} 
-\onslide<5->{Let $I$ and $I_{map}$ be the indicator rv, representing the correct decision by any general estimator and the MAP, respectively.}  
+\item<4-> \redf{Proof.}
+\onslide<5->{Let $I$ and $I_{map}$ be the indicator rv, representing the correct decision by any general estimator and the MAP, respectively.}
 \aleq{
-\onslide<6->{\expect{I | X=x}=} 
+\onslide<6->{\expect{I | X=x}=}
 \onslide<7->{\bprob{g(X) = \Theta | X=x} \le }
-\onslide<8->{\bprob{g_{map}(X) = \Theta | X=x} =} 
+\onslide<8->{\bprob{g_{map}(X) = \Theta | X=x} =}
 \onslide<9->{\expect{I_{map}|X=x}}
 }
 \onslide<10->{Thus, \redf{Claim 1} holds. We now take the expectation of the above equations, the law of iterated expectations leads to \redf{Claim 2.}}
@@ -636,7 +636,7 @@ p_{\Theta}(1) \prod_{i=1}^n p_{X_i|\Theta}(x_i|1) > p_{\Theta}(2) \prod_{i=1}^n 
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 
 \item \bluef{Basics on Statistic Inference}
 
@@ -652,7 +652,7 @@ p_{\Theta}(1) \prod_{i=1}^n p_{X_i|\Theta}(x_i|1) > p_{\Theta}(2) \prod_{i=1}^n 
 \item Framework of Classical Inference
 \item ML (Maximum Likelihood) Estimator
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -660,7 +660,7 @@ p_{\Theta}(1) \prod_{i=1}^n p_{X_i|\Theta}(x_i|1) > p_{\Theta}(2) \prod_{i=1}^n 
 \begin{frame}{Least Mean Squares Estimator (1)}
 
 \plitemsep 0.05in
-\bci 
+\bci
 
 \item<1-> Unknown: $\theta$ modeled by $\Theta$ with prior $f_{\Theta}(\cdot).$ Assume $\Theta \sim Uniform [4,10].$
 
@@ -679,7 +679,7 @@ p_{\Theta}(1) \prod_{i=1}^n p_{X_i|\Theta}(x_i|1) > p_{\Theta}(2) \prod_{i=1}^n 
 \item<6-> Because it minimizes mean squared error (MSE)
 \small
 \aleq{
-\min_{\hat{\theta}} \bexpect{(\Theta - \hat{\theta})^2} = \min_{\hat{\theta}} 
+\min_{\hat{\theta}} \bexpect{(\Theta - \hat{\theta})^2} = \min_{\hat{\theta}}
 \lf ( \cvar{\Theta - \hat{\theta}} + \Bl(\expect{\Theta - \hat{\theta}}\Bl)^2 \ri )=  \min_{\hat{\theta}} \lf ( \cvar{\Theta} + \Bl(\expect{\Theta - \hat{\theta}}\Bl)^2 \ri )
 }
 
@@ -694,9 +694,9 @@ p_{\Theta}(1) \prod_{i=1}^n p_{X_i|\Theta}(x_i|1) > p_{\Theta}(2) \prod_{i=1}^n 
 \begin{frame}{Least Mean Squares Estimator (2)}
 
 \plitemsep 0.1in
-\bci 
+\bci
 
-\item<1-> Unknown: $\theta$ modeled by $\Theta$ with prior $f_{\Theta}(\cdot).$ 
+\item<1-> Unknown: $\theta$ modeled by $\Theta$ with prior $f_{\Theta}(\cdot).$
 
 \item<1-> Observation $X=x$ with model $f_{X|\Theta}(x|\theta)$
 
@@ -731,19 +731,19 @@ $$
 {
 \small
 \plitemsep 0.05in
-\bci 
-\item Romeo and Juliet start dating. 
+\bci
+\item Romeo and Juliet start dating.
 
-- Romeo: late by $X \sim U[0,\theta].$ 
-\item Unknown: $\theta$ modeled by a rv $\Theta \sim U[0,1].$ 
+- Romeo: late by $X \sim U[0,\theta].$
+\item Unknown: $\theta$ modeled by a rv $\Theta \sim U[0,1].$
 \vspace{-0.3cm}
 \aleq{
-\fth &= 
+\fth &=
 \begin{cases}
 1, & 0 \le \theta \le 1 \cr
 0, & \text{otherwise}
 \end{cases}\cr
-\fxcth &= 
+\fxcth &=
 \begin{cases}
 \frac{1}{\theta}, & 0 \le x \le \theta\cr
 0, & \text{otherwise}
@@ -751,10 +751,10 @@ $$
 }
 \vspace{-0.5cm}
 \aleq{
-\fthcx &= \frac{\fth \fxcth}{\int_0^1 f_{\Theta}(\theta')f_{X|\Theta}(x | \theta') d\theta'}\cr 
+\fthcx &= \frac{\fth \fxcth}{\int_0^1 f_{\Theta}(\theta')f_{X|\Theta}(x | \theta') d\theta'}\cr
 &= \frac{1/\theta}{\int_{x}^1 \frac{1}{\theta'} d\theta'} = \redf{\frac{1}{\theta |\log x|}}, \ x \le \theta \le 1,
 }
-and 
+and
 $\fthcx = 0, \ \theta < x \text{ or } \theta >1.$
 
 \eci
@@ -762,7 +762,7 @@ $\fthcx = 0, \ \theta < x \text{ or } \theta >1.$
 {
 \small
 \plitemsep 0.07in
-\bci 
+\bci
 
 \item MAP rule
 
@@ -786,19 +786,19 @@ $\fthcx = 0, \ \theta < x \text{ or } \theta >1.$
 \begin{frame}{Example: Biased Coin with Beta Prior}
 
 \plitemsep 0.1in
-\bci 
+\bci
 
-\item \bluef{Remind.} If $\Theta \sim Beta(\alpha,\beta),$ then $\Theta|\{X=k\} \sim Beta(k+\alpha,n-k+\beta)$ 
+\item \bluef{Remind.} If $\Theta \sim Beta(\alpha,\beta),$ then $\Theta|\{X=k\} \sim Beta(k+\alpha,n-k+\beta)$
 
 \item<2-> \bluef{Fact.} If $\Theta \sim Beta(\alpha,\beta),$
 \aleq{
 \expect{\Theta} &= \frac{1}{B(\alpha,\beta)} \int_0^1 \theta \theta^{\alpha-1}(1-\theta)^{\beta-1} d\theta = \frac{B(\alpha+1,\beta)}{B(\alpha,\beta)} = \frac{\alpha}{\alpha+\beta}
 }
-\item<3-> Using the above fact, 
+\item<3-> Using the above fact,
 \aleq{
 \expect{\Theta| X=k} = \frac{k+\alpha}{k+\alpha + n -k +\beta} = \frac{k+\alpha}{\alpha + \beta + n}
 }
-\item<4-> For $\alpha=\beta=1$ ($\Theta = Uniform[0,1]$), 
+\item<4-> For $\alpha=\beta=1$ ($\Theta = Uniform[0,1]$),
 \aleq{
 \expect{\Theta| X=k} = \frac{k+1}{n+2}
 }
@@ -808,11 +808,11 @@ $\fthcx = 0, \ \theta < x \text{ or } \theta >1.$
 % \fthck&= d \cdot \theta^{\alpha+k-1}(1-\theta)^{\beta + n-k -1}
 % }
 
-% \item Using, $\int_0^1 \theta^{\alpha -1}(1-\theta)^{\beta -1} d\theta = \frac{(\alpha-1)! (\beta -1)!}{(\alpha + \beta-1)!}$ 
+% \item Using, $\int_0^1 \theta^{\alpha -1}(1-\theta)^{\beta -1} d\theta = \frac{(\alpha-1)! (\beta -1)!}{(\alpha + \beta-1)!}$
 % \aleq{
-% \expect{\Theta | X=k} &= \int_{0}^1 \theta \fthck d\theta = d\cdot \int_{0}^1  
+% \expect{\Theta | X=k} &= \int_{0}^1 \theta \fthck d\theta = d\cdot \int_{0}^1
 % \theta^{\alpha+k}(1-\theta)^{\beta + n-k -1} d\theta \cr
-% &= 
+% &=
 % }
 
 % \item MAP estimate
@@ -834,7 +834,7 @@ $\fthcx = 0, \ \theta < x \text{ or } \theta >1.$
 
 \small
 \plitemsep 0.03in
-\bci 
+\bci
 
 \item<1-> Unknown: $\Theta \sim Uniform[4,10]$
 
@@ -844,7 +844,7 @@ X = \Theta + W
 $$
 \item<2-> Given $\Theta = \theta,$ $X = \theta + W \sim Uniform[\theta-1, \theta+1].$
 \aleq{
-\onslide<4->{f_{\Theta, X}(\theta,x) = \fth \fxcth = 
+\onslide<4->{f_{\Theta, X}(\theta,x) = \fth \fxcth =
 \begin{cases}
 \frac{1}{6} \cdot \frac{1}{2} = \frac{1}{12}, & \text{if } 4\le \theta \le 10, \ \theta -1 \le x \le \theta +1, \cr
 0, & \text{otherwise}
@@ -869,7 +869,7 @@ $$
 
 \small
 \plitemsep 0.03in
-\bci 
+\bci
 
 \item Unknown: $\Theta \sim Uniform[4,10]$
 
@@ -879,7 +879,7 @@ X = \Theta + W
 $$
 \item Given $\Theta = \theta,$ $X = \theta + W \sim Uniform[\theta-1, \theta+1].$
 \aleq{
-f_{\Theta, X}(\theta,x) = \fth \fxcth = 
+f_{\Theta, X}(\theta,x) = \fth \fxcth =
 \begin{cases}
 \frac{1}{6} \cdot \frac{1}{2} = \frac{1}{12}, & \text{if } 4\le \theta \le 10, \ \theta -1 \le x \le \theta +1, \cr
 0, & \text{otherwise}
@@ -889,7 +889,7 @@ f_{\Theta, X}(\theta,x) = \fth \fxcth =
 \myvartwocols{0.35}{0.4}{0.57}
 {
 \bigskip
-- Conditional MSE 
+- Conditional MSE
 $$\bexpect{(\Theta - \expect{\Theta | X=x})^2 | X=x}$$
 }
 {
@@ -908,7 +908,7 @@ $$\bexpect{(\Theta - \expect{\Theta | X=x})^2 | X=x}$$
 
 % \small
 % \plitemsep 0.03in
-% \bci 
+% \bci
 
 % \item Unknown: $\Theta \sim Uniform[4,10]$
 
@@ -918,7 +918,7 @@ $$\bexpect{(\Theta - \expect{\Theta | X=x})^2 | X=x}$$
 % $$
 % \item Given $\Theta = \theta,$ $X = \theta + W \sim Uniform[\theta-1, \theta+1].$
 % \aleq{
-% f_{\Theta, X}(\theta,x) = \fth \fxcth = 
+% f_{\Theta, X}(\theta,x) = \fth \fxcth =
 % \begin{cases}
 % \frac{1}{6} \cdot \frac{1}{2} = \frac{1}{12}, & \text{if } 4\le \theta \le 10, \ \theta -1 \le x \le \theta +1, \cr
 % 0, & \text{otherwise}
@@ -958,9 +958,9 @@ $$\bexpect{(\Theta - \expect{\Theta | X=x})^2 | X=x}$$
 
 
 \plitemsep 0.1in
-\bci 
+\bci
 
-\item<2-> Observation model $\fxcth$ may not be always available 
+\item<2-> Observation model $\fxcth$ may not be always available
 
 \item<3-> Finding the posterior distribution is hard for multi-dimensional $\Theta$
 
@@ -979,7 +979,7 @@ $$\bexpect{(\Theta - \expect{\Theta | X=x})^2 | X=x}$$
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 
 \item \bluef{Basics on Statistic Inference}
 
@@ -995,7 +995,7 @@ $$\bexpect{(\Theta - \expect{\Theta | X=x})^2 | X=x}$$
 \item Framework of Classical Inference
 \item ML (Maximum Likelihood) Estimator
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -1003,20 +1003,20 @@ $$\bexpect{(\Theta - \expect{\Theta | X=x})^2 | X=x}$$
 \begin{frame}{Linear LMS (LLMS) Estimator: Approach}
 
 \plitemsep 0.15in
-\bci 
+\bci
 
-\item<2-> Give up optimality, but choose a simple, but good one. 
+\item<2-> Give up optimality, but choose a simple, but good one.
 
 \item<3-> General estimators $\hat{\Theta} = g(X)$, LMS estimator $\hat{\Theta}_{LMS} = \expect{\Theta | X}$
 
 \item<4-> We consider a restricted class of $g(X)$: $\hat{\Theta} =$ \redblank{5}{$aX +b$}.
 
-\item<6-> Our goal is: 
+\item<6-> Our goal is:
 $$
 \min_{a,b} \bexpect{(\Theta - aX -b)^2}
 $$
 
-\item<7-> Linear models are always the first choice for a simple design in engineering. 
+\item<7-> Linear models are always the first choice for a simple design in engineering.
 
 \eci
 
@@ -1031,7 +1031,7 @@ $$
 {
 \aleq
 {
-\hat{\Theta}_{L} = \cexpect{\Theta} + \frac{\cov{\Theta,X}}{\cvar{X}}\Bl(X - \cexpect{X}\Bl)  
+\hat{\Theta}_{L} = \cexpect{\Theta} + \frac{\cov{\Theta,X}}{\cvar{X}}\Bl(X - \cexpect{X}\Bl)
 = \cexpect{\Theta} + \rho \frac{\sigma_{\Theta}}{\sigma_{X}}\Bl(X - \cexpect{X}\Bl)
 }
 \vspace{-0.3cm}
@@ -1040,8 +1040,8 @@ $$
 
 \small
 \plitemsep 0.05in
-\bci 
-\item<3-> No distributions on $\Theta$ and $X$: only means, variances, and covariances 
+\bci
+\item<3-> No distributions on $\Theta$ and $X$: only means, variances, and covariances
 
 \item<4-> MSE $\expect{(\hat{\Theta}_L - \Theta)^2}$? Assume $\expect{\Theta} = \expect{X}=0.$
 \onslide<5->{$
@@ -1059,23 +1059,23 @@ $
 {
 \plitemsep 0.05in
 \bci
-\item<7-> If $\rho >0:$ 
+\item<7-> If $\rho >0:$
 
 - Baseline ($\expect{\Theta}$) + correction term
 
-- If $X > \expect{X}$ $\imp$ $\hat{\Theta}_L > \expect{\Theta}$ 
+- If $X > \expect{X}$ $\imp$ $\hat{\Theta}_L > \expect{\Theta}$
 
-- If $X < \expect{X}$ $\imp$ $\hat{\Theta}_L < \expect{\Theta}$ 
+- If $X < \expect{X}$ $\imp$ $\hat{\Theta}_L < \expect{\Theta}$
 \eci
 }
 {
 \plitemsep 0.05in
 \bci
-\item<8-> If $\rho =0$ (uncorrelated): 
+\item<8-> If $\rho =0$ (uncorrelated):
 
 - Just baseline ($\expect{\Theta}$)
 
-- $\hat{\Theta}_L = \expect{\Theta}$ 
+- $\hat{\Theta}_L = \expect{\Theta}$
 
 - No use of data $X$
 \eci
@@ -1102,7 +1102,7 @@ $
 \onslide<2->{\min_{a,b} \text{ERR}(a,b) = \min_{a,b} \bexpect{(\Theta - aX -b)^2}}
 }
 
-\onslide<3->{- Assume $a$ was found. 
+\onslide<3->{- Assume $a$ was found.
 \aleq
 {
 \bexpect{(Y -b)^2}, \quad Y= \Theta - aX
@@ -1110,14 +1110,14 @@ $
 
 \onslide<4->{- Minimized when $b = \cexpect{Y} = \cexpect{\Theta} - a \cexpect{X}.$}
 \begin{align}
-\onslide<5->{&\text{ERR}(a,b) = \expect{(Y - \expect{Y})^2} = \cvar{Y} \nonumber \\ 
+\onslide<5->{&\text{ERR}(a,b) = \expect{(Y - \expect{Y})^2} = \cvar{Y} \nonumber \\
 &=\var{\Theta} + a^2 \var{X} -2a \cov{\Theta, X} \label{eq:3}}
 \end{align}
 }
 {
 \small
 
-\onslide<6->{- \eqref{eq:3} is minimized when $a = \frac{\cov{\Theta,X}}{\var{X}}.$} 
+\onslide<6->{- \eqref{eq:3} is minimized when $a = \frac{\cov{\Theta,X}}{\var{X}}.$}
 \onslide<7->{Then,
 \aleq{
 \hat{\Theta}_{L} &= aX + b = aX + \cexpect{\Theta} - a \cexpect{X}\cr
@@ -1145,9 +1145,9 @@ a = \frac{\rho \sigma_\Theta \sigma_X}{\sigma_X^2} = \frac{\rho \sigma_\Theta}{\
 {
 \small
 \plitemsep 0.05in
-\bci 
-\item Romeo and Juliet start dating. Romeo: late by $X \sim U[0,\theta].$ 
-\item Unknown: $\theta$ modeled by a rv $\Theta \sim U[0,1].$ 
+\bci
+\item Romeo and Juliet start dating. Romeo: late by $X \sim U[0,\theta].$
+\item Unknown: $\theta$ modeled by a rv $\Theta \sim U[0,1].$
 
 \item<2-> $\expect{X} = \expect{\expect{X|\Theta}}= \expect{\Theta/2} = 1/4$
 
@@ -1160,7 +1160,7 @@ a = \frac{\rho \sigma_\Theta \sigma_X}{\sigma_X^2} = \frac{\rho \sigma_\Theta}{\
 \item<4-> $\cov{\Theta, X} = \expect{\Theta X} - \expect{\Theta} \expect{X}$
 \aleq{
 \expect{\Theta X} &= \expect{\expect{\Theta X | \Theta}} = \expect{\Theta \expect{X | \Theta}}\cr
-&= \expect{\Theta^2/2} = 1/6 
+&= \expect{\Theta^2/2} = 1/6
 }
 $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 
@@ -1169,7 +1169,7 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 {
 \small
 \plitemsep 0.05in
-\bci 
+\bci
 
 \item<5-> LLMS estimator is:
 \aleq{
@@ -1196,9 +1196,9 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 {
 \small
 \plitemsep 0.05in
-\bci 
+\bci
 \item Biased coin with probability of head $\theta$
-\item Unknown $\Theta \sim uniform[0,1],$ 
+\item Unknown $\Theta \sim uniform[0,1],$
 
 - $\expect{\Theta} = 1/2$, $\var{X} = 1/12$
 \item $n$ tosses, $X$: number of heads.
@@ -1227,7 +1227,7 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 
 \onslide<8->{- What was the LMS estimator? $\frac{X+1}{n+2}$
 
-- Same! Intuitive?} 
+- Same! Intuitive?}
 
 \onslide<9->{Yes, because the LMS esitmator was linear.}
 }
@@ -1246,24 +1246,24 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 % {
 % \small
 % \plitemsep 0.05in
-% \bci 
+% \bci
 % \item Observe a collection $X=(X_1, X_2, \ldots, X_n)$
 % \item Unknown: common mean $\theta$, modeled by $\Theta \sim N(x_0, \sigma_0^2)$
 % \item $X_i$ are normal, independent with known variance $\sigma_1^2, \ldots, \sigma_n^2.$
 % \aleq{
 % X_i = \Theta + W_i, i=1, \ldots, n,
 % }
-% where $W_i$ are independent and normal. 
+% where $W_i$ are independent and normal.
 
 
 
-% \item Then, 
+% \item Then,
 % \eci
 % }
 % {
 % \small
 % \plitemsep 0.07in
-% \bci 
+% \bci
 
 % \item MAP rule
 
@@ -1290,7 +1290,7 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 
 \item \bluef{Basics on Statistic Inference}
 
@@ -1318,13 +1318,13 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 \mypic{0.5}{L6_classical_framework.png}
 \end{center}
 \vspace{-0.5cm}
-\bci 
+\bci
 \item Unknown $\theta$
 
 \bci
 \item<2-> \redf{deterministic (not random)} quantity (thus, no prior distribution)
-\item<2-> No prior, No posterior probabilities 
-\eci 
+\item<2-> No prior, No posterior probabilities
+\eci
 
 
 
@@ -1333,13 +1333,13 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 \bci
 \item<3-> Random observation $X$'s distribution just depends on $\theta$
 \item<4-> Notation: \redf{$p_X(x;\theta)$} and \redf{$f_X(x;\theta)$}, $\theta$-parameterized distribution of observations
-\eci 
+\eci
 
 \item<5-> Choosing one among multiple probabilistic models
 
 \bci
-\item Each $\theta$ corresponds to a probabilistic model  
-\eci 
+\item Each $\theta$ corresponds to a probabilistic model
+\eci
 
 \eci
 
@@ -1351,14 +1351,14 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 \item<2-> Problem types
 
 \bci
 \item \redf{Estimation}
 \item Hypothesis testing
 \item Significance testing
-\eci 
+\eci
 
 
 
@@ -1369,7 +1369,7 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 \item Linear regression
 \item Likelihood ratio test
 \item Significant testing
-\eci 
+\eci
 
 \item<4-> Just a taste in this course due to time constraint.
 \eci
@@ -1382,7 +1382,7 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 \item<2-> Random observation $x=(x_1, x_2, \ldots, x_n)$ of $X=(X_1, X_2, \ldots, X_n)$
 
 - Assume a scalar $\theta$ and a vector of observation in this lecture.
@@ -1390,7 +1390,7 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 \item<3-> \redblank{4}{Likelihood $p_X(x_1, x_2, \ldots, x_n;\theta)$}
 
 \bci
-\item $p_X(x_1, x_2, \ldots, x_n;\theta)$ 
+\item $p_X(x_1, x_2, \ldots, x_n;\theta)$
 
 - NOT the probability that the unknown parameter is equal to $\theta.$
 
@@ -1403,7 +1403,7 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 }
 
 
-\eci 
+\eci
 
 \item<6-> Very often, $X_i$ are independent. Then, ML equals to maximizing the log-likelihood:
 \aleq{
@@ -1418,7 +1418,7 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 \item<1-> ML and MAP: How are they related?
 
 \item<2-> MAP in the Bayesian inference
@@ -1443,9 +1443,9 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 \begin{frame}{Example: Romeo and Juliet}
 
 \plitemsep 0.1in
-\bci 
-\item Romeo and Juliet start dating. Romeo: late by $X \sim U[0,\theta].$ 
-\item Unknown: $\theta$ modeled by a rv $\Theta \sim U[0,1].$ 
+\bci
+\item Romeo and Juliet start dating. Romeo: late by $X \sim U[0,\theta].$
+\item Unknown: $\theta$ modeled by a rv $\Theta \sim U[0,1].$
 
 \medskip
 \item MAP:  $\hat{\theta}_{\text{MAP}} = x$
@@ -1464,7 +1464,7 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 \begin{frame}{Example: Estimation of Parameter of Exponential rv}
 
 \plitemsep 0.1in
-\bci 
+\bci
 \item $n$ identical, independent exponential rvs, $X_1, X_2,\ldots, X_n$ with parameter $\theta.$
 
 \item<2-> Observation $x_1, x_2, \ldots, x_n$
@@ -1473,7 +1473,7 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 
 \item<4-> \redf{Reminder.} $X \sim \exp(\lambda)$
 \aleq{
-\fx = 
+\fx =
  \begin{cases}
  \lambda \elambdax, & x \ge 0 \cr
  0, & x <0
@@ -1503,7 +1503,7 @@ $\cov{\Theta, X} = 1/6 - 1/2\cdot 1/4 = 1/24$
 \bce[1)]
 \item What is statistical inference?
 
-\item Draw the building blocks of Bayesian inference and explain how it works. 
+\item Draw the building blocks of Bayesian inference and explain how it works.
 
 \item What are MAP and LMS estimators and their underlying philosophies?
 
