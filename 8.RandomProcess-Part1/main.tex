@@ -12,7 +12,7 @@
   \setbeamertemplate{footline}[frame number]  % or "page number"
   \setbeamercolor{frametitle}{fg=white}
   \setbeamercolor{footline}{fg=black}
-} 
+}
 
 
 \input{../myhead.tex}
@@ -21,7 +21,7 @@
 \title[]{Lecture 8: Random Processes, Part I}
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
-\date{MONTH DAY, 2021}
+\date{\today}
 
 \input{../mymath}
 
@@ -39,9 +39,9 @@
 % % \tableofcontents
 % \plitemsep 0.1in
 % \bci
-% \item 
+% \item
 
-% \item 
+% \item
 % \eci
 % \end{frame}
 
@@ -52,7 +52,7 @@
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 \item A lot of applications in engineering systems
 
 
@@ -72,7 +72,7 @@
 \medskip
 \item Markov Chain
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -81,7 +81,7 @@
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 \item A lot of applications in engineering systems
 
 
@@ -101,7 +101,7 @@
 \medskip
 \item Markov Chain
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -112,7 +112,7 @@
 \mytwocols{0.75}
 {
 \plitemsep 0.1in
-\bci 
+\bci
 \item<1-> Many probabilistic experiments that \redf{evolve in time}
 \bci
 \item<2-> Sequence of daily prices of a stock
@@ -123,10 +123,10 @@
 
 \item Random process is a mathematical model for it.
 
-%\item Each numerical value in the sequence is a random variable. 
+%\item Each numerical value in the sequence is a random variable.
 
 
-\eci 
+\eci
 }
 {
 \centering
@@ -140,7 +140,7 @@
 \begin{frame}{Random Process: A Sneak Peek}
 
 \plitemsep 0.1in
-\bci 
+\bci
 
 \item<2-> A random process is a \redf{sequence} of random variables indexed by \redf{time.}
 
@@ -150,7 +150,7 @@
 
 - $(X_t)_{t \in \set{T}}$ or $\Bl(X(t)\Bl)_{t \in \set{T}},$ where $\set{T} = \real$ (continuous) or $\set{T} = \{ 0, 1, 2, \ldots \}$ (discrete)
 
-\onslide<5->{- For the discrete case, we also often use $(X_n)_{n \in \integer_+}.$} 
+\onslide<5->{- For the discrete case, we also often use $(X_n)_{n \in \integer_+}.$}
 
 \onslide<6->{- We will use all of them, unless confusion arises. }
 
@@ -173,7 +173,7 @@
 \bigskip
 \small
 \plitemsep 0.1in
-\bce[(a)] 
+\bce[(a)]
 \item continuous time, continuous value
 \item continuous time, discrete value
 \item discrete time, continuous value
@@ -194,7 +194,7 @@
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 \item A lot of applications in engineering systems
 
 
@@ -214,7 +214,7 @@
 \medskip
 \item Markov Chain
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -264,7 +264,7 @@
 \item<4-> an outcome: an infinite sequence of sample values $x_1, x_2, \ldots,$ e.g., (0,1,1,0,0,1, \ldots)
 \eci
 
-\item<5-> \bluef{Semantic difference:} Understand $i$ in $X_i$ as time. Also, interesting questions from the random process point of view. 
+\item<5-> \bluef{Semantic difference:} Understand $i$ in $X_i$ as time. Also, interesting questions from the random process point of view.
 \bci
 \item<6-> Dependence: How $X_1, X_2, \ldots$ are related to each other as a time series
 \item<7-> Long-term behavior: What is the fraction of times that a machine is idle?
@@ -304,11 +304,11 @@
 \bci
 \item<8-> $T_1$ is geometric? \bluef{Memoryless}
 
-\item<9-> Conditioned no first arrival at some time, what's the distribution of the remaining time until the first arrival? 
+\item<9-> Conditioned no first arrival at some time, what's the distribution of the remaining time until the first arrival?
 
 \item<9-> Still, geometric.
 
-\item<10-> But, more than that, as we will see. Independence across time slots leads to many useful properties, allowing the quick solution of many problems. 
+\item<10-> But, more than that, as we will see. Independence across time slots leads to many useful properties, allowing the quick solution of many problems.
 
 \eci
 
@@ -342,7 +342,7 @@
 \begin{frame}{Fresh-start after Random $N$ (1)}
 
 \onslide<1->{\redf{(Q5)} The process $(X_{N},X_{N+1}, X_{N+2}, \ldots)$? Fresh-start even after \bluef{random} $N$?}
- 
+
 \plitemsep 0.1in
 \bci
 \item<2-> Examples of $N$
@@ -363,7 +363,7 @@
 
 \item<6-> Difference of $N$ from $n$
 
-- The time when I watch the on-going Bernoulli process is \redf{random.} 
+- The time when I watch the on-going Bernoulli process is \redf{random.}
 
 \eci
 
@@ -374,7 +374,7 @@
 
 
 \redf{(Q5)} The process $(X_{N},X_{N+1}, X_{N+2}, \ldots)$? Fresh-start even after random $N$?
- 
+
 \plitemsep 0.05in
 \bci
 \item Examples of $N$
@@ -453,7 +453,7 @@
 \onslide<3->{\mypic{0.8}{L8_interarrival.png}}
 }
 
-\item<5-> After each $T_k,$ the fresh-start occurs. 
+\item<5-> After each $T_k,$ the fresh-start occurs.
 
 \item<6-> $\{T_i\}$ are i.i.d. and $\sim geom(p)$
 
@@ -486,7 +486,7 @@
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 \item A lot of applications in engineering systems
 
 
@@ -506,7 +506,7 @@
 \medskip
 \item Markov Chain
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -546,11 +546,11 @@
 
 \item<3-> Assume that it has some arrival rate $\lambda$ (\# of arrivals/unit time).
 
-\item<4-> We know how to handle Bernoulli process with discrete time slots. 
+\item<4-> We know how to handle Bernoulli process with discrete time slots.
 \eci
 
 
-\item<5-> Divide $[0,\tau]$ into slots whose length $=\delta.$ Then, $n= \# \text{ of slots} = \frac{\tau}{\delta}.$ 
+\item<5-> Divide $[0,\tau]$ into slots whose length $=\delta.$ Then, $n= \# \text{ of slots} = \frac{\tau}{\delta}.$
 \begin{center}
 \mypic{0.4}{L8_tau_delta.jpg}
 \end{center}
@@ -569,7 +569,7 @@
 \vspace{-0.8cm}
 \plitemsep 0.1in
 \bci
-\item<1-> Now, our design idea: during one time slot of length $\delta$, 
+\item<1-> Now, our design idea: during one time slot of length $\delta$,
 \mytwocols{0.3}
 {
 \aleq{
@@ -583,12 +583,12 @@
 \aleq{
 \onslide<5->{\cprob{\text{1 arrival}} &= \lambda \delta}  \onslide<8->{+o(\delta)}\cr
 \onslide<6->{\cprob{\text{$\ge$2 arrivals}} &=} \onslide<6-7>{0} \onslide<8->{o(\delta)}\cr
-\onslide<7->{\cprob{\text{0 arrival}} &= 1-  \lambda \delta} \onslide<8->{+ o(\delta)} 
+\onslide<7->{\cprob{\text{0 arrival}} &= 1-  \lambda \delta} \onslide<8->{+ o(\delta)}
 }
 }
-\item<9-> $o(\delta)$: some function that goes to zero faster than $\delta$ goes to zero. 
+\item<9-> $o(\delta)$: some function that goes to zero faster than $\delta$ goes to zero.
 
-- Thus, for very small $\delta,$ $o(\delta)$ becomes negligible. 
+- Thus, for very small $\delta,$ $o(\delta)$ becomes negligible.
 
 - Example: $o(\delta)= \delta^\alpha,$ where any $\alpha >1$
 
@@ -637,7 +637,7 @@
 \cprob{1, s} &= \lambda s + o_1(s)\cr
 \cprob{k,s} &=  o_k(s)\quad \text{for $k=2, 3, \ldots$},
 }
-where 
+where
 \aleq{
 \lim_{s \rightarrow 0} \frac{o(s)}{s} = 0, \quad \lim_{s \rightarrow 0} \frac{o_k(s)}{s} = 0
 }
@@ -652,12 +652,12 @@ where
 
 \plitemsep 0.1in
 \bci
-\item<2-> \redf{(Q1)} Number of arrivals of any interval with length $\tau$ $\sim Poisson(\lambda \tau),$ i.e., 
+\item<2-> \redf{(Q1)} Number of arrivals of any interval with length $\tau$ $\sim Poisson(\lambda \tau),$ i.e.,
 \aleq{
 \cprob{k,\tau} = e^{-\lambda \tau}\frac{(\lambda \tau)^k}{k!}, \quad k=0,1,2, \ldots
 }
 
-\item<3-> $\expect{N_\tau} = \lambda \tau$ and $\var{N_\tau} = \lambda \tau$ 
+\item<3-> $\expect{N_\tau} = \lambda \tau$ and $\var{N_\tau} = \lambda \tau$
 
 \item<4-> \redf{(Q2)} Time of first arrival $T$
 \aleq{
@@ -665,7 +665,7 @@ where
 \onslide<6->{f_T(t) &= \frac{dF_T(t)}{dt} = \lambda e^{-\lambda t}, \quad t \ge 0.}
 }
 
-\item<7-> $T \sim expo(\lambda).$ Thus $\expect{T} = 1/\lambda$ and $\var{T} = 1/\lambda^2$ 
+\item<7-> $T \sim expo(\lambda).$ Thus $\expect{T} = 1/\lambda$ and $\var{T} = 1/\lambda^2$
 
 - Continuous twin of geometric rv in Bernoulli process
 
@@ -701,9 +701,9 @@ where
 
 \plitemsep 0.1in
 \bci
-\item \redf{Remind.} Similar property for Bernoulli processes, but here no time slots. 
+\item \redf{Remind.} Similar property for Bernoulli processes, but here no time slots.
 
-\item<2-> \redf{Fresh-start at determinsitic time:} Start watching at time $t,$ then you see the Poisson process, independent of what has happened in the past. 
+\item<2-> \redf{Fresh-start at determinsitic time:} Start watching at time $t,$ then you see the Poisson process, independent of what has happened in the past.
 
 \item<3-> \redf{Fresh-start at random time:} Similarly holds. For example, when you start watching at random time $T_1$ (time of first arrival)
 
@@ -711,7 +711,7 @@ where
 
 \item<5-> $k$-th inter-arrival time $T_k = Y_k = Y_{k-1},$ $k\ge 2,$ and $T_1 = Y_1.$
 
-\item<6-> $Y_k = T_1 + T_2 + \cdots + T_k$ is sum of i.i.d. exponential rvs. 
+\item<6-> $Y_k = T_1 + T_2 + \cdots + T_k$ is sum of i.i.d. exponential rvs.
 
 \item<7-> $\expect{Y_k} = k/\lambda$ and $\var{Y_k} = k/\lambda^2$
 \eci
@@ -724,14 +724,14 @@ where
 \bci
 \item<2-> For a given $\delta$, \redblank{3}{$\delta\cdot f_{Y_k}(y)$}: prob of $k$-th arrival over $[y,y+\delta].$
 
-\item<4-> When $\delta$ is small, only one arrival occurs. Thus, 
+\item<4-> When $\delta$ is small, only one arrival occurs. Thus,
  \aleq{
  \delta\cdot f_{Y_k}(y) &= \onslide<5->{\cbprob{\text{an arrival over $[y,y+\delta]$}} \times \cbprob{\text{$k-1$ arrivals before $y$}}} \cr
  &\onslide<6->{\approx \lambda \delta \times \cprob{k-1,y} = \lambda \delta \times \frac{\lambda^{k-1}y^{k-1}e^{-\lambda y}}{(k-1)!}}\cr
   \onslide<7->{f_{Y_k}(y) &= \frac{\lambda^k y^{k-1}e^{-\lambda y}}{(k-1)!}, \quad y\ge 0.}
 }
 
-\item<8-> This is called \redf{Erlang} rv. 
+\item<8-> This is called \redf{Erlang} rv.
 
 \bigskip
 \item<9-> Time of first arrival: geometric / exponential
@@ -770,17 +770,17 @@ where
 \small
 \plitemsep 0.05in
 \bce[\bf (Q1)]
-\item<2-> $\cprob{\text{fishing time $>$ 2 hours}}$ 
+\item<2-> $\cprob{\text{fishing time $>$ 2 hours}}$
 
 \smallskip
 \onslide<3->{Method 1: $\cprob{0,2}$}
 
 \onslide<4->{Method 2: $\cprob{T_1 >2}$}
 
-\item<5->  $\cprob{\text{ 2 $<$ fishing time $<$ 5}}$ 
+\item<5->  $\cprob{\text{ 2 $<$ fishing time $<$ 5}}$
 
 \smallskip
-\onslide<6->{Method 1: $\cprob{0,2}(1-\cprob{0,3})$} 
+\onslide<6->{Method 1: $\cprob{0,2}(1-\cprob{0,3})$}
 
 \onslide<7->{Method 2:$\cprob{2 < T_1 <5}$}
 
@@ -820,7 +820,7 @@ where
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 \item A lot of applications in engineering systems
 
 
@@ -841,7 +841,7 @@ where
 \medskip
 \item Markov Chain
 
-\eci 
+\eci
 
 \end{frame}
 
@@ -869,9 +869,9 @@ where
 
 \plitemsep 0.1in
 
-\bci 
+\bci
 
-\item $X \sim Poisson(\mu),$  $Y \sim Poisson(\nu),$  
+\item $X \sim Poisson(\mu),$  $Y \sim Poisson(\nu),$
 
 \item<2-> \redf{(Q1)} $X \indep Y$?
 
@@ -879,7 +879,7 @@ where
 
 - Complex convolution, but any other easy way?
 
-\item<4-> $X$ can be regarded as the number of arrivals of Poisson process with rate 1 over the time interval of length $\mu.$ 
+\item<4-> $X$ can be regarded as the number of arrivals of Poisson process with rate 1 over the time interval of length $\mu.$
 
 \item<5-> Consecutive intervals of length $\mu$ and $\nu$
 
@@ -887,7 +887,7 @@ where
 
 \item<7-> \redf{(Q2)} Distribution of $X+Y$? \bluef{$Poisson(\mu + \nu)$}
 
-\eci 
+\eci
 
 
 \end{frame}
@@ -978,7 +978,7 @@ where
 
 \item<3-> $T_a$ and $T_b$ are the first arrival times of two Poisson processes of $\lambda_a$ and $\lambda_b.$
 
-\item<5-> $Z$ is the first arrival time of merged Poisson process $(\lambda_a + \lambda_b)$. 
+\item<5-> $Z$ is the first arrival time of merged Poisson process $(\lambda_a + \lambda_b)$.
 
 \item<6-> Thus, $Z \sim exp(\lambda_a + \lambda_b)$
 \eci
@@ -987,13 +987,13 @@ where
 \small
 \plitemsep 0.05in
 \bci
-\item<7->[2.] Three independent light bulbs have life times $T$ of exponential distribution with $\lambda.$ 
+\item<7->[2.] Three independent light bulbs have life times $T$ of exponential distribution with $\lambda.$
 
 \item<8-> \redf{(Q)} $\expect{\text{time until the last bulb burns out}}$?
 
 \bigskip
 
-\item<9-> Poisson process$(3\lambda)$ $\xrightarrow{\text{1st burn out}}$ Poisson process$(2\lambda)$ $\xrightarrow{\text{2st burn out}}$ Poisson process$(\lambda)$ 
+\item<9-> Poisson process$(3\lambda)$ $\xrightarrow{\text{1st burn out}}$ Poisson process$(2\lambda)$ $\xrightarrow{\text{2st burn out}}$ Poisson process$(\lambda)$
 
 \item<10-> $T_1$: time until the first burn-out, $T_2$: time until the second burn-out, $T_3$: time until the third burn-out
 
@@ -1017,7 +1017,7 @@ $$
 \begin{frame}{Review Questions}
 
 \bce[1)]
-\item 
+\item
 
 \ece
 

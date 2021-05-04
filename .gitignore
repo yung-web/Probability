@@ -33,3 +33,7 @@ make_slide.sh~
 7.Limit_Theorems/main.fdb_latexmk
 7.Limit_Theorems/main.fls
 7.Limit_Theorems/main.pdf
+*.fdb_latexmk
+*.fls
+8.RandomProcess-Part1/main.synctex.gz
+8.RandomProcess-Part1/main.pdf

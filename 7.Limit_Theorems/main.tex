@@ -14,19 +14,25 @@
   \setbeamercolor{footline}{fg=black}
 }
 
+
 \input{../myhead.tex}
 
-\title[]{Lecture 7: Law of Large Numbers and Central Limit Theorem}
+\title[]{Lecture 6: Law of Large Numbers and Central Limit Theorem}
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
 \date{\today}
+
 
 
 \input{../mymath}
 
 \begin{document}
 
+
+
+
 \input{../mydefault}
+
 
 \begin{frame}
   \titlepage
@@ -379,7 +385,7 @@ $M_n$ converges to $\mu$ in probability, i.e., $M_n \xrightarrow{\text{in prob.}
 }}
 
 
- \item<3-> Why ``Weak"? There exists a stronger version, which we call ``strong" law of large numbers. We will not cover the strong law of large numbers in this class. 
+ \item<3-> Why ``Weak"? There exists a stronger version, which we call ``strong" law of large numbers. We will not cover the strong law of large numbers in this class.
 
 \item<4-> The proof requires some knowledge about useful inequalities, which we will cover later.
  \eci
@@ -497,7 +503,7 @@ $
 \bci
 \item Consider a sequence of rvs $(Y_n)_{n=1,2, \ldots}$ and a rv $Y.$
 
-\myblock{Convergence in Distribution: $Y_n \xrightarrow{\text{in distribution}} Y$}
+\myblock{Convergence in Distribution: $Y_n \xrightarrow{\text{in dist.}} Y$}
 {
 \onslide<2->{
 For every $y,$
@@ -510,11 +516,32 @@ $$}
 
 \item<4-> Comparison with convergence in probability?
 \bci
-\item<5-> Convergence in probability $\implies$ Convergence in distribution, but the reverse is not true. 
+\item<5-> Convergence in probability $\implies$ Convergence in distribution, but the reverse is not true.
 
-\item<5-> The proof is beyond what this class covers, but it will be interesting to find an example that shows convergence in distribution, which is not convergence in probability.  
+\item<5-> The proof is beyond what this class covers, but it will be interesting to find an example that shows convergence in distribution, which is not convergence in probability.
 \eci
 
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: in Distribution, but not in Probability}
+
+\plitemsep 0.1in
+\bci
+\item<1-> $X_n \sim \text{Bernoulli}(1/2),$ for all $n \ge 1.$
+
+\item<2-> $X = 1-X_n.$
+
+\item<3-> Note that $X \sim \text{Bernoulli}(1/2).$ It means that the distributions of $X_n$ and $X$ are equal. It is trivial that $X_n$ converges to $X$ in distribution.
+
+\item<4-> What about convergence in probability?
+\aleq{
+\cprob{|X_n - X| \geq \epsilon} &= \cprob{|X_n - 1 + X_n| \geq \epsilon} =
+\cprob{|2X_n -1| \geq \epsilon} \cr
+&= \cprob{1 \geq \epsilon} \qquad (\text{because $|2X_n-1| =1$})
+}
+\item<5-> We can find $\epsilon$ small enough so that the above does not go to zero.
 \eci
 \end{frame}
 
@@ -547,7 +574,7 @@ where $Z \sim \redf{\set{N}(0,1)}.$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{LLG vs. CLT: Difference Scaling Glasses}
+\begin{frame}{LLG vs. CLT: Different Scaling Glasses}
 
 
 \plitemsep 0.15in
@@ -579,7 +606,7 @@ $Z_n = \dfrac{S_n - n\mu}{\sigma \sqrt{n}},$ \hspace{1cm} $\cprob{Z_n \le z} \xr
 - $S_n = n \mu + Z_n\sigma\sqrt{n}$
 \item<5-> How large should $n$ be?
 \bci
-\item<6-> A moderate $n$ (20 or 30) usually works, which the power of CLT.
+\item<6-> A moderate $n$ (20 or 30) usually works, which is the power of CLT.
 
 \item<7-> If $X_i$ resembles a normal rv more, smaller $n$ works: symmetry and unimodality\footnotemark
 \footnotetext{Only unique mode. A single maximum or minimum.}
@@ -1067,9 +1094,9 @@ $\bprob{\big \{\omega \in \Omega \mid \lim_{n \rightarrow \infty} Y_n(\omega) = 
 
 \bce
 \item<3-> Take a random outcome $\omega \in \Omega.$
-\item<4-> Then, the sequence $(Y_n(\omega))_{n=1,2, \ldots}$ and $Y(\omega)$ are all just real numbers. 
+\item<4-> Then, the sequence $(Y_n(\omega))_{n=1,2, \ldots}$ and $Y(\omega)$ are all just real numbers.
 
-\item<5-> Then, check whether the ordinary convergence $Y_n(\omega) \xrightarrow{n \rightarrow \infty} Y(\omega)$ holds or not. If yes, accept such $\omega$ and put it in $\Omega'$. 
+\item<5-> Then, check whether the ordinary convergence $Y_n(\omega) \xrightarrow{n \rightarrow \infty} Y(\omega)$ holds or not. If yes, accept such $\omega$ and put it in $\Omega'$.
 
 \item<6-> Repeat the above until we check all $\omega \in \Omega.$
 
@@ -1105,7 +1132,7 @@ $
 
 \item We proved that $Y_n \xrightarrow{\text{in prob.}} 0.$ $Y_n \xrightarrow{\text{a.s.}} 0$?
 
-\item 
+\item
 \eci
 \end{frame}
 \end{comment}
