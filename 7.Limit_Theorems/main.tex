@@ -777,7 +777,7 @@ a,& \text{if} \ X \ge a
 \onslide<5->{\myblock{Chebyshev Inequality}
 {
 $$
-\cbprob{|X-\mu| \geq c} \leq \frac{\sigma^2}{c^2}
+\cbprob{|X-\mu| \geq c} \leq \frac{\sigma^2}{c^2}, \quad \text{for all $c >0$}
 $$
 }}
 
@@ -843,6 +843,16 @@ $M_n$ converges to $\mu$ in probability.
 \onslide<2->{\aleq{
 \cbprob{|M_n - \mu| \ge \epsilon} \le \frac{\cvar{M_n}}{\epsilon^2} = \frac{\sigma^2}{n \epsilon^2} \xrightarrow{n \rightarrow \infty} 0
 }}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Comparison: WLLN vs. CLT }
+
+{\Large We ask the same question, and try to answer it, using WLLN or CLT.}
+\vspace{1cm}
+
+{\Large See how the answers becomes different.}
 
 \end{frame}
 
@@ -925,41 +935,73 @@ $M_n$ converges to $\mu$ in probability.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Moment Generating Function (MGF)}
 
-\mytwocols{0.7}
-{
-\small
 \plitemsep 0.1in
 \bci
-\item<1-> For a rv $X,$ we introduce a kind of transform, called \redf{moment generating function (MGF).}
+\item<1-> For a rv $X,$ it is a kind of transform
 
-\item<2-> A function of a scalar parameter $s$, defined by
-$$
-M_X(s) = \expect{e^{sX}}
-$$
-- If clear, we omit $X$ and use just $M(s).$
+\item<2-> The \redf{moment generating function (MGF)} $M_X(s)$ of a rv $X$ is a function of a scalar parameter $s$, defined by:
+\mycolorbox{
+\centering
+$M_X(s) = \expect{e^{sX}}$
+}
 \aleq{
 \onslide<3->{
 M(s) &= \sum_x e^{sx} \px \quad \text{(discrete)}\cr
 M(s) &= \int e^{sx} \fx dx \quad \text{(continuous)}\cr
 }}
+\vspace{-1cm}
+\item<4-> If the context is clear, we omit $X$ and use just $\orangef{M(s)}.$
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Examples}
+
+\mytwocols{0.75}
+{
+\small
+\plitemsep 0.1in
+\bci
+\item<1->[Ex1)] Let $\px$ is given as:
+\aleq
+{
+\px = \begin{cases}
+1/2, & \text{if} \ x=2 \cr
+1/6, & \text{if} \ x=3 \cr
+1/3, & \text{if} \ x=5
+\end{cases}
+}
+$M(s) = \cexpect{e^{sX}} = \frac{1}{2} e^{2s} + \frac{1}{6} e^{3s} + \frac{1}{3} e^{5s}$
+
+\item<2->[Ex2)] $X \sim \exp(\lambda),$ $\fx = \lambda \elambdax, x\ge 0$
+\aleq{
+M(s) &= \lambda \int_{0}^\infty e^{sx} \elambdax dx \cr
+&= \lambda \frac{e^{(s-\lambda)x}}{s-\lambda} \Bigg |_0^\infty \quad (\text{if  } s <\lambda) = \frac{\lambda}{\lambda - s}
+}
 \eci
 }
 {
 \small
 \plitemsep 0.1in
 \bci
-\item<4->[Ex1)] $X \sim \exp(\lambda),$ $\fx = \lambda \elambdax, x\ge 0$
+
+\item<3->[Ex3)] Let a rv $Y = aX +b.$
 \aleq{
-M(s) &= \lambda \int_{0}^\infty e^{sx} \elambdax dx \cr
-&= \lambda \frac{e^{(s-\lambda)x}}{s-\lambda} \Bigg |_0^\infty \quad (\text{if  } s <\lambda) \cr
-&= \frac{\lambda}{\lambda - s}
+M_Y(s) &= \cexpect{e^{sY}} = \cexpect{e^{s(aX +b)}} \cr
+&= e^{sb}\cexpect{e^{saX}} = e^{sb} M_X(sa)
 }
 
-\item<5->[Ex2)] $X \sim \set{N}(0,1)$ (homework problem)
+\item<4->[Ex4)] $X \sim \set{N}(0,1)$
 \aleq{
-M(s) = e^{s^2/2}
+M(s) &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} e^{-\frac{y^2}{2}} e^{sy} dy +
+\frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{-\frac{y^2}{2} + sy} dy \cr
+&= e^{\frac{s^2}{2}}\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty  e^{-(y-s)^2} dy\cr
+&=e^{s^2/2} \ (\text{because it is the pdf of $\set{N}(s,1)$})
 }
 
+\item<5-> \question MGF of $\set{N}(\mu,\sigma^2)$?
 \eci
 }
 
@@ -988,6 +1030,28 @@ M(s) = e^{s^2/2}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example}
+
+\plitemsep 0.1in
+\bci
+\item<1-> Exponential rv with parameter $\lambda.$ We know that $\cexpect{X} = 1/\lambda$ and
+$\cvar{X} = 1/\lambda^2,$ which we will compute using the MGF.
+
+\item<2-> Remind: $M(s) = \frac{\lambda}{\lambda -s}$
+
+\item<3-> The first and the second moments are:
+\aleq{
+M'(s) &= \frac{\lambda}{(\lambda -s)^2}  \quad \rightarrow \quad \cexpect{X} = M'(0) = 1/\lambda \cr
+M''(s) &= \frac{2\lambda}{(\lambda -s)^3} \quad \rightarrow \quad \cexpect{X^2} = M''(0) = 2/\lambda^2
+}
+
+\item<4-> Thus, $\cvar{X} = 2/\lambda^2 - 1/\lambda^2 = 1/\lambda^2$
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Inversion Property}
 
 \myblock{Inversion Property}
@@ -1007,49 +1071,98 @@ the \magenf{CDF of $X$}, assuming that $M_X(s)$ is finite for all $s$ in some in
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example 1}
+
+\plitemsep 0.15in
+\bci
+\item Given the following MGF of rv $X$, what is the distribution of $X$?
+\aleq{
+M(s) = \frac{1}{4}e^{-s} + \frac{1}{2} + \frac{1}{8} e^{4s} + \frac{1}{8}e^{5s}
+}
+\item<2-> Note that $M(s) = \sum_x e^{sx} \px$
+
+\item<3-> We can see that
+$$
+p_X(-1) = \frac{1}{4},  \ p_X(0) = \frac{1}{2}, \ p_X(4) = \frac{1}{8}, \ p_X(5) = \frac{1}{8}
+$$
+\eci
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Back to CLT Proof}
+\begin{frame}{Example 2}
 
-\plitemsep 0.05in
+
+\plitemsep 0.1in
+\bci
+\item Given the following MGF of rv $X$, what is the distribution of $X$?
+\aleq{
+M(s) = \frac{pe^s}{1-(1-p)e^s}
+}
+\item<2-> Note that $M(s) = \sum_x e^{sx} \px$
+
+\item<3-> $M(s)$ can be reexpressed as the following geometric sum: when $(1-p)e^s <1,$
+\aleq{
+M(s) = pe^s \big(1 + (1-p)e^s + (1-p)^2 e^{2s} + (1-p)^3 e^{3s} + \cdots \big)
+}
+
+\item<4-> $p_X(k)$: coefficient of the term $e^{ks}$, which means:
+\aleq{
+p_X(1) = p, \ p_X(2) = p(1-p), \ p_X(3) = p(1-p)^2, \ p_X(4) = p(1-p)^3, \ldots
+}
+
+\item<5-> $X$ is a geometric rv with parameter $p$
+\eci
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Back to CLT Proof (1)}
+
+\plitemsep 0.1in
 \bci
 \item<1->  Without loss of generality, assume $\cexpect{X_i}=0$ and $\cvar{X_i} = 1$
 
-\item<2->  $Z_n = \frac{S_n}{\sqrt{n}} = \frac{X_1 + X_2 + \ldots X_n}{\sqrt{n}}$
+\item<2->  $\displaystyle Z_n = \frac{S_n}{\sqrt{n}} = \frac{X_1 + X_2 + \ldots X_n}{\sqrt{n}}$
 
-\item<3->  Show: MGF of $Z_n$ converges to MFG of $\set{N}(0,1)$ (using inversion property)
-\eci
+\item<3->  We will show: MGF of $Z_n$ converges to MFG of $\set{N}(0,1)$ (using inversion property)
 
-\mytwocols{0.6}
-{
-\small
-\redf{Proof.}
+\item<4-> \proff
+
 \aleq{
 \onslide<4->{\bexpect{e^{s S_n/\sqrt{n}}} &= \bexpect{e^{s X_1/\sqrt{n}}}\times \cdots \times\bexpect{e^{s X_n/\sqrt{n}}}}\cr
 &=\onslide<5->{\lf ( \bexpect{e^{s X_1/\sqrt{n}}} \ri )^n} =
 \onslide<6->{\lf( M_{X_1}\Bl(\frac{s}{\sqrt{n}}\Bl) \ri)^n}
 }
-\onslide<7->{- For simplicity, let $M(\cdot) = M_{X_1}(\cdot)$}
+\item<7-> For simplicity, let $M(\cdot) = M_{X_1}(\cdot)$
+\eci
 
-\onslide<8->{- \bluef{Facts:} $M(0) = 1$, $M'(0) = 0,$ $M''(0) = 1$}
+\end{frame}
 
-\onslide<9->{- $\lf( M\Bl(\frac{s}{\sqrt{n}}\Bl) \ri)^n \rightarrow \text{what???}$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Back to CLT Proof (2)}
 
-\onslide<10->{- Taking log, $n \log M\Bl(\frac{s}{\sqrt{n}}\Bl)  \rightarrow \text{what???}$}
+\plitemsep 0.1in
+\bci
+
+\item \onslide<1->{ $M(0) = 1$, $M'(0) = 0,$ $M''(0) = 1$}
+
+\item \onslide<2->{$\lf( M\Bl(\frac{s}{\sqrt{n}}\Bl) \ri)^n \xrightarrow{n\rightarrow \infty} \text{what???}$}
+
+\item \onslide<3->{Taking log, $n \log M\Bl(\frac{s}{\sqrt{n}}\Bl)  \xrightarrow{n\rightarrow \infty} \text{what???}$}
+\item \onslide<4->{For convenience, do the change of variable $y = \frac{1}{\sqrt{n}}.$ Then,
+$
+\displaystyle \lim_{y\rightarrow 0}\frac{\log M (ys)}{y^2}
+$
 }
-{
-\onslide<11->{ For convenience, do the change of variable $y = \frac{1}{\sqrt{n}}.$ Then, we have
-$$
-\lim_{y\rightarrow 0}\frac{\log M (ys)}{y^2}
-$$
-}
 
-\onslide<12->{- If we apply l'hopital's rule twice (please check), we get
+\item \onslide<5->{If we apply l'hopital's rule twice (please check), we get
 \aleq{
 \lim_{y\rightarrow 0}\frac{\log M (ys)}{y^2} = \frac{s^2}{2}
 }}
 \qed
-}
+\eci
 \end{frame}
 
 \begin{comment}
