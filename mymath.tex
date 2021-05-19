@@ -91,12 +91,28 @@
 }
 \makeatother
 
-\usepackage{tcolorbox}
 \newcommand{\mycolorbox}[1]{
 \begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
 #1
 \end{tcolorbox}
 }
+
+%include additional size parameter
+\newcommand{\mysizebox}[2]{
+\begin{tcolorbox}[width=#1\textwidth, colframe=red]
+#2
+\end{tcolorbox}
+}
+
+% text in aboluste position based on texpos pacakge
+% 1. box size, 2. 3.: position, 4: contents
+\newcommand\myabstext[1]{%
+  \begin{textblock*}{\textwidth}(0pt,0.15\textheight)
+    \raggedleft
+    #1
+  \end{textblock*}
+}
+
 
 %%%% figure inclusion
 \newcommand{\mypic}[2]{
@@ -165,7 +181,7 @@
 %%% `i' enables us to insert the subscript to the probability
 \newcommand{\bprob}[1]{\mathbb{P}\Bl[ #1 \Br]}
 \newcommand{\prob}[1]{\mathbb{P}[ #1 ]}
-\newcommand{\cbprob}[1]{\mathbb{P}\Bl( #1 \Br)}
+\newcommand{\cbprob}[1]{\mathbb{P}\left( #1 \right)}
 \newcommand{\cprob}[1]{\mathbb{P}( #1 )}
 \newcommand{\probi}[2]{\mathbb{P}_{#1}[ #2 ]}
 \newcommand{\bprobi}[2]{\mathbb{P}_{#1}\Bl[ #2 \Br]}
@@ -197,6 +213,7 @@
 \newcommand{\px}{\ensuremath{p_X(x)}}
 \newcommand{\py}{\ensuremath{p_Y(y)}}
 \newcommand{\pz}{\ensuremath{p_Z(z)}}
+\newcommand{\pth}{\ensuremath{p_{\Theta}(\theta)}}
 \newcommand{\pxA}{\ensuremath{p_{X|A}(x)}}
 \newcommand{\pyA}{\ensuremath{p_{Y|A}(y)}}
 \newcommand{\pzA}{\ensuremath{p_{Z|A}(z)}}
@@ -224,6 +241,16 @@
 
 \newcommand{\pkcth}{\ensuremath{p_{X|\Theta}(k|\theta)}}
 \newcommand{\fthck}{\ensuremath{f_{\Theta|X}(\theta|k)}}
+
+\newcommand{\pthcx}{\ensuremath{p_{\Theta|X}(\theta|x)}}
+\newcommand{\pxcth}{\ensuremath{p_{X|\Theta}(x|\theta)}}
+%\newcommand{\fthcx}{\ensuremath{f_{\Theta|X}(\theta|x)}}
+%newcommand{\fxcth}{\ensuremath{f_{X|\Theta}(x|\theta)}}
+
+\newcommand{\map}{\ensuremath{\text{MAP}}}
+\newcommand{\ml}{\ensuremath{\text{ML}}}
+\newcommand{\lms}{\ensuremath{\text{LMS}}}
+
 
 
 %%%% indicator

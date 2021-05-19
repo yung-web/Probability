@@ -16,7 +16,7 @@
 
 \input{../myhead.tex}
 
-\title[]{Lecture 6: Statistical Inference}
+\title[]{Lecture 9: Introduction to Statistical Inference}
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
 \date{\today}
@@ -46,15 +46,18 @@
 % START START START START START START START START START START START START START
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Roadmap}
 
-\plitemsep 0.1in
+\plitemsep 0.15in
 
-\bci
+\bce[(1)]
 
-\item Basics on Statistic Inference
+\item Overview on Statistical Inference
 
-\item Framework of Bayesian Inference
+\item Bayesian Inference: Framework
+
+\item Examples
 
 \item MAP (Maximum A Posteriori) Estimator
 
@@ -62,48 +65,141 @@
 
 \item LLMS (Linear LMS) Estimator
 
-\medskip
+%\ece
+  % \medskip
 
-\item Framework of Classical Inference
-\item ML (Maximum Likelihood) Estimator
-\eci
+% \item Classical Inference
+
+%   \bce
+% \item ML (Maximum Likelihood) Estimator
+%   \ece
+  
+  \ece
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L9(1)}
 \begin{frame}{Roadmap}
 
-\plitemsep 0.1in
+\plitemsep 0.15in
 
-\bci
+\bce[(1)]
 
-\item \redf{Basics on Statistic Inference}
+\item \redf{Overview on Statistical Inference}
 
-\item \redf{Framework of Bayesian Inference}
+\item \grayf{Bayesian Inference: Framework
+
+\item Examples
 
 \item MAP (Maximum A Posteriori) Estimator
 
 \item LMS (Least Mean Squares) Estimator
 
-\item LLMS (Linear LMS) Estimator
+\item LLMS (Linear LMS) Estimator}
 
-\medskip
-\item Framework of Classical Inference
-\item ML (Maximum Likelihood) Estimator
+%\ece
+  % \medskip
 
-\eci
+% \item Classical Inference
+
+%   \bce
+% \item ML (Maximum Likelihood) Estimator
+%   \ece
+  
+  \ece
+
+\end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Roadmap}
+
+% \plitemsep 0.1in
+
+% \bci
+
+% \item \redf{Basics on Statistic Inference}
+
+% \item \redf{Framework of Bayesian Inference}
+
+% \item MAP (Maximum A Posteriori) Estimator
+
+% \item LMS (Least Mean Squares) Estimator
+
+% \item LLMS (Linear LMS) Estimator
+
+% \medskip
+% \item Framework of Classical Inference
+% \item ML (Maximum Likelihood) Estimator
+
+% \eci
+
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{What is Statistical Inference?}
+
+\plitemsep 0.07in
+\bci
+
+\item Examples
+  
+  \bci
+
+\item<2-> Take 1000 voters uniformly at random, and count the popularity
+  of each candidate to infer the true popularity.
+
+\item<3-> COVID-19 has spread over a collection of people, and we collect a sample of COVID-19
+  infectees to infer the true source of infection. 
+
+\item<4-> When an original signal $S$ is transmitted over the KAIST Wi-Fi
+  connection, the received signal $X$ becomes $X = aS + W,$ where $ 0 <
+  a < 1  $ and $W \sim \set{N}(0,1).$ If we have 10 samples of $(S,X)$
+  values, what is the inferred value of $a$?
+
+  \mypic{0.3}{L6_comm_ex.png}
+  \eci
+
+\item<5-> Process of extracting information about an \bluef{unknown variable} or
+  an \bluef{unknown model} from \redf{noisy available data}
+
+% \item<5-> Process of drawing conclusions about \bluef{population
+%     parameters} based on
+%   \redf{noisy samples} taken from the \redf{population}
+
+  \eci
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Inference: Big Picture}
+\begin{frame}{Statistical Inference: Three Main Ideas}
+
+\plitemsep 0.2in
+\bce
+
+\item<2-> Samples are likely to be a good represetnation of the unknown
+
+\item<3-> There exists uncertainty (i.e., noise) as to how well the sample
+  represents the unknown
+
+\item<4-> How to obtain samples has impact on inference (e.g., when we
+  need to pay for online surveys)
+  
+  \ece
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Inference, Real World, Probability Theory}
 
 \begin{center}
 \mypic{0.5}{L6_bigpicture.png}
+\vspace{-0.7cm}
+{\scriptsize Source: Introduction to Probability course by MIT}
 \end{center}
 
 \vspace{-0.5cm}
-\plitemsep 0.1in
+\plitemsep 0.05in
 \bci
 \item<2-> Inference
 
@@ -133,7 +229,7 @@
 \bci
 \item $X = aS + W$
 
-\item<2-> Modeling building
+\item<2-> Model building
 \bci
 \item know the original signal $S$, observe $X$
 \item infer the model parameter $a$
@@ -153,11 +249,11 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{What Kind of Inference?: Hypothesis testing vs. Estimation}
+\begin{frame}{What Kind?: Hypothesis Testing vs. Estimation}
 
 \plitemsep 0.1in
 \bci
-\item<2-> Hypothesis testing
+\item<2-> \redf{Hypothesis testing}
 
 \bci
 \item<3-> Unknown: a few possible ones
@@ -165,7 +261,7 @@
 \item<5-> \bluef{(Ex)} Something detected on the radar. Is it a bird or an airplane?
 \eci
 
-\item<2-> Estimation
+\item<2-> \redf{Estimation}
 \bci
 \item<3-> Unknown: a value included in  an infinite,  typically continuous set
 \item<4-> Goal: Finding the value close to the true value
@@ -178,7 +274,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Inference with Different Views: Bayesian vs. Classical (1)}
+\begin{frame}{Different Views: Bayesian vs. Classical (1)}
 
 \onslide<1->{- Biased coin with parameter $\theta$ (probability of head). Assume that $\theta \in \{1/4,3/4\}.$}
 
@@ -197,7 +293,7 @@
 \bci
 \item<3-> Distribution of $\theta$ (\redf{prior}) e.g.,
 \aleq{
-\cprob{\theta = {3 \over 4}} = 1/2, \quad \cprob{\theta = \frac{1}{4}} = 1/2
+\cbprob{\theta = {3 \over 4}} = 1/2, \quad \cbprob{\theta = \frac{1}{4}} = 1/2
 }
 \item<4-> Use Bayes' rule and find the \redf{posterior}:
 \aleq{
@@ -227,10 +323,14 @@
 
 }
 
+\onslide<9->{
+\orangef{(Note)} There are other inference methods, and here we just show
+examples.}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Inference with Different Views: Bayesian vs. Classical (2)}
+\begin{frame}{Different Views: Bayesian vs. Classical (2)}
 
 \mytwocols{0.55}
 {
@@ -239,10 +339,12 @@
 
 \plitemsep 0.08in
 \bci
-\item<2-> Unknown: random variable with some distribution (prior)
-\item<3-> Unknown model as chosen randomly from a give model class
-\item<4-> Observed data $x$ gives: posterior distribution $p_{\Theta | X}(\theta | x)$
-\item<5-> Choose $\theta$ with larger posterior probability \onslide<7->{(other methods exist)}
+\item<2-> \redf{Unknown}: \orangef{random variable} with some distribution (prior)
+\item<3-> Unknown model as chosen randomly \magenf{from a give model class}
+\item<4-> Observed data $x$ gives:
+
+  - \greenf{posterior distribution} $p_{\Theta | X}(\theta | x)$
+\item<5-> Choose $\theta$ with larger posterior probability \onslide<7->{\magenf{(other methods exist)}}
 \eci
 }
 {
@@ -250,237 +352,345 @@
 
 \plitemsep 0.08in
 \bci
-\item<2-> Unknown: deterministic value
-\item<3-> Unknown model as one of multiple probabilistic models
-\item<4-> Observed data $x$ gives: likelihood $p(X;\theta)$
-\item<5-> Choose $\theta$ with larger likelihood\\ \onslide<7->{(other methods exist)}
+\item<2-> \redf{Unknown}: \orangef{deterministic value}
+
+  \mbox{}
+\item<3-> Unknown model as \magenf{one of multiple probabilistic models}
+\item<4-> Observed data $x$ gives:
+
+  - \greenf{likelihood} $p(X;\theta)$
+\item<5-> Choose $\theta$ with larger likelihood\\ \onslide<7->{\magenf{(other methods exist)}}
 \eci
 }
-\medskip
+% \medskip
 
 
-\centering
-\onslide<6->{
-- Who is the winner? A century-long debate (see p. 409 for discussion)}
+% \centering
+% \onslide<6->{
+%   - Who is the winner? A century-long debate 
+% }
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Different Views: Bayesian vs. Classical (3)}
+
+
+\plitemsep 0.1in
+\bci
+\item Fundamental difference about the nature of unknown models or variables
+
+\item Random variable or deterministic quantity 
+
+\item Who is the winner? A century-long debate 
+  
+\item Example of debate: mass of the electron by noisy measurement
+  \bci
+\item \redf{Classical.} while unknown, it is a constant and there is no
+  justification for modeling it as a random variable. 
+  
+\item \redf{Bayesian.}  Prior distribution reflects our state of knowledge,
+  e.g., some range of candidate values from our previous noisy
+  measurements. 
+  \eci
+
+\item Particular prior? too arbitrary vs. every statistical
+  procedure's hidden choices  
+
+\item Pratical issues: Bayesian approach is often computationally
+  intractable (multi-dimensional integrals)
+
+  \eci
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L9(2)}
+\begin{frame}{Roadmap}
+
+\plitemsep 0.15in
+
+\bce[(1)]
+
+\item \grayf{Overview on Statistical Inference}
+
+\item \redf{Bayesian Inference: Framework}
+
+\item \grayf{Examples
+
+\item MAP (Maximum A Posteriori) Estimator
+
+\item LMS (Least Mean Squares) Estimator
+
+\item LLMS (Linear LMS) Estimator}
+
+%\ece
+  % \medskip
+
+% \item Classical Inference
+
+%   \bce
+% \item ML (Maximum Likelihood) Estimator
+%   \ece
+  
+  \ece
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Framework of Bayesian Inference}
 
 \begin{center}
 \mypic{0.65}{L6_BI_framework.png}
 \end{center}
 
-
+\vspace{-0.4cm}
 \mytwocols{0.55}
 {
-\plitemsep 0.08in
+\small
+  \plitemsep 0.03in
 \bci
 \item<2-> Unknown $\Theta$
 
 \bci
 \item physical quantity or model parameter
 \item random variable
-\item prior distribution $p_{\Theta}$ and $f_{\Theta}$
+\item \redf{prior} distribution $p_{\Theta}$ and $f_{\Theta}$
 \eci
 
 \item<3-> Observations or measurements $X$
 
 \bci
-\item observation model $p_{X|\Theta}$ and $f_{X|\Theta}$
+\item \redf{observation model} $p_{X|\Theta}$ and $f_{X|\Theta}$
 \eci
 
-\item<4-> That is, the joint distribution of $X$ and $\Theta$, $p_{X,\Theta}$ and $f_{X,\Theta}$, is given
-\eci
+\item<4-> That is, the \redf{joint distribution} of $X$ and $\Theta$ ($p_{X,\Theta}(x,\theta)$ and $f_{X,\Theta}(x,\theta)$) is given
+\item<5-> Find the \redf{posterior} distribution $p_{\Theta|X}$ and
+  $f_{\Theta|X},$ using Bayes' rule.
+
+  \eci
 }
 {
-\plitemsep 0.08in
+\small
+  \plitemsep 0.08in
 \bci
-\item<5-> Find the posterior distribution $p_{X|\Theta}$ and $f_{X|\Theta}.$
 
-\bci
-\item Use Bayes' rule
-%\item $\Theta$ and $X$: continuous and discrete (4 cases)
-\eci
+\item<5-> The posterior distribution is the complete answer of the
+  Bayesian inference.
 
-\item<6-> Using the posterior distribution, apply one of the methods of choosing the final $\hat{\theta}$ for estimation and hypothesis testing.
-\eci
+\item<6-> However, one may use it for further processing,
+  depending on what he/she wants, e.g., point estimation. 
+  
+\item<7-> \orangef{Multiple} observations and \orangef{multiple} parameters are possible
+  \bci
+\item   $X = (X_1, \ldots, X_n)$
+  \item $\Theta = (\Theta_1, \ldots, \Theta_n)$
+  \eci
+
+  \eci
 }
 \end{frame}
 
 
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Bayes' Rule: 4 Versions}
+
+  \mytwocols{0.6}
+  {
+    \plitemsep 0.07in
+    \bci
+  \item $\Theta$: discrete, $X$: discrete
+\aleq{
+\redf{\pthcx} & = \frac{\pth \pxcth}{\px}\cr
+\px &= \sum_{\theta'} p_\Theta(\theta')p_{X|\Theta}(x|\theta')
+}
+  \item $\Theta$: continuous, $X$: continuous
+\aleq{
+\redf{\fthcx} & = \frac{\fth \fxcth}{\fx}\cr
+\fx &= \int f_\Theta(\theta')f_{X|\Theta}(x|\theta') d\theta'
+}
+    \eci
+  }
+  {
+    \plitemsep 0.07in
+    \bci
+  \item $\Theta$: discrete, $X$: continuous
+    \aleq{
+      \redf{\pthcx} &= \frac{\redf{\pth} \bluef{\fxcth}}{\bluef{\fx}}\cr
+      \bluef{\fx} &= \sum_{\theta'} \redf{p_{\Theta}(\theta')} \bluef{f_{X|\Theta}(x|\theta')}
+    }
+
+  \item $\Theta$: continuous, $X$: discrete
+    \aleq{
+      \bluef{\fthcx  } &= \frac{\bluef{\fth} \redf{ \pxcth }  }{\redf{\px}} \cr
+      \redf{\px} &= \int \bluef{f_{\Theta}(\theta')} \redf{p_{X|\Theta}(x|\theta')} d\theta'
+    }
+
+    \eci
+  }
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L9(3)}
 \begin{frame}{Roadmap}
 
-\plitemsep 0.1in
+\plitemsep 0.15in
 
-\bci
+\bce[(1)]
 
-\item \bluef{Basics on Statistic Inference}
+\item \grayf{Overview on Statistical Inference}
 
-\item \bluef{Framework of Bayesian Inference}
+\item \grayf{Bayesian Inference: Framework}
 
-\item \redf{MAP (Maximum A Posteriori) Estimator}
+\item \redf{Examples}
+
+\item \grayf{MAP (Maximum A Posteriori) Estimator
 
 \item LMS (Least Mean Squares) Estimator
 
-\item LLMS (Linear LMS) Estimator
+\item LLMS (Linear LMS) Estimator}
 
-\medskip
-\item Framework of Classical Inference
-\item ML (Maximum Likelihood) Estimator
+%\ece
+  % \medskip
 
-\eci
+% \item Classical Inference
+
+%   \bce
+% \item ML (Maximum Likelihood) Estimator
+%   \ece
+  
+  \ece
 
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Point Estimation}
-
-\begin{center}
-\mypic{0.6}{L6_posterior.png}
-\end{center}
-\vspace{-0.6cm}
+\begin{frame}{Example: Romeo and Juliet, Single Observation}
 
 \plitemsep 0.05in
 \bci
-\item<1-> Given observation $x$, which $\theta$ are you going to choose?
+\item<1-> Romeo and Juliet start dating, where 
+Romeo is late by $X \sim \set{U}[0,\theta].$
+\item<2-> Unknown: $\theta$ modeled by a rv $\Theta \sim \set{U}[0,1].$
+\item<2-> Observation: Romeo was late by $x.$
+% \item<3-> \question Given the observation sample $x$, what is $\hat{\theta}_\text{MAP}$? 
+% \item<4-> \bluef{Intuition.} As $x$ grows, $\hat{\theta}_\text{MAP}$
+%   decreases or increases?  \onslide<5->{\magenf{Increases. Why?}}
 
-\item<2->[M1.] Choose the largest: Maximum a posteriori probability (MAP) rule
-
-\begin{center}
-\redblank{3}{
-$
-\hat{\theta}_{\text{MAP}} =  \arg \max_{\theta} p_{\Theta | X}(\theta | x), \quad \hat{\theta}_{\text{MAP}} =  \arg \max_{\theta} f_{\Theta | X}(\theta | x)
-$
-}
-\end{center}
-
-\item<4->[M2.] Choose the mean: Conditional expectation, aka LMS (Least Mean Square)
-
-\begin{center}
-\redblank{5}{
-$\hat{\theta}_{\text{LMS}} = \expect{\Theta | X=x}$
-}
-\end{center}
-
-\item<6-> Why MAP and LMS are good? Not mathematically clear yet (later)
-
-% \item<7-> Estimate as a number: $\hat{\theta} = g(x)$
-
-% \item<8-> Estimator as a random variable number: $\hat{\Theta} = g(X)$
-
-% \item Any theoretical support for optimality of MAP and LMS in some sense?
-
-% - discuss later
-
-\eci
+\item<3-> Prior \onslide<4->{and observation model (likelihood)}
+  \aleq{
+    \onslide<3->{\fth =
+      \begin{cases}
+        1, & 0 \le \theta \le 1 \cr
+        0, & \text{otherwise}
+      \end{cases},}
+    \qquad 
+    \onslide<4->{\fxcth =
+      \begin{cases}
+        \frac{1}{\theta}, & 0 \le x \le \theta\cr
+        0, & \text{otherwise}
+      \end{cases}}
+  }
+  
+\item<5-> Posterior
+  \aleq{
+    \onslide<5->
+    { \fthcx = \frac{\fth \fxcth}{\int_0^1 f_{\Theta}(\theta')f_{X|\Theta}(x | \theta') d\theta'}
+      =}
+    \onslide<6->{
+      \begin{cases}
+        \frac{1/\theta}{\int_{x}^1 \frac{1}{\theta'} d\theta'} = \frac{1}{\theta |\log x|},&  x \le \theta \le 1, \cr
+        0, & \theta < x \text{ or } \theta >1
+      \end{cases}
+    }
+  }
+  \eci
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Estimator as a function}
+\begin{frame}{Example: Romeo and Juliet, Multiple Observations}
 
-\plitemsep 0.3in
+{\large $\circ$ What happens if we have more observation samples?}
+  
+  
+
+\plitemsep 0.1in
 \bci
-\item Random observation: $X$
+\item Romeo was late \redf{$n$ times} by $\magenf{\vec{X}=(X_1,X_2, \ldots, X_n)}, \ X_i \sim \set{U}[0,\theta].$
+\item $X_1,\ldots, X_n$ are conditionally independent, given $\Theta = \theta.$
+\item Unknown: $\theta$ modeled by a rv $\Theta \sim \set{U}[0,1].$
+\item Observation: Romeo was late \redf{$n$ times} by $\magenf{\vec{x} = (x_1, x_2, \ldots, x_n)}$
+% \item \question Given the observation sample $\vec{x}$, what is $\hat{\theta}_\text{MAP}$? 
+% \item \bluef{Intuition.} We will do more accurate inference due to
+%   more observation samples. 
+\item See Example 8.2 at pp. 414 for more detailed treatment.   
 
-\item Observation instance: $x$
-
-\item<1-> Estimate as a mapping from $x$ to a number
-$$\hth = g(x),\quad \hth_\MAP = g_\MAP(x),\quad \hth_\LMS = g_\LMS(x)$$
-
-\item<2-> Estimator as a mapping from $X$ to a random variable
-$$\hTH = g(X), \quad \hTH_\MAP = g_\MAP(X), \quad \hTH_\LMS = g_\LMS(X)$$
-
-% \item Any theoretical support for optimality of MAP and LMS in some sense?
-
-% - discuss later
-
-\eci
+  \eci
 
 \end{frame}
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example 1: Romeo and Juliet}
+\begin{frame}{Example: Spam Filtering}
 
-\mytwocols{0.85}
-{
-\small
 \plitemsep 0.05in
 \bci
-\item<2-> Romeo and Juliet start dating.
+\item<1-> E-mail: \redf{spam} (1) or \bluef{legitimate} (2), $\Theta  \in \{1,2\},$ with prior $p_{\Theta}(1)$ and  $p_{\Theta}(2).$
 
-- Romeo: late by $X \sim U[0,\theta].$
-\item<3-> Unknown: $\theta$ modeled by a rv $\Theta \sim U[0,1].$
-\vspace{-0.3cm}
-\aleq{
-\onslide<4->{\fth &=
-\begin{cases}
-1, & 0 \le \theta \le 1 \cr
-0, & \text{otherwise}
-\end{cases}}\cr
-\onslide<5->{\fxcth &=
-\begin{cases}
-\frac{1}{\theta}, & 0 \le x \le \theta\cr
-0, & \text{otherwise}
-\end{cases}}
+\item<2-> $\{w_1, w_2, \ldots, w_n \}$: a collection of words which suggest ``spam".
+
+\item<3-> For each $i,$ a Bernoulli $X_i=1$ if $w_i$ appears and 0 otherwise.
+
+\item<4-> Observation model $p_{X_i|\Theta(x_i|1)}$ and
+  $p_{X_i|\Theta(x_i|2)}$ are known.
+
+\item<4-> Assumption: Conditioned on $\Theta,$ $X_i$ are independent.
+\item<5-> Posterior PMF
+ \aleq{
+ \bprob{\Theta = m | (x_1,\ldots, x_n)} = \frac{p_{\Theta}(m) \prod_{i=1}^n p_{X_i|\Theta}(x_i|m)  }{
+ \sum_{j=1,2} p_{\Theta}(j) \prod_{i=1}^n p_{X_i|\Theta}(x_i|j) 
+ }, \quad m=1,2
 }
-\vspace{-0.5cm}
-\onslide<6->{
-\aleq{
-\fthcx &= \frac{\fth \fxcth}{\int_0^1 f_{\Theta}(\theta')f_{X|\Theta}(x | \theta') d\theta'}\cr
-&= \frac{1/\theta}{\int_{x}^1 \frac{1}{\theta'} d\theta'} = \frac{1}{\theta |\log x|}, \ x \le \theta \le 1,
-}
-and
-$\fthcx = 0, \ \theta < x \text{ or } \theta >1.$
-}
+% \item<6-> MAP rule for this hypothesis testing problem. Decided that the message is \redf{spam} if
+% \aleq{
+% p_{\Theta}(1) \prod_{i=1}^n p_{X_i|\Theta}(x_i|1) > p_{\Theta}(2) \prod_{i=1}^n p_{X_i|\Theta}(x_i|2)
+% }
 \eci
-}
-{
-\small
-\plitemsep 0.07in
-\bci
-
-\item<7-> MAP rule
-
-- Given $x,$ $\fthcx$ is decreasing in $\theta$ over $[x,1].$
-
-- $\hat{\theta}_{\text{MAP}} = x.$
-
-\item<8-> Conditional expectation estimator
-\vspace{-0.3cm}
-\aleq{
-\hat{\theta}_{\text{LMS}} &= \expect{\theta | X=x} = \int_{x}^1 \theta \frac{1}{\theta |\log x|} d\theta \cr
-& = (1-x)/|\log x|
-}
-\vspace{-0.6cm}
-\centering
-\onslide<9->{\mypic{0.6}{L6_romeo_juliet.png}}
-\eci
-}
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example 2: Biased Coin with Beta Prior (1)}
 
-\plitemsep 0.15in
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Biased Coin with Beta Prior (1)}
+
+\plitemsep 0.1in
 \bci
+
 \item<1-> Biased coin with probability of head $\theta$
 \item<2-> Unknown $\theta$: modeled by $\Theta$ with some prior $\fth$
 \item<3-> Observation $X$: number of heads out of $n$ tosses
-\item<4-> Posterior PDF
-\aleq{
-f_{\Theta | X}(\theta | k) &= c \fth \redf{p_{X|\Theta}(k | \theta)}= c \redf{{n \choose k}} \fth \redf{\theta^k(1-\theta)^{n-k}}, \ \text{$c$ the normalizing constant}
-}
-\item<5-> If $\Theta \sim Beta(\alpha,\beta),$ what is $\hth_\MAP$?
+% \item<4-> Posterior PDF
+% \aleq{
+% f_{\Theta | X}(\theta | k) &= c \fth \redf{p_{X|\Theta}(k | \theta)}= c \redf{{n \choose k}} \fth \redf{\theta^k(1-\theta)^{n-k}}, \ \text{$c$ the normalizing constant}
+% }
 
-\item<6-> What is $Beta(\alpha,\beta)$?
+\item<4-> \question Suppose that you have freedom to choose the form of the prior
+  distribution. What prior will you choose? \greenf{Requirement of ``good'' priors?}
+
+\item<5-> We will look at the prior whose distribution is something
+  called the \bluef{Beta distribution}.
+
 \eci
 
 
@@ -500,9 +710,11 @@ f_{\Theta | X}(\theta | k) &= c \fth \redf{p_{X|\Theta}(k | \theta)}= c \redf{{n
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example 2: Biased Coin with Beta Prior (2)}
+\begin{frame}{Background: Beta Distribution}
 
-\onslide<1->{
+%\orangef{If $\Theta \sim \text{Beta}(\alpha,\beta),$ what is $\hth_\MAP$?}
+
+  \onslide<2->{
 \myblock{Beta distribution}
 {
 \small
@@ -510,23 +722,31 @@ A continuous rv $\Theta$ follows a beta distribution with integer parameters $\a
 \aleq{
 \fth =
 \begin{cases}
-\frac{1}{B(\alpha,\beta)} \theta^{\alpha -1}(1-\theta)^{\beta -1}, & 0< \theta < 1, \cr
+\onslide<3->{\redf{\frac{1}{B(\alpha,\beta)}}} \theta^{\alpha -1}(1-\theta)^{\beta -1}, & 0< \theta < 1, \cr
 0, & \text{otherwise},
 \end{cases}
 }
-where $B(\alpha,\beta)$, called Beta function, is a normalizing constant, given by
+\onslide<3->{where \redf{$B(\alpha,\beta)$}, called Beta function, is a
+  normalizing constant,}
+\onslide<4->{given by
 \aleq{
-B(\alpha,\beta) = \int_0^1 \theta^{\alpha -1}(1-\theta)^{\beta -1} d\theta = \frac{(\alpha-1)! (\beta -1)!}{(\alpha + \beta-1)!}
+\redf{B(\alpha,\beta)} = \int_0^1 \theta^{\alpha -1}(1-\theta)^{\beta -1} d\theta = \frac{(\alpha-1)! (\beta -1)!}{(\alpha + \beta-1)!}
+}
 }
 \vspace{-0.3cm}
 }}
 
 
+\vspace{-0.4cm}
 \plitemsep 0.05in
 \bci
 
-\item<2-> A special case of $Beta(1,1)$ is $Uniform[0,1]$
-% \item<2-> If $\Theta \sim Beta(\alpha,\beta),$ then $\Theta|\{X=k\} \sim Beta(k+\alpha,n-k+\beta)$
+\item<5-> See \url{https://youtu.be/8yaRt24qA1M} for
+  the integration in the Beta function formula.
+
+\item<6-> A special case of $\text{Beta}(1,1)$ is $\set{U}[0,1]$
+
+  %\item<2-> If $\Theta \sim Beta(\alpha,\beta),$ then $\Theta|\{X=k\} \sim Beta(k+\alpha,n-k+\beta)$
 
 % - Very useful: \redblank{3}{Beta prior $\imp$ Beta posterior} (homework problem)
 
@@ -543,62 +763,623 @@ B(\alpha,\beta) = \int_0^1 \theta^{\alpha -1}(1-\theta)^{\beta -1} d\theta = \fr
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example 2: Biased Coin with Beta Prior (3)}
+\begin{frame}{Example: Biased Coin with Beta Prior (2)}
+
+\mycolorbox{
+\bci
+\item If $\Theta \sim \text{Beta}(\alpha,\beta),$ then $\Theta|\{X=k\} \sim \text{Beta}(\redf{k}+\alpha,\redf{n-k}+\beta)$
+\item In other words, Beta prior $\imp$ Beta posterior (why useful?)
+\eci
+}
+
+\plitemsep 0.07in
+\bci
+
+\item[] \redf{Proof.}
+  \bce[(a)]
+\item   First, the posterior pdf is given by:
+$\displaystyle f_{\Theta | X}(\theta | k) = c \bluef{\fth} \redf{p_{X|\Theta}(k | \theta)}= c \redf{{n \choose k}} \bluef{\fth} \redf{\theta^k(1-\theta)^{n-k}}, \ \text{$c$ the normalizing constant}
+$
+
+\item Next, for $\displaystyle \text{Beta}(\alpha,\beta)$ prior,
+$\displaystyle \bluef{\fth} = \frac{1}{B(\alpha,\beta)}\theta^{\alpha-1} (1-\theta)^{\beta
+  -1}$.
+
+\item 
+Then, 
+$
+\displaystyle \fthck= c {n \choose k} \bluef{\fth} \theta^k(1-\theta)^{n-k} = \frac{d}{B(\alpha,\beta)} \cdot \magenf{\theta^{\alpha+k-1}(1-\theta)^{\beta + n-k -1}},
+$
+
+where $d = c{n \choose k}.$
+  \ece
+\eci
+
+\end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Example 3: Biased Coin with Beta Prior (3)}
+
+% \mycolorbox{
+% \bci
+% \item If $\Theta \sim \text{Beta}(\alpha,\beta),$ then $\Theta|\{X=k\} \sim \text{Beta}(\redf{k}+\alpha,\redf{n-k}+\beta)$
+% \item In other words, Beta prior $\imp$ Beta posterior (why useful?)
+% \item $\fthck \propto \theta^{\alpha+k-1}(1-\theta)^{\beta + n-k -1}$
+% \eci
+% }
+
+% \plitemsep 0.07in
+% \bci
+
+% \item<2-> MAP estimate: Taking the logarithm,
+% \aleq{
+% \onslide<3->{\hth_\MAP &= \arg \max_{\theta} \Bl [(\alpha+k-1) \log \theta + (\beta + n-k+1) \log(1-\theta) \Bl ]
+% &=\frac{\alpha + k -1}{\alpha + \beta -2 + n}}
+% }
+
+% \item<4-> When $\alpha=\beta =1$ (i.e., $\set{U}[0,1]$ prior), \orangef{$\hth_\MAP = \frac{k}{n}$}
+
+
+% \eci
+
+% \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Parameter Inference with Normal Prior (1)}
+
+\redf{\noindent$\circ$ Inference of a parameter $\theta$}
+
+  \mytwocols{0.7}
+  {
+    \plitemsep 0.07in
+    \bci
+    
+  \item<6-> \magenf{Single} observation
+
+  \item<2-> $X$: noisy observation of $\theta$, modeled as:
+
+    \bluef{$X = \theta + W$, where $W \sim \set{N}(0,\sigma^2)$}
+
+  \item<3-> Model $\theta$ with a rv $\Theta \sim \set{N}(x_0,\sigma_0^2)$
+    (normal prior)
+  \item<4-> $\Theta$ and $W$ are indendent
+    
+  \item<5-> \question Given an observation $x,$ what is the posterior $\fthcx$?
+      
+    \eci
+  }
+  {
+    \plitemsep 0.03in
+    \bci
+    
+  \item<6-> \magenf{Multiple} $n$ observations
+
+  \item<7-> $n$ observations of $\theta$: $W_i \sim \set{N}(x_i,\sigma_i^2)$
+\bluef{ 
+    \aleq{
+    X_1 &= \theta + W_1, \quad W_1 \sim \set{N}(x_1,\sigma_1^2)\cr
+       \vdots & \cr
+      X_n &= \theta + W_n, \quad  W_n \sim \set{N}(x_n,\sigma_n^2)
+    }
+}    
+\vspace{-0.6cm}
+\item<8-> Model $\theta$ with $\Theta \sim \set{N}(x_0,\sigma_0^2)$
+  \item<8-> $\Theta, W_1, \ldots, W_n$ are indendent
+    
+  \item<9-> \question Given an observation $x,$ what is
+    the posterior $\fthcx$? 
+\bci
+    \item $X = (X_1, \ldots, X_n)$ and $x=(x_1, \ldots, x_n),$      
+\eci
+    \eci
+
+  }
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Background: The PDF Form of Gaussian}
+
+\onslide<2->{
+  \mycolorbox{
+  \redf{Lemma.} Up to recaling, the pdf of the form
+  $\displaystyle e^{-\frac{1}{2}(ax^2 -2bx +c)}$ is $\set{N}(\frac{b}{a},\frac{1}{a}).$  
+}
+}
+
+  \plitemsep 0.2in
+\bci 
+
+\item<3-> \bluef{(Rough) Proof.} Note that the pdf of $\set{N}(\mu,\sigma^2)$: $\displaystyle \fx =
+  e^{-(x-\mu)^2/2\sigma^2}$ up to rescaling. Then,
+
+  \bci
+\item<4-> $\displaystyle - \frac{1}{2 \sigma^2} ( x^2 - 2\mu x + \mu^2) = -\frac{1}{2}(ax^2 -2bx +c)$
+  
+\item<5-> Thus, $\sigma^2 = \dfrac{1}{a}$ and $\dfrac{\mu}{\sigma^2} = b
+  \implies \mu = b \sigma^2 = \dfrac{b}{a}  $
+
+  \eci
+  
+  
+\eci
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Background: Product of Two Gaussian Densities}
+
+\mycolorbox{
+  \thm The product of two Gaussians $\set{N}(\mu_0,\nu_0)$ and
+  $\set{N}(\mu_1,\nu_1)$ is $\displaystyle \set{N}\left(\frac{\nu_1\mu_0 + \nu_0\mu_1}{\nu_0 + \nu_1}, \frac{\nu_0\nu_1}{\nu_0+\nu_1} \right).$
+}
+
+\plitemsep 0.1in
+\bci 
+
+\item<2->[\bluef{Proof.}] Using the Lemma in the previous slide, i.e.,
+up to recaling, the pdf of the form $\displaystyle e^{-\frac{1}{2}(ax^2 -2bx +c)}$ is $\set{N}(\frac{b}{a},\frac{1}{a}),$  
+\aleq{
+&\onslide<3->{\exp \left(-(x-\mu_0)^2/2\nu_0 \right) \times \exp\left(-(x-\mu_1)^2/2\nu_1\right)} \cr
+& \onslide<4->{=\exp\left[-\frac{1}{2}\left(\Bl(\frac{1}{\nu_0} + \frac{1}{\nu_1}\Br)x^2 -2 \Bl(\frac{\mu_0}{\nu_0} + \frac{\mu_1}{\nu_1}\Br)x + c \right) \right ]} \cr
+& \onslide<5->{\implies \set{N}\left(
+\nu \left(\frac{\mu_0}{\nu_0} + \frac{\mu_1}{\nu_1}\right),
+  \overbrace{\frac{1}{\nu_0^{-1} + \nu_1^{-1}}}^{= \nu}
+\right)
+= \set{N}\left(\frac{\nu_1\mu_0 + \nu_0\mu_1}{\nu_0 + \nu_1}, \frac{\nu_0\nu_1}{\nu_0+\nu_1} \right)}
+}
+
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Background: Product of $n+1$ Gaussian Densities}
+
+\mycolorbox{
+  \thm The product of $n+1$ Gaussians $\set{N}(\mu_0,\nu_0),$
+  $\set{N}(\mu_1,\nu_1), \ldots,$ $\set{N}(\mu_n,\nu_n),$
+  is $\displaystyle \set{N}(\mu,\nu),$ where
+$$
+\onslide<2->{  \mu = \frac
+    {\sum_{i=0}^n \frac{\mu_i}{\nu_i}}
+    {\sum_{i=0}^n \frac{1}{\nu_i}},} \qquad
+  \onslide<3->{\nu =
+    \frac{1}{\sum_{i=0}^n \frac{1}{\nu_i^2}}}
+$$
+}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Parameter Inference with Normal Prior (2)}
+
+    \plitemsep 0.03in
+    \bci
+    
+  \item $n$ observations of $\theta$: $W_i \sim
+    \set{N}(x_i,\sigma_i^2),$ and $\theta$ with the normal prior $\Theta \sim \set{N}(x_0,\sigma_0^2)$
+    \mycolorbox{
+\centering
+      $X_i = \theta + W_i, \quad W_i \sim \set{N}(x_i,\sigma_i^2),$ 
+    $\quad i=1, \ldots, n$
+    }
+
+  \item $\Theta, W_1, \ldots, W_n$ are indendent and
+    let  $X = (X_1, \ldots, X_n),$ $x=(x_1, \ldots, x_n).$      
+
+  \item Our interest. The \redf{poterior pdf} $\fthcx.$ 
+
+
+    \medskip
+  \item<2-> \bluef{Prior.} $\displaystyle \fth = c_1\cdot \exp\left\{ -
+        \frac{(\theta - x_0)^2}{2 \sigma_0^2}  \right\}$
+\item<3-> \bluef{Observation model.} Noting that $X_1, X_2, \ldots, X_n$
+  are indpendent, 
+  \aleq
+  {
+    \fxcth = c_2 \cdot \exp \left\{ -
+        \frac{(\theta - x_1)^2}{2 \sigma_1^2} \right\}\cdots \exp \left\{ -
+        \frac{(\theta - x_n)^2}{2 \sigma_n^2}\right\}
+    }
+\eci
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Parameter Inference with Normal Prior (3)}
+
+  \begin{textblock*}{\textwidth}(9cm,0.8\textheight)
+    \mysizebox{0.44}{
+       $\fthcx  = \frac{\fth \fxcth}{        \int f_\Theta(\theta')f_{X|\Theta}(x|\theta') d\theta' }$
+     }
+  \end{textblock*}
+
+
+  \plitemsep 0.03in
+  \bci
+  
+\item<2-> \bluef{Numerator:} $\fth \fxcth = c_1c_2\cdot \exp \left\{ -
+    \sum_{i=0}^n \frac{(x_i - \theta)^2}{2 \sigma_i^2}  \right\}$,
+  which can be reexpressed as the following, using the \magenf{product of
+  $n+1$ Gaussians}:
+  \aleq{
+c_1c_2\cdot \exp \left\{ -
+  \sum_{i=0}^n \frac{(x_i - \theta)^2}{2 \sigma_i^2}  \right\} =
+d\cdot 
+\exp \left\{ -
+    \frac{(\theta-m)^2}{2 v}  \right\},
+  }
+  where
+$
+\displaystyle
+    m = \frac
+    {\sum_{i=0}^n \frac{x_i}{\sigma_i^2}}
+    {\sum_{i=0}^n \frac{1}{\sigma_i^2}}, \qquad v =
+    \frac{1}{\sum_{i=0}^n \frac{1}{\sigma_i^2}}
+$
+  
+
+\item<3-> \bluef{Denominator:} just a constant, not a function of $\theta$
+% \item Thus, the posterior pdf $\displaystyle \fthcx = a \cdot \exp \left\{ -
+%     \frac{(\theta=m)^2}{2 v}  \right\}$
+
+  \eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Parameter Inference with Normal Prior (4)}
+
+  % \begin{textblock*}{\textwidth}(9cm,0.75\textheight)
+  %   \mysizebox{0.44}{
+  %      $\fthcx  = \frac{\fth \fxcth}{        \int f_\Theta(\theta')f_{X|\Theta}(x|\theta') d\theta' }$
+  %    }
+  % \end{textblock*}
+
+  \plitemsep 0.03in
+  \bci
+  
+\item<2-> Thus, the posterior pdf $\displaystyle \fthcx = a \cdot \exp \left\{ -
+    \frac{(\theta - m)^2}{2 v}  \right\},$ where
+  $$
+  m = \frac
+  {\sum_{i=0}^n \frac{x_i}{\sigma_i^2}}
+  {\sum_{i=0}^n \frac{1}{\sigma_i^2}}, \qquad v =
+  \frac{1}{\sum_{i=0}^n \frac{1}{\sigma_i^2}}
+  $$
+ 
+\item<3-> \redf{Prior: Normal, Posterior: Normal}
+
+\item<4-> Special case when $\bluef{\sigma^2} = \sigma_0^2= \sigma_1^2=
+  \cdots = \sigma_n^2.$ Then,  
+  $$
+  m = \frac{x_0 + x_1 + \ldots x_n}{n+1}, \qquad v = \frac{\sigma^2}{n+1}
+  $$
+  \bci
+\item<5-> the prior mean $x_0$ acts just as \magenf{another observation}.
+\item<6-> the standard deviation of the posterior goes to 0, at the
+  rough rate of $1/\sqrt{n}.$
+  \eci
+
+  \eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Why Prior == Posteror is Useful?}
+
+  % \begin{textblock*}{\textwidth}(9cm,0.75\textheight)
+  %   \mysizebox{0.44}{
+  %      $\fthcx  = \frac{\fth \fxcth}{        \int f_\Theta(\theta')f_{X|\Theta}(x|\theta') d\theta' }$
+  %    }
+  % \end{textblock*}
+
+  \plitemsep 0.07in
+  \bci
+  
+\item<2-> \redf{Recursive inference} is possible.
+  
+\item<3-> Suppose that after $X_1, \ldots, X_n$ are observed, an
+  additional observation $X_{n+1}$ is observed.
+
+\item<4-> Instead of solving the inference problem from scratch, we can
+  \redf{view $f_{\Theta | X_1, \ldots, X_n}$ as our prior}, use the new
+  observation to obtain the new posterior  $f_{\Theta | X_1, \ldots, X_n,X_{n+1}}$
+
+\item<5-> In the example of parameter inference with the Normal prior,
+  with the new observation $x_{n+1} \sim \set{N}(x_{n+1},
+  \sigma^2_{n+1})$, the posterior pdf is nothing but the Normal pdf of:
+  \aleq
+  {
+\onslide<6->{
+    \text{\bluef{mean}} = \frac{(m/v) + (x_{n+1}/\sigma^2_{n+1})}{(1/v) +
+      (1/\sigma^2_{n+1})}, \qquad
+    \text{\bluef{variance}} = \frac{1}{(1/v) +
+      (1/\sigma^2_{n+1})}
+}
+  }
+  \eci
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L9(4)}
+\begin{frame}{Roadmap}
+
+\plitemsep 0.15in
+
+\bce[(1)]
+
+\item \grayf{Overview on Statistical Inference}
+
+\item \grayf{Bayesian Inference: Framework}
+
+\item \grayf{Examples}
+
+\item \redf{MAP (Maximum A Posteriori) Estimator}
+
+\item \grayf{LMS (Least Mean Squares) Estimator
+
+\item LLMS (Linear LMS) Estimator}
+
+%\ece
+  % \medskip
+
+% \item Classical Inference
+
+%   \bce
+% \item ML (Maximum Likelihood) Estimator
+%   \ece
+  
+  \ece
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Point Estimation}
+
+\mypic{0.55}{L6_BI_framework.png}
+\vspace{-0.9cm}
+\mypic{0.5}{L6_posterior.png}
+
+\plitemsep 0.1in
+\bci
+
+\item<2-> \redf{Point Estimate}
+\bci
+
+\item   Given observation $x$, which \bluef{single} value $\theta$ are you
+  going to choose as your inference result? People often want just the
+  summary and a simple answer. 
+
+\item Very often, $\theta$, our inference target, is by nature a
+  single value, i.e., mass of the electron. 
+  \eci
+% \item Using the posterior distribution, apply one of the
+%   \redf{inferernce methods}
+%   of estimating the final $\hat{\theta}.$ 
+
+% \item<3-> \orangef{Multiple} observations and \orangef{multiple} parameters are possible
+%   \bci
+% \item   Vectors: $X = (X_1, \ldots, X_n),$ $\Theta = (\Theta_1, \ldots, \Theta_n)$
+%   \eci
+
+  \eci
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Two Natural Point Estimates}
+
+\vspace{-0.6cm}
+\mypic{0.6}{L6_posterior.png}
+\vspace{-0.6cm}
 
 \plitemsep 0.05in
 \bci
+% \item<1-> Given observation $x$, which single value $\theta$ are you
+%   going to choose as your inference result?
 
-\item<2-> If $\Theta \sim Beta(\alpha,\beta),$ then $\Theta|\{X=k\} \sim Beta(k+\alpha,n-k+\beta)$
+\item<2->[M1.] Choose the \redf{largest}: Maximum a posteriori probability (MAP) rule
 
-
-- Very useful: Beta prior $\imp$ Beta posterior
-
-\item<3-> \redf{Proof.} For $Beta(\alpha,\beta)$ prior,
-\aleq{
-\fth &= \frac{1}{B(\alpha,\beta)}\theta^{\alpha-1} (1-\theta)^{\beta -1}\cr
-\fthck&= c {n \choose k} \fth \theta^k(1-\theta)^{n-k} = \frac{d}{B(\alpha,\beta)} \cdot \theta^{\alpha+k-1}(1-\theta)^{\beta + n-k -1}
+\begin{center}
+\redblank{3}{
+$
+\hat{\theta}_{\text{MAP}} =  \arg \max_{\theta} p_{\Theta | X}(\theta | x), \quad \hat{\theta}_{\text{MAP}} =  \arg \max_{\theta} f_{\Theta | X}(\theta | x)
+$
 }
-where $d = c{n \choose k}.$
-\item<4-> Taking the logarithm,
-\aleq{
-\onslide<4->{\hth_\MAP &= \arg \max_{\theta} \Bl [(\alpha+k-1) \log \theta + (\beta + n-k+1) \log(1-\theta) \Bl ]
-&=\frac{\alpha + k -1}{\alpha + \beta -2 + n}}
+\end{center}
+
+\item<4->[M2.] Choose the \redf{mean}: Conditional expectation, aka LMS (Least Mean Square)
+
+\begin{center}
+\redblank{5}{
+$\hat{\theta}_{\text{LMS}} = \expect{\Theta | X=x}$
 }
+\end{center}
 
-\item<5-> When $\alpha=\beta =1$ (i.e., $U[0,1]$ prior), $\hth_\MAP = \frac{k}{n}$
+\item<6-> Why MAP and LMS are good? Not mathematically clear yet (We
+  will discuss later)
+
+\item<7-> Notation: The community uses $\hat{\theta}$ to mean the
+  estiamted value, i.e., \magenf{hat} for estimated value.   
+
+  % \item<7-> Estimate as a number: $\hat{\theta} = g(x)$
+
+% \item<8-> Estimator as a random variable number: $\hat{\Theta} = g(X)$
+
+% \item Any theoretical support for optimality of MAP and LMS in some sense?
+
+% - discuss later
+
+\eci
+
+\end{frame}
 
 
-% \item MAP estimate
-% \aleq{
-% \hth_\MAP = \arg \max_{\theta} (k \log \theta + (n-k) \log (1-\theta))
-% = \frac{k}{n}
-% }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Estimator as a Function}
 
-% \item Conditional expectation estimate = $\frac{k+1}{n+2}$ (homework problem)
+\plitemsep 0.3in
+\bci
+\item Random observation: $X$ 
+
+\item Observation instance: $x$
+
+\item<1-> \redf{Estimate} as a mapping from $x$ to a number
+$$\hth = g(x),\quad \hth_\MAP = g_\MAP(x),\quad \hth_\LMS = g_\LMS(x)$$
+
+\item<2-> \redf{Estimator} as a mapping from $X$ to a random variable
+$$\hTH = g(X), \quad \hTH_\MAP = g_\MAP(X), \quad \hTH_\LMS = g_\LMS(X)$$
+
+% \item Any theoretical support for optimality of MAP and LMS in some sense?
+
+% - discuss later
 
 \eci
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example 3: Spam Filtering}
 
+\begin{frame}{}
+
+\vspace{2cm}
+  {\Large From now on we focus on the MAP estimate, mainly based on the
+  examples that we've discussed in the previous section.} 
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Romeo and Juliet}
+
+\hfill \lecturemark{Slide 17 for more details}
+  
 \plitemsep 0.05in
 \bci
-\item<1-> E-mail: spam (1) or legitimate (2), $\Theta  \in \{1,2\},$ with prior $p_{\Theta}(1)$ and  $p_{\Theta}(2).$
+\item<1-> Romeo and Juliet start dating, where 
+Romeo is late by $X \sim \set{U}[0,\theta].$
+\item<1-> Unknown: $\theta$ modeled by a rv $\Theta \sim \set{U}[0,1].$
+\item<1-> Observation: Romeo was late by $x.$
+\item<1-> \question Given the observation sample $x$, what is $\hat{\theta}_\text{MAP}$? 
+\item<2-> \bluef{Intuition.} As $x$ grows, $\hat{\theta}_\text{MAP}$
+  decreases or increases?  \onslide<3->{\magenf{Increases. Why?}}
 
-\item<2-> $\{w_1, w_2, \ldots, w_n \}$: a collection of words which suggest ``spam".
+% \item<6-> Prior \onslide<7->{and observation model (likelihood)}
+%   \aleq{
+%     \onslide<6->{\fth =
+%       \begin{cases}
+%         1, & 0 \le \theta \le 1 \cr
+%         0, & \text{otherwise}
+%       \end{cases},}
+%     \qquad 
+%     \onslide<7->{\fxcth =
+%       \begin{cases}
+%         \frac{1}{\theta}, & 0 \le x \le \theta\cr
+%         0, & \text{otherwise}
+%       \end{cases}}
+%   }
+  
+\item<4-> Posterior:    $
+    \displaystyle
+     \fthcx = 
+      \begin{cases}
+        \frac{1}{\theta |\log x|},&  x \le \theta \le 1, \cr
+        0, & \theta < x \text{ or } \theta >1
+      \end{cases}
+      $
 
-\item<3-> For each $i,$ a Bernoulli $X_i=1$ if $w_i$ appears and 0 otherwise.
+    \item<5-> Given $x,$ $\fthcx$ is decreasing in $\theta$ over $[x,1].$
+$\implies $ \orangef{$\hat{\theta}_{\text{MAP}} = x.$}
 
-\item<4-> Observation model $p_{X_i|\Theta(x_i|1)}$ and $p_{X_i|\Theta(x_i|2)}$ are known. Conditioned on $\Theta,$ $X_i$ are independent.
-\item<5-> Posterior PMF
+\eci
+
+\end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Example 1: Romeo and Juliet (2)}
+
+% \plitemsep 0.07in
+% \bci
+
+% \item<1-> MAP estimate
+
+%   \bci
+% \item<2-> Given $x,$ $\fthcx$ is decreasing in $\theta$ over $[x,1].$
+% $\implies $ \orangef{$\hat{\theta}_{\text{MAP}} = x.$}
+%   \eci
+  
+% \item<1-> Conditional expectation estimate
+%   \bci
+% \item<3->[]
+% \vspace{-0.5cm}
+%   \aleq{
+% \orangef{\hat{\theta}_{\text{LMS}}} = \expect{\theta | X=x} = \int_{x}^1 \theta \frac{1}{\theta |\log x|} d\theta  = \orangef{(1-x)/|\log x|}
+% }
+%   \eci
+
+
+% \onslide<4->{\mypic{0.3}{L6_romeo_juliet.png}}
+% \eci
+
+
+% \end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Example 1: Romeo and Juliet (3)}
+
+% {\large $\circ$ What happens if we have more observation samples?}
+  
+  
+
+% \plitemsep 0.1in
+% \bci
+% \item Romeo was late \redf{$n$ times} by $\magenf{\vec{X}=(X_1,X_2, \ldots, X_n)}, \ X_i \sim \set{U}[0,\theta].$
+% \item $X_1,\ldots, X_n$ are conditionally independent, given $\Theta = \theta.$
+% \item Unknown: $\theta$ modeled by a rv $\Theta \sim \set{U}[0,1].$
+% \item Observation: Romeo was late \redf{$n$ times} by $\magenf{\vec{x} = (x_1, x_2, \ldots, x_n)}$
+% \item \question Given the observation sample $\vec{x}$, what is $\hat{\theta}_\text{MAP}$? 
+% \item \bluef{Intuition.} We will do more accurate inference due to
+%   more observation samples. 
+% \item Refer to the answers in Example 8.2 at pp. 414.  
+
+%   \eci
+
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Spam Filtering}
+
+\hfill \lecturemark{Slide 18 for more details}
+  \plitemsep 0.05in
+\bci
+\item<1-> E-mail: \redf{spam} (1) or \bluef{legitimate} (2), $\Theta  \in \{1,2\},$ with prior $p_{\Theta}(1)$ and  $p_{\Theta}(2).$
+
+\item<1-> $\{w_1, w_2, \ldots, w_n \}$: a collection of words which suggest ``spam".
+
+\item<1-> For each $i,$ a Bernoulli $X_i=1$ if $w_i$ appears and 0 otherwise.
+
+\item<1-> Assumption: Conditioned on $\Theta,$ $X_i$ are independent.
+
+\item<1-> Posterior PMF
  \aleq{
- \cbprob{\Theta = m | (x_1,\ldots, x_n)} = \frac{p_{\Theta}(m) \prod_{i=1}^n p_{X_i|\Theta}(x_i|m)  }{
- \sum_{j=1,2} p_{\Theta}(j) \prod_{i=1}^n p_{X_i|\Theta}(x_i|j), \quad m=1,2
- }
+ \bprob{\Theta = m | (x_1,\ldots, x_n)} = \frac{p_{\Theta}(m) \prod_{i=1}^n p_{X_i|\Theta}(x_i|m)  }{
+ \sum_{j=1,2} p_{\Theta}(j) \prod_{i=1}^n p_{X_i|\Theta}(x_i|j) 
+ }, \quad m=1,2
 }
-\item<6-> MAP rule for this hypothesis testing problem. Decided that the message is spam if
+\item<2-> MAP rule for this hypothesis testing problem. Decided that the message is \redf{spam} if
 \aleq{
 p_{\Theta}(1) \prod_{i=1}^n p_{X_i|\Theta}(x_i|1) > p_{\Theta}(2) \prod_{i=1}^n p_{X_i|\Theta}(x_i|2)
 }
@@ -606,69 +1387,260 @@ p_{\Theta}(1) \prod_{i=1}^n p_{X_i|\Theta}(x_i|1) > p_{\Theta}(2) \prod_{i=1}^n 
 
 \end{frame}
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{MAP's Performance Guarantee}
+\begin{frame}{Example 3: Biased Coin with Beta Prior}
+
+\hfill \lecturemark{Slide 21 for more details}
+
+  \plitemsep 0.05in
+\bci
+
+\item<1-> Biased coin with probability of head $\theta$
+\item<1-> Unknown $\theta$: modeled by $\Theta$ with some prior $\fth$
+\item<1-> Observation $X$: number of heads out of $n$ tosses
+\mycolorbox{
+\bci
+\item If $\Theta \sim \text{Beta}(\alpha,\beta),$ then $\Theta|\{X=k\} \sim \text{Beta}(\redf{k}+\alpha,\redf{n-k}+\beta)$
+\item $\fthck \propto \theta^{\alpha+k-1}(1-\theta)^{\beta + n-k -1}$
+  \eci
+}
+\item<2-> MAP estimate: Taking the logarithm,
+\aleq{
+\onslide<3->{\orangef{\hth_\MAP} &= \arg \max_{\theta} \Bl [(\alpha+k-1) \log \theta + (\beta + n-k+1) \log(1-\theta) \Bl ]
+&=\orangef{\frac{\alpha + k -1}{\alpha + \beta -2 + n}}}
+}
+
+\item<4-> When $\alpha=\beta =1$ (i.e., $\set{U}[0,1]$ prior), \orangef{$\hth_\MAP = \frac{k}{n}$}
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example 4: Parameter Inference with Normal Prior}
+
+\hfill \lecturemark{Slide 27 for more details}
+
+\plitemsep 0.05in
+\bci
+
+\item<1-> The posterior pdf $\displaystyle \fthcx = a \cdot \exp \left\{ -
+    \frac{(\theta - m)^2}{2 v}  \right\},$ where
+  $$
+  m = \frac
+  {\sum_{i=0}^n \frac{x_i}{\sigma_i^2}}
+  {\sum_{i=0}^n \frac{1}{\sigma_i^2}}, \qquad v =
+  \frac{1}{\sum_{i=0}^n \frac{1}{\sigma_i^2}}
+  $$
+
+
+\item<2-> The pdf is normal, so it is maximized when $\theta =
+  \text{mean}.$
+
+\item<3-> Thus, \orangef{$\hat{\theta}_\map = m$}.
+
+  \eci
+
+\end{frame}
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Example 3: Biased Coin with Beta Prior (3)}
+
+% \mycolorbox{
+% \bci
+% \item If $\Theta \sim \text{Beta}(\alpha,\beta),$ then $\Theta|\{X=k\} \sim \text{Beta}(\redf{k}+\alpha,\redf{n-k}+\beta)$
+% \item In other words, Beta prior $\imp$ Beta posterior (why useful?)
+% \item $\fthck \propto \theta^{\alpha+k-1}(1-\theta)^{\beta + n-k -1}$
+% \eci
+% }
+
+% \plitemsep 0.07in
+% \bci
+
+% \item<2-> MAP estimate: Taking the logarithm,
+% \aleq{
+% \onslide<3->{\hth_\MAP &= \arg \max_{\theta} \Bl [(\alpha+k-1) \log \theta + (\beta + n-k+1) \log(1-\theta) \Bl ]
+% &=\frac{\alpha + k -1}{\alpha + \beta -2 + n}}
+% }
+
+% \item<4-> When $\alpha=\beta =1$ (i.e., $\set{U}[0,1]$ prior), \orangef{$\hth_\MAP = \frac{k}{n}$}
+
+
+% % \item MAP estimate
+% % \aleq{
+% % \hth_\MAP = \arg \max_{\theta} (k \log \theta + (n-k) \log (1-\theta))
+% % = \frac{k}{n}
+% % }
+
+% % \item Conditional expectation estimate = $\frac{k+1}{n+2}$ (homework problem)
+
+% \eci
+
+% \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Why MAP Is Good? (1)}
 
 \plitemsep 0.1in
 \bci
-\item<1-> MAP estimate is intuitive, but we need more mathematical support.
+\item<1-> MAP estimate is intuitive, but we need more mathematical
+  evidence for its performance guarantee. We would trust its quality
+  if it is \redf{optimal in some sense}. 
 
-\item<2-> \redf{Claim 1.} \bluef{For a given $x,$} the MAP rule minimizes the probability of an incorrect decision.
-
-\item<3-> \redf{Claim 2.} The MAP rule minimizes the overall probability of an incorrect decision, \bluef{averaged over $x.$ }
-
-\item<4-> \redf{Proof.}
-\onslide<5->{Let $I$ and $I_{map}$ be the indicator rv, representing the correct decision by any general estimator and the MAP, respectively.}
-\aleq{
-\onslide<6->{\expect{I | X=x}=}
-\onslide<7->{\bprob{g(X) = \Theta | X=x} \le }
-\onslide<8->{\bprob{g_{map}(X) = \Theta | X=x} =}
-\onslide<9->{\expect{I_{map}|X=x}}
+  \mytwocols{0.65}
+  {
+\onslide<2->{
+    \mypic{0.7}{L6_map_ex.png}
 }
-\onslide<10->{Thus, \redf{Claim 1} holds. We now take the expectation of the above equations, the law of iterated expectations leads to \redf{Claim 2.}}
+    \bci
+\item<3-> MAP: $\hat{\theta}_\map = 2$
+    \eci
+  }
+  {
+    \small
+    \plitemsep 0.1in
+    \bci
+  \item<4-> Given $X=x,$ $\theta$ that minimizes the probability of
+    incorrect decision?
+    $$
+    \onslide<5->{\orangef{\hth_\map}} = \onslide<4->{\bluef{\arg \min_{\hat{\theta} = 1, 2, 3} \cprob{\hth \neq \Theta| X=x}}}
+    $$
+
+    \vspace{-0.6cm}
+  \item<6-> Average probability of incorrect decision
+    \aleq{
+      \onslide<7->{\cprob{\hat{\Theta} \neq \Theta} &= \sum_{x}\cprob{\hat{\Theta} \neq
+        \Theta| X=x} \px} \cr
+      &\onslide<8->{= \sum_{x}\cprob{\hat{\theta} \neq
+        \Theta| X=x} \px}\cr
+      &\onslide<9->{ \redf{\ge} \sum_{x}\cprob{\redf{\hth_\map} \neq
+        \Theta| X=x} \px}
+    }
+    
+    \eci
+  }
+
+  \eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Why MAP Is Good? (2)}
+
+\mycolorbox{
+\plitemsep 0.05in
+\bci
+\item<1-> \redf{Claim 1.} \bluef{For a given $x,$} the MAP rule minimizes the probability of an incorrect decision.
+
+\item<2-> \redf{Claim 2.} The MAP rule minimizes the overall probability of an incorrect decision, \bluef{averaged over $x.$ }
+\eci
+}
+
+
+\plitemsep 0.1in
+\bci
+% \item<1-> MAP estimate is intuitive, but we need more mathematical
+%   evidence for its good inference quality. 
+
+
+\item<3-> \redf{Proof.}
+\onslide<4->{Let $I$ and $I_{map}$ be the indicator rv, representing
+  the correct decision by any general estimator and the MAP estimator, respectively.}
+\aleq{
+\onslide<5->{\expect{I | X=x}=}
+\onslide<6->{\bprob{g(X) = \Theta | X=x} \le }
+\onslide<7->{\bprob{g_{map}(X) = \Theta | X=x} =}
+\onslide<8->{\expect{I_{map}|X=x}}
+}
+\onslide<9->{Thus, \redf{Claim 1} holds. We now take the expectation of the above equations, the law of iterated expectations leads to \redf{Claim 2.}}
 \eci
 
 \end{frame}
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L9(5)}
 \begin{frame}{Roadmap}
 
-\plitemsep 0.1in
+\plitemsep 0.15in
 
-\bci
+\bce[(1)]
 
-\item \bluef{Basics on Statistic Inference}
+\item \grayf{Overview on Statistical Inference}
 
-\item \bluef{Framework of Bayesian Inference}
+\item \grayf{Bayesian Inference: Framework}
 
-\item \bluef{MAP (Maximum A Posteriori) Estimator}
+\item \grayf{Examples}
+
+\item \grayf{MAP (Maximum A Posteriori) Estimator}
 
 \item \redf{LMS (Least Mean Squares) Estimator}
 
-\item LLMS (Linear LMS) Estimator
+\item \grayf{LLMS (Linear LMS) Estimator}
 
-\medskip
-\item Framework of Classical Inference
-\item ML (Maximum Likelihood) Estimator
+%\ece
+  % \medskip
 
-\eci
+% \item Classical Inference
+
+%   \bce
+% \item ML (Maximum Likelihood) Estimator
+%   \ece
+  
+  \ece
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}{Other Estimate than MAP?}
+  
+  \plitemsep 0.2in
+  \bci
+  
+\item<2-> MAP: the parameter value which maximizes the posterior pdf,
+  which solves the following optimization problem:
+  \mycolorbox{
+    \centering   
+    $\displaystyle \min_{\hat{\theta}} \bprob{\Theta \neq \hat{\theta} | X = x}$
+  }
+  
+\item<3->  What about applying other objective function? Like the
+  following one?
+
+  \mycolorbox{
+    \centering   
+\onslide<4->{$\displaystyle \min_{\hat{\theta}} \bexpect{(\Theta - \hat{\theta})^2 | X=x}$}
+  }
+
+  \item<5-> Least Mean Square (LMS) Estimate 
+  \eci
+
+\end{frame}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Least Mean Squares Estimator (1)}
 
 \plitemsep 0.05in
 \bci
 
-\item<1-> Unknown: $\theta$ modeled by $\Theta$ with prior $f_{\Theta}(\cdot).$ Assume $\Theta \sim Uniform [4,10].$
+\item<1-> Unknown: $\theta$ modeled by $\Theta$ with prior
+  $f_{\Theta}(\cdot).$ Assume $\Theta \sim  \set{U}[4,10].$
 
 \item<2-> No observations available
 
 \item<3-> MAP estimate
 
-- Any value $\hat{\theta}_{map} \in [4,10]$ (why? posterior = prior), not very useful
+  - Any value $\hat{\theta}_{\map} \in [4,10]$ (why? posterior = prior), not very useful
 
 \item<4-> What is your other choice?
 
@@ -713,8 +1685,9 @@ $$
 
 \item<5-> Performance (MSE: Mean Squared Error)
 \bci
-\item<6-> When $X=x$, $\bexpect{(\Theta - \expect{\Theta | X=x} )^2 | X=x} = \cbvar{\Theta | X=x}$
-\item<7-> Averaged over $X$: $\bexpect{(\Theta - \expect{\Theta | X} )^2} = \bexpect{\cvar{\Theta | X=x}}$
+\item<6-> When $X=x$, $\bexpect{\big(\Theta - \bluef{\expect{\Theta | X=x}} \big)^2 | X=x} = \cbvar{\Theta | X=x}$
+\item<7-> Averaged over $X$: $\bexpect{(\Theta - \expect{\Theta | X}
+    )^2} =  \bexpect{\cvar{\Theta | X}}$
 \eci
 
 
@@ -974,28 +1947,37 @@ $$\bexpect{(\Theta - \expect{\Theta | X=x})^2 | X=x}$$
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L9(6)}
 \begin{frame}{Roadmap}
 
-\plitemsep 0.1in
+\plitemsep 0.15in
 
-\bci
+\bce[(1)]
 
-\item \bluef{Basics on Statistic Inference}
+\item \grayf{Overview on Statistical Inference}
 
-\item \bluef{Framework of Bayesian Inference}
+\item \grayf{Bayesian Inference: Framework}
 
-\item \bluef{MAP (Maximum A Posteriori) Estimator}
+\item \grayf{Examples}
 
-\item \bluef{LMS (Least Mean Squares) Estimator}
+\item \grayf{MAP (Maximum A Posteriori) Estimator}
+
+\item \grayf{LMS (Least Mean Squares) Estimator}
 
 \item \redf{LLMS (Linear LMS) Estimator}
 
-\medskip
-\item Framework of Classical Inference
-\item ML (Maximum Likelihood) Estimator
+%\ece
+  % \medskip
 
-\eci
+% \item Classical Inference
+
+%   \bce
+% \item ML (Maximum Likelihood) Estimator
+%   \ece
+  
+  \ece
 
 \end{frame}
 
