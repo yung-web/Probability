@@ -1,0 +1,1420 @@
+
+\input{../mode.tex}
+\csname\pdfmode\endcsname
+
+\mode<presentation>
+{
+  \usetheme{default}
+  \usecolortheme{default}
+  \usefonttheme{default}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+  \setbeamertemplate{footline}[frame number]  % or "page number"
+  \setbeamercolor{frametitle}{fg=white}
+  \setbeamercolor{footline}{fg=black}
+}
+
+\input{../myhead.tex}
+
+\title[]{Lecture 5: Random Variable, Part III}
+\author{Yi, Yung (이융)}
+\institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
+\date{\today}
+
+
+
+\input{../mymath}
+
+\begin{document}
+
+\input{../mydefault}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% % Uncomment these lines for an automatically generated outline.
+% \begin{frame}{Outline}
+% % \tableofcontents
+% \plitemsep 0.1in
+% \bci
+% \item
+
+% \item
+% \eci
+% \end{frame}
+
+% START START START START START START START START START START START START START
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+\plitemsep 0.1in
+
+\bce[(1)]
+
+
+\item Derived distribution of $Y=g(X)$ or $Z=g(X,Y)$
+
+\item Derived distribution of $Z=X+Y$
+
+\item Covariance: Degree of dependence between two rvs.
+
+\item Correlation coefficient
+
+\item Conditional expectation and law of iterative expectations
+
+\item Conditional variance and law of total variance
+
+\item Random number of sum of random variables
+
+\ece
+
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L5(1)}
+\begin{frame}{Roadmap}
+
+
+\plitemsep 0.1in
+
+\bce[(1)]
+
+\item \redf{Derived distribution of $Y=g(X)$ or $Z=g(X,Y)$}
+
+\item \grayf{Derived distribution of $Z=X+Y$
+
+\item Covariance: Degree of dependence between two rvs.
+
+
+\item Correlation coefficient
+
+\item Conditional expectation and law of iterative expectations
+
+\item Conditional variance and law of total variance
+
+\item Random number of sum of random variables}
+
+
+\ece
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Derived Distribution: $Y=g(X)$}
+
+\plitemsep 0.1in
+
+\bci
+\item<1-> Given the PDF of $X,$ What is the PDF of $Y=g(X)$?
+
+\item<2-> Wait! Didn't we cover this topic? No. We covered just $\expect{g(X)}.$
+
+\item<3-> Examples: $Y=X,$ $Y=X+1,$ $Y=X^2,$ etc.
+
+\item<4-> What are easy or difficult cases?
+
+\item<5-> Easy cases
+
+\bci
+\item Discrete
+
+\item Linear: $Y=aX +b$
+\eci
+\eci
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Discrete Case}
+
+\plitemsep 0.1in
+
+\bci
+\item<1-> Take all values of $x$ such that $g(x) = y,$ i.e.,
+\aleq{
+\py &= \cprob{g(X) = y} \cr
+&= \sum_{x:g(x)=y} \px
+}
+
+\item[]
+\mytwocols{0.4}
+{
+\aleq{
+\onslide<3->{
+p_Y(3) &= p_X(2) + p_X(3) = 0.1 + 0.2 = 0.3\cr
+p_Y(4) &= p_X(4) + p_X(5) = 0.3+0.4 = 0.7
+}
+}
+}
+{
+\centering
+\onslide<2->{\mypic{0.8}{L5_derived_disc.png}}
+}
+\eci
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Linear: $Y = aX +b,$ $a \neq 0$, $X$: Continuous}
+
+\plitemsep 0.1in
+
+\bci []
+\item
+\aleq{
+\onslide<1->{\text{If $a > 0,$}}&
+\onslide<2->{\quad \Fy = \cprob{aX+b \leq y} = \cprob{X \le \frac{y-b}{a}} = F_X(\frac{y-b}{a})}\cr
+& \onslide<3->{\rightarrow \fy = \frac{1}{a} f_X \left (\frac{y-b}{a} \right )}\cr
+\onslide<1->{\text{If $a <0,$}}&
+\onslide<4->{\quad \Fy = \cprob{aX+b \leq y} = \cprob{X \ge \frac{y-b}{a}}
+ = 1- F_X(\frac{y-b}{a})}\cr
+& \onslide<5->{\rightarrow \fy = -\frac{1}{a} f_X \left (\frac{y-b}{a} \right )}\cr
+}
+\vspace{-0.5in}
+\item<6-> Therefore,
+\mycolorbox{
+$
+\displaystyle \fy = \frac{1}{|a|} f_X\left(\frac{y-b}{a}\right)
+$
+}
+\eci
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Linear: $Y = aX +b,$ when $X$ is exponential}
+
+\plitemsep 0.2in
+
+\bci[]
+\item
+\aleq
+{
+\fx = \begin{cases}
+\lambda \elambdax, & \text{if} \quad x \ge 0 \cr
+0, & \text{otherwise}
+\end{cases}
+}
+
+\item
+\aleq
+{
+\fy= \begin{cases}
+\frac{\lambda}{|a|}e^{-\lambda(y-b)/a}, & \text{if} \quad (y-b)/a \ge 0 \cr
+0, & \text{otherwise}
+\end{cases}
+}
+
+\item[$\bullet$] If $b = 0$ and $a>0,$ $Y$ is exponential with parameter $\frac{\lambda}{a}$, but generally not.
+
+\eci
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Linear: $Y = aX +b,$ when $X$ is normal}
+
+\plitemsep 0.1in
+
+\bci
+\item Remember? Linear transformation preserves normality. Time to prove.
+
+\mycolorbox
+{
+If $X \sim  \set{N}(\mu, \sigma^2) $, then for $a \neq 0$ and $b,$ $Y = aX +b \sim \set{N}(a\mu +b,a^2 \sigma^2).$
+}
+
+\item<2-> \proff
+\aleq{
+\fx = \frac{1}{\sqrt{2\pi}} e^{-(x-\mu)^2/2 \sigma^2}
+}
+\aleq{
+\onslide<3->{\fy &= \frac{1}{|a|} f_X\left(\frac{y-b}{a}\right) = \frac{1}{|a|}\frac{1}{\sqrt{2\pi}}
+\exp\left \{ -\left(\frac{y-b}{a}-\mu\right)^2/2 \sigma^2 \right \} \cr
+&= \frac{1}{\sqrt{2\pi}|a| \sigma} \exp\left \{ - \frac{(y-b-a\mu)^2}{2 a^2 \sigma^2}   \right \}}
+}
+\eci
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Generally, $Y=g(X)$, $X$: Continuous}
+
+\mytwocols{0.75}
+{
+
+\medskip
+\plitemsep 0.2in
+
+\bce
+\item<2->[Step 1.] Find the CDF of $Y$: $\Fy = \cprob{Y\leq y} = \cprob{g(X) \leq y}$
+\item<2->[Step 2.] Differentiate: $\fy = \frac{dF_Y}{dy}(y)$
+\ece
+
+\medskip
+
+\small
+
+\onslide<3->{\redf{Ex1.} $Y = X^2.$
+\aleq{
+\Fy &= \cprob{X^2 \le y} = \cprob{-\sqrt{y} \le X \le \sqrt{y}} \cr
+& = F_X(\sqrt{y}) - F_X(-\sqrt{y})\cr
+\fy &= \frac{1}{2\sqrt{y}} f_X(\sqrt{y}) +\cr
+& \frac{1}{2\sqrt{y}} f_X(-\sqrt{y}), \quad y \ge 0
+}
+}
+
+
+}
+{
+\small
+
+\onslide<4->{\redf{Ex2.} $X \sim \set{U}[0,1].$ $Y = \sqrt{X}.$
+\aleq{
+\Fy &= \cprob{\sqrt{X} \le y} = \cprob{X \le y^2} = y^2 \cr
+\fy &= 2y, \quad 0\le y \le 1
+}
+}
+
+\onslide<5->{
+\redf{Ex3.} $X \sim \set{U}[0,2].$ $Y = X^3.$
+\aleq{
+\Fy &= \cprob{X^3 \le y} = \cprob{X \le \sqrt[3]{y}} = \frac{1}{2} y^{1/3}\cr
+\fy &= \frac{1}{6}y^{-2/3}, \quad 0\le y \le 8
+}
+}
+
+\onslide<6->{When $Y=g(X)$ is monotonic, a \redf{general formula} can be drawn (see the textbook at pp 207)}
+
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Functions of multiple rvs: $Z=g(X,Y)$ (1)}
+
+\onslide<1->{\noindent Basically, follow two-step approach: (i) CDF and (ii) differentiate. }
+
+\medskip
+
+\small
+\onslide<2->{\redf{Ex1.} $X,Y \sim \set{U}[0,1],$ and $X \indep Y.$ $Z = \max(X,Y).$
+
+\medskip
+* $\cprob{X \le z} = \cprob{Y \le z} = z,\ z \in [0,1].$
+}
+\aleq{
+\onslide<3->{
+F_Z(z) &= \cprob{\max(X,Y) \le z} = \cprob{X \le z, Y \le z}\cr
+&= \cprob{X \le z} \cprob{Y \le z} = z^2 \qquad \qquad \text{(from $X \indep Y$)}}\cr
+& \cr
+\onslide<4->{
+\fz& = \begin{cases}
+2z, & \text{if $0 \le z \le 1$}\cr
+0, & \text{otherwise}
+\end{cases}
+}
+}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Functions of multiple rvs: $Z=g(X,Y)$ (2)}
+
+\noindent Basically, follow two step approach: (i) CDF and (ii) differentiate.
+
+\medskip
+
+\mytwocols{0.6}
+{
+\small
+
+\onslide<2->{
+\redf{Ex2.}
+$X,Y \sim \set{U}[0,1],$ and $X \indep Y.$
+$Z = Y/X.$}
+
+\hfill \only<2>{\lecturemark{VIDEO PAUSE}}
+
+
+
+\aleq{
+\onslide<3->{\Fz &= \cprob{Y/X \le z}} \cr
+\onslide<5->{ &=
+ \begin{cases}
+ z/2, & 0 \le z \le 1\cr
+ 1-1/2z, & z >1 \cr
+ 0,& \text{otherwise}
+ \end{cases}
+ }
+}
+\vspace{-0.5cm}
+\aleq{
+\onslide<6->{
+\fz &=
+ \begin{cases}
+ 1/2, & 0 \le z \le 1\cr
+ 1/(2z^2), & z >1 \cr
+ 0,& \text{otherwise}
+ \end{cases}
+}
+}
+}
+{
+
+\small
+
+\onslide<4->{
+- Depending on the value of $z,$ two cases need to be considered separately.
+
+%\medskip
+\mypic{0.95}{L5_pdf_tworvs.png}
+
+%- Where do we use $X \indep Y$?
+}
+
+\medskip
+\onslide<7->{\redf{(Note)} Sometimes, the problem is tricky, which requires careful case-by-case handing. :-)}
+
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L5(2)}
+\begin{frame}{Roadmap}
+
+
+\plitemsep 0.1in
+
+\bce[(1)]
+
+\item \grayf{Derived distribution of $Y=g(X)$ or $Z=g(X,Y)$}
+
+\item \redf{Derived distribution of $Z=X+Y$}
+
+\item \grayf{Covariance: Degree of dependence between two rvs.
+
+\item Correlation coefficient
+
+\item Conditional expectation and law of iterative expectations
+
+\item Conditional variance and law of total variance
+
+\item Random number of sum of random variables}
+
+
+\ece
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Functions of multiple rvs: $Z=X+Y,$ $X\indep Y$ (1)}
+
+\plitemsep 0.1in
+\bci
+\item Sum of two independent rvs
+\item<2-> A very basic case with many applications
+\item<2-> Assume that $X,Y \in \integer$
+\aleq{
+\onslide<3->{
+\orangef{\pz} &= \cprob{X+Y = z} = \sum_{\{(x,y): x+y=z \}}\cprob{X=x,Y=y}= \sum_{x}\cprob{X=x,Y=z-x}\cr
+ &= \sum_{x}\cprob{X=x} \cprob{Y=z-x} = \orangef{\sum_{x}\px p_Y(z-x)}
+}
+}
+\vspace{-0.3cm}
+\item<4-> $\pz$ is called \redblank{5}{convolution} of the PMFs of $X$ and $Y.$
+\eci
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Functions of multiple rvs: $Z=X+Y,$ $X\indep Y$ (2)}
+
+\mytwocols{0.6}
+{
+\small
+\plitemsep 0.15in
+\bci
+\item Convolution: $\pz = \sum_{x} \px p_Y(z-x)$
+\item Interpretation for a given $z$:
+\bce[(i)]
+\item Flip (horizontally) the PMF of Y ($p_{Y}(-x)$)
+\item Put it underneath the PMF of X
+\item Right-shift the flipped PMF by $z$ ($p_{Y}(-x+z)$)
+\ece
+\eci
+}
+{
+\exam $z=3$
+\mypic{0.95}{L5_conv_ex.png}
+}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$Y=X+Y,$ $X\indep Y$: Continuous}
+
+\mytwocols{0.7}
+{
+
+\plitemsep 0.07in
+\bci
+
+\item<1-> Same logic as the discrete case
+
+\aleq{
+\fz = \int_{-\infty}^\infty \fx f_{Y}(z-x) dx
+}
+
+
+
+\item<3-> Youtube animation for convolution:
+\url{https://www.youtube.com/watch?v=C1N55M1VD2o}
+
+\eci
+}
+{
+For a fixed $z,$
+
+\onslide<2->{\mypic{0.95}{L5_convolution_cont_ex.png}}
+}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example}
+
+\plitemsep 0.1in
+\bci
+
+\item \exam $X,Y \sim \set{U}[0,1]$ and $X \indep Y.$ What is the PDF of $Z = X+Y$?
+Draw the PDF of $Z$.
+
+\onslide<2->{\mypic{0.5}{L5_convolution_ex.png}}
+
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Convolution in Image Processing}
+
+\vspace{2cm}
+
+{\large \url{https://www.youtube.com/watch?v=MQm6ZP1F6ms}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$Y=X+Y,$ $X\indep Y,$ Normal (1)}
+
+
+\plitemsep 0.1in
+\bci
+
+\item<1-> Very special, but useful case
+
+\bci
+\item $X$ and $Y$ are \bluef{normal.}
+\eci
+
+\bigskip
+\onslide<3->{
+\myblock{Sum of two independent normal rvs}
+{
+$X \sim \set{N}(\mu_x, \sigma_x^2)$ and  $Y \sim \set{N}(\mu_x, \sigma_x^2)$
+Then, $X+Y \sim \set{N}(\mu_x + \mu_y, \sigma_x^2 + \sigma_y^2)$
+}
+}
+
+\item<4->  Why normal rvs are used to model the \orangef{sum of random noises}.
+
+\item<4-> \redf{Extension.} The sum of \redf{finitely many} independent normals is also normal.
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$Y=X+Y,$ $X\indep Y$, Normal (2)}
+
+\plitemsep 0.2in
+\bci[]
+\item
+\aleq
+{
+\fz &= \int_{-\infty}^\infty \fx f_{Y}(z-x) dx \cr
+&=\int_{-\infty}^\infty \frac{1}{\sqrt{2\pi} \sigma_x} \exp\left\{ - \frac{(x-\mu_x)^2}{2 \sigma_x^2} \right\} \frac{1}{\sqrt{2\pi} \sigma_y} \exp\left\{ - \frac{(z-x-\mu_y)^2}{2 \sigma_y^2} \right\} dx
+}
+\item[$\bullet$] The details of integration is a little bit tedious. :-)
+\aleq{
+\fz = \frac{1}{\sqrt{2\pi(\sigma_x^2 + \sigma_y^2)} } \exp\left\{ - \frac{(z-\mu_x-\mu_y)^2}{2(\sigma_x^2 + \sigma_y^2)} \right\}
+}
+\eci
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L5(3)}
+\begin{frame}{Roadmap}
+
+
+\plitemsep 0.1in
+
+\bce[(1)]
+
+\item \grayf{Derived distribution of $Y=g(X)$ or $Z=g(X,Y)$}
+
+\item \grayf{Derived distribution of $Z=X+Y$}
+
+\item \redf{Covariance: Degree of dependence between two rvs}
+
+\item \grayf{Correlation coefficient
+
+\item Conditional expectation and law of iterative expectations
+
+\item Conditional variance and law of total variance
+
+\item Random number of sum of random variables}
+
+
+\ece
+
+\end{frame}
+
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Dependence Degree: Motivating Example}
+%
+% \plitemsep 0.1in
+%
+% \bci
+%
+% \item covariance의 필요성을 이야기해주는 example을 찾아서 먼저 이야기를 해준다.
+%
+% \eci
+%
+% \end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Making a Metric of Dependence Degree}
+
+\plitemsep 0.05in
+
+\bci
+
+\item<1-> Goal: Given two rvs $X$ and $Y$, assign some number that quantifies the degree of their dependence.
+\bci
+\item<2-> feeling/weather, university ranking/annual salary,
+\eci
+
+
+\item<3-> Requirements
+\bce[\bf R1.]
+\item<4-> Increases (resp. decreases) as they become more (resp. less) dependent. 0 when they are independent.
+\item<5-> Shows the `direction' of dependence by + and -
+\item<6-> Always bounded by some numbers (i.e., dimensionless metric). For example, $[-1,1]$
+\ece
+
+\item<7-> Good engineers: Good at making good metrics
+
+\smallskip
+\bci
+\item Metric of how our society is economically polarized
+%\item A lot of metrics in our professional sports leagues (baseball, basketball, etc)
+\item Cybermetrics in MLB (Major League Baseball): \url{http://m.mlb.com/glossary/advanced-stats}
+\eci
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{OK. Let's Design!}
+
+\plitemsep 0.04in
+
+\bci
+
+\item<1-> Simple case: $\expect{X} =\mu_x = 0$ and $\expect{Y}=\mu_Y = 0$
+\item<2-> Dependent: Positive (If $X \uparrow$, $Y \uparrow$) or Negative (If $X \uparrow,$ $Y \downarrow$)
+
+\item<3-> What about $\expect{XY}$? Seems good.
+
+\bci
+\item<4-> $\expect{XY} = \expect{X}\expect{Y}=0$ when $X \indep Y$
+\item<5-> More data points (thus increases) when $xy >0$ (both positive or negative)
+\item<6-> $|\expect{XY}|$ also quantifies the \orangef{amount of spread}.
+\eci
+
+\mytwocols{0.35}
+{
+\vspace{-0.3cm}
+\onslide<5->{\mypic{0.8}{L5_cov_ex.png}}
+}
+{
+\bigskip
+\onslide<6->{\redf{(Q)} What about $\expect{X+Y}$?}
+\bci
+\item<7-> When they are positively dependent, but have negative values?
+\eci
+}
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{What If $\mu_X \neq 0, \mu_Y \neq 0$?}
+
+\plitemsep 0.1in
+
+\bci
+
+\item<2-> \redf{Solution:} Centering. $X \rightarrow X - \mu_X$ and $Y \rightarrow Y-\mu_Y$
+\onslide<3->{
+\myblock{Covariance}
+{
+$\cov{X,Y} = \bexpect{(X- \expect{X})\cdot (Y-\expect{Y})}$
+}}
+
+\item<4-> After some algebra, $\cov{X,Y} = \expect{XY} - \expect{X}\expect{Y}$
+
+\item<5-> $X \indep Y$ $\imp$ $\cov{X,Y}=0$
+
+\item<6-> $\cov{X,Y}=0$ $\imp$ $X \indep Y$? NO.
+
+\item<7-> When $\cov{X,Y}=0,$ we say that $X$ and $Y$ are \redblank{8}{uncorrelated.}
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: $\cov{X,Y}=0,$ but not independent}
+
+\plitemsep 0.1in
+
+\bci
+
+\item $p_{X,Y}(1,0) = p_{X,Y}(0,1) = p_{X,Y}(-1,0) = p_{X,Y}(0,-1) = 1/4.$
+
+\item<2-> $\expect{X} = \expect{Y}=0,$ and $\expect{XY}=0.$ So, $\cov{X,Y}=0$
+
+\item<3-> Are they independent? No, because if $X=1$, then we should have $Y=0.$
+
+\eci
+\centering
+\mypic{0.3}{L5_cov_notind.png}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Some Properties}
+
+\plitemsep 0.07in
+
+\vspace{-0.3in}
+\bci []
+
+\item<2-> \aleq{
+\cov{X,X}=\cvar{X}
+}
+
+\item<3-> \aleq{
+\cov{aX +b, Y} &= \expect{(aX+b)Y} - \expect{aX+b}\expect{Y} = a\cdot \cov{X,Y}
+}
+
+\item<4->  \aleq{
+\cov{X,Y+Z} &= \expect{X(Y+Z)} - \expect{X}\expect{Y+Z}= \cov{X,Y} + \cov{X,Z}
+}
+
+\item<5-> \aleq{
+\var{X+Y} &= \expect{(X+Y)^2} - (\expect{X+Y})^2 = \var{X} + \var{Y} + 2\cov{X,Y}
+}
+
+\item<6-> \aleq{
+\bvar{\sum X_i} &= \sum {\var{X_i}} + \sum_{i\neq j} \cov{X_i,X_j}
+}
+
+\eci
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: The hat problem in Lecture 3. Remember?}
+
+\bigskip
+
+\mytwocols{0.7}
+{
+\small
+\plitemsep 0.05in
+\bci
+
+\item $n$ people throw their hats in a box and then pick one at random
+
+\item $X$: number of people with their own hat
+
+\item \redf{(Q)} $\var{X}$
+
+\item \bluef{Key step 1.} Define a rv $X_i=1$ if $i$ selects own hat and $0$ otherwise. Then, $X = \sum_{i=1}^n X_i.$
+
+\item \bluef{Key step 2.} Are $X_i$s are independent?
+
+\medskip
+\item<2-> $X_i \sim \text{Bern}(1/n).$ Thus, $\expect{X_i} = 1/n$ and $\var{X_i} = \frac{1}{n}(1-\frac{1}{n})$
+
+\eci
+}
+{
+\small
+%\sqeq
+\plitemsep 0.01in
+\bci [$\circ$]
+\item \onslide<4->{For $i \neq j,$}
+\setlength{\jot}{0pt}
+\aleq{
+\onslide<4->{\cov{X_i,X_j} &= \expect{X_i X_j} - \expect{X_i} \expect{X_j}\cr
+&=\cprob{X_i =1 \text{ and } X_j=1} - \frac{1}{n^2} \cr
+&=\cprob{X_i=1} \cprob{X_j=1 | X_i=1} - \frac{1}{n^2} \cr
+&=\frac{1}{n} \frac{1}{n-1} - \frac{1}{n^2} = \frac{1}{n^2(n-1)}}
+}
+\vspace{-0.2in}
+\aleq{
+\onslide<3->{\var{X}& = \bvar{\sum X_i}\cr
+&= \sum {\var{X_i}} + \sum_{i\neq j} \cov{X_i,X_j}}\cr
+\onslide<5->{&= n \frac{1}{n}(1-\frac{1}{n}) + n(n-1)\frac{1}{n^2(n-1)}=1}\cr
+}
+\vspace{-0.1in}
+
+\eci
+
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L5(4)}
+\begin{frame}{Roadmap}
+
+
+\plitemsep 0.1in
+
+\bce[(1)]
+
+\item \grayf{Derived distribution of $Y=g(X)$ or $Z=g(X,Y)$}
+
+\item \grayf{Derived distribution of $Z=X+Y$}
+
+\item \grayf{Covariance: Degree of dependence between two rvs}
+
+\item \redf{Correlation coefficient}
+
+\item \grayf{Conditional expectation and law of iterative expectations
+
+\item Conditional variance and law of total variance
+
+\item Random number of sum of random variables}
+
+
+\ece
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bounding the metric: Correlation Coefficient}
+
+\plitemsep 0.05in
+
+\bci
+
+\item<1-> Reqs. \bluef{\bf R1} and \bluef{\bf R2}  are satisfied.
+%
+\bce
+\item<2->[\bf R3.] \magenf{Always bounded by some numbers (dimensionless metric)}
+\ece
+
+\item<3-> How? \redblank{4}{Normalization,} but by what?
+
+\onslide<5->{
+\myblock{Correlation Coefficient}
+{
+\aleq{
+\rho(X,Y) = \bbexpect{\frac{(X - \mu_X)}{\redblank{6}{$\sigma_X$}} \cdot \frac{(Y-\mu_Y)}{\redblank{6}{$\sigma_Y$}}} = \frac{\cov{X,Y}}{\sqrt{\var{X}\var{Y}}}
+}
+}
+}
+\item<7-> \thm
+\bce
+\item<7-> $-1 \le \rho \le 1$ (proof at the next slide)
+\item<8-> $|\rho|=1$ $\Leftrightarrow$ $X-\mu_X = c(Y-\mu_Y)$ for some constant $c$ ($c>0$ when $\rho=1$ and $c<0$ when $\rho=-1$). In other words, linear relation, meaning VERY related.
+\ece
+\eci
+
+\end{frame}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{$-1 \le \rho \le 1$}
+%
+% \plitemsep 0.1in
+%
+%
+% \bci
+%
+% \item \magenf{Schwarz inequaility.} For any rvs $X$ and $Y,$ \bluef{$ \big(\cexpect{XY} \big)^2 \le \cexpect{X^2} \cexpect{Y^2}$}
+% \item<2-> Proof of $-1 \le \rho \le 1$:
+%
+% {\small
+% Let $\tilde{X} = X - \cexpect{X}$ and $\tilde{Y} = Y - \cexpect{Y}.$ Then,
+% $\displaystyle
+% \big(\rho(X,Y) \big)^2 = \frac{\big(\expect{\tilde{X}\tilde{Y}} \big)^2}{\cexpect{\tilde{X}^2} \cexpect{\tilde{Y}^2}} \le 1
+% $
+% }
+% \item<3-> Proof of SI: Assume $\cexpect{Y^2} \neq 0.$ Otherwise, the result immediately follows.
+% \aleq{
+% 0 &\le \bbexpect{\left(X - \frac{\cexpect{XY}}{\cexpect{Y^2}}Y\right)^2} =
+% \bbexpect{X^2 -2 \frac{\cexpect{XY}}{\cexpect{Y^2}} XY + \frac{(\expect{XY})^2}{(\expect{Y^2})^2}Y^2 }\cr
+% &= \cexpect{X^2} -2 \frac{\cexpect{XY}}{\cexpect{Y^2}} \cexpect{XY} + \frac{(\expect{XY})^2}{(\expect{Y^2})^2}\cexpect{Y^2} = \cexpect{X^2} - \frac{(\expect{XY})^2}{\cexpect{Y^2}}
+% }
+% \eci
+%
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{1. $-1 \le \rho \le 1$}
+
+\plitemsep 0.1in
+
+
+\bci
+
+\item \magenf{Cauchy-Schwarz inequaility.} For any rvs $X$ and $Y,$ \bluef{$ \big(\cexpect{XY} \big)^2 \le \cexpect{X^2} \cexpect{Y^2}$}
+\item<2-> \redf{Proof of $-1 \le \rho \le 1$:}
+
+{\small
+Let $\tilde{X} = X - \cexpect{X}$ and $\tilde{Y} = Y - \cexpect{Y}.$ Then,
+$\displaystyle
+\big(\rho(X,Y) \big)^2 = \frac{\big(\expect{\tilde{X}\tilde{Y}} \big)^2}{\cexpect{\tilde{X}^2} \cexpect{\tilde{Y}^2}} \le 1
+$
+}
+\item<3-> \redf{Proof of CSI:} For any constant $a,$
+\aleq{
+0 &\le \bbexpect{\left(X - a Y\right)^2} =
+\bbexpect{X^2 -2 a XY + a^2Y^2 }= \cexpect{X^2} -2 a \cexpect{XY} + a^2\cexpect{Y^2}
+}
+\onslide<4->{
+Now, choose $a = \frac{\cexpect{XY}}{\cexpect{Y^2}}.$ Then,
+\aleq{
+\cexpect{X^2} -2 \frac{\cexpect{XY}}{\cexpect{Y^2}} \cexpect{XY} + \frac{(\expect{XY})^2}{(\expect{Y^2})^2}\cexpect{Y^2} = \cexpect{X^2} - \frac{(\expect{XY})^2}{\cexpect{Y^2}} \ge 0
+}}
+\eci
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2. $|\rho|=1$ $\Leftrightarrow$ $X-\mu_X = c(Y-\mu_Y)$}
+
+\newcommand{\tX}{\tilde{X}}
+\newcommand{\tY}{\tilde{Y}}
+
+\plitemsep 0.1in
+
+\bci
+\item[($\Rightarrow$)] Suppose that $|\rho|=1$. In the proof of CSI,
+\aleq{
+\bbexpect{\left(\tX - \frac{\cexpect{\tX\tY}}{\cexpect{\tY^2}} \tY\right)^2} = \cexpect{\tX^2} - \frac{(\expect{\tX\tY})^2}{\cexpect{\tY^2}} = \cexpect{\tX^2}(1-\rho^2) = 0
+}
+\aleq{
+\tX - \frac{\cexpect{\tX\tY}}{\cexpect{\tY^2}} Y = 0 \leftrightarrow \tX = \frac{\cexpect{\tX\tY}}{\cexpect{\tY^2}} \tY
+= \rho \sqrt{\frac{\cexpect{\tX^2}}{\cexpect{\tY^2}}} \tY
+}
+
+\item[($\Leftarrow$)] If $\tY = c\tX,$ then
+\aleq{
+\rho(X,Y) = \frac{\cexpect{\tX c \tX}}{\sqrt{\expect{\tX^2} \expect{(c \tX)^2}}} = \frac{c}{|c|}
+}
+
+
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L5(5)}
+\begin{frame}{Roadmap}
+
+
+\plitemsep 0.1in
+
+\bce[(1)]
+
+\item \grayf{Derived distribution of $Y=g(X)$ or $Z=g(X,Y)$}
+
+\item \grayf{Derived distribution of $Z=X+Y$}
+
+\item \grayf{Covariance: Degree of dependence between two rvs}
+
+\item \grayf{Correlation coefficient}
+
+\item \redf{Conditional expectation and law of iterative expectations}
+
+\item \grayf{Conditional variance and law of total variance
+
+\item Random number of sum of random variables}
+
+
+\ece
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A Special Random Variable}
+
+\mytwocols{0.6}
+{
+\plitemsep 0.1in
+
+\abovedisplayskip=5pt
+\belowdisplayskip=5pt
+
+\bci
+\item<1-> Consider a rv $Y$, such that
+\aleq{
+Y &= \begin{cases}
+0,& \text{w.p.  } 1/4 \cr
+1,& \text{w.p.  } 1/4 \cr
+2,& \text{w.p.  } 1/2
+\end{cases}
+}
+
+\item<2-> If $h(y) = y^2,$ then a new rv $h(Y)$ is:
+\aleq{
+h(Y) &= \begin{cases}
+0,& \text{w.p.  } 1/4 \cr
+1,& \text{w.p.  } 1/4 \cr
+4,& \text{w.p.  } 1/2
+\end{cases}
+}
+\eci
+}
+{
+\plitemsep 0.05in
+\abovedisplayskip=5pt
+\belowdisplayskip=5pt
+
+\bci
+\item<3-> Consider other rv $X$, which, we assume, has:
+\aleq{
+\onslide<4->{\redf{g(y)}= } \expect{X|Y=y}=\begin{cases}
+3,& \text{if $y=0$}\cr
+8,& \text{if $y=1$}\cr
+9,& \text{if $y=2$}
+\end{cases}
+}
+
+\item<5-> Then, a rv $\redf{g(Y)}$ is:
+\aleq{
+g(Y) &= \begin{cases}
+3,& \text{w.p.  } 1/4 \cr
+8,& \text{w.p.  } 1/4 \cr
+9,& \text{w.p.  } 1/2
+\end{cases}
+}
+\eci
+}
+
+\onslide<6->{- The rv $g(Y)$ looks special, so let's give a fancy notation to it.}
+
+\onslide<7->{- What about? $X_{exp}(Y)$, $\expect{X_Y}$, $\expecti{X}{Y}$?}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conditional Expectation $\expect{X|Y}$}
+
+\plitemsep 0.1in
+
+% \abovedisplayskip=5pt
+% \belowdisplayskip=5pt
+
+\myblock{Conditional Expectation}{
+A random variable $g(Y) =$ \redblank{2}{$\expect{X|Y}$}, called \redblank{2}{conditional expectation of $X$ given $Y$}, takes the value $g(y) = \expect{X|Y=y},$ if $Y$ happens to take the value $y.$
+}
+
+\bci
+\item<2-> A function of $Y$
+\item<3-> A random variable
+\item<4-> Thus, having a distribution, expectation, variance, all the things that a
+random variable has.
+\item<5-> Often confusing because of the notation.
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Expectation of $\expect{X|Y}$}
+
+\plitemsep 0.1in
+
+% \abovedisplayskip=5pt
+% \belowdisplayskip=5pt
+
+\myblock{Expectation of Conditional Expectation}{
+\aleq
+{
+\bexpect{\expect{X|Y}} = \expect{X}, \quad \text{Law of iterated expectations}
+}
+}
+
+\redf{Proof.}
+\aleq
+{
+\bexpect{\expect{X|Y}} &= \sum_{y} \expect{X | Y=y} \py \cr
+&= \expect{X}
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Examples and Meaning}
+
+\mytwocols{0.6}
+{
+\plitemsep 0.1in
+
+% \abovedisplayskip=5pt
+% \belowdisplayskip=5pt
+
+\bci
+\item<2-> Stick of length $l$
+\item<2-> Uniformly break at point $Y,$ and break what is left uniformly at point $X.$
+
+\item<3-> $\expect{X | Y=y} = y/2$
+
+\item<3-> $\expect{X | Y} = Y/2$
+
+\item<4-> $\expect{X} = \expect{\expect{X|Y}} = \expect{Y/2}=\frac{1}{2}\frac{l}{2} = l/4$
+\eci
+}
+{
+\plitemsep 0.1in
+
+% \abovedisplayskip=5pt
+% \belowdisplayskip=5pt
+
+\bci
+\item<5-> Forecasts on sales: calculating expected value, given any available information
+
+\item<6-> $X:$ February sales
+
+\item<6-> Forecast in the beg. of the year: $\expect{X}$
+
+\item<7-> End of Jan. new information $Y=y$ (Jan. sales)
+
+Revised forecast: $\expect{X|Y=y}$
+
+Revised forecast $\neq$ $\expect{X}$
+
+\item<8-> Law of iterated expectations
+$\expect{\text{revised forecast}} = \text{original one}$
+
+\eci
+
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Averaging Quiz Scores by Section}
+
+\mytwocols{0.7}
+{
+\small
+\plitemsep 0.05in
+
+% \abovedisplayskip=5pt
+% \belowdisplayskip=5pt
+
+\bci
+\item A class: $n$ students, student $i$'s quiz score: $x_i$
+\item<2-> Average quiz score: $m = \frac{1}{n} \sum_{i=1}^n x_i$
+\item<3-> Students: partitioned into sections $A_1,$ \ldots, $A_k$ and $n_s$: number of students in section $s$
+\item<4-> average score in section $s$ = $m_s = \frac{1}{n_s}\sum_{i \in A_s} x_i$
+
+\medskip
+\item<5-> whole average: (i) taking the average $m_s$ of each section and
+(ii) forming a weighted average
+\aleq{
+\sum_{s=1}^k \frac{n_s}{n} m_s = \sum_{s=1}^k\frac{n_s}{n} \frac{1}{n_s}\sum_{i \in A_s} x_i = \frac{1}{n} \sum_{i=1}^n x_i = m
+}
+\eci
+}
+{
+\plitemsep 0.05in
+
+% \abovedisplayskip=5pt
+% \belowdisplayskip=5pt
+\small
+
+\bci
+\item<6-> Understanding from $\bexpect{\expect{X|Y}} = \expect{X}$
+
+\item<7-> $X$: score of a randomly chosen student, $Y$: section of a student ($\in \{1, \ldots, k\}$)
+
+\aleq{
+m &= \cexpect{X} = \bexpect{\expect{X|Y}}\cr
+&=\sum_{s=1}^k \cexpect{X | Y=s} \cprob{Y=s} \cr
+&= \onslide<8->{\sum_{s=1}^k \left(\frac{1}{n_s} \sum_{i \in A_s} x_i \right)\frac{n_s}{n} = \sum_{s=1}^k m_s \frac{n_s}{n}}
+}
+\eci
+
+}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L5(6)}
+\begin{frame}{Roadmap}
+
+
+\plitemsep 0.1in
+
+\bce[(1)]
+
+\item \grayf{Derived distribution of $Y=g(X)$ or $Z=g(X,Y)$}
+
+\item \grayf{Derived distribution of $Z=X+Y$}
+
+\item \grayf{Covariance: Degree of dependence between two rvs}
+
+\item \grayf{Correlation coefficient}
+
+\item \grayf{Conditional expectation and law of iterative expectations}
+
+\item \redf{Conditional variance and law of total variance}
+
+\item \grayf{Random number of sum of random variables}
+
+
+\ece
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Conditional Variance $\var{X|Y}$}
+
+
+% \abovedisplayskip=5pt
+% \belowdisplayskip=5pt
+\onslide<1->{$\var{X} = \expect{(X-\expect{X})^2}$}
+
+\onslide<2->{$g(y) = \var{X\redf{|Y=y}} = \expect{(X-\expect{X\redf{|Y=y}})^2 | \redf{Y=y}}$}
+
+\onslide<3->{$g(Y) = \var{X\redf{|Y}} = \expect{(X-\expect{X\redf{|Y}})^2 | \redf{Y}}$}
+
+\onslide<4->{
+\myblock{Conditional Variance}{
+A random variable $g(Y) =$ \redblank{5}{$\var{X|Y}$} and called \redblank{5}{conditional variance of $X$ given $Y$}, takes the value $g(y) = \var{X|Y=y},$ if $Y$ happens to take the value $y.$
+}}
+
+\vspace{-0.3cm}
+\plitemsep 0.03in
+
+\bci
+\item<6-> A function of $Y$
+\item<6-> A random variable
+\item<6-> Thus, having a distribution, expectation, variance, all the things that a
+random variable has
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Expectation and Variance of $\expect{X|Y}$ and $\var{X|Y}$}
+
+\Large
+
+\centering
+
+\renewcommand{\arraystretch}{1.7}
+\setlength{\tabcolsep}{12pt}
+\begin{tabular}{@{}l|l|l@{}} \toprule
+ & $\expect{X|Y}$ & $\var{X|Y}$ \\ \midrule \midrule
+Expectation& $\bexpect{\cexpect{X|Y}}$& $\bexpect{\cvar{X|Y}}$ \\  \midrule
+Variance& $\bvar{\cexpect{X|Y}}$& $\bvar{\cvar{X|Y}}$ \\ \bottomrule
+\end{tabular}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Law of Total Variance}
+
+\myblock{Law of total variance (LTV)}{
+$$
+\var{X} = \onslide<2->{\bexpect{\cvar{X|Y}} + \var{\cexpect{X|Y}}}
+$$
+}
+
+\redf{Proof.}
+\begin{align}
+\onslide<3->{\cvar{X|Y} &= \expect{X^2 |Y} - (\expect{X|Y})^2} \nonumber \\
+\onslide<4->{\bexpect{\cvar{X|Y}} &= \expect{X^2} - \bexpect{(\expect{X|Y})^2} \label{eq:1}}\\
+\onslide<5->{\bvar{\cexpect{X|Y}} &= \bexpect{(\expect{X|Y})^2} - (\bexpect{\cexpect{X|Y}})^2 = \bexpect{(\expect{X|Y})^2} - (\expect{X})^2 \label{eq:2}}
+\end{align}
+
+\onslide<6->{\eqref{eq:1} + \eqref{eq:2} = $\expect{X^2}$ + $(\expect{X})^2$ = $\var{X}$}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Averarging Quiz Scores by Section}
+
+\plitemsep 0.07in
+
+\bci
+\item Same setting as that in page 36
+
+\item $X$: score of a randomly chosen student, $Y$: section of a student ($\in \{1, \ldots, k\}$)
+
+\item<2-> Let's intuitively understand: $\var{X} = \bexpect{\cvar{X|Y}} + \var{\cexpect{X|Y}}$
+
+\item<3-> $\expect{\cvar{X|Y}} = \sum_{k=1}^s \cprob{Y=s}\cvar{X | Y=s} = \sum_{k=1}^s \frac{n_s}{n} \cvar{X | Y=s}$
+\bci
+\item Weighted average of the section variances
+\item<5-> \redf{average score variability within individual sections}
+\eci
+
+\item<4-> $\var{\cexpect{X|Y}}$: variability of the average of the differenct sections
+\bci
+\item $\cexpect{X | Y=s}$: average score in section $s$
+\item<5-> \redf{variability between sections}
+\eci
+\eci
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Stick-breaking}
+
+\plitemsep 0.07in
+
+\bci
+\item Stick of length $l$
+\item Uniformly break at point $Y,$ and break what is left uniformly at point $X.$
+\item<2-> \question $\cvar{X}$?
+
+\item<2-> LTV: $\var{X} = \bexpect{\cvar{X|Y}} + \var{\cexpect{X|Y}}$
+
+\item<3-> \redf{Fact.} If a rv $X \sim \set{U}[0,\theta]$, then $\cvar{X} = \frac{\theta^2}{12}$
+
+\item<4-> Since $X \sim \set{U}[0,Y],$ $\cvar{X | Y} = \frac{Y^2}{12}$ $\rightarrow$ $\expect{\var{X | Y}} = \frac{1}{12} \int_0^l \frac{1}{l} y^2 dy = \frac{l^2}{36}$
+
+\item<5-> $\cexpect{X |Y} = Y/2$ $\rightarrow$ $\cvar{\expect{X |Y}} = \frac{1}{4} \var{Y} = \frac{1}{4} \frac{l^2}{12} = \frac{l^2}{48}$
+
+\item<6-> $\cvar{X} = \frac{l^2}{36} + \frac{l^2}{48} = \frac{7l^2}{144}$
+\eci
+
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L5(6)}
+\begin{frame}{Roadmap}
+
+
+\plitemsep 0.1in
+
+\bce[(1)]
+
+\item \grayf{Derived distribution of $Y=g(X)$ or $Z=g(X,Y)$}
+
+\item \grayf{Derived distribution of $Z=X+Y$}
+
+\item \grayf{Covariance: Degree of dependence between two rvs}
+
+\item \grayf{Correlation coefficient}
+
+\item \grayf{Conditional expectation and law of iterative expectations}
+
+\item \grayf{Conditional variance and law of total variance}
+
+\item \redf{Random number of sum of random variables}
+
+
+\ece
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Sum of a random number of rvs}
+
+\plitemsep 0.1in
+
+\bci
+\item<1-> $N:$ number of stores visited (\redf{random})
+
+\item<2-> $X_i$: money spent in store $i,$ independent of other $X_j$ and $N,$ $X_i$s are identically distributed with $\expect{X_i} = \mu$
+
+\item<3-> $Y = X_1 + X_2 + \ldots X_N.$ What are $\expect{Y}$ and $\var{Y}$?
+
+\item<4-> $\expect{Y} = \expect{\expect{Y|N}} = \expect{N\expect{X_i}} = \expect{N}\expect{X_i} = \mu \expect{N}$
+
+\item<5-> $\var{Y} = \bexpect{\cvar{Y|N}} + \var{\cexpect{Y|N}}$  \onslide<9->{$=\expect{N}\var{X_i} + \mu^2 \var{N}$}
+\aleq{
+\onslide<6->{\cvar{\expect{Y|N}} &= \cvar{N\mu} = \mu^2 \var{N}} \cr
+\onslide<7->{\var{Y|N} &= N \var{X_i}}\cr
+\onslide<8->{\expect{\cvar{Y|N}} &= \expect{N \var{X_i}} = \expect{N}\var{X_i}}
+}
+% \mytwocols{0.4}
+% {
+
+% }
+% {
+% }
+
+\eci
+
+
+\end{frame}
+
+\begin{frame}{}
+\vspace{2cm}
+\LARGE Questions?
+
+\end{frame}
+
+\begin{frame}{Review Questions}
+
+\bce[1)]
+\item What are the key steps to get the derived distributions of $Y=g(X)$ or $Z=g(X,Y)$?
+
+\item How can we compute the distribution of $Z+X+Y$ when $X$ and $Y$ are independent?
+
+\item What are covariance and correlation coefficient? Why do we need them?
+
+\item Please explain the concepts of conditional expectation and conditional variance.
+
+\ece
+
+\end{frame}
+
+\end{document}
