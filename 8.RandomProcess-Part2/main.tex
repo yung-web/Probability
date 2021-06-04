@@ -18,10 +18,10 @@
 \input{../myhead.tex}
 
 
-\title[]{Lecture 7: Random Processes, Part II}
+\title[]{Lecture 8: Random Processes, Part II}
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
-\date{MONTH DAY, 2021}
+\date{\today}
 
 \input{../mymath}
 
@@ -51,31 +51,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Roadmap}
 
-\plitemsep 0.1in
-
-\bci 
-
-% \item A lot of applications in engineering systems
+{\Large Markov Chain}
 
 
-% \bigskip
+  \plitemsep 0.1in
 
-{\scriptsize
-\item \bluef{Basics on Random Process}
-\item \bluef{Bernoulli Process}
-\item \bluef{Poisson Process}
-\item \bluef{Use of Bernoulli and Poisson Processes}
-}
+\bce[(1)]
 
 
-\item \redf{Markov Chain}
-\bci
-\item \redf{Definition, Transition Probability Matrix, State Transition Diagram}
-\item Classification of States
+%\item \redf{Markov Chain}
+
+\item Definition, Transition Probability Matrix, State Transition Diagram
+
+\item $n$-step Transition Probability and Classification of States
+
 \item Steady-state Behaviors and Stationary Distribution
+
 \item Transient Behaviors
-\eci
-\eci 
+
+
+
+\ece 
 
 \end{frame}
 
@@ -83,6 +79,8 @@
 \begin{frame}{Recap and Markov Chain}
 
 - Assume discrete times $n=1, 2, \ldots$
+\vspace{-0.3cm}
+
 \plitemsep 0.05in
 \bci 
 \item Random process: A sequence of $X_1, X_2, X_3, \cdots $
@@ -136,8 +134,9 @@
 \eci 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Markov Chain: Definition}
+\begin{frame}{Markov Chain: Definition (1)}
 
 \plitemsep 0.1in
 
@@ -145,67 +144,145 @@
 \item<2-> \defi Let $X_1, \ldots, X_n, \ldots$ be a sequence of random
   variables taking values in some finite space
   $\set{S}=\{1, 2, \ldots, m\}$, such that   for all $i,j \in
-  \set{S},$ $n\geq 0,$ the following \bluef{Markov property} is satisfied:
-\aleq{
-\cprob{X_{n+1} = j \vert X_{n} = i} = \cprob{X_{n+1} = j
-      \vert X_n = i, X_{n-1}=i_{n-1}, \ldots, X_0=i_0}, 
+  \set{S},$ $n\geq 0,$ the following \blueblank{4}{Markov property} is
+  satisfied:\\
+  for all $n \geq 0,$ all $i,j \in \set{S},$ and all possible
+  sequences $i_0, \ldots, i_{n-1}$ of earlier states, 
+\mycolorbox{
+\centering
+  \redblank{4}{$\cprob{X_{n+1} = j \vert X_{n} = i}$}  =
+  $\cprob{X_{n+1} = j
+      \vert X_n = i, X_{n-1}=i_{n-1}, \ldots, X_0=i_0}$
 }
 
-\item<3-> For any fixed $n,$ the future of the process after $n$ is {\red independent}
-    of $\{X_1, \ldots, X_n \},$ {\red given} $X_n$ (i.e., depends only on $X_n$)
+\item<5->  \magenf{Alternate definition via conditional independence.}
+  For any fixed $n,$ the future of the process after $n$ is {\red independent}
+  of $\{X_1, \ldots, X_{n-1} \},$ {\red given} $X_n.$
+  % (i.e., depends only on $X_n$)
 
-\item<4-> The value that $X_n$ can take is called \redf{`state'.} Thus, the space $\set{S}$ is called \redf{\em state space}.
-
-\item<5-> \redf{Time homogeneity.} The probability $\cprob{X_{n+1} = j \vert X_{n} = i}$ does NOT depends on $n.$ 
-
-\medskip
-\onslide<6->{Thus, for any $n \ge 0,$ we introduce a simple notation $p_{ij}$
-\aleq{
-p_{ij} &\eqdef\cprob{X_{n+1} = j \vert X_{n} = i}
-}}
 
 \eci 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Transition Prob. Matrix and State Transition Diagram}
 
-\plitemsep 0.05in
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Markov Chain: Definition (2)}
+
+\plitemsep 0.1in
 
 \bci 
-\item<2-> \redf{Transition Probability Matrix.} Consider a $m \times m$ matrix $\mat{P}=[p_{ij}],$ where $p_{ij} \eqdef \cprob{X_{n+1} = j \vert X_{n} = i}$
 
-\item<3-> Machine example.
+\item<1-> The value that $X_n$ can take is called \redf{\em
+    state}. Thus, the space $\set{S}=\{1, \ldots, m \}$ is called \redf{\em state space}.
+
+\item<2-> We will focus on the MC of \redf{time homogeneity.} The probability $\cprob{X_{n+1} = j \vert X_{n} = i}$ does NOT depends on $n.$ 
+
+  \bci
+  \item<3-> In the machine failure example, $\cprob{X_{n+1}=1 | X_n =1} =
+    1-b$ $\implies,$ for example, $\cprob{X_{100}=1 | X_{99} =1}
+    =\cprob{X_{200}=1 | X_{199} =1} = 1-b.$
+  \eci
+
+  \medskip
+
+\item<4-> 
+Thus, for any $n \ge 0,$ we introduce a simple notation \blueblank{5}{$p_{ij}$}
+$$
+\blueblank{5}{\text{$p_{ij}$}} \eqdef\cprob{X_{n+1} = j \vert X_{n} = i}
+$$
+
+\item<5-> Any convenient way of describing a MC for intuitive understanding?
+
+\eci 
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Transition Probability Matrix}
+
+\plitemsep 0.1in
+
+\bci 
+
+\item<2-> Machine example: $\set{S} = \{1,2 \}$
 \aleq{
 p_{11} &= \cprob{X_{n+1} = 1 | X_{n} = 1} = 1-b,  & p_{12} = \cprob{X_{n+1} = 2 | X_{n} = 1} = b \cr
 p_{21} &= \cprob{X_{n+1} = 1 | X_{n} = 2} = r,  & p_{22} = \cprob{X_{n+1} = 2 | X_{n} = 2} = 1-r 
 }
 
-\mytwocols{0.3}
-{
-\small
-- Transition probability matrix
-
 \bigskip
-\centering
-\mypic{0.3}{L9_machine_tpm.png}
-}
-{
-\small
-- State transition diagram
+\onslide<3->{\mypic{0.2}{L9_machine_tpm.png}}
 
+% \mytwocols{0.3}
+% {
+% \small
+% - Transition probability matrix
+
+% \bigskip
+% \onslide<4->{\mypic{0.3}{L9_machine_tpm.png}}
+% }
+% {
+% \small
+% - \redf{State transition diagram}
+
+% \medskip
+% \onslide<5->{\mypic{0.8}{L9_machine_std.png}}
+% }
+
+% \item<6-> Both are the complete descriptions of Markov chain.
+
+\item<4->   \redf{Transition Probability Matrix.}
 \medskip
-\centering
-\mypic{0.8}{L9_machine_std.png}
-}
 
-\item<4-> Both are the complete description of Markov chain.
+The $m \times m$ matrix $\mat{P}=[p_{ij}],$ where $p_{ij} \eqdef \cprob{X_{n+1} = j \vert X_{n} = i}$
 
-\item<5-> $\sum_{j=}^m p_{ij} =1$ (for each row $i$, the column sum = 1)
+
+
+\item<5-> \bluef{Property.}
+\vspace{0.3cm}
+
+$\sum_{j=}^m p_{ij} =1$ (for each row $i$, the column sum = 1)
 \eci 
 \end{frame}
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{State Transition Diagram}
+
+\plitemsep 0.03in
+
+\bci 
+
+\item<1-> Machine example.
+\aleq{
+p_{11} &= \cprob{X_{n+1} = 1 | X_{n} = 1} = 1-b,  & p_{12} = \cprob{X_{n+1} = 2 | X_{n} = 1} = b \cr
+p_{21} &= \cprob{X_{n+1} = 1 | X_{n} = 2} = r,  & p_{22} = \cprob{X_{n+1} = 2 | X_{n} = 2} = 1-r 
+}
+
+
+\item<1-> Transition probability matrix
+\mypic{0.2}{L9_machine_tpm.png}
+  
+\item<2-> \redf{State Transition Diagram}
+
+\mypic{0.35}{L9_machine_std.png}
+
+  
+\item<3-> Transition probability matrix and state transition diagram
+  are the complete descriptions of a given Markov chain.
+
+\eci 
+\end{frame}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Spider-Fly example}
 
 % \mytwocols{0.6}
@@ -220,17 +297,77 @@ p_{21} &= \cprob{X_{n+1} = 1 | X_{n} = 2} = r,  & p_{22} = \cprob{X_{n+1} = 2 | 
 
 \item<3-> Two spiders lurk at positions 1 and 4: if the fly lands there, it is captured by the spider, and the process terminates. Assume that the fly starts in a position between 1 and $4.$
 
-\bigskip
+\medskip
 \item<4-> $X_n$: position of the fly. Please draw the state transition diagram and find the transition probability matrix. 
 
 \eci 
+
+\vspace{-0.7cm}
 \onslide<5->{
-\centering
 \mypic{0.7}{L9_spider_fly.png}
 }
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Markov Chain: Key Questions}
+
+Please write down the key questions (as many as possible) that should be asked about Markov
+Chain \hfill \lecturemark{Video Pause}
+
+  \plitemsep 0.1in
+
+\bce 
+\item Any convient way of (visually) describning a MC?
+  
+\item Starting from $i,$ what is the probability of I am at the state
+  $j$ after $n$-step?
+
+\item 
+
+\item
+
+\item
+
+\item 
+
+\item 
+  \ece 
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Roadmap}
+
+{\Large Markov Chain}
+
+
+  \plitemsep 0.1in
+
+\bce[(1)]
+
+
+%\item \redf{Markov Chain}
+
+\item Definition, Transition Probability Matrix, State Transition Diagram
+
+\item $n$-step Transition Probability and Classification of States
+
+\item Steady-state Behaviors and Stationary Distribution
+
+\item Transient Behaviors
+
+
+
+\ece 
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Probability of a Sample Path}
 
 \redf{(Q)} What is the probability of a sample path in a Markov chain?
@@ -308,36 +445,6 @@ $$
 
 % \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Roadmap}
-
-\plitemsep 0.1in
-
-\bci 
-
-% \item A lot of applications in engineering systems
-
-
-% \bigskip
-
-{\scriptsize
-\item \bluef{Basics on Random Process}
-\item \bluef{Bernoulli Process}
-\item \bluef{Poisson Process}
-\item \bluef{Use of Bernoulli and Poisson Processes}
-}
-
-
-\item \redf{Markov Chain}
-\bci
-\item \bluef{Definition, Transition Probability Matrix, State Transition Diagram}
-\item \redf{Classification of States}
-\item Steady-state Behaviors and Stationary Distribution
-\item Transient Behaviors
-\eci
-\eci 
-
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -28,6 +28,7 @@
 
 \input{../mydefault}
 
+
 \begin{frame}
   \titlepage
 \end{frame}
@@ -2581,9 +2582,9 @@ Romeo is late by $X \sim \set{U}[0,\theta].$
 \item<2-> Problem types
 
 \bci
-\item \redf{Estimation}
-\item Hypothesis testing
-\item Significance testing
+\item \redf{Estimation}: \onslide<2->{$\theta$: prob. of head?}
+\item Hypothesis testing: \onslide<2->{$\theta = 1/2$ or $\theta = 1/4$?}
+\item Significance testing: \onslide<2->{$\theta = 1/2$ or not?}
 \eci
 
 
@@ -2611,16 +2612,17 @@ Romeo is late by $X \sim \set{U}[0,\theta].$
 \bci
 \item<2-> Random observation $x=(x_1, x_2, \ldots, x_n)$ of $X=(X_1, X_2, \ldots, X_n)$
 
-- Assume a scalar $\theta$ and a vector of observations in this lecture.
+- Assume a scalar $\theta$ and a vector of multiple observations in this lecture.
 
 \item<3-> \redblank{4}{Likelihood $p_X(x_1, x_2, \ldots, x_n;\theta)$}
 
 \bci
 \item $p_X(x_1, x_2, \ldots, x_n;\theta)$
 
-- The probability that \bluef{ the observed value $x$ arises when the parameter is $\theta.$}
+\smallskip
+  - The probability that \bluef{ the observed value $x$ arises when the parameter is $\theta.$}
 
-- NOT the probability that the unknown parameter is equal to $\theta.$
+%- NOT the probability that the unknown parameter is equal to $\theta.$
 
 
 
@@ -2653,12 +2655,12 @@ Romeo is late by $X \sim \set{U}[0,\theta].$
 
 \item<2-> MAP in the Bayesian inference
 \aleq{
-\hat{\theta}_{\map} &= \arg \max_{\theta} p_{\Theta | X} (\theta | x)= \arg \max_{\theta} \frac{p_{X| \Theta}(x|\theta) p_\Theta(\theta)}{\px} = \frac{1}{\px}\arg \max_{\theta} p_{X| \Theta}(x|\theta) p_\Theta(\theta)
+\hat{\theta}_{\map} &= \arg \max_{\theta} p_{\Theta | X} (\theta | x)= \arg \max_{\theta} \frac{p_{X| \Theta}(x|\theta) p_\Theta(\theta)}{\px} = \frac{1}{\px}\arg \max_{\theta} \orangef{p_{X| \Theta}(x|\theta)} \redf{p_\Theta(\theta)}
 }
 
 \item<3-> ML in the classical inference
 \aleq{
-\hat{\theta}_{\ml} = \arg \max_{\theta} p_X(x;\theta)
+\hat{\theta}_{\ml} = \arg \max_{\theta} \orangef{p_X(x;\theta)}
 }
 
 \item<4-> $p_{X| \Theta}(x|\theta)$ in the Bayesian setting corresponds to $p_X(x;\theta)$ in the classical setting.
@@ -2672,6 +2674,8 @@ Romeo is late by $X \sim \set{U}[0,\theta].$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Example: Romeo and Juliet}
+
+\hfill \lecturemark{Slides 17, 35, 45, and 56 for more details}
 
 \plitemsep 0.1in
 \bci
