@@ -63,11 +63,43 @@
 
 \item Definition, Transition Probability Matrix, State Transition Diagram
 
-\item $n$-step Transition Probability and Classification of States
+\item $n$-step Transition Probability
+
+\item Classification of States
 
 \item Steady-state Behaviors and Stationary Distribution
 
 \item Transient Behaviors
+
+
+
+\ece 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L8(1)}
+\begin{frame}{Roadmap}
+
+{\Large Markov Chain}
+
+
+  \plitemsep 0.1in
+
+\bce[(1)]
+
+
+%\item \redf{Markov Chain}
+
+\item \redf{Definition, Transition Probability Matrix, State Transition Diagram}
+
+\item \grayf{$n$-step Transition Probability
+
+\item Classification of States
+
+\item Steady-state Behaviors and Stationary Distribution
+
+\item Transient Behaviors}
 
 
 
@@ -90,21 +122,21 @@
 \bci
 \item<3-> Process without memory
 \aleq{
-\cprob{X_{n} = i_{n} \mid X_{n-1} = i_{n-1},X_{n-2} = i_{n-2},X_{n-3} = i_{n-3}, \ldots, X_1 = i_1 } = \cprob{X_{n} = i_{n}}
+\cprob{X_{n} = i_{n} \mid X_{n-1} = i_{n-1},X_{n-2} = i_{n-2},X_{n-3} = i_{n-3}, \ldots, X_1 = i_1 } = \magenf{\cprob{X_{n} = i_{n}}}
 }
 \item<4-> \redf{Bernoulli process}
 \eci
 
-\item<5-> A random process that is a little more complex than the above?
+\item<5-> A random process that is \orangef{just a little more} general  than the above?
 \bci
 \item<6-> Process that depends only on ``yesterday", not the entire history
 \aleq{
-\cprob{X_{n} = i_{n} \mid X_{n-1} = i_{n-1},X_{n-2} = i_{n-2},X_{n-3} = i_{n-3}, \ldots, X_1 = i_1 } = \cprob{X_{n} = i_{n} \mid X_{n-1} = i_{n-1} }
+\cprob{X_{n} = i_{n} \mid X_{n-1} = i_{n-1},X_{n-2} = i_{n-2},X_{n-3} = i_{n-3}, \ldots, X_1 = i_1 } = \magenf{\cprob{X_{n} = i_{n} \mid X_{n-1} = i_{n-1} }}
 }
 
 \item<7-> \redf{Markov chain}
 
-\item<7-> One of the most popular random processes in engineering
+\item<7-> One of the most popular random processes in engineering!
 \eci
 
 \eci 
@@ -127,7 +159,7 @@
 \item<3-> $(X_n)_{n=1}^\infty$: A random process satisfying: for any $n \ge 1,$
 \aleq{
 \cprob{X_{n+1} = 1 | X_{n} = 1} = 1-b, \quad \cprob{X_{n+1} = 2 | X_{n} = 1} = b \cr
-\cprob{X_{n+1} = 1 | X_{n} = 2} = r, \quad \cprob{X_{n+1} = 2 | X_{n} = 2} = 1-r 
+\cprob{X_{n+1} = 1 | X_{n} = 2} = r,  \quad \cprob{X_{n+1}  = 2 | X_{n} = 2} = 1-r 
 }
 
 \item<4-> What will happen at $(n+1)$-th day depends only on what happens at $n$-th day? 
@@ -138,24 +170,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Markov Chain: Definition (1)}
 
-\plitemsep 0.1in
+\footnotetext{A Markov chain can be also defined for the infinte
+  $\set{S}=\{1, 2, \ldots \},$ but we just focus on the finite state
+  space in this lecture.}
+
+
+  \plitemsep 0.1in
 
 \bci 
 \item<2-> \defi Let $X_1, \ldots, X_n, \ldots$ be a sequence of random
   variables taking values in some finite space
   $\set{S}=\{1, 2, \ldots, m\}$, such that   for all $i,j \in
-  \set{S},$ $n\geq 0,$ the following \blueblank{4}{Markov property} is
+  \set{S},$ $n\geq 0,$ the following \blueblank{3}{Markov property} is
   satisfied:\\
   for all $n \geq 0,$ all $i,j \in \set{S},$ and all possible
   sequences $i_0, \ldots, i_{n-1}$ of earlier states, 
 \mycolorbox{
 \centering
-  \redblank{4}{$\cprob{X_{n+1} = j \vert X_{n} = i}$}  =
+  \redblank{3}{$\cprob{X_{n+1} = j \vert X_{n} = i}$}  =
   $\cprob{X_{n+1} = j
       \vert X_n = i, X_{n-1}=i_{n-1}, \ldots, X_0=i_0}$
 }
 
-\item<5->  \magenf{Alternate definition via conditional independence.}
+\item<4->  \magenf{Alternate definition via conditional independence.}
   For any fixed $n,$ the future of the process after $n$ is {\red independent}
   of $\{X_1, \ldots, X_{n-1} \},$ {\red given} $X_n.$
   % (i.e., depends only on $X_n$)
@@ -168,18 +205,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Markov Chain: Definition (2)}
 
+
 \plitemsep 0.1in
 
 \bci 
 
 \item<1-> The value that $X_n$ can take is called \redf{\em
-    state}. Thus, the space $\set{S}=\{1, \ldots, m \}$ is called \redf{\em state space}.
+    state} (e.g., working or broken down in the previous example). Thus, the space $\set{S}=\{1, \ldots, m \}$ is called \redf{\em state space}.
 
 \item<2-> We will focus on the MC of \redf{time homogeneity.} The probability $\cprob{X_{n+1} = j \vert X_{n} = i}$ does NOT depends on $n.$ 
 
   \bci
-  \item<3-> In the machine failure example, $\cprob{X_{n+1}=1 | X_n =1} =
-    1-b$ $\implies,$ for example, $\cprob{X_{100}=1 | X_{99} =1}
+  \item<3-> In the machine failure example, $\cprob{X_{100}=1 | X_{99} =1}
     =\cprob{X_{200}=1 | X_{199} =1} = 1-b.$
   \eci
 
@@ -191,7 +228,7 @@ $$
 \blueblank{5}{\text{$p_{ij}$}} \eqdef\cprob{X_{n+1} = j \vert X_{n} = i}
 $$
 
-\item<5-> Any convenient way of describing a MC for intuitive understanding?
+\item<5-> \redf{(Q)} Any convenient way of describing a MC for intuitive understanding?
 
 \eci 
 \end{frame}
@@ -209,12 +246,22 @@ $$
 
 \item<2-> Machine example: $\set{S} = \{1,2 \}$
 \aleq{
-p_{11} &= \cprob{X_{n+1} = 1 | X_{n} = 1} = 1-b,  & p_{12} = \cprob{X_{n+1} = 2 | X_{n} = 1} = b \cr
-p_{21} &= \cprob{X_{n+1} = 1 | X_{n} = 2} = r,  & p_{22} = \cprob{X_{n+1} = 2 | X_{n} = 2} = 1-r 
+\orangef{p_{11}} &= \cprob{X_{n+1} = 1 | X_{n} = 1} = 1-b,  & \orangef{p_{12}} = \cprob{X_{n+1} = 2 | X_{n} = 1} = b \cr
+\orangef{p_{21}} &= \cprob{X_{n+1} = 1 | X_{n} = 2} = r,  & \orangef{p_{22}} = \cprob{X_{n+1} = 2 | X_{n} = 2} = 1-r 
 }
 
-\bigskip
-\onslide<3->{\mypic{0.2}{L9_machine_tpm.png}}
+
+\onslide<3->{
+\large
+  $$
+\mat{P} = \begin{nmat}
+  1-b & b \cr
+  r & 1-r 
+\end{nmat}
+  $$
+}
+  % \bigskip
+% \onslide<3->{\mypic{0.2}{L9_machine_tpm.png}}
 
 % \mytwocols{0.3}
 % {
@@ -234,7 +281,7 @@ p_{21} &= \cprob{X_{n+1} = 1 | X_{n} = 2} = r,  & p_{22} = \cprob{X_{n+1} = 2 | 
 
 % \item<6-> Both are the complete descriptions of Markov chain.
 
-\item<4->   \redf{Transition Probability Matrix.}
+\item<4->   \redf{Transition Probability Matrix}
 \medskip
 
 The $m \times m$ matrix $\mat{P}=[p_{ij}],$ where $p_{ij} \eqdef \cprob{X_{n+1} = j \vert X_{n} = i}$
@@ -265,15 +312,22 @@ p_{21} &= \cprob{X_{n+1} = 1 | X_{n} = 2} = r,  & p_{22} = \cprob{X_{n+1} = 2 | 
 
 
 \item<1-> Transition probability matrix
-\mypic{0.2}{L9_machine_tpm.png}
-  
-\item<2-> \redf{State Transition Diagram}
+$$
+  \mat{P} = \begin{nmat}
+  1-b & b \cr
+  r & 1-r 
+\end{nmat}
+$$
 
-\mypic{0.35}{L9_machine_std.png}
+  % \mypic{0.2}{L9_machine_tpm.png}
+  
+\item<2-> Any other way? \onslide<3->{\redf{State Transition Diagram}
+
+\mypic{0.35}{L9_machine_std.png}}
 
   
-\item<3-> Transition probability matrix and state transition diagram
-  are the complete descriptions of a given Markov chain.
+\item<4-> \magenf{Transition probability matrix} and \magenf{state transition diagram}
+  are the two ways of completely  describing a given Markov chain.
 
 \eci 
 \end{frame}
@@ -283,7 +337,7 @@ p_{21} &= \cprob{X_{n+1} = 1 | X_{n} = 2} = r,  & p_{22} = \cprob{X_{n+1} = 2 | 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Spider-Fly example}
+\begin{frame}{Spider-Fly Example (Example 7.2)}
 
 % \mytwocols{0.6}
 % {
@@ -293,12 +347,12 @@ p_{21} &= \cprob{X_{n+1} = 1 | X_{n} = 2} = r,  & p_{22} = \cprob{X_{n+1} = 2 | 
 \bci 
 \item A fly moves along a line in unit increments.
 
-\item<2-> At each time, it moves one unit (i) left w.p. 0.3, (ii) right w.p. 0.3 and (iii) stays in place w.p. 0.4, independent of the past history of movements. 
+\item<2-> At each time, it moves one unit (i) \orangef{left w.p. 0.3}, (ii) \bluef{right w.p. 0.3} and (iii) \redf{stays in place w.p. 0.4}, independent of the past history of movements. 
 
 \item<3-> Two spiders lurk at positions 1 and 4: if the fly lands there, it is captured by the spider, and the process terminates. Assume that the fly starts in a position between 1 and $4.$
 
 \medskip
-\item<4-> $X_n$: position of the fly. Please draw the state transition diagram and find the transition probability matrix. 
+\item<4-> $X_n$: \bluef{position of the fly}. Please draw the state transition diagram and find the transition probability matrix. 
 
 \eci 
 
@@ -308,36 +362,179 @@ p_{21} &= \cprob{X_{n+1} = 1 | X_{n} = 2} = r,  & p_{22} = \cprob{X_{n+1} = 2 | 
 }
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Markov Chain: Key Questions}
 
-Please write down the key questions (as many as possible) that should be asked about Markov
-Chain \hfill \lecturemark{Video Pause}
+\begin{frame}{Modified Spider-Fly (Prob. 3, pp 380)}
 
-  \plitemsep 0.1in
+% \mytwocols{0.6}
+% {
+\small
+\plitemsep 0.05in
 
-\bce 
-\item Any convient way of (visually) describning a MC?
-  
-\item Starting from $i,$ what is the probability of I am at the state
-  $j$ after $n$-step?
+\bci 
+\item<1-> Assume that the process starts at  any of the four positions with equal probability 1/4. 
 
-\item 
+\item<2-> Let \orangef{$Y_n = 1$} whenever the MC is at position \orangef{1 or 2}, and
+  \magenf{$Y_n=2$} whenever the MC is at position \magenf{3 or 4}. 
 
-\item
+\item<3-> Is $(Y_n: n \ge 0)$ a Markov chain?  \hfill \lecturemark{VIDEO PAUSE 1}
 
-\item
+\item<4-> The key is the Markov property. In other words, given $Y_1,$
+  $Y_2 \indep Y_0$ or not? 
 
-\item 
+\item<5-> For example, compare $\cprob{Y_2 = 2 | Y_1 = 2, \redf{Y_0 = 1}}$ and
+  $\cprob{Y_2 = 2 | Y_1 = 2, \redf{Y_0 = 2}}.$
+\item<6-> Given $Y_1 = 2$ (i.e., at time 1, I am at poisition 3 or 4),
+  the event that I am still at position 3 or 4 at time 2 depends on where I was
+  at time 0 or not? \hfill \lecturemark{VIDEO PAUSE 2}
 
-\item 
-  \ece 
+
+\item<7-> $\cprob{Y_2 = 2 | Y_1 = 2, Y_0 = 1} = \cprob{X_2 \in \{3,4 \} |
+    X_1 = 3} = 0.7$ (because $Y_0 =1$ implies that $X_1$ has to be 3). 
+
+\item<8-> $\cprob{Y_2 = 2 | Y_1 = 2, Y_0 = 2}>0.7$, because $X_1=3$ or $X_1=4.$
+
+\item<9-> \redf{$(Y_n: n \ge 0)$ is not a MC.}
+  \eci 
+
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{COVID-19 Infection Example (1)}
+
+\plitemsep 0.1in
+
+\bci 
+\item<1-> Discrete time slots. $N$ persons. 
+  Each person is in one of the three conditions:
+  \bluef{(F) infectious}: infected and infectious, \bluef{(I) purely
+    infected}: infected, but not infectious or \bluef{(N) noninfected}
+
+  \bci
+\item<2-> \magenf{Infection model.} If a person becomes infected during a time slot, then he/she
+  will be in an infectious condition (F) during the following time slot, and from then
+  on will be in an purely infected condition (I).
+
+  \mycolorbox{
+\centering
+    N $\rightarrow$ F
+  (just one slot) $\rightarrow$ I
+}
+ \eci
+
+\item<3-> \magenf{Contact model.} During every time slot, each of the $N \choose 2$ pairs of
+  persons are independently in contact w.p. $p$
+  \bci
+\item<4-> When $F$ meets with $N$, then $N$ becomes infected, following \magenf{infection model}. 
+
+  \eci
+
+  
+
+  \eci
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{COVID-19 Infection Example (2)}
+
+\plitemsep 0.1in
+
+\bce[Q1.] 
+
+\item<1->[$\bullet$] $X_n$: number of infectious (F) persons at the beginning of time slot $n.$
+
+\item<1->[$\bullet$] $Y_n$: number of noninfected (N) persons at the beginning of time slot $n.$
+
+% \item<2-> $i$ infectious persons at the beginning of a time
+%   slot. The probability $\alpha_i$ that a specified noninfected
+%   person $A$ will become infected in that period?
+
+%   \bci
+% \item<3-> $1 -$ (prob. that $A$ is not in contact with any infectious person)
+
+% \item<4-> $\alpha_i = 1- (1-p)^i$  
+%   \eci
+
+  
+\item<2-> Is $(X_n: n \ge 0)$ a MC?
+  \bci
+  \item<3-> $X_n$ only depends on $X_{n-1}$? 
+  \item<4-> $X_n$ depends on the number of noninfected persons at $n-1$
+    time slot. Thus, \redf{No.}
+    \eci
+
+  \item<2-> Is $(Y_n: n \ge 0)$ a MC?
+    \bci
+\item<3-> $Y_n$ only depends on $Y_{n-1}$?
+  \item<5-> $Y_n$ depends on the number of infections persons at $n-1$
+    time slot. Thus, \redf{No.}
+  \eci
+
+    
+  \ece
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{COVID-19 Infection Example (3)}
+
+\plitemsep 0.1in
+
+\bci
+\item[Q3.] Is $\Big((X_n,Y_n): n \ge 0 \Big)$ a MC?
+  \bci
+  \item $(X_n,Y_n)$ only depends on $(X_{n-1},Y_{n-1})$?
+  \item<2-> \redf{Yes.}
+    \eci
+
+  \item<3-> \redf{Messages}
+
+\bci
+\item<3->  Being successful in good modeling depends on
+  the choice of ``state'' (good modeling sense). 
+\item<4-> Markov chain can be used widely if we choose the state space
+  appropriately. 
+
+  \eci
+  \eci
+\end{frame}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Markov Chain: Key Questions}
+
+% Please write down the key questions (as many as possible) that should be asked about Markov
+% Chain \hfill \lecturemark{Video Pause}
+
+%   \plitemsep 0.1in
+
+% \bce 
+% \item  Any convient way of (visually) describing a MC?
+  
+% \item Starting from $i,$ what is the probability of I am at the state
+%   $j$ after $n$-step?
+
+% \item 
+
+% \item
+
+% \item
+
+% \item 
+
+% \item 
+%   \ece 
+% \end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L8(2)}
 \begin{frame}{Roadmap}
 
 {\Large Markov Chain}
@@ -350,13 +547,15 @@ Chain \hfill \lecturemark{Video Pause}
 
 %\item \redf{Markov Chain}
 
-\item Definition, Transition Probability Matrix, State Transition Diagram
+\item \grayf{Definition, Transition Probability Matrix, State Transition Diagram}
 
-\item $n$-step Transition Probability and Classification of States
+\item \redf{$n$-step Transition Probability}
+
+\item \grayf{Classification of States
 
 \item Steady-state Behaviors and Stationary Distribution
 
-\item Transient Behaviors
+\item Transient Behaviors}
 
 
 
@@ -370,8 +569,10 @@ Chain \hfill \lecturemark{Video Pause}
 
 \begin{frame}{Probability of a Sample Path}
 
-\redf{(Q)} What is the probability of a sample path in a Markov chain?
+\redf{(Q)} What is the probability of a sample path in a Markov chain
+with the transition probability matrix $\mat{P}=[p_{ij}]$?
 
+\vspace{-0.4cm}
 \small
 \aleq{
 \onslide<2->{&\cbprob{ X_0 = i_0, X_{1} = i_{1}, X_{2} = i_{2},\ldots, X_{n} = i_{n}}} \cr
@@ -381,74 +582,197 @@ Chain \hfill \lecturemark{Video Pause}
 
 % \mytwocols{0.6}
 % {
-\plitemsep 0.05in
+% \plitemsep 0.05in
 
-\bci 
-\item<5-> Spider-Fly example
-\aleq{
-\onslide<5->{\cprob{X_0 = 2, X_1=2, X_2=2, X_3 = 3,  X_4=4}} \onslide<6->{= \cprob{X_0=2} p_{22} p_{22} p_{23} p_{34} = \cprob{X_0=2} (0.4)^2 (0.3)^2}
+% \bci 
+% \item<5->
+
+\onslide<5->{$\bullet$  Spider-Fly example}
+
+  \mytwocols{0.3}
+  {
+\small
+    \aleq{
+\onslide<6->{&\cprob{X_0 = 2, X_1=2, X_2=2, X_3 = 3,  X_4=4}\cr} \onslide<7->{&= \cprob{X_0=2} p_{22} p_{22} p_{23} p_{34}\cr &= \cprob{X_0=2} (0.4)^2 (0.3)^2}
 }
-\eci 
+  }
+  {
+\vspace{-0.5cm}
+\onslide<5->{    \mypic{0.8}{L9_spider_transition.png}}
+  }
+
+% \eci 
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Probability after $n$ Steps}
 
-\redf{(Q)} What is the probability that my state is $i$, starting from $i$ after $n$ steps?
+\redf{(Q)} What is the probability that my state is $j$, after $n$ steps, starting from $i$?
 
-\plitemsep 0.05in
+\plitemsep 0.1in
 
 \bci 
-\item<2-> $n$-step transition probability 
-$$
-r_{ij}(n) \eqdef \cprob{X_n = j \mid X_0 =i}
-$$
-\item<3-> Recursive formula, starting with $r_{ij}(1) = p_{ij}$
+\item<2-> $n$-step transition probability: $
+\redf{r_{ij}(n)} \eqdef \cprob{X_n = j \mid X_0 =i}
+$
+\item<3-> Recursive formula, starting with \magenf{$r_{ij}(1) = p_{ij}$},
 
-\myvartwocols{0.4}{0.6}{0.38}
+\myvartwocols{0.35}{0.6}{0.38}
 {
 \small
 \aleq{
-\onslide<3->{&r_{ij}(n) = \cprob{X_n = j \mid X_0 =i} =} \cr
-\onslide<4->{&\sum_{k=1}^m \cprob{X_{n-1}=k | X_0=i} \cprob{X_n = j | X_{n-1}=k, X_0=i}} \cr
-\onslide<5->{&= \sum_{k=1}^m r_{ik}(n-1) p_{kj}}
+\onslide<3->{&\magenf{r_{ij}(n)} = \cprob{X_n = j \mid X_0 =i} =} \cr
+\onslide<4->{&\sum_{k=1}^m \cprob{\bluef{X_{n-1}=k} | X_0=i} \cprob{X_n = j | \bluef{X_{n-1}=k}, X_0=i}} \cr
+\onslide<5->{&= \magenf{\sum_{k=1}^m r_{ik}(n-1) p_{kj}}}
 }
 }
 {
-\centering
-\mypic{0.9}{L9_nstep.png}
+\vspace{-0.5cm}
+  \mypic{0.9}{L9_nstep.png}
 }
 
+
+\item<6-> Possible to compute $r_{ij}(n)$ recursively. This is called \bluef{Chapman-Kolmogorov equation}.
 \eci 
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{More Generalized Chapman-Kolmogorov Equation}
+
+
+\plitemsep 0.1in
+
+\bci 
+
+\item \onslide<6->{\redf{$r_{ij}(n+l) = \sum_{k=1}^m r_{ik}(n) r_{kj}(l)$}}
+\aleq{
+  \onslide<2->{\magenf{r_{ij}(n+l)} &= \cprob{X_{n+l} = j \mid X_0=i}=}
+  \onslide<3->{\sum_{k=1}^m \cprob{X_{n+l} = j,
+    X_n = k \mid X_0 =i}}\cr
+\onslide<4->{& = \sum_{k=0}^m \cprob{X_{n+l} = j \mid    X_n = k, X_0 =i}\cprob{X_n
+  = k \mid X_0=i}
+=} \onslide<5->{\magenf{\sum_{k=1}^m r_{ik}(n) r_{kj}(l)}}
+}
+
+\item<7-> Let $\mat{P}^{(n)}$ be the matrix of $n$-step transition
+  probability, i.e., $\mat{P}^{(n)} = [r_{ij}(n)]$
+
+\item<8->  Then, $\mat{P}^{(2)}= \mat{P} \times \mat{P} = \mat{P}^2.$
+  Further, by induction, \redf{$\mat{P}^{(n)} \eqdef \mat{P}^n$}
+
+\item<9-> In other words, $n$-step transition probability matrix is just a
+  $n$-time multiplication of the transition probability matrix $P.$
+  \eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Urn with Two Balls}
+
+
+  \mytwocols{0.7}
+  {
+\small
+    \plitemsep 0.07in
+\bci 
+\item<1-> An urn always contains 2 balls. Ball colors are \redf{red} and \bluef{blue}.
+  
+\item<2-> At each stage, a ball is randomly chosen, and then replaced by a
+  new ball, which with probability 0.8 is the same color, and with
+  probability 0.2 is the opposite color, as the ball it replaces.
+
+\item<3-> If initially both balls are red, find the probability that the \magenf{fifth ball} selected is red.
+
+\item<4-> \greenf{Solution.} Let $X_n$ be the number of red balls after
+  $n$-th stage (selection and replacement).  Then, $\set{S} =  \{
+  0,1,2 \}.$ 
+
+  \eci
+  }
+  {
+\small
+    \plitemsep 0.07in
+\bci 
+
+\item<5-> $\mat{P} =
+  \begin{nmat}
+    0.8 & 0.2 & 0 \cr
+    0.1 & 0.8 & 0.1 \cr
+    0 & 0.2 & 0.8
+  \end{nmat}$
+
+\item<6-> Let $A = \{\text{fifth ball is red} \}.$
+  \aleq
+  {
+    \cprob{A}& = \sum_{i=0}^2 \cprob{A | X_4=i} \cprob{X_4 = i | X_0 = 2}\cr
+& = (0)r_{2,0}(4) + (0.5) r_{2,1}(4)+ (1) r_{2,2}(4)
+}
+
+\item<7-> By computing $\mat{P}^4$, we get $r_{2,1}(4) = 0.4352$ and
+  $r_{2,2}(4) = 0.4872$
+\item<8-> Thus, $\cprob{A} = 0.7048$
+  \eci
+  }
+\end{frame}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Classification of States}
+% \begin{frame}{Example}
 
-% \begin{center}
-% \mypic{0.5}{L9_spider_fly.png}
-% \end{center}
-% \vspace{-0.8cm}
-% \plitemsep 0.05in
-% \bci
-% \item See the difference between the states `1' and `2'?
+% \plitemsep 0.1in
 
-% \item State `1' and `4': 
+% \bci 
+% \item A MC with the TPM
+%   $\begin{nmat}
+%     0.8 & 0.2 \cr
+%     0.6 & 0.4
+%   \end{nmat}$
+% \eci 
 
-% \item State `1': 
-% \eci
-
-
+% \vspace{-0.5cm}
+% \mypic{0.5}{L9_inftysteps1.png}  
 
 % \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L8(3)}
+\begin{frame}{Roadmap}
+
+{\Large Markov Chain}
+
+
+  \plitemsep 0.1in
+
+\bce[(1)]
+
+
+%\item \redf{Markov Chain}
+
+\item \grayf{Definition, Transition Probability Matrix, State Transition Diagram}
+
+\item \grayf{$n$-step Transition Probability}
+
+\item \redf{Classification of States}
+
+\item \grayf{Steady-state Behaviors and Stationary Distribution
+
+\item Transient Behaviors}
+
+
+
+\ece 
+
+\end{frame}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Examples: Different States and Classes}
+
+
+\begin{frame}{Different States and Classes?}
 
 \myvartwocols{0.3}{0.6}{0.38}
 {
@@ -461,7 +785,7 @@ $$
 \item<3-> 1 and 2 can reach each other but no other state
 \item<4-> 4, 5, and 6 all reach each other.
 \item<5-> Divide into three classes: $\{ 3\}, \{1,2 \}, \{4,5,6 \}$
-\item<6-> \redf{Insight 1.} \bluef{Multiple classes may exist.}
+\item<6-> \redf{Message 1.} \bluef{Multiple classes may exist.}
 \eci
 \eci
 }
@@ -479,11 +803,11 @@ $$
 \bci
 \item<8-> 1: If I start from 1, visit 1 infinite times.
 \item<9-> 3: If I start from 3, visit 3 only finite times (move to other classes and don't return). 
-\item<10-> \redf{Insight 2.} \bluef{Some states are visited infinite times, but some states are not.}
+\item<10-> \redf{Message 2.} \bluef{Some states are visited infinite times, but some states are not.}
 \eci
 
 \item<11-> State 2 will share the above properties with 1 (similarly, 4,5, and 6)
-\item<12-> \redf{Insigt 3.} \bluef{States in the same class share some properties.}
+\item<12-> \redf{Message 3.} \bluef{States in the same class share some properties.}
 \eci
 \end{frame}
 
@@ -499,7 +823,9 @@ $$
 \bci
 \item<3-> 6 is accessible from 3, but not the other way around.  
 \eci
-\item<4-> \defi If $i$ is accessible from $j$ and $j$ is accessible from $i,$ we say that $i$ communicates with $j.$
+\item<4-> \defi If $i$ is accessible from $j$ and $j$ is accessible
+  from $i,$ we say that $i$ \bluef{communicates} with $j,$ denoted by
+  $i \leftrightarrow j.$
 %  denoted by $i \leftrightarrow j.$
 \bci
 \item<5-> $1 \leftrightarrow 2$, but $3$ does not communicate with $5.$
@@ -517,7 +843,7 @@ $$
 \plitemsep 0.05in
 \bci
  \item<6-> \defi Let $A(i) = \{\text{states accessible from $i$} \}.$ State $i$ is \bluef{recurrent}, if 
- $\forall j \in A(i),$ $i$ is also accessible from $j.$  In other words, ``I communicate with all of my neighbors!"
+ $\forall j \in A(i),$ $i$ is also accessible from $j.$  In other words, ``I communicate with all of my friends!"
 \bci
   \item<7-> A state that is not recurrent is \bluef{transient.}  
   \item<8-> 2 is recurrent? Yes. 3 is recurrent? No. 
@@ -543,7 +869,7 @@ $$
 \item<2-> Markov chain decomposition
 \bci
 \plitemsep 0.05in
-\item<2-> A MC can be decomposed into one or more recurrent classes, plus possibly some transient states.
+\item<2-> A MC can be decomposed into \orangef{one or more recurrent classes}, plus possibly \orangef{some transient states}.
 \item<3-> A recurrent state is accessible from all states in its class, but it not accessible from recurrent states in other classes.
 \item<4-> A transient state is not accessible from any recurrent state.
 \item<5-> At least one, possibly more, recurrent states are accessible from a given transient state. 
@@ -564,50 +890,110 @@ $$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Periodicity}
-
-\plitemsep 0.1in
-\bci
-
-\item<2-> The states in a recurrent class are periodic if they can be grouped into $d>1$ groups so that all transitions from one group lead to the next group.
-
-\item<3-> A recurrent class that is not periodic is said to be aperiodic. 
-\eci
-
-\begin{center}
-\mypic{0.3}{L9_periodic.png}
-\end{center}
+  
+  \centering
+  \includegraphics[width=0.25\columnwidth]{L9_periodic_1.png}
+  \hspace{1cm}
+  \includegraphics[width=0.2\columnwidth]{L9_periodic_2.png}
+  \hspace{1cm}
+  \includegraphics[width=0.28\columnwidth]{L9_periodic_3.png}
 
 
+  \plitemsep 0.1in
+  \bci
+  
+\item<2-> \defi A recurrent class  is said to be \redf{periodic}, if
+  its states can be grouped in $d >1$ disjoint subsets $S_1, \ldots,
+  S_d$ so that all transitions from $S_k$ lead to $S_{k+1}$ (or to
+  $S_1$ if $k=d$). We call $d$ the \redf{period} of the recurrent class. 
+  
+  % \mypic{0.3}{L9_periodic_1.png}
+  % \mypic{0.3}{L9_periodic_2.png}
+  % \mypic{0.3}{L9_periodic_3.png}
+  
+  
+\item<3-> A recurrent class that is not periodic (i.e., period $d=1$) is said to be
+  \redf{aperiodic}.
+  
+
+\item<4-> For any state $i$ in the $d$-period recurrent class,
+  \redf{$r_{ii}(n)=0$}, whenever $n$ is not divisible by $d$, where $d$ is the greatest
+  integer with this property. 
+
+
+  
+  %\item<3-> A recurrent class that is not periodic is said to be
+  %   \redf{aperiodic}.
+  %   \bci
+  % \item The class is aperiodic if and only if there exists a time $n$
+  %   such that $r_{ij}(n) > 0,$ for all $i,j.$
+  %   \eci
+  
+  \eci
+  
 \end{frame}
 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Periodicity (2)}
+
+
+% \centering
+% \includegraphics[width=0.2\columnwidth]{L9_periodic_1.png}
+% \hspace{1cm}
+% \includegraphics[width=0.15\columnwidth]{L9_periodic_2.png}
+% \hspace{1cm}
+% \includegraphics[width=0.23\columnwidth]{L9_periodic_3.png}
+
+
+% \plitemsep 0.1in
+% \bci
+
+% \item For any state $i$ in the $d$-period recurrent class,
+%   $r_{ii}(n)=0,$
+%   whenever $n$ is not divisible by $d$, where $d$ is the greatest
+%   integer with this property. 
+
+
+% \item Given a periodic recurrent class, a time $n,$ and a
+%   state $i$ in the class, there must exist one ore more states $j$ for
+%   which $r_{ij}(n) =0.$
+  
+% \item The class is aperiodic if and only if there exists a time $n$
+%   such that $r_{ij}(n) > 0,$ for all $i,j.$
+  
+%   \eci
+  
+% \end{frame}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L8(4)}
 \begin{frame}{Roadmap}
 
-\plitemsep 0.1in
-
-\bci 
-
-% \item A lot of applications in engineering systems
+{\Large Markov Chain}
 
 
-% \bigskip
+  \plitemsep 0.1in
 
-{\scriptsize
-\item \bluef{Basics on Random Process}
-\item \bluef{Bernoulli Process}
-\item \bluef{Poisson Process}
-\item \bluef{Use of Bernoulli and Poisson Processes}
-}
+\bce[(1)]
 
 
-\item \redf{Markov Chain}
-\bci
-\item \bluef{Definition, Transition Probability Matrix, State Transition Diagram}
-\item \bluef{Classification of States}
+%\item \redf{Markov Chain}
+
+\item \grayf{Definition, Transition Probability Matrix, State Transition Diagram}
+
+\item \grayf{$n$-step Transition Probability}
+
+\item \grayf{Classification of States}
+
 \item \redf{Steady-state Behaviors and Stationary Distribution}
-\item Transient Behaviors
-\eci
-\eci 
+
+\item \grayf{Transient Behaviors}
+
+
+
+\ece 
 
 \end{frame}
 
@@ -618,22 +1004,22 @@ $$
 \mytwocols{0.6}
 {
 \bci
-\item<2-> \small Convergence irrespective of the starting state
+\item<2-> \small Convergence \redf{irrespective of} the start state
 \eci
 
 
-\medskip
-\centering
+%\medskip
+\vspace{-0.3cm}
 \mypic{0.95}{L9_inftysteps1.png}
 }
 {
 \bci
-\item<3-> \small Convergence depending on the starting state
+\item<3-> \small Convergence \redf{depending on} the start state
 \eci
 
 
-\medskip
-\centering
+%\medskip
+\vspace{-0.3cm}
 \mypic{0.95}{L9_inftysteps2.png}
 }
 
@@ -641,8 +1027,9 @@ $$
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Steady-state behavior}
+\begin{frame}{Steady-state behavior: Why Impotant?}
 
 \mytwocols{0.7}
 {
@@ -651,15 +1038,48 @@ $$
 \bci
 \item $r_{ij}(n) \xrightarrow{n \rightarrow \infty} \pi_j$, for some $\pi_j \le 1$?
 
-\item<2-> Convergence occurs, independent of the starting state, if:
+\item<2-> \redf{Interpretation.}
+\mycolorbox{
+\centering
+  $\pi_j \approx \cprob{X_n = j}$ for large $n$
+}
+
+\item<3-> After running the MC for a long time, we see
+  how long the MC will stay at which state on average. 
+
+\item<4-> Helps in understanding how this MC behaves. 
+
+  \eci
+
+}
+{
+\centering
+\mypic{0.8}{L9_class_ex.png}
+\mypic{0.7}{L9_periodic_ex.png}
+}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Steady-state behavior: Convergence Condition}
+
+\mytwocols{0.7}
+{
+\plitemsep 0.1in
+
+\bci
+\item $r_{ij}(n) \xrightarrow{n \rightarrow \infty} \pi_j$, for some $\pi_j \le 1$?
+
+\item Convergence occurs, independent of the starting state, if:
 \bce[\bf C1.]
-\item<3-> Only a single recurrent class
-\item<5-> such recurrent class is aperiodic
+\item<2-> Only a \redf{single recurrent class}
+\item<4-> such recurrent class is \redf{aperiodic}
 \ece
 
-\item<4->[\bf C1.] For the case of multiple recurrent classes, one stays at the class including the starting state. 
+\item<3->[\small\bf C1.] {\small For the case of multiple recurrent classes, one stays at the class including the starting state.} 
 
-\item<6->[\bf C2.] Divergent behavior for periodic recurrent classes. 
+\item<5->[\small \bf C2.] {\small Divergent behavior for periodic recurrent classes. }
 
 \eci
 
@@ -672,81 +1092,36 @@ $$
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Balance Equation}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Steady-state Convergence Theorem}
+
+  \redf{(Q)} How to easily compute $(\pi_1, \pi_2, \ldots, \pi_m)$
+  rather than taking the limit?
+  
 \plitemsep 0.1in
 \bci
-\item If $r_{ij}(n) \xrightarrow{n \rightarrow \infty} \pi_j$, for some $\pi_j \le 1,$
+\item<2-> If $r_{ij}(n) \xrightarrow{n \rightarrow \infty} \pi_j$, for
+  some $\pi_j \le 1,$ from Chapman-Kolmogorov equation, 
 \aleq{
-r_{ij}(n) &= \sum_{k=1}^m r_{ik}(n-1) p_{kj} \imp \onslide<2->{\redf{\pi_j = \sum_{k=1}^m \pi_k p_{kj}}} \ \onslide<3->{\text{\bluef{(Balance equation)}}}
+\onslide<2->{r_{ij}(n) &= \sum_{k=1}^m r_{ik}(n-1) p_{kj} \imp} \onslide<3->{\redf{\pi_j = \sum_{k=1}^m \pi_k p_{kj}}} \qquad \onslide<4->{\text{\bluef{(Balance equation)}}}
 }
 
-\item<4-> \bluef{Normalization equation}
-$$
-\redf{\sum_{i=1}^m \pi_i = 1}
-$$
+\item<5-> $
+\displaystyle \redf{\sum_{i=1}^m \pi_i = 1}
+$: \bluef{(Normalization equation)}
 
-\item<5-> Balance equation + Normalization equation $\imp$ Finding the steady-state probabilities $\{\pi_i \}.$
-
+\item<6-> Balance eqn. + Normalization eqn. $\imp$  Finding the steady-state probabilities $\{\pi_i \}.$
+  \bci
+  \item Solving linear equations
+%  \item If we let $\mat{\pi} = (\pi_1, \ldots, \pi_m).$ Solve $\mat{\pi} = \mat{\pi}\mat{P}.$
+    \eci
+  
 \eci
 
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example}
-
-\plitemsep 0.1in
-\bci
-
-\item A two-state MC with: 
-\aleq{
-p_{11} = 0.8, & \quad p_{12} = 0.2,\cr
-p_{21} = 0.6, & \quad p_{22} = 0.4.
-}
-
-\item Balance equation: 
-\aleq{
-\pi_1 &= \pi_1 p_{11} + \pi_2 p_{21} \cr
-\pi_2 &= \pi_2 p_{22} + \pi_1 p_{12} 
-}
-\item Normalization equation: $\pi_1 + \pi_2 = 1$
-
-\item The stationary distribution is: $\pi_1 = 0.25$, $\pi_2 = 0.75.$
-
-\eci
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Stationary Distribution}
-
-\plitemsep 0.1in
-\bci
-
-\item<2-> $\{ \pi_j \}$ is also called a \redf{stationary distribution}. Why?
-
-\item<3-> \redf{Distribution}, because $\sum_{j=1}^m \pi_j =1.$
-
-\item<4-> \redf{Stationary}, because, if you choose the starting state according to $\{\pi_j \},$ then 
-\aleq{
-\cprob{X_0 = j} = \pi_j, \quad j=1, \ldots, m \imp \onslide<5->{\cprob{X_1 = j} = \sum_{k=1}^m \cprob{X_0=k} p_{kj} =} \onslide<6->{\sum_{k=1}^m \pi_k p_{kj} = \pi_j}
-}
-
-\bci
-\item<7-> Then, $\cprob{X_n = j} = \pi_j$, for all $n$ and $j.$
-
-\item<8-> If the initial state is chosen according to $\{\pi_j \},$ the state at any future time will have the same distribution (i.e., the distribution does not change over time). 
-
-\eci
-
-\item<9-> We say that "the limiting distribution is equal to to the stationary distribution"
-
-\eci
-
-
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Long-term Frequency Interpretation}
@@ -763,40 +1138,152 @@ p_{21} = 0.6, & \quad p_{22} = 0.4.
 \eci
 \eci
 
-\centering
+\vspace{-0.5cm}
 \mypic{0.3}{L9_longtermfrequency.png}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Roadmap}
+\begin{frame}{Example 1}
 
 \plitemsep 0.1in
+\bci
 
-\bci 
+\item A two-state MC with:
+  $
+  \begin{nmat}
+    0.8 & 0.2 \cr
+    0.6 & 0.4 
+  \end{nmat}
+  $
 
-% \item A lot of applications in engineering systems
+\item (Balance equation) 
+\aleq{
+  \pi_1 &= \onslide<2->{\pi_1 p_{11} + \pi_2 p_{21} = 0.8\pi_1 + 0.6\pi_2,} \cr
+  \pi_2 &= \onslide<3->{\pi_2 p_{22} + \pi_1 p_{12} = 0.4 \pi_2 + 0.2 \pi_1} 
+}
+\item (Normalization equation) \onslide<4->{$\pi_1 + \pi_2 = 1$}
+
+\item Steady-state probabilities: \onslide<5->{$\pi_1 = 0.25$, $\pi_2 = 0.75.$}
+
+\eci
+\end{frame}
 
 
-% \bigskip
 
-{\scriptsize
-\item \bluef{Basics on Random Process}
-\item \bluef{Bernoulli Process}
-\item \bluef{Poisson Process}
-\item \bluef{Use of Bernoulli and Poisson Processes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example 2}
+
+  \mytwocols{0.75}
+  {
+    \small
+    \plitemsep 0.1in
+    \bci
+    
+  \item An absent-minded professor: two umbrellas from home to office
+    and back.
+
+  \item<2-> If it rains and an umbrella is available, she takes it. If it
+    is not raining, she always forgets to take an umbrella. 
+    
+\item<3-> Suppose that it rains w.p. $0< p< 1$ each time when she commutes,
+  independent of other times.  
+
+\item<4-> \redf{(Q)} What is the steady-state probability that she gets
+  wet during a commute?
+
+\item<5-> \bluef{(Hint)} If you think that this can be modeled by a MC,
+  think about what should be chosen as states. What is changing over
+  time?   \hfill   \lecturemark{VIDEO PAUSE}
+  \eci
+}
+{
+  \small
+  \plitemsep 0.03in
+  \bci
+\item<6-> state $i \in \{0,1,2\}$: $i$ umbrellas available in her location.
+\item<7-> Transition diagram
+\onslide<8->{\mypic{0.8}{L9_umbrella.png}}
+\item<9-> Single recurrent class and aperiodic  
+\item<10-> Balance and normalization equation
+\vspace{-0.2cm}
+  \aleq
+  {
+    \pi_0 &= \onslide<11->{(1-p)\pi_2}, \quad \pi_1 = \onslide<11->{(1-p)\pi_1 + p \pi_2} \cr
+    \pi_2 &= \onslide<11->{\pi_0 + p\pi_1}, \quad \pi_0 + \pi_1 + \pi_2 = 1
+  }
+\item<12-> $\pi_0 = \frac{1-p}{3-p}$, $\pi_1 = \frac{1}{3-p},$
+  $\pi_2 = \frac{1}{3-p}.$ 
+\item <13-> The answer is $p \times \pi_0.$
+  \eci    
+}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Stationary Distribution}
+
+\footnotetext{stationary: not moving or not intended to be moved.}
+\plitemsep 0.1in
+\bci
+
+\item<2-> $\{ \pi_j \}$ is also called a \redf{stationary distribution}. Why?
+
+\item<3-> \redf{Distribution}, because $\sum_{j=1}^m \pi_j =1.$
+
+\item<4-> \redf{Stationary}, because, if you choose the initial state
+  according to $\{\pi_j \},$ then for any $j \in \{1, \ldots, m \}$ 
+\aleq{
+\cprob{X_0 = j} = \pi_j \xrightarrow{\text{total prob. theorem}}
+\onslide<5->{\orangef{\cprob{X_1 = j}} = \sum_{k=1}^m \cprob{X_0=k}
+  p_{kj} =} \onslide<6->{\sum_{k=1}^m \pi_k p_{kj} 
+= \orangef{\pi_j}}
 }
 
-
-\item \redf{Markov Chain}
 \bci
-\item \bluef{Definition, Transition Probability Matrix, State Transition Diagram}
-\item \bluef{Classification of States}
-\item \bluef{Steady-state Behaviors and Stationary Distribution}
-\item \redf{Transient Behaviors}
+\item<7-> Similarly, we have $\cprob{X_n = j} = \pi_j$, for all $n$ and $j.$
+
+\item<8-> If the initial state is chosen according to $\{\pi_j \},$ the state at any future time will have the same distribution (i.e., the distribution does not change over time). 
+
 \eci
-\eci 
+
+\item<9-> We say that "the limiting distribution (steady-state
+  probabilities) is equal to to the stationary distribution"
+
+\eci
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L8(5)}
+\begin{frame}{Roadmap}
+
+{\Large Markov Chain}
+
+
+  \plitemsep 0.1in
+
+\bce[(1)]
+
+
+%\item \redf{Markov Chain}
+
+\item \grayf{Definition, Transition Probability Matrix, State Transition Diagram}
+
+\item \grayf{$n$-step Transition Probability}
+
+\item \grayf{Classification of States}
+
+\item \grayf{Steady-state Behaviors and Stationary Distribution}
+
+\item \redf{Transient Behaviors}
+
+\ece 
 
 \end{frame}
 
@@ -804,10 +1291,10 @@ p_{21} = 0.6, & \quad p_{22} = 0.4.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Absorption Probability}
 
-\mytwocols{0.6}
+\mytwocols{0.5}
 {
 \small
-\plitemsep 0.1in
+\plitemsep 0.03in
 \bci
 \item<1-> \defi A state $k$ is \redf{absorbing,} if
 $p_{kk}=1,$ and $p_{kj}=0$ for all $j\neq k.$
@@ -825,20 +1312,25 @@ a_1 &=0, \quad a_6 =1 \cr
 a_2 &= 0.2a_1 + 0.3a_2 + 0.4a_3 + 0.1 a_6 \cr
 a_3 &= 0.2 a_2 + 0.8 a_6
 }
-
-
 \eci
 }
 {
-\centering
-\onslide<4->{\mypic{0.75}{L9_absorption_ex1.png}}
-\onslide<5->{\mypic{0.8}{L9_absorption_ex2.png}}
+\vspace{-0.4cm}
+\onslide<4->{\mypic{0.65}{L9_absorption_ex1.png}}
+\vspace{-0.6cm}
+\onslide<5->{\mypic{0.7}{L9_absorption_ex2.png}}
 }
 
 \small
-\onslide<5->{\redf{(Q)} What if there are some non-absorbing recurrent state? }
+\bci
+\item<5-> \redf{(Q)} What if there are some non-absorbing recurrent state?
 
-\onslide<6->{- Convert it into the one only with absorbing recurrent states (from (a) to (b)).}
+\item<6-> Convert it into the one only with absorbing recurrent states (from (a) to (b)).
+\eci
+
+% \onslide<5->{\redf{(Q)} What if there are some non-absorbing recurrent state? }
+
+% \onslide<6->{- Convert it into the one only with absorbing recurrent states (from (a) to (b)).}
 
 \footnotetext{The notation $a_i$ should have dependence on $s,$ but we omit it for simplicity.}
 \end{frame}
@@ -899,7 +1391,6 @@ a_3 &= 0.2 a_2 + 0.8 a_6
 \eci
 }
 {
-\centering
 \vspace{-0.2cm}
 \mypic{0.8}{L9_passage_ex.png}
 % \mypic{0.8}{L9_absorption_ex2.png}
@@ -908,12 +1399,14 @@ a_3 &= 0.2 a_2 + 0.8 a_6
  \plitemsep 0.01in
  \bci
  \item<3-> Mean first passage time from 2 to 1
- \aleq{
+\vspace{-0.2cm}
+   \aleq{
  t_1 &= 0 \cr
  t_2 &= 1+ p_{21}t_1 + p_{22}t_2 = 1+ 0.4 t_2 \imp t_2 = 5/3
  }
  \item<5-> Mean first recurrence time from 1 to 1
- \aleq{
+\vspace{-0.2cm}
+   \aleq{
  t_1^\star &= 1+ p_{11}t_1 + p_{12}t_2 = 1+ 0 + 0.2\frac{5}{3} = \frac{4}{3}
  }
 
