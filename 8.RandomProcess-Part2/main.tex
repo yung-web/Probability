@@ -291,7 +291,7 @@ The $m \times m$ matrix $\mat{P}=[p_{ij}],$ where $p_{ij} \eqdef \cprob{X_{n+1} 
 \item<5-> \bluef{Property.}
 \vspace{0.3cm}
 
-$\sum_{j=}^m p_{ij} =1$ (for each row $i$, the column sum = 1)
+$\sum_{j=1}^m p_{ij} =1$ (for each row $i$, the column sum = 1)
 \eci 
 \end{frame}
 
@@ -463,14 +463,14 @@ $$
 \item<2-> Is $(X_n: n \ge 0)$ a MC?
   \bci
   \item<3-> $X_n$ only depends on $X_{n-1}$? 
-  \item<4-> $X_n$ depends on the number of noninfected persons at $n-1$
+  \item<4-> $X_n$ also depends on the number of noninfected persons at $n-1$
     time slot. Thus, \redf{No.}
     \eci
 
   \item<2-> Is $(Y_n: n \ge 0)$ a MC?
     \bci
 \item<3-> $Y_n$ only depends on $Y_{n-1}$?
-  \item<5-> $Y_n$ depends on the number of infections persons at $n-1$
+  \item<5-> $Y_n$ also depends on the number of infections persons at $n-1$
     time slot. Thus, \redf{No.}
   \eci
 
@@ -608,21 +608,24 @@ with the transition probability matrix $\mat{P}=[p_{ij}]$?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Probability after $n$ Steps}
 
-\redf{(Q)} What is the probability that my state is $j$, after $n$ steps, starting from $i$?
+\footnotetext{$\cprob{A,C | B} = \cprob{C |B }\cprob{A | C,B}$}
+  \redf{(Q)} What is the probability that my state is $j$, after $n$ steps, starting from $i$?
 
 \plitemsep 0.1in
 
 \bci 
-\item<2-> $n$-step transition probability: $
-\redf{r_{ij}(n)} \eqdef \cprob{X_n = j \mid X_0 =i}
-$
+\item<2-> $n$-step transition probability:    $\redf{r_{ij}(n)} \eqdef \cprob{X_n = j \mid X_0 =i}$
+% $  = \cprob{X_{n+l} =
+%   j \mid X_l =i},$ any $l \leq 0$
+
 \item<3-> Recursive formula, starting with \magenf{$r_{ij}(1) = p_{ij}$},
 
 \myvartwocols{0.35}{0.6}{0.38}
 {
 \small
 \aleq{
-\onslide<3->{&\magenf{r_{ij}(n)} = \cprob{X_n = j \mid X_0 =i} =} \cr
+\onslide<3->{&\magenf{r_{ij}(n)} = \cprob{X_n = j | X_0 =i}=
+  \bluef{\sum_{k=1}^m} \cprob{X_n = j, \bluef{X_{n-1}=k} | X_0 =i}} \cr
 \onslide<4->{&\sum_{k=1}^m \cprob{\bluef{X_{n-1}=k} | X_0=i} \cprob{X_n = j | \bluef{X_{n-1}=k}, X_0=i}} \cr
 \onslide<5->{&= \magenf{\sum_{k=1}^m r_{ik}(n-1) p_{kj}}}
 }
@@ -632,17 +635,17 @@ $
   \mypic{0.9}{L9_nstep.png}
 }
 
-
+\vspace{-0.4cm}
 \item<6-> Possible to compute $r_{ij}(n)$ recursively. This is called \bluef{Chapman-Kolmogorov equation}.
 \eci 
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{More Generalized Chapman-Kolmogorov Equation}
+\begin{frame}{More Generalized Chapman-Kolmogorov Equation (1)}
 
 
-\plitemsep 0.1in
+\plitemsep 0.2in
 
 \bci 
 
@@ -657,13 +660,44 @@ $
 }
 
 \item<7-> Let $\mat{P}^{(n)}$ be the matrix of $n$-step transition
-  probability, i.e., $\mat{P}^{(n)} = [r_{ij}(n)]$
+  probability, i.e., $\mat{P}^{(n)} \eqdef [r_{ij}(n)]$
 
-\item<8->  Then, $\mat{P}^{(2)}= \mat{P} \times \mat{P} = \mat{P}^2.$
-  Further, by induction, \redf{$\mat{P}^{(n)} \eqdef \mat{P}^n$}
+\item<8-> \redf{(Q)} \orangef{What is the relation between
+    $\mat{P}^{(n)}$ and $\mat{P}$? Can we express $\mat{P}^{(n)}$ with
+    $\mat{P}$?}
 
-\item<9-> In other words, $n$-step transition probability matrix is just a
-  $n$-time multiplication of the transition probability matrix $P.$
+% \item<8->  We first note that $\mat{P}^{(2)}= \mat{P} \times \mat{P} = \mat{P}^2.$
+%   Then, by induction, \redf{$\mat{P}^{(n)} \eqdef \mat{P}^n$}
+
+% \item<9-> In other words, $n$-step transition probability matrix is just a
+%   $n$-time multiplication of the transition probability matrix $P.$
+  \eci 
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{More Generalized Chapman-Kolmogorov Equation (2)}
+
+
+\plitemsep 0.1in
+
+\bci 
+
+\item $r_{ij}(n+l) = \sum_{k=1}^m r_{ik}(n) r_{kj}(l)$ and $\mat{P}^{(n)} \eqdef [r_{ij}(n)]$
+
+\item<2-> Then, by letting $n=1, l=1$, $\redf{\mat{P}^{(2)}}= \Big[\sum_{k=1}^m r_{ik}(1)
+  r_{kj}(1) \Big] = \Big[ \sum_{k=1}^m p_{ik} p_{kj} \Big]=
+  \mat{P}\times \mat{P}= \redf{\mat{P}^2}.$
+
+\item<3-> By letting $n=2, l=1,$
+  $\redf{\mat{P}^{(3)}}= \Big[\sum_{k=1}^m r_{ik}(2)
+  r_{kj}(1) \Big] = \Big[ \sum_{k=1}^m r_{ik}(2) p_{kj} \Big] =
+  \mat{P}^{(2)}\times \mat{P} = \redf{\mat{P}^3}$
+
+\item<4-> Then, by induction, \redf{$\mat{P}^{(n)} = \mat{P}^n$}
+
+\item<5-> In other words, $n$-step transition probability matrix is just a
+  \bluef{$n$-time multiplication} of the transition probability matrix $\mat{P}.$
   \eci 
 
 \end{frame}
@@ -806,7 +840,8 @@ $
 \item<10-> \redf{Message 2.} \bluef{Some states are visited infinite times, but some states are not.}
 \eci
 
-\item<11-> State 2 will share the above properties with 1 (similarly, 4,5, and 6)
+\item<11-> State 2 will share the above properties with 1 (similarly,
+  $\{ 4,5, 6\}$)
 \item<12-> \redf{Message 3.} \bluef{States in the same class share some properties.}
 \eci
 \end{frame}
@@ -819,7 +854,10 @@ $
 \small
 \plitemsep 0.05in
 \bci
-\item<2-> \defi State $j$ is \bluef{accessible} from state $i$, if for some $n$ $r_{ij}(n) >0.$
+\item<2-> \defi State $j$ is \bluef{accessible} from state $i$, if for
+  some $n$ $r_{ij}(n) >0.$ denoted by $i ---> j$
+
+  
 \bci
 \item<3-> 6 is accessible from 3, but not the other way around.  
 \eci
@@ -843,7 +881,8 @@ $
 \plitemsep 0.05in
 \bci
  \item<6-> \defi Let $A(i) = \{\text{states accessible from $i$} \}.$ State $i$ is \bluef{recurrent}, if 
- $\forall j \in A(i),$ $i$ is also accessible from $j.$  In other words, ``I communicate with all of my friends!"
+ $\forall j \in A(i),$ $i$ is also accessible from $j.$  In other
+ words, ``I communicate with all of my (direct/indirect) friends!"
 \bci
   \item<7-> A state that is not recurrent is \bluef{transient.}  
   \item<8-> 2 is recurrent? Yes. 3 is recurrent? No. 
@@ -891,15 +930,16 @@ $
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Periodicity}
   
+\vspace{-0.3cm}
   \centering
-  \includegraphics[width=0.25\columnwidth]{L9_periodic_1.png}
+  \includegraphics[width=0.2\columnwidth]{L9_periodic_1.png}
   \hspace{1cm}
-  \includegraphics[width=0.2\columnwidth]{L9_periodic_2.png}
+  \includegraphics[width=0.15\columnwidth]{L9_periodic_2.png}
   \hspace{1cm}
-  \includegraphics[width=0.28\columnwidth]{L9_periodic_3.png}
+  \includegraphics[width=0.23\columnwidth]{L9_periodic_3.png}
 
-
-  \plitemsep 0.1in
+\vspace{-0.3cm}
+  \plitemsep 0.05in
   \bci
   
 \item<2-> \defi A recurrent class  is said to be \redf{periodic}, if
@@ -920,6 +960,10 @@ $
   \redf{$r_{ii}(n)=0$}, whenever $n$ is not divisible by $d$, where $d$ is the greatest
   integer with this property. 
 
+\item<5-> Often, it is not easy to see some MC is periodic or
+  not. But, one easy way is to check whether there exists a
+  self-transition or not. \bluef{An MC with a self-transition must be
+  aperiodic.} 
 
   
   %\item<3-> A recurrent class that is not periodic is said to be
@@ -1023,7 +1067,9 @@ $
 \mypic{0.95}{L9_inftysteps2.png}
 }
 
-\onslide<4->{\redf{(Q)} Under what conditions, convergence occurs? If so, how does it depend on the starting state?}
+\onslide<4->{\redf{(Q)} Under what conditions, convergence occurs,
+  \redf{independent of} the start state? If
+  so, how does it depend on the start state and the shape of the MC?}
 
 \end{frame}
 
@@ -1053,9 +1099,14 @@ $
 
 }
 {
+\mypic{0.8}{L9_machine_std.png}
+
 \centering
-\mypic{0.8}{L9_class_ex.png}
-\mypic{0.7}{L9_periodic_ex.png}
+$\pi_{\text{working}} = \alpha$
+
+\medskip
+$\pi_{\text{broken}} = \beta$
+
 }
 
 \end{frame}
@@ -1071,7 +1122,7 @@ $
 \bci
 \item $r_{ij}(n) \xrightarrow{n \rightarrow \infty} \pi_j$, for some $\pi_j \le 1$?
 
-\item Convergence occurs, independent of the starting state, if:
+\item Convergence occurs, \redf{independent of} the starting state, if:
 \bce[\bf C1.]
 \item<2-> Only a \redf{single recurrent class}
 \item<4-> such recurrent class is \redf{aperiodic}
@@ -1085,9 +1136,19 @@ $
 
 }
 {
+\vspace{-0.4cm}
 \centering
+\onslide<3->{
 \mypic{0.8}{L9_class_ex.png}
-\mypic{0.7}{L9_periodic_ex.png}
+\vspace{-0.4cm}
+{\small (a) multiple recurrent classes}
+}
+
+\onslide<5->{
+\mypic{0.7}{L9_periodic_ex.jpg}
+\vspace{-0.4cm}
+{\small (b) single recurrent, but periodic class}
+}
 }
 
 \end{frame}
@@ -1126,20 +1187,48 @@ $: \bluef{(Normalization equation)}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Long-term Frequency Interpretation}
 
-\plitemsep 0.1in
+\mytwocols{0.7}
+{
+\small
+  \plitemsep 0.1in
 \bci
 
-\item $\pi_j$: the long-term \bluef{expected fraction of time} that the state is equal to $j.$
+\item Probability: often interpreted as the \redf{relative frequencies} out
+  of many independent trials
 
-\item<2-> Balance equation: $\sum_{k=1}^m \pi_k p_{kj} = \pi_j$ means:
+\item   $\displaystyle \pi_j = \lim_{n \rightarrow \infty}
+  \frac{v_{ij}(n)}{n},$ where $v_{ij}(n)$ is the expected number of
+  visits to state $j$ up to the first $n$ transitions
+
+\item In other words, $\pi_j$: long-term \redf{expected fraction
+    of time} that the MC is at the state $j.$
+
+\item $\pi_j p_{jk}$: the long-term expected \redf{fraction of transitions}
+  that move the state \redf{from $j$ to k.}
+
+
+
+  \eci
+
+}
+{
+\small
+     \plitemsep 0.1in
+ \bci
+\item Balance equation: $\bluef{\sum_{k=1}^m \pi_k p_{kj}} = \orangef{\pi_j}$
 
 \bci
-\item<3->  The expected frequency $\pi_j$ of visits to $j$ is equal to the sum of the expected frequencies $\pi_k p_{kj}$ of transitions that lead to $j.$
-\eci
+\item  \orangef{The expected frequency of visits to $j$}
+  =
+
+  \bluef{The sum of the expected frequencies of transitions that lead to $j.$}
 \eci
 
-\vspace{-0.5cm}
-\mypic{0.3}{L9_longtermfrequency.png}
+ \eci
+  \vspace{-0.2cm}
+\mypic{0.6}{L9_longtermfrequency.png}
+}
+
 \end{frame}
 
 
@@ -1170,6 +1259,41 @@ $: \bluef{(Normalization equation)}
 \eci
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Stationary Distribution}
+
+\footnotetext{stationary: not moving or not intended to be moved.}
+\plitemsep 0.1in
+\bci
+
+\item<2-> $\{ \pi_j \}$ is also called a \redf{stationary distribution}. Why?
+
+\item<3-> \redf{Distribution}, because $\sum_{j=1}^m \pi_j =1.$
+
+\item<4-> \redf{Stationary}, because, if you choose the initial state
+  according to $\{\pi_j \},$ then for any $j \in \{1, \ldots, m \}$ 
+\aleq{
+\cprob{X_0 = j} = \pi_j \xrightarrow{\text{total prob. theorem}}
+\onslide<5->{\orangef{\cprob{X_1 = j}} = \sum_{k=1}^m \cprob{X_0=k}
+  p_{kj} =} \onslide<6->{\sum_{k=1}^m \pi_k p_{kj} 
+= \orangef{\pi_j}}
+}
+
+\bci
+\item<7-> Similarly, we have $\cprob{X_n = j} = \pi_j$, for all $n$ and $j.$
+
+\item<8-> If the initial state is chosen according to $\{\pi_j \},$ the state at any future time will have the same distribution (i.e., the distribution does not change over time). 
+
+\eci
+
+\item<9-> We say that "the limiting distribution (steady-state
+  distribution) is equal to to the stationary distribution"
+
+\eci
+
+
+\end{frame}
 
 
 
@@ -1222,41 +1346,151 @@ $: \bluef{(Normalization equation)}
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example 3: Random Walk with Reflecting Barriers}
+
+    \plitemsep 0.05in
+    \bci
+    
+  \item A person walks along a straght line, and at each time, moves
+    right w.p. $b$ and moves left w.p. $1-b$.
+
+  \item<2-> Starts in one of the positions $1, 2, \ldots, m.$
+
+  \item<3->     If he reaches position 0 (or position $m+1$), his step is instantly
+    reflected back to position 1 (or position $m$, respectively). 
+    \eci
+%\vspace{-0.5cm}
+
+\onslide<4->{\mypic{0.6}{L9_bd_2.png}}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Stationary Distribution}
+\begin{frame}{Example 4: Queueing}
 
-\footnotetext{stationary: not moving or not intended to be moved.}
-\plitemsep 0.1in
-\bci
+  \mytwocols{0.5}
+  {
+    \small
+    \plitemsep 0.03in
+    \bci
+    
+  \item Customers arrive at the supermarket counter. If there are some
+    customers at the counter, then new customers should wait in a line
+    whose capacity is $m.$
 
-\item<2-> $\{ \pi_j \}$ is also called a \redf{stationary distribution}. Why?
+  \item<2-> If there are $m$ customers, then new
+    customer cannot wait in the line, and is discarded. 
 
-\item<3-> \redf{Distribution}, because $\sum_{j=1}^m \pi_j =1.$
 
-\item<4-> \redf{Stationary}, because, if you choose the initial state
-  according to $\{\pi_j \},$ then for any $j \in \{1, \ldots, m \}$ 
-\aleq{
-\cprob{X_0 = j} = \pi_j \xrightarrow{\text{total prob. theorem}}
-\onslide<5->{\orangef{\cprob{X_1 = j}} = \sum_{k=1}^m \cprob{X_0=k}
-  p_{kj} =} \onslide<6->{\sum_{k=1}^m \pi_k p_{kj} 
-= \orangef{\pi_j}}
+  \item<3-> We assume discrete time slots. We assume that at each time
+    slot,  exactly one of the followings (a), (b), and (c) occurs
+
+    \eci
+  }
+  {
+  \small
+  \plitemsep 0.03in
+  
+    \bce[(a)]
+  \item<4-> A new cutomer arrives w.p. $b >0$
+  \item<5-> One existing customer at the counter leaves w.p. $d >0.$ If
+    there are no customers, nothing happens.  
+  \item<6-> No new customer and no existing customer leaves w.p. $1-b-d$,
+    if there is at least one customer at the counter and w.p. $1-b$
+    otherwise. 
+
+%  \item[$\bullet$] Draw the state transition diagram
+
+    \ece
 }
 
-\bci
-\item<7-> Similarly, we have $\cprob{X_n = j} = \pi_j$, for all $n$ and $j.$
+\vspace{-0.6cm}
+\onslide<7->{\mypic{0.55}{L9_bd_3.png}}
 
-\item<8-> If the initial state is chosen according to $\{\pi_j \},$ the state at any future time will have the same distribution (i.e., the distribution does not change over time). 
+\end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Birth-Death Process (1)}
+
+  \plitemsep 0.07in
+  \bci
+  
+\item<2-> A special type of Markov chain where the states are \redf{linearly arranged}
+  and transitions can only occurs to a \redf{neighboring} state. 
+
+\item<3-> Birth and Deadth
+  \aleq{
+   \redf{b_i} &= \cprob{X_{n+1} = i+1 | X_n = i}, \quad \text{\redf{birth} probability at state $i$}\cr
+    \bluef{d_i} &= \cprob{X_{n+1} = i-1 | X_n = i}, \quad \text{\bluef{death} probability at state $i$}
+  }
+  
+  \eci
+  
+\vspace{-0.5cm}
+\onslide<3->{\mypic{0.7}{L9_bd_1.png}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Birth-Death Process (2)}
+
+
+\mytwocols{0.75}
+{
+\small
+  \plitemsep 0.03in
+  \bci
+  
+\item State transition diagram
+\vspace{-0.4cm}
+\mypic{0.95}{L9_bd_1.png}
+
+\item<2-> Balance eqn at state 0
+  \aleq{
+    \pi_0 (1-b_0) + \pi_1 d_1 = \pi_0 \leftrightarrow \onslide<3->{\orangef{\pi_0 b_0 =
+    \pi_1 d_1}}
+  }
+
+\item<4-> Balance eqn at state 1  
+  \aleq{
+&    \pi_0 b_0 + \pi_1 (1-b_1 - d_1) + \pi_2 d_2 = \pi_1 \cr
+&\leftrightarrow \onslide<5->{\pi_1 d_1 + \pi_1(1-b_1-d_1) + \pi_2 d_2 = \pi_1} \cr
+&\leftrightarrow \onslide<6->{\orangef{\pi_1 b_1 = \pi_2 d_2}}
+}
 \eci
+}
+{
+\small
+  \plitemsep 0.07in
+  \bci
+\item<7-> By induction, we have the following: called \redblank{8}{local balance equation}:
+  \mycolorbox{
+\onslide<8->{    $\pi_i b_i = \pi_{i+1} d_{i+1}$, $i=0,1, \ldots, m-1$}
+  }
 
-\item<9-> We say that "the limiting distribution (steady-state
-  probabilities) is equal to to the stationary distribution"
+\item<9-> Using the above local balance eqn,
+  \aleq{
+    \pi_i = \pi_0 \frac{b_0 b_1 \cdots b_{i-1}}{d_1 d_2 \cdots d_i}, \quad
+    i=1, \ldots, m
+  }
 
-\eci
+\item<10-> Using the above and $\sum \pi_i =1,$ we can easily compute the $[\pi_i].$
+
+
+\item<11-> Examples 3 and 4 are the special cases of birth-death
+  process. So, please compute the steady-state probabilities for both
+  examples as your homeworks.  
+
+  \eci
+ 
+}
+  
 
 
 \end{frame}
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
