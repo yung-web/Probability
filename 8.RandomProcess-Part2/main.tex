@@ -1417,7 +1417,7 @@ $: \bluef{(Normalization equation)}
   \bci
   
 \item<2-> A special type of Markov chain where the states are \redf{linearly arranged}
-  and transitions can only occurs to a \redf{neighboring} state. 
+  and transitions can occur only to a \redf{neighboring} state. 
 
 \item<3-> Birth and Deadth
   \aleq{
@@ -1435,7 +1435,7 @@ $: \bluef{(Normalization equation)}
 \begin{frame}{Birth-Death Process (2)}
 
 
-\mytwocols{0.75}
+\mytwocols{0.78}
 {
 \small
   \plitemsep 0.03in
@@ -1461,7 +1461,7 @@ $: \bluef{(Normalization equation)}
 }
 {
 \small
-  \plitemsep 0.07in
+  \plitemsep 0.02in
   \bci
 \item<7-> By induction, we have the following: called \redblank{8}{local balance equation}:
   \mycolorbox{
@@ -1469,10 +1469,12 @@ $: \bluef{(Normalization equation)}
   }
 
 \item<9-> Using the above local balance eqn,
+\vspace{-0.2cm}
   \aleq{
     \pi_i = \pi_0 \frac{b_0 b_1 \cdots b_{i-1}}{d_1 d_2 \cdots d_i}, \quad
     i=1, \ldots, m
   }
+\vspace{-0.4cm}
 
 \item<10-> Using the above and $\sum \pi_i =1,$ we can easily compute the $[\pi_i].$
 
@@ -1488,8 +1490,6 @@ $: \bluef{(Normalization equation)}
 
 
 \end{frame}
-
-
 
 
 
@@ -1521,103 +1521,178 @@ $: \bluef{(Normalization equation)}
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Motivating Questions}
+
+  \plitemsep 0.07in
+
+\bci
+
+\item In the previous lecture, 
+  \bci
+\item<2-> A MC with a single recurrent, aperiodic class $\set{R}=\{1, 2,
+    \ldots m\}$
+
+\item<3-> \bluef{Every state} will be visited an \bluef{infinite} number of times
+
+\item<4->[\redf{(Q)}] \magenf{Steady-state} behavior: what are the
+  \redf{long-term average frequencies} of states?
+  
+  \eci
+
+\item In this lecture, 
+
+  \bci
+\item<5-> A MC with multiple recurrent classes, say, $\set{R}_1,
+\ldots, \set{R}_k$ and a set of transient states $\set{T}$
+
+\item<6-> Assume that we start from a state $i \in \set{T}.$
+
+\item<7-> \bluef{Transient}
+  states will be visited a \bluef{finite} number of times. Then, the MC
+  will enter a recurrent class whose states are visited infinite
+  number of times, but the states in other recurrent classes will not
+  be visited.  
+
+\item<8->[\redf{(Q)}] \magenf{Transient} behavior: what is the \redf{first recurrent state to be entered} as
+  well as the \redf{time until this happens}?
+
+  \eci
+
+  \eci 
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Absorption Probability}
+\begin{frame}{Special Case: Every Recurrent State is Absorbing}
 
-\mytwocols{0.5}
-{
-\small
+
 \plitemsep 0.03in
 \bci
-\item<1-> \defi A state $k$ is \redf{absorbing,} if
+
+\item Rather than dealing with a general MC, let's focus on the Markov
+  chain that \bluef{every recurrent state is absorbing}.
+
+
+\item<2-> \defi A state $k$ is \bluef{absorbing,} if
 $p_{kk}=1,$ and $p_{kj}=0$ for all $j\neq k.$
 
-\onslide<2->{- states 1 and 6 are absorbing}
+\bci
+\item states 1 and 6 are absorbing
+\eci
 
-\item<3->[\redf{(Q)}] For a fixed absorbing state $s,$ the probability $a_i$ of reaching $s$, starting from a transient state $i$?
+\item<3-> For a given absorbing state $s,$ the probability $a_i =
+  a_i(s)$ of reaching $s$, starting from a state $i$?
 
 %\item Interested in the transient behavior of a MC.
 
-\item<4-> Fix $s=6.$ 
-\vspace{-0.3cm}
+\item<4-> Fix $s=6:$ 
+\vspace{-0.2cm}
 \aleq{
-a_1 &=0, \quad a_6 =1 \cr
-a_2 &= 0.2a_1 + 0.3a_2 + 0.4a_3 + 0.1 a_6 \cr
-a_3 &= 0.2 a_2 + 0.8 a_6
+  a_1 = \onslide<5->{0}, \quad a_6 =\onslide<6->{1}, \quad a_2 = \onslide<7->{0.2a_1 + 0.3a_2 + 0.4a_3 + 0.1 a_6},
+\quad a_3 = \onslide<8->{0.2 a_2 + 0.8 a_6}
 }
+\eci
+
+\mysmalltwocols{0.25}
+{\vspace{-0.5cm}
+\mypic{0.9}{L9_absorption_ex1.png}
+}
+{
+\bci
+\item Our interest: $a_2$ and $a_3$
+\item<9-> $a_2 = 21/31$ and $a_3 = 29/31$
+  \eci
+
+
+
+}
+
+
+%\footnotetext{The notation $a_i$ should have dependence on $s,$ but we omit it for simplicity.}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{For General MCs}
+
+\mytwocols{0.7}
+{
+\plitemsep 0.1in
+\bci
+
+\item Recurrent classes: $\{1\}$ and $\{4,5\}$
+  
+\item<2-> \redf{(Q)} Probability that the state eventually enters the
+  recurrent class $\{4,5 \}$?
+
+\item<3-> Possible transitions within the class $\{4,5\}$ are NOT
+  important. Why?
+
+
+\item<4-> Thus, convert it into the one only with absorbing recurrent states ((a) $\rightarrow$ (b)).
+
 \eci
 }
 {
 \vspace{-0.4cm}
-\onslide<4->{\mypic{0.65}{L9_absorption_ex1.png}}
+\onslide<1->{\mypic{0.9}{L9_absorption_ex2.png}}
 \vspace{-0.6cm}
-\onslide<5->{\mypic{0.7}{L9_absorption_ex2.png}}
+\onslide<4->{\mypic{0.85}{L9_absorption_ex1.png}}
 }
 
-\small
-\bci
-\item<5-> \redf{(Q)} What if there are some non-absorbing recurrent state?
-
-\item<6-> Convert it into the one only with absorbing recurrent states (from (a) to (b)).
-\eci
-
-% \onslide<5->{\redf{(Q)} What if there are some non-absorbing recurrent state? }
-
-% \onslide<6->{- Convert it into the one only with absorbing recurrent states (from (a) to (b)).}
-
-\footnotetext{The notation $a_i$ should have dependence on $s,$ but we omit it for simplicity.}
 \end{frame}
 
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Expected Time to Any Absorbing State}
+\begin{frame}{Expected Time to Any Recurrent State}
 
-\mytwocols{0.2}
-{
-\small
-\plitemsep 0.1in
+\plitemsep 0.03in
 \bci
 
-\item[\redf{(Q)}] Starting from a transient state $i,$ expected number of transitions $\mu_i$ until absorption to any absorbing state?
-% \aleq{
-% \mu_i = \expect{\text{\# of transitions until absorption, starting from $i$}}
-% }
-\eci
-}
-{
-\centering
-\vspace{-0.5cm}
-\mypic{0.75}{L9_spiderfly_onlyfigure.png}
-% \mypic{0.8}{L9_absorption_ex2.png}
-}
+\item[\redf{(Q)}] Starting from a transient state $i,$ what is the
+  \bluef{expected number of steps until a recurrent state is entered} (which
+  we call \redf{absorption})?
 
-\small
-\plitemsep 0.1in
-\bci
-\item<2-> Spider-fly example
+
+\item<2-> Special case when all recurrent states are absorbing
+
+\item<2-> $\mu_i$: expected number of transitions until absorption,
+  starting from $i$
+
+\item<3-> Spider-fly example
 \aleq{
-\mu_1 &= \mu_4 =0 \quad \text{(for recurrent states)}\cr
-\mu_2 &= \redf{1+} 0.4\mu_2 + 0.3 \mu_3, \quad \mu_3 = \redf{1 +} 0.3\mu_2 + 0.4\mu_3 \quad \text{(for transient states)}
+\mu_1 &= \mu_4 = \onslide<4->{0} \quad \text{(for \orangef{recurrent} states)}\cr
+\mu_2 &= \onslide<5->{1 +  0.4\mu_2 + 0.3 \mu_3}, \quad \mu_3 =
+\onslide<6->{1 + 0.3\mu_2 + 0.4\mu_3}
+\quad \text{(for \orangef{transient} states)}
 }
 
-\item<3-> For generalized description, please see the textbook (pp. 367). 
-
+\item<7-> Again, for general MCs, convert them into the one with
+  only recurrent states that are absorbing
 \eci
+
+\vspace{-1.2cm}
+\onslide<1->{\mypic{0.4}{L9_spiderfly_onlyfigure.png}}
+
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Expected time to a particular recurrent state $s$}
+\begin{frame}{Expected Time to a Particular Recurrent State $s$}
 
-- Assume a single recurrent class
-\myvartwocols{0.2}{0.7}{0.29}
+- Assume a single recurrent class for simplicity
+\myvartwocols{0.25}{0.7}{0.29}
 {
 \small
 \plitemsep 0.1in
 \bci
-\item<2->[\redf{(Q)}] \bluef{First passage time.} Starting from a $i,$ expected number of transitions $t_i$ to reach $s$ for the first time?
+\item<2->[\redf{(Q)}] \bluef{Mean first passage time.} Starting from $i,$ expected number of transitions $t_i$ to reach $s$ for the first time?
 
-\item<4->[\redf{(Q)}] \bluef{First recurrence time.} Starting from a $s,$ expected number of transitions $t_s^\star$ to reach $s$ for the first time?
+\item<4->[\redf{(Q)}] \bluef{Mean first recurrence time.} Starting from $s,$ expected number of transitions $t_s^\star$ to reach $s$ for the first time?
 
 % \aleq{
 % \mu_i = \expect{\text{\# of transitions until absorption, starting from $i$}}
@@ -1625,14 +1700,16 @@ a_3 &= 0.2 a_2 + 0.8 a_6
 \eci
 }
 {
-\vspace{-0.2cm}
+\vspace{-0.3cm}
 \mypic{0.8}{L9_passage_ex.png}
 % \mypic{0.8}{L9_absorption_ex2.png}
 }
- \small
+
+\vspace{-0.3cm}
+\small
  \plitemsep 0.01in
  \bci
- \item<3-> Mean first passage time from 2 to 1
+ \item<3-> Mean first passage time from 2 to 1: $t_i = t_i(1)$
 \vspace{-0.2cm}
    \aleq{
  t_1 &= 0 \cr
@@ -1644,10 +1721,10 @@ a_3 &= 0.2 a_2 + 0.8 a_6
  t_1^\star &= 1+ p_{11}t_1 + p_{12}t_2 = 1+ 0 + 0.2\frac{5}{3} = \frac{4}{3}
  }
 
-\item<6-> For generalized description, please see the textbook (pp. 368)
+%\item<6-> For generalized description, please see the textbook (pp. 368)
  \eci
 
-\footnotetext{The notation $t_i$ should have the dependence on $s$, but we omit it for simplicity.}
+%\footnotetext{The notation $t_i$ should have the dependence on $s$, but we omit it for simplicity.}
 
 \end{frame}
 
