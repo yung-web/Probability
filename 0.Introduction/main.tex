@@ -1,17 +1,5 @@
-
-\def\slidemode{%
-  \documentclass[fleqn,aspectratio=169]{beamer}
-}
-\def\handoutmode{%
-  \documentclass[handout,fleqn,aspectratio=169]{beamer}
-
-}
-
 \input{../mode.tex}
 \csname\pdfmode\endcsname
-
-\usepackage{pgfpages}
-\pgfpagesuselayout{resize to}[a4paper,landscape,border shrink=5mm]
 
 \mode<presentation>
 {
@@ -25,63 +13,24 @@
   \setbeamercolor{footline}{fg=black}
 } 
 
-\usepackage[english]{babel}
-%\usepackage[utf8x]{inputenc}
-\usepackage{tikz}
-\usepackage{courier}
-\usepackage{array}
-\usepackage{bold-extra}
-%\usepackage{minted}
-%\usepackage[thicklines]{cancel}
-%\usepackage{fancyvrb}
-\usepackage{kotex}
-\usepackage{paralist}
-\usepackage{amsmath}
-\usepackage{nccmath}
-
-\xdefinecolor{dianablue}{rgb}{0.18,0.24,0.31}
-\xdefinecolor{darkblue}{rgb}{0.1,0.1,0.7}
-\xdefinecolor{darkgreen}{rgb}{0,0.5,0}
-\xdefinecolor{darkgrey}{rgb}{0.35,0.35,0.35}
-\xdefinecolor{darkorange}{rgb}{0.8,0.5,0}
-\xdefinecolor{darkred}{rgb}{0.7,0,0}
-\definecolor{darkgreen}{rgb}{0,0.6,0}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-
-\setbeamertemplate{itemize item}{\scriptsize\raise1.25pt\hbox{\donotcoloroutermaths$\bullet$}}
-\setbeamertemplate{itemize subitem}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths$\circ$}}
-\setbeamertemplate{itemize subsubitem}{\tiny\raise1.5pt\hbox{\donotcoloroutermaths$\blacktriangleright$}}
-
-%default value for paralist
-\plitemsep 0.1in
-\pltopsep 0.03in
-
-\input{../mymath.tex}
+\input{../myhead.tex}
 
 \title[]{Lecture 0: Introduction}
 \author{Yi, Yung (이융)}
 \institute{EE210: Probability and Introductory Random Processes\\ KAIST EE}
-\date{MONTH DAY, 2021}
+\date{\today}
 
-\usetikzlibrary{shapes.callouts}
-
-
-
+\input{../mymath}
 
 \begin{document}
 
-\input{../mydefault.tex}
+\input{../mydefault}
 
-
-\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
-}}}}
 
 \begin{frame}
   \titlepage
 \end{frame}
 
-\logo{\pgfputat{\pgfxy(0.11, 7.4)}{\pgfbox[right,base]{\tikz{\filldraw[fill=dianablue, draw=none] (0 cm, 0 cm) rectangle (50 cm, 1 cm);}\mbox{\hspace{-8 cm}\includegraphics[height=0.7 cm]{../kaist_ee.png}
-}}}}
 
 % Uncomment these lines for an automatically generated outline.
 \begin{frame}{Outline}
@@ -90,71 +39,176 @@
 \bci
 \item Course logistics
 
-\item Why necessary to take the course of probability and random process?
+\item Why this course? 
 \eci
 \end{frame}
 
 % START START START START START START START START START START START START START
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}{Instructor}
 
 \bci
 \item Yi, Yung (이융)
 \item Office: N1, 810
-\item \url{http://lanada.kaist.ac.kr, yiyung@kaist.edu}
+\item Homepage: \url{https://yung-web.github.io/home/}
+\item E-mail: \url{yiyung@kaist.edu}
 \item Computer Division
-\item A professor in KAIST EE since 2008
+\item In KAIST EE since 2008
 
-\medskip
-\item Office hours: TBA
-
-\eci
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{TAs}
-
-\bci
-\item A
-\item B
-\item C
-
-\bigskip
-\item Mailing list: \url{ee210@lanada.kaist.ac.kr}
-
-\bci
-\item Please use KLMS for the questions about the lecture contents
-\item This mailing list can be used for individual issues
-\eci
+% \medskip
+% \item Office hours: TBA
 
 \eci
 
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}{How to Run This Course}
+
+\plitemsep 0.07in
+
+  \bci
+\item<1-> Basically, \redf{Non-real-time} online class, but with a little
+  bit of real-time zoom classes (if necessary)
+
+
+\item<2-> All lecture videos have already been pre-recorded.
+  Now available in \bluef{YouTube}. 
+\bci
+
+\item No class attendance check
+\item You can watch the videos \redf{anytime} and \redf{anywhere.} 
+\item You can adjust the speed of studying the materials according to
+  your schedule, as long as you submit the homworks until the
+  announced deadlines and you show up at the right time for the exams. 
+  
+  \eci
+  
+\item<3-> Sometimes, we will open \redf{real-time} \bluef{zoom} classes (maybe biweekly)
+  \bci
+\item To answer students' questions
+\item To give important announcements
+\item etc
+  \eci
+  
+  \eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}{Watching Lecture Videos}
+
+\plitemsep 0.03in
+
+  \bci
+\item<1-> Method 1: \url{https://yung-web.github.io/home/courses/probability.html}  
+
+\item<2-> Method 2: (a) Type \bluef{Yung Yi} in the google, (b) visit his \bluef{GitHub
+  homepage}, (c) find the links on \bluef{Course}. 
+
+\mytwocols{0.5}
+{
+  \mypic{0.8}{pic/yungyi1.png}
+}
+{
+  \mypic{0.8}{pic/yungyi2.png}
+}
+\eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}{Questions, Real-time Zoom Session, and Office Hours}
+
+\plitemsep 0.05in
+
+  \bci
+\item<1-> Questions on the course contents
+  \bci
+\item Upload them in the \redf{Q\&A board in KLMS.}
+\item Your question will also be very helpful to other classmates 
+\item Answers to your questions will be given \bluef{at the board} (if simple), or via
+  separate \bluef{lecture videos} or \bluef{a real-time zoom session.}   
+  \eci
+
+\item<2-> Real-time Zoom Session
+\bci
+\item Open when necessary and it will be recorded so as to be
+  accessible throughout this semester. 
+\item The zoom link information will be given in advance at the
+  corresponding week.   
+  \eci
+
+\item<3-> Personal Office Hours
+  \bci
+\item Will arrange by an \bluef{individual request.} 
+\item Send an email to \url{yiyung@kaist.edu} for appointment. 
+\item Questions on the course and other any types of advices
+  that may help you
+
+  \eci
+  \eci
+
+\end{frame}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{TAs}
+
+% \bci
+% \item A
+% \item B
+% \item C
+
+% \bigskip
+% \item Mailing list: \url{ee210@lanada.kaist.ac.kr}
+
+% \bci
+% \item Please use KLMS for the questions about the lecture contents
+% \item This mailing list can be used for individual issues
+% \eci
+
+% \eci
+
+% \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Course Homepage}
+\begin{frame}{Most Course-related Contents and Announcements}
 
-
-\plitemsep 0.2in
-
+  \plitemsep 0.1in
+  
 \bci 
-\item \url{http://klms.kaist.ac.kr/}
-\item To download course materials
+
+\item<1-> Lecture videos and slides:
+  \url{https://yung-web.github.io/home/courses/probability.html}
+
+\item<2-> All other contents: KLMS, \url{http://klms.kaist.ac.kr/}
+\bci
 \item To ask questions about everything
 \item To check your score on each homework/exam
 \item To see all the announcements about the class
-\eci
+\item ...
+  \eci
+
+\item<3-> \redf{Important: Please regularly check!}
+  \bci
+\item Emails
+\item SMS
+  \item KLMS announcements
+  \eci
+
+  \eci
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Textbook}
 
+\plitemsep 0.02in
 
-\mytwocols{0.5}
+\mytwocols{0.8}
 {
 \bci 
 \item Introduction to Probability 
@@ -165,7 +219,14 @@
 \item MIT course textbook
 \item Dimitri P. Bertsekas and John N. Tsitsiklis
 \eci
+
+\item You can order it from Yes24, Aladin, Kyobo
+\bci
+\item \scriptsize Yes24: \url{http://www.yes24.com/Product/Goods/3995311}
+\item \scriptsize Aladin: \url{https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=12945615}
+\item \scriptsize Kyobo: \url{http://www.kyobobook.co.kr/product/detailViewEng.laf?ejkGb=ENG&mallGb=ENG&barcode=9781886529380&orderClick=LAG&Kc=}
 \eci
+  \eci
 }
 {
 \centering
@@ -175,27 +236,70 @@
 
 \end{frame}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Contents and Web Resources}
+\begin{frame}{Course Contents (Guided Schedule for Your Study)}
+
+\plitemsep 0.02in
+
+
+\small
+\bce[1.] 
+
+\item Probabilistic model (1/2 week) (08/31)
+
+\item Conditioning and Independence (1/2 week) (09/02)
+
+\item Random Variable, Part I (Discrete Random Variable) (1.5 week)
+  (09/07, 09/09, 09/14)
+
+\item[] \redf{Exam 1 (09/16)} \hrulefill
+
+\item Random Variable, Part II (Continuous Random Variable) (1.5 week)
+  (09/23, 09/28, 09/30) 
+
+\item Random Variable, Part III (Advanced Topic on Random Variable)
+  (1.5 week) (10/05, 10/07, 10/12)
+
+\item[] \redf{Exam 2 (10/14)} \hrulefill
+
+\item Limit of Scaled Sum of Random Variables: Central Limit Theorem
+  and Weak Law of Large Numbers (1.5 week) (10/19, 10/21, 10/26)
+
+\item Random Process: Bernoulli and Poisson Processes (2 week) (10/28,
+  11/2, 11/4, 11/9)
+
+\item[] \redf{Exam 3 (11/11)} \hrulefill
+
+\item Random Process: Markov Chain (2 week) (11/16, 11/18, 11/23, 11/25)
+
+\item Introduction to Statistic Inference (2 week) (11/30, 12/2, 12/7,
+  12/9)
+
+\item[] \redf{Exam 4 (12/14)} \hrulefill
+  \ece
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Other Contents}
 
 \bci 
-\item Three Parts
-
-\bci
-\item Part I: Fundamentals of Probability
-\item Part II: Inference and Limit Theorems
-\item Part III: Random Processes
-\eci
 
 \item On-line lectures at MIT and EdX
 \bci
 \item MIT: \url{http://bit.ly/2PkvYdr}
 \item EdX: \url{http://bit.ly/3pHmZRd}
-\item You can find older urls (2006, 2010, 2013) for this lecture, where there are many useful resources (recitation problems, homework problems, old exam problems, etc)
+
+\item You can find the urls (2006, 2010, 2013) for the MIT lectures
+  based on the same textbook, where there are many useful resources
+  (recitation problems, homework problems, old exam problems, etc)
 
 \medskip
-\item My lecture slides: based on theirs, but largely modified/reorganized/edited in many places for KAIST students
-
+\item Some of my lecture slides are based on theirs, but my slides
+   are largely  modified/reorganized/edited in many places for our
+   purpose. 
 \eci
 
 \eci
@@ -203,47 +307,118 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Grading}
+
+
+
+
+\begin{frame}{More about Exams and Homeworks}
 
 \bci 
 
-\item In-class quiz (sometimes)
-\item Basically, weekly homework, but often bi-weekly
-\item 3 Exams (2 mid-terms and 1 final)
+\item 4 Exams
 
-\bigskip
+\item Schedule Again
 
-\item Class participation
-\item Grading portions: A (X\%), B (Y\%), C(Z\%), D(W\%), F …
+\bci
+\item Exam 1: 09/16, 7:00PM - 10:00PM
+\item Exam 2: 10/14, 7:00PM - 10:00PM
+\item Exam 3: 11/11, 7:00PM - 10:00PM
+\item Exam 4: 12/14, 7:00PM - 10:00PM
+\item Check your calendar and empty your schedule at these times. 
+  \eci
 
+\item 9 Homeworks for each of 9 chapters. 
+  \bci
+  \item Will take just about 2-3 hours if you understand the course
+    contents very well.
 
-\medskip
-\item Online lectures due to COVID-19 may change how to grade.
-\eci
+    \item Try to finish as soon as possible soon after you watch the lecture videos. 
+  \eci
+
+  \eci
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{How to Communicate}
+\begin{frame}{Grading, Cheating}
 
-\bci
+\bci 
 
-\item Most should be via KLMS
+\item Homeworks: total 36\%, 36/9 = 4 points for each homework
 
-- Technical questions about lectures, homework, and etc
+\item Exams: total 64\%, 64/4 = 16 points for each exam 
 
-\item Please DO NOT individually send emails to Prof. Yung Yi and TAs (or making calls or sending KakaoTalk msgs) about the technical questions (course contents, homework, etc)
 
-\bci
-\item  All the questions need to be shared among the students.
+\item Letter or Pass/Fail
 
-\item TAs and Prof. Yung Yi will handle your questions as soon as possible.
+  \bci
+\item You can decide until the date of Exam 2
+\item No extension
+  \eci
 
-\item  But, you can send an email to Prof. Yung Yi for the things that need to be individually discussed.
-\eci
-\eci
+\item Cheating
+  \bci
+\item {\bf \redf{Zero tolerance}} (very serious)
+  \item Honor code from EE department
+
+  \eci
+  
+  \eci
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{How to Take Exam}
+
+
+\plitemsep 0.02in
+
+\bci 
+
+\item Will announce more details when you take exams
+  
+\item Earlier experience from the EE209 class
+
+  \eci
+
+  \mypic{0.7}{pic/setup_ver2.jpeg}
+\end{frame}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Overall Advice on How to Take This Course}
+
+%   \bci 
+  
+% \item Lectures are not just recorded but also edited so as to be
+%   well structured . 
+  
+%   \eci
+% \end{frame}
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{How to Communicate}
+
+% \bci
+
+% \item Most should be via KLMS
+
+% - Technical questions about lectures, homework, and etc
+
+% \item Please DO NOT individually send emails to Prof. Yung Yi and TAs (or making calls or sending KakaoTalk msgs) about the technical questions (course contents, homework, etc)
+
+% \bci
+% \item  All the questions need to be shared among the students.
+
+% \item TAs and Prof. Yung Yi will handle your questions as soon as possible.
+
+% \item  But, you can send an email to Prof. Yung Yi for the things that need to be individually discussed.
+% \eci
+% \eci
+
+% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
