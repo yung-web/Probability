@@ -68,6 +68,8 @@
 
 \item Playing with Bernoulli and Poisson Processes
 
+\item Random Incidence Phenomenon
+
 \ece
 
 \end{frame}
@@ -86,7 +88,11 @@
 
 \item Poisson Processes: Definition and Properties
 
-\item Playing with Bernoulli and Poisson Processes}
+\item Playing with Bernoulli and Poisson Processes
+
+\item Random Incidence Phenomenon
+
+}
 
 \ece
 
@@ -340,7 +346,11 @@
 
 \item Poisson Processes: Definition and Properties
 
-\item Playing with Bernoulli and Poisson Processes}
+\item Playing with Bernoulli and Poisson Processes
+
+\item Random Incidence Phenomenon
+
+}
 
 \ece
 
@@ -979,6 +989,8 @@ compared to $\delta$.
 
 \item \grayf{Playing with Bernoulli and Poisson Processes}
 
+\item \grayf{Random Incidence Phenomenon}
+  
 \ece
 
 \end{frame}
@@ -1283,7 +1295,9 @@ $\lambda$, if the following are satisfied:
 
 \item \redf{Playing with Bernoulli and Poisson Processes}
 
-\ece
+\item \grayf{Random Incidence Phenomenon}
+
+  \ece
 
 \end{frame}
 
@@ -1727,6 +1741,211 @@ $\lambda$, if the following are satisfied:
     and Normal} 
     \eci
   \eci
+\end{frame}
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{L8(6)}
+\begin{frame}{Roadmap}
+
+\plitemsep 0.2in
+
+\bce[(1)]
+
+\item \grayf{Introduction of Random Processes}
+\item \grayf{Bernoulli Processes}
+
+\item \grayf{Poisson Processes: Poisson RV and Basic Idea}
+
+\item \grayf{Poisson Processes: Definition and Properties}
+
+\item \grayf{Playing with Bernoulli and Poisson Processes}
+
+\item \redf{Random Incidence Phenomenon}
+
+  \ece
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Survey of Utilization of Town Buses}
+
+\plitemsep 0.15in
+
+\bci
+
+\item<1-> What we want to survey: How available are two buses in a city?
+
+\item<2-> Two approaches
+
+  \bce[M1.]
+  \item<3-> (1) select a few buses at random, and (2) calculate the
+    average number of riders in the selected bus
+
+  \item<4-> (1) select a few bus riders at random, (2) look at the buses
+    that they rode, and (3) calculate the average number of riders in
+    those buses
+    \ece
+
+\item<5-> (i) M1 $=$ M2? (ii) M1 $>$ M2? (iii) M1 $<$ M2?    
+
+% \item Answer: M1 $<$ M2
+
+% \item \redf{Why?} We will discuss this later.
+%More likely to select a bus with a large number of
+%  riders than a bus that is near-empty. 
+  \eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Random Incidence Phenomemon (1)}
+
+\plitemsep 0.1in
+
+\bci
+
+\item We know: in $\pp{\lambda}$, inter-arrival time $\sim \text{Exp}(\lambda)$ 
+
+\item<2-> Fix a time instant $t^\star,$ and consider the length $L$ of the
+  inter-arrival interval that \redf{constains $t^\star.$}
+
+  \onslide<2->{\mypic{0.45}{L8_random_incidence.png}}
+
+\item<3-> \bluef{Practical context:} Yung shows up at the bus station at some
+  arbitrary time $t^\star$ and records the time from the previous bus
+  arrival ($U$) until the next bus arrival ($V$)
+
+\item<4-> \question \bluef{What is the distribution of $L$?} \hfill \lecturemark{VIDEO PAUSE}
+  
+  \eci
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Random Incidence Phenomemon (2)}
+
+\plitemsep 0.1in
+
+  \mypic{0.45}{L8_random_incidence.png}
+
+\bci
+
+\item<2-> $t^\star$ is \redf{not} random, so ``random incidence'' may be
+  confusing and misleading. 
+
+  \item<3-> \redf{Assumption.} For simplicity, $t^\star$ is large enough that we must have
+    an arrival before $t^\star$ ($U > 0$)
+
+\item<4-> One might superficially argue that $L \sim
+  \text{Exp}(\lambda),$ but it is \redf{NOT}. 
+    \eci
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Distribution of $L$ (1)}
+
+\plitemsep 0.1in
+
+\begin{center}
+\mysizebox{0.37}{$L = (t^\star - U) + (V - t^\star)$} 
+\end{center}
+
+\myvartwocols{0.55}{0.68}{0.3}
+{
+\small
+  \bci
+
+\item $V - t^\star$: \onslide<2->{Due to the \bluef{memoryless} property and the
+  \bluef{fresh-restart},}  
+  \aleq{
+    \onslide<3->{\text{Thus,} \quad V- t^\star \sim \redf{\text{Exp}(\lambda)}}
+  }
+  
+\item $t^\star - U$: \onslide<4->{If we run the $\pp{\lambda}$ backwards in time,
+  it remains Poisson. Why?} \onslide<5->{More formally,} 
+  \aleq{
+    \onslide<5->{&\cprob{t^\star - U > x} = \cprob{\text{no arrivals over $[t^\star-x,t^\star]$}}\cr
+    & = e^{-\lambda x} = \cprob{T_{\text{inter}} > x}}
+  }
+  \vspace{-0.9cm}
+  \aleq{
+    \onslide<6->{\text{Thus,} \quad t^\star - U \sim \redf{\text{Exp}(\lambda)}}
+  }
+
+  \eci
+}
+{
+\mypic{0.99}{L8_random_incidence.png}
+}
+
+  
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Distribution of $L$ (2)}
+
+\plitemsep 0.1in
+
+\begin{center}
+\mysizebox{0.37}{$L = (t^\star - U) + (V - t^\star)$} 
+\end{center}
+
+\bci
+\item<2-> $L = X_1 + X_2,$ where $X_1, X_2 \sim \text{Exp}(\lambda)$
+\item<3-> Time until we have two arrivals in $\pp{\lambda}$
+  
+  \item<4-> Erlang random variable with parameter $(2,\lambda)$, i.e.,
+    \hfill \lecturemark{page 37}
+    $$
+    f_{L}(l) = \lambda^2 \cdot l \cdot e^{-\lambda l}, \quad l\ge 0
+    $$
+\item<5-> Mean = $2/\lambda$    
+
+  % \mycolorbox{
+  %   An Erlang random variable $Z$ with parameter $(k,\lambda)$ has the
+  %   following pdf:
+  %   $$
+  %   f_{Z}(z) = \frac{\lambda^k z^{k-1}e^{-\lambda z}}{(k-1)!}, \quad z\ge 0
+  %   $$
+  % }
+
+\item<6-> Why not $\text{Exp}(\lambda)$? \onslide<7->{An observer who arrives at an
+  arbitrary time is more likely to fall in a large rather than a small
+  interarrival interval.}
+  \eci
+  
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Back to Survey of Utilization of Town Buses}
+
+\plitemsep 0.1in
+
+\bci
+
+\item Two Approaches
+
+  \bce[M1.]
+  \item (1) select a few buses at random, and (2) calculate the
+    average number of riders in the selected bus
+
+  \item (1) select a few bus riders at random, (2) look at the buses
+    that they rode, and (3) calculate the average number of riders in
+    those buses
+    \ece
+
+\item (i) M1 $=$ M2? (ii) M1 $>$ M2? (iii) M1 $<$ M2?    
+
+\item Answer: M1 $<$ M2
+
+\item \redf{More likely to select a bus with a large number of
+ riders than a bus that is near-empty.}
+  \eci
+
 \end{frame}
 
 

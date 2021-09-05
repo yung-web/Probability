@@ -1373,6 +1373,117 @@ $$
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Buffon's Needle (1)}
+
+\plitemsep 0.03in
+\bci
+
+\item<1-> A surface is ruled with parallel lines with distance $d$ from
+  each other.
+\item<1-> We throw a needle of length $l$ on the surface at random.
+\item<2-> \question What is the probability that the needle will intersect
+  one of the lines?
+\medskip
+
+  \myvartwocols{0.5}{0.58}{0.4}
+  {
+    \bci
+  \item<3->  Assume $l <d$. The needle intersects two lines (x).
+  \item<4-> When does and does not the needle intersect?
+  \item<5-> What are the random quantities to model? 
+    \bci
+  \item<6->[R1.] How far is the needle from the nearest parallel line?
+
+    \smallskip
+
+    \onslide<8->{\redf{$X$}: vertical distance from the midpoint of the needle to
+      the nearest of the parallel lines}
+
+  \item<7->[R2.] How does the needle meet the nearest parallel line?
+
+    \smallskip
+
+    \onslide<9->{\redf{$\Theta$}: acute angle formed by the axis of the needle and
+      the parallel lines}
+      \eci
+    \eci
+  }
+  {
+    \only<2-7>{\mypic{0.75}{L4_buffon_needle0.png}}
+    \onslide<8->{\mypic{0.75}{L4_buffon_needle.png}}
+  }
+  
+\eci
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example: Buffon's Needle (2)}
+
+% \plitemsep 0.03in
+% \bci
+
+% \item A surface is ruled with parallel lines with distance $d$ from
+%   each other.
+% \item We throw a needle of length $l$ on the surface at random.
+% \item \question What is the probability that the needle will intersect
+%   one of the lines?
+% \medskip
+
+  \myvartwocols{0.5}{0.68}{0.3}
+  {
+ \plitemsep 0.01in
+    \small
+    \bci
+  \item<2-> A random vector $(X,\Theta)$ with a uniform joint PDF over
+    $\{(x,\theta)| 0 \le x \le d/2, \ 0 \le \theta \le \pi/2 \}$ with
+    \aleq{
+      f_{X,\Theta}(x,\theta)&=
+      \onslide<3->{\begin{cases}
+        4/(\pi d), & \text{if } x \in [0,d/2] \text{ and } \theta \in [0,\pi/2], \cr
+        0, & \text{otherwise}
+      \end{cases}}
+    }
+  \item<4-> When does the needle intersect a line? \onslide<5->{\redf{$X \le \frac{l}{2} \sin
+    \Theta$}}
+    
+  \item<6-> The probability of intersection  
+    \aleq{
+      \cprob{X \le \frac{l}{2} \sin
+    \Theta} = \iint_{x \le (l/2) \sin \theta} f_{X,\Theta}(x,\theta) \
+  dx \ d\theta
+    }
+    \eci
+  }
+  {
+    \mypic{0.9}{L4_buffon_needle.png}
+  }
+
+\vspace{-0.7cm}
+  \small
+  \aleq{
+    \onslide<7->{&= \frac{4}{\pi d}\int_{0}^{\pi/2} \int_{0}^{(l/2) \sin \theta} dx
+    d\theta = \frac{4}{\pi d} \int_{0}^{\pi/2} \frac{l}{2} \sin \theta
+    d\theta = \frac{2l}{\pi d}(-\cos \theta) \Bigg|_{0}^{\pi/2} =
+    \frac{2l}{\pi d}}
+  }
+\vspace{-0.5cm}
+
+\onslide<8->{- In history, a method for the
+experimental evaluation of $\pi.$}
+
+  
+  %\plitemsep 0.01in
+%   \bci
+% \item 
+%   \eci
+
+\end{frame}
+
+
 \begin{frame}{}
 \vspace{2cm}
 \LARGE Questions?
