@@ -852,7 +852,7 @@ $M_n$ converges to $\mu$ in probability.
 {\Large We ask the same question, and try to answer it, using WLLN or CLT.}
 \vspace{1cm}
 
-{\Large See how the answers becomes different.}
+{\Large See how the answers become different.}
 
 \end{frame}
 
@@ -865,7 +865,7 @@ $M_n$ converges to $\mu$ in probability.
 
 \item $p$: fraction of voters who support ``Yung".
 
-\item<2-> Interview $n$ randomly selected voters and record the result in $M_n = \frac{X_1+ \ldots + X_n}{n}$ which is an estimate of $p,$ where the Bernoulli rv $X_i=1$ if $i$-th interviewee answers ``yes", and 0 otherwise.
+\item<2-> Interview $n$ randomly selected voters and record the result in $M_n = \frac{X_1+ \ldots + X_n}{n}$ which is an estimate of $p,$ where the Bernoulli rv $X_i=1$ if $i$-th interviewee answers ``yes'', and 0 otherwise.
 
 \item<3-> $\cprob{|M_n - p| \geq \epsilon} \leq \frac{\sigma^2}{n\epsilon^2} = \frac{p(1-p)}{n \epsilon^2} \leq \frac{1}{4 n \epsilon^2}$ (because $p(1-p) \leq 1/4$)
 
@@ -997,7 +997,7 @@ M_Y(s) &= \cexpect{e^{sY}} = \cexpect{e^{s(aX +b)}} \cr
 \aleq{
 M(s) &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} e^{-\frac{y^2}{2}} e^{sy} dy +
 \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{-\frac{y^2}{2} + sy} dy \cr
-&= e^{\frac{s^2}{2}}\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty  e^{-(y-s)^2} dy\cr
+&= e^{\frac{s^2}{2}}\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty  e^{-\frac{(y-s)^2}{2}} dy\cr
 &=e^{s^2/2} \ (\text{because it is the pdf of $\set{N}(s,1)$})
 }
 
