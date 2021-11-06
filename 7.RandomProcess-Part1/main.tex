@@ -704,8 +704,8 @@ when I look at the process?
 
 \item<1-> $\{T_i\}$ are i.i.d. and $\sim \text{Geom}(p)$
 \aleq{
-\onslide<2->{\cprob{Y_k = t} &= \cbprob{X_k = 1 \text{ and $k-1$ arrivals during the first $t-1$ slots} }}\cr
-\onslide<3->{&=\cbprob{X_k = 1} \cdot \cbprob{\text{$k-1$ arrivals during the first $t-1$ slots}}}\cr
+\onslide<2->{\cprob{Y_k = t} &= \cbprob{X_t = 1 \text{ and $k-1$ arrivals during the first $t-1$ slots} }}\cr
+\onslide<3->{&=\cbprob{X_t = 1} \cdot \cbprob{\text{$k-1$ arrivals during the first $t-1$ slots}}}\cr
 \onslide<4->{&= p \times {t-1 \choose k-1} p^{k-1} (1-p)^{t-k} = {t-1 \choose k-1} p^{k} (1-p)^{t-k}, \quad {t = k, k+1, \ldots}}
 }
 
