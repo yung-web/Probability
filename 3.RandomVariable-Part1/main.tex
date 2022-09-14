@@ -1160,8 +1160,10 @@ $$\cprob{X -m > n | X > m} = \cprob{X > n}$$
 }
 \aleq{
 \cprob{ \{X = x \} \cap \{Y=y \}\redf{|{Z=z}}} &= \cprob{X=x\redf{|{Z=z}}} \cdot \cprob{Y=y\redf{|{Z=z}}}, \quad \text{for all $x,y$}\cr
-\onslide<5->{p_{X,Y\redf{|Z}}(x,y)&=p_{X\redf{|Z}}(x) \cdot p_{Y\redf{|Z}}(y)}
+\onslide<5->{p_{X,Y\redf{|Z}}(x,y|\redf{z})&=p_{X\redf{|Z}}(x|\redf{z})
+  \cdot p_{Y\redf{|Z}}(y|\redf{z}) }
 }
+
 
 \eci 
 
